@@ -1,0 +1,20 @@
+#cover {
+    background: url('../../../assets/Banner/hotel-room-blurred-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.zoom {
+    animation: scale 20s linear infinite;
+    overflow: scroll;
+}
+
+@keyframes scale {
+    50% {
+        -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        -o-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+}
