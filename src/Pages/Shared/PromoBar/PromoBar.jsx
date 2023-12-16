@@ -7,12 +7,12 @@ import { Link } from 'react-router-dom';
 
 const PromoBar = () => {
     return (
-        <section className="xl:max-w-screen-xl mx-auto flex justify-between items-center flex-col xl:flex-row my-10">
+        <section className="xl:max-w-screen-xl mx-auto flex justify-between items-center flex-col gap-10 lg:gap-0 xl:flex-row my-10">
             <Link to="/" className="flex items-center gap-2">
                 <img className="h-16" src={logo} alt="" />
                 <h2 className="bg-gradient-to-r from-sky-500 to-sky-800 bg-clip-text text-transparent text-4xl font-bold">SUBIDHA</h2>
             </Link>
-            <div className="flex flex-col md:flex-row gap-20">
+            <div className="flex flex-col md:flex-row gap-10 md:gap-20">
                 <div className="flex md:block flex-col items-center">
                     <img className="w-[30px]" src={location} alt="" />
                     <h6 className="font-bold text-start">ADDRESS</h6>

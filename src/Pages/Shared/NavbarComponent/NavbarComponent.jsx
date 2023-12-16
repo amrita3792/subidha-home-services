@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./NavbarComponent.module.css";
-import { Avatar } from "keep-react";
-import { MagnifyingGlass, User } from "@phosphor-icons/react";
+import { List, MagnifyingGlass,  } from "@phosphor-icons/react";
 
 const NavbarComponent = () => {
+
+  const [openSidebar, setOpenSidebar] = useState(false);
+
+  const handleSidebarState = (isOpen) => {
+    setOpenSidebar((prev) => !prev)
+  }
+
+  openSidebar && window.addEventListener("scroll", function() {
+    setOpenSidebar(false);
+  })
+
   const navLinks = [
     {
       idx: 0,
@@ -24,13 +34,13 @@ const NavbarComponent = () => {
   ];
 
   return (
-    <nav className="shadow-lg bg-gradient-to-r to-slate-500 from-slate-800">
-      <div className="xl:max-w-screen-xl mx-auto flex items-center justify-between">
-        <ul className="flex items-center gap-7 h-16">
+    <nav className="shadow-lg bg-gradient-to-r to-slate-500 from-slate-800 h-16 px-5">
+      <div className="xl:max-w-screen-xl mx-auto flex items-center justify-end lg:justify-between h-full">
+        <ul className={`flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-7 fixed lg:static  top-0 ${openSidebar ? "right-0" : "right-[-1000px]"} bg-white lg:bg-inherit w-1/2 lg:w-auto h-screen lg:h-auto p-10 lg:p-0 z-50 transition-all lg:transition-none duration-500 ease-in-out`}>
           {navLinks.map((navLink) => (
             <li key={navLink.idx}>
               <Link
-                className={`font-medium text-sm text-white ${styles.hover_underline_animation}`}
+                className={`font-medium text-sm lg:text-white ${styles.hover_underline_animation}`}
                 to={navLink.path}
               >
                 {navLink.name}
@@ -47,11 +57,13 @@ const NavbarComponent = () => {
               LOGIN
             </Link>
           </button>
+          <button className="lg:hidden" onClick={handleSidebarState}><List size={32} color="white" /></button>
           {/* <button>
             <User color="white" size={25} />
           </button> */}
         </div>
       </div>
+      {openSidebar && <div onClick={handleSidebarState} className="absolute top-0 left-0 w-full h-[2000px] bg-black opacity-25 lg:hidden"></div>}
     </nav>
   );
 };
