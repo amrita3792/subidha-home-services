@@ -7,28 +7,28 @@ import { Link } from 'react-router-dom';
 
 const PromoBar = () => {
     return (
-        <section className="xl:max-w-screen-xl mx-auto flex justify-between items-center flex-col gap-10 lg:gap-0 xl:flex-row my-10">
+        <section className="xl:max-w-screen-xl mx-auto flex justify-between items-center flex-col gap-10  xl:flex-row my-10">
             <Link to="/" className="flex items-center gap-2">
                 <img className="h-16" src={logo} alt="" />
-                <h2 className="bg-gradient-to-r from-sky-500 to-sky-800 bg-clip-text text-transparent text-4xl font-bold">SUBIDHA</h2>
+                <h2 className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent text-4xl font-bold">SUBIDHA</h2>
             </Link>
             <div className="flex flex-col md:flex-row gap-10 md:gap-20">
                 <div className="flex md:block flex-col items-center">
                     <img className="w-[30px]" src={location} alt="" />
                     <h6 className="font-bold text-start">ADDRESS</h6>
-                    <small>House of ABL, 404/56,<br />
+                    <small className="font-medium">House of ABL, 404/56,<br />
                         Ashulia DOHS, Dhaka</small>
                 </div>
                 <div className="flex md:block flex-col items-center">
                     <img className="w-[30px]" src={email} alt="" />
                     <h6 className="font-bold text-start">MAIL CONTACT</h6>
-                    <small>subidha@gmail.com <br />
+                    <small className="font-medium">subidha@gmail.com <br />
                         support@gmail.com</small>
                 </div>
                 <div className="flex md:block flex-col items-center">
                     <img className="w-[30px]" src={telephone} alt="" />
-                    <h3 className="bg-gradient-to-r from-sky-500 to-sky-800 bg-clip-text text-transparent text-2xl font-bold">1234 5678 90</h3>
-                    <button className="bg-[#0C395F] px-10 py-2 text-white active:scale-95 font-medium">Get a Quote</button>
+                    <h3 className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent text-2xl font-bold">1234 5678 90</h3>
+                    <button className="bg-gradient-to-r from-indigo-400 to-cyan-400 hover:to-indigo-400 hover:from-cyan-400 px-10 py-2 text-white active:scale-95 font-medium">Get a Quote</button>
                 </div>
             </div>
         </section>
@@ -36,3 +36,5 @@ const PromoBar = () => {
 };
 
 export default PromoBar;
+
+// 

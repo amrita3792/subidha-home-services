@@ -1,0 +1,32 @@
+.otp-container input {
+    padding: 0.5rem;
+    border: double 2px transparent;
+    border-radius: 8px;
+    background-image: linear-gradient(white, white),
+        linear-gradient(to left, #818CF8, #22D3EE);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    width: 50px !important;
+    height: 60px !important;
+}
+
+.react-tel-input .form-control {
+    @apply  py-5 !text-base;
+
+}
+ 
+.otp-container {
+    justify-content: center;
+}
+
+.resend-otp {
+    @apply mt-4;
+}
+
+.resend-otp button {
+    @apply font-medium cursor-pointer text-sm hover:underline text-blue-600
+}
+
+.resend-otp span {
+    @apply font-medium
+}

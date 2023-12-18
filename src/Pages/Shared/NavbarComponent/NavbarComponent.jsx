@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./NavbarComponent.module.css";
-import { List, MagnifyingGlass,  } from "@phosphor-icons/react";
+import { CaretLeft, List, MagnifyingGlass, X,  } from "@phosphor-icons/react";
 
 const NavbarComponent = () => {
 
   const [openSidebar, setOpenSidebar] = useState(false);
 
-  const handleSidebarState = (isOpen) => {
+  const handleSidebarState = () => {
     setOpenSidebar((prev) => !prev)
   }
 
   openSidebar && window.addEventListener("scroll", function() {
     setOpenSidebar(false);
-  })
+  });
 
   const navLinks = [
     {
@@ -34,13 +34,14 @@ const NavbarComponent = () => {
   ];
 
   return (
-    <nav className="shadow-lg bg-gradient-to-r to-slate-500 from-slate-800 h-16 px-5">
-      <div className="xl:max-w-screen-xl mx-auto flex items-center justify-end lg:justify-between h-full">
+    <nav className="shadow-lg bg-gradient-to-r from-slate-300 to-slate-400 h-16">
+      <div className="xl:max-w-screen-xl mx-auto flex items-center justify-end lg:justify-between h-full px-5">
         <ul className={`flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-7 fixed lg:static  top-0 ${openSidebar ? "right-0" : "right-[-1000px]"} bg-white lg:bg-inherit w-1/2 lg:w-auto h-screen lg:h-auto p-10 lg:p-0 z-50 transition-all lg:transition-none duration-500 ease-in-out`}>
+          <li onClick={handleSidebarState} className="flex items-center gap-1 font-medium text-sm cursor-pointer lg:hidden"><CaretLeft size={16} /> <span>Go Back</span></li>
           {navLinks.map((navLink) => (
             <li key={navLink.idx}>
               <Link
-                className={`font-medium text-sm lg:text-white ${styles.hover_underline_animation}`}
+                className={`font-medium text-sm ${styles.hover_underline_animation}`}
                 to={navLink.path}
               >
                 {navLink.name}
@@ -50,14 +51,19 @@ const NavbarComponent = () => {
         </ul>
         <div className="flex items-center gap-5">
           <button>
-            <MagnifyingGlass color="white" size={25} />
+            <MagnifyingGlass color="black" size={25} />
           </button>
           <button>
-            <Link className="block font-medium text-white text-sm border-2 rounded-md px-4 py-2 active:scale-95">
+            <Link to="/login" className="block font-medium text-sm border-2 border-black rounded-md px-4 py-2 active:scale-95">
               LOGIN
             </Link>
           </button>
-          <button className="lg:hidden" onClick={handleSidebarState}><List size={32} color="white" /></button>
+          {
+            openSidebar ?
+            <button className="lg:hidden"><X size={32} color="white" /></button>
+            :
+            <button className="lg:hidden" onClick={handleSidebarState}><List size={32} color="white" /></button>
+          }
           {/* <button>
             <User color="white" size={25} />
           </button> */}

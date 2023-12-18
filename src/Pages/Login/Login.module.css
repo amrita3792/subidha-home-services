@@ -1,0 +1,22 @@
+.passwordField, .emailField {
+    padding: 0.5rem;
+    border: double 2px transparent;
+    border-left: 0px;
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background-image: linear-gradient(white, white),
+        linear-gradient(to left, #818CF8, #22D3EE);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+
+.form-control span {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+input:focus {
+    outline: none;
+}
