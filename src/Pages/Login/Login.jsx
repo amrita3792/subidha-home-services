@@ -27,7 +27,7 @@ const Login = () => {
             className={`w-full px-3 py-[8px] font-medium ${styles.emailField}`}
             type="email"
             name=""
-            id=""
+            id="#id-10"
             placeholder="Email"
           />
         </div>
@@ -39,12 +39,12 @@ const Login = () => {
             className={`w-full px-3 py-[8px] font-medium ${styles.passwordField}`}
             type="password"
             name=""
-            id=""
+            id="#id-11"
             placeholder="Password"
           />
         </div>
         <Link
-          className="font-mediu text-blue-500 font-medium text-sm block my-7 mt-1 text-center"
+          className="font-mediu text-blue-500 font-medium text-sm block my-7 mt-1 text-center hover:underline"
           to="/forgot-password"
         >
           Forgot your password?
@@ -52,7 +52,7 @@ const Login = () => {
         <button className="bg-gradient-to-r from-indigo-400 to-cyan-400 hover:to-indigo-400 hover:from-cyan-400 px-10 py-3 text-white active:scale-95 font-medium w-full rounded-lg">
           Log in
         </button>
-        <p className="font-medium mt-3 text-sm text-center">Don't have an account? <Link to="/signup" className="text-blue-500">Sign Up</Link></p>
+        <p className="font-medium mt-3 text-sm text-center">Don't have an account? <Link to="/signup" className="text-blue-500 hover:underline">Sign Up</Link></p>
       </form>
       <div className="divider font-medium">OR</div>
       <button onClick={handleChangeModalState} className="bg-[#409899] px-10 py-3 text-white font-medium w-full rounded-lg my-3 flex justify-center items-center gap-3">
