@@ -10,22 +10,23 @@ import "react-phone-input-2/lib/style.css";
 import telephone from "../../assets/icons/telephone2.png";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { AuthContext } from "../../contexts/AuthProvider";
-import sendOtp from '../../assets/icons/send-otp.png';
+import sendOtp from "../../assets/icons/send-otp.png";
 
 export const NumberVerificatonModal = ({
   handleChangeModalState,
   showModalX,
 }) => {
-  const { onSignup, loading, setLoading, onOTPVerify } = useContext(AuthContext);
+  const { loading, setLoading, sendOTP, verifyOTP } = useContext(AuthContext);
   const [OTP, setOTP] = useState("");
   const [phone, setPhone] = useState("");
   const [showOTP, setShowOTP] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSendOTPCode = () => {
-    onSignup(phone)
+  const handleSendOTP = () => {
+    sendOTP(phone)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
-        console.log(confirmationResult);
+        console.log(confirmationResult)
         setShowOTP(true);
         setLoading(false);
       })
@@ -36,18 +37,21 @@ export const NumberVerificatonModal = ({
   };
 
   const handleVerifyOTP = () => {
-    onOTPVerify(OTP)
-    .then(async (res) => {
-      console.log(res.user);
+    verifyOTP(OTP)
+    .then((result) => {
+      // User signed in successfully.
+      let user = result.user;
+      console.log(user);
+      console.log('User signed in successfully');
+      handleChangeModalState();
       setLoading(false);
-    })
-    .catch((err) => {
-      console.log("he")
-      console.log(err);
+      // ...
+    }).catch((error) => {
+      alert('User couldn\'t sign in (bad verification code?)');
       setLoading(false);
     });
   }
-  //1GXEVW8K7JKV4JAZ85MDEFDP
+
   return (
     <>
       <Modal
@@ -75,14 +79,26 @@ export const NumberVerificatonModal = ({
                   disabled={false}
                   secure
                 />
-                <ResendOTP
-                  className="resend-otp"
-                  onResendClick={handleSendOTPCode}
-                />
-                <button onClick={handleVerifyOTP} className="text-lg font-medium bg-gradient-to-r from-indigo-400 to-cyan-400 text-white w-[270px] mx-auto block my-5 py-2 rounded-lg">
+                <ResendOTP onResendClick={handleSendOTP} className="resend-otp" />
+                <button onClick={handleVerifyOTP}
+                  className={`text-lg font-medium ${
+                    OTP.length === 6
+                      ? "bg-gradient-to-r from-indigo-400 to-cyan-400"
+                      : "bg-neutral-300"
+                  }  text-white w-[270px] mx-auto my-5 py-2 rounded-lg flex justify-center items-center gap-4`}
+                >
+                  {loading && (
+                    <span className="loading loading-spinner loading-md"></span>
+                  )}
                   Verify OTP
                 </button>
-                <button onClick={() => setShowOTP(false)} className="block mx-auto text-sm font-medium text-blue-600 hover:underline">
+                <button
+                  onClick={() => {
+                    setShowOTP(false);
+                    setPhone("");
+                  }}
+                  className="block mx-auto text-sm font-medium text-blue-600 hover:underline"
+                >
                   Change Phone Number
                 </button>
               </div>
@@ -105,20 +121,21 @@ export const NumberVerificatonModal = ({
                   onChange={setPhone}
                 />
                 <button
-                  onClick={handleSendOTPCode}
+                  onClick={handleSendOTP}
                   disabled={phone.length !== 13 && "disabled"}
                   className={`text-lg font-medium ${
                     phone.length === 13
                       ? " bg-gradient-to-r from-indigo-400 to-cyan-400 active:scale-95"
                       : "bg-neutral-300"
-                  } text-white w-full mx-auto block my-5 py-2 rounded-lg`}
+                  } text-white w-full mx-auto my-5 py-2 rounded-lg flex justify-center items-center gap-4`}
                 >
+                  {loading && (
+                    <span className="loading loading-spinner loading-md"></span>
+                  )}
                   Send code via SMS
                 </button>
-                <button
-                  onClick={handleChangeModalState}
-                  className="block mx-auto text-sm font-medium text-blue-600 underline hover:no-underline"
-                >
+                <div id="recaptcha-container"></div>
+                <button onClick={handleChangeModalState} className="block mx-auto text-sm font-medium text-blue-600 underline hover:no-underline mt-3">
                   Login with other options
                 </button>
               </div>
@@ -132,7 +149,6 @@ export const NumberVerificatonModal = ({
             </button>
           </div>
         </Modal.Body>
-        <div id="recaptcha-container"></div>
       </Modal>
     </>
   );

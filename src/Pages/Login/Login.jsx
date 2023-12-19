@@ -20,7 +20,7 @@ const Login = () => {
       <h2 className="text-3xl font-medium text-center mb-6">Login</h2>
       <form>
         <div className="form-control flex flex-row items-center my-5">
-          <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 p-3">
+          <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 p-3 rounded-l-[8px]">
             <EnvelopeIcon className="h-5 w-5 text-white" />
           </span>
           <input
@@ -32,7 +32,7 @@ const Login = () => {
           />
         </div>
         <div className="form-control flex flex-row items-center mt-5">
-          <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 p-3">
+          <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 p-3 rounded-l-[8px]">
             <LockClosedIcon className="h-5 w-5 text-white" />
           </span>
           <input
