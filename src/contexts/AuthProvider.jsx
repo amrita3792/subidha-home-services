@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
 
   const googleSignIn = () => {
     setLoading(true);
-    return signInWithPopup(firebaseAuth, googleProvider);
+    return signInWithPopup(auth, googleProvider);
   };
 
   const generateRecaptcha = () => {
@@ -71,6 +71,7 @@ const AuthProvider = ({ children }) => {
     sendOTP,
     verifyOTP,
     user,
+    googleSignIn
   };
   console.log(user);
   return (

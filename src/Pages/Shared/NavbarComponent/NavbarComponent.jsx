@@ -84,7 +84,7 @@ const NavbarComponent = () => {
             <button>
               <Link
                 to="/login"
-                className="block font-medium text-sm border-2 border-black rounded-md px-4 py-2 active:scale-95"
+                className="block font-medium text-sm border-2 border-white text-white rounded-md px-4 py-2 active:scale-95"
               >
                 LOGIN
               </Link>
