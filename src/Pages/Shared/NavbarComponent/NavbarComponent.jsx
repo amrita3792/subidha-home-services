@@ -1,7 +1,13 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./NavbarComponent.module.css";
-import { CaretLeft, List, MagnifyingGlass, Triangle, X } from "@phosphor-icons/react";
+import {
+  CaretLeft,
+  List,
+  MagnifyingGlass,
+  Triangle,
+  X,
+} from "@phosphor-icons/react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { UserCircle } from "@phosphor-icons/react/dist/ssr";
 import { ChevronDoubleDownIcon, UserIcon } from "@heroicons/react/24/solid";
@@ -23,17 +29,17 @@ const NavbarComponent = () => {
     {
       idx: 0,
       path: "/",
-      name: "HOME",
+      name: "Home",
     },
     {
       idx: 1,
       path: "/all-services",
-      name: "ALL SERVICES",
+      name: "All Services",
     },
     {
       idx: 2,
       path: "/blog",
-      name: "BLOG",
+      name: "Blog",
     },
   ];
 
@@ -54,7 +60,7 @@ const NavbarComponent = () => {
           {navLinks.map((navLink) => (
             <li key={navLink.idx}>
               <Link
-                className={`text-white font-medium text-sm ${styles.hover_underline_animation}`}
+                className={`lg:text-white font-semibold text-sm  ${styles.hover_underline_animation}`}
                 to={navLink.path}
               >
                 {navLink.name}
@@ -67,10 +73,12 @@ const NavbarComponent = () => {
             <MagnifyingGlass color="white" size={25} />
           </button>
           {user?.uid ? (
-            <button className="text-white flex items-center">
+            <button className="text-white flex items-center gap-3">
               <UserIcon className="h-6 w-6" />
-              <span className="text-sm font-medium">Profile</span>
-              <ChevronDoubleDownIcon className="h-6 w-6" />
+              <p className="flex items-center">
+                <span className="text-sm font-semibold">Profile</span>
+                <ChevronDoubleDownIcon className="h-6 w-6" />
+              </p>
             </button>
           ) : (
             <button>
@@ -82,7 +90,6 @@ const NavbarComponent = () => {
               </Link>
             </button>
           )}
-
           {openSidebar ? (
             <button className="lg:hidden">
               <X size={32} color="white" />

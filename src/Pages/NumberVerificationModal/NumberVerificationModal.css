@@ -24,9 +24,9 @@
 }
 
 .resend-otp button {
-    @apply font-medium cursor-pointer text-sm hover:underline text-blue-600
+    @apply font-bold cursor-pointer text-sm hover:underline text-blue-600
 }
 
 .resend-otp span {
-    @apply font-medium
+    @apply font-bold
 }

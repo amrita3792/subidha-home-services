@@ -1,22 +1,22 @@
 .hover_underline_animation {
-    display: inline-block;
-    position: relative;
-  }
-  
-  .hover_underline_animation:after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 1px;
-    bottom: -4px;
-    left: 0;
-    background-color: black;
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
-  }
-  
-  .hover_underline_animation:hover:after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
+  display: inline-block;
+  position: relative;
+}
+
+.hover_underline_animation:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: -4px;
+  left: 0;
+  background-color: white;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover_underline_animation:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}

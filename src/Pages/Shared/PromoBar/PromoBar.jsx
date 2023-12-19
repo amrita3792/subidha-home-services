@@ -13,22 +13,22 @@ const PromoBar = () => {
                 <h2 className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent text-4xl font-bold">SUBIDHA</h2>
             </Link>
             <div className="flex flex-col md:flex-row gap-10 md:gap-20">
-                <div className="flex md:block flex-col items-center">
+                <div className="flex md:block flex-col items-center text-stone-600">
                     <img className="w-[30px]" src={location} alt="" />
                     <h6 className="font-bold text-start">ADDRESS</h6>
-                    <small className="font-medium">House of ABL, 404/56,<br />
+                    <small className="font-semibold">House of ABL, 404/56,<br />
                         Ashulia DOHS, Dhaka</small>
                 </div>
-                <div className="flex md:block flex-col items-center">
+                <div className="flex md:block flex-col items-center text-stone-600">
                     <img className="w-[30px]" src={email} alt="" />
                     <h6 className="font-bold text-start">MAIL CONTACT</h6>
-                    <small className="font-medium">subidha@gmail.com <br />
+                    <small className="font-semibold">subidha@gmail.com <br />
                         support@gmail.com</small>
                 </div>
                 <div className="flex md:block flex-col items-center">
                     <img className="w-[30px]" src={telephone} alt="" />
                     <h3 className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent text-2xl font-bold">1234 5678 90</h3>
-                    <button className="bg-gradient-to-r from-indigo-400 to-cyan-400 hover:to-indigo-400 hover:from-cyan-400 px-10 py-2 text-white active:scale-95 font-medium">Get a Quote</button>
+                    <button className="bg-gradient-to-r from-indigo-400 to-cyan-400 hover:to-indigo-400 hover:from-cyan-400 px-10 py-2 text-white active:scale-95 font-semibold">Get a Quote</button>
                 </div>
             </div>
         </section>
