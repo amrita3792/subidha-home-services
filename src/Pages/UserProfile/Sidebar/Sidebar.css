@@ -1,12 +1,13 @@
 .link-container li a {
     padding: 18px 0px 15px 20px;
     color: rgb(4, 30, 73);
-    font-family: Roboto, "Noto Sans", "Noto Sans JP", "Noto Sans KR", "Noto Naskh Arabic", "Noto Sans Thai", "Noto Sans Hebrew", "Noto Sans Bengali", sans-serif;
+    font-size: 18px;
 }
 
 
 .link-container li>.active {
     border-width: 4px;
+    font-weight: 600;
     border-style: solid;
     border-image: linear-gradient(to top, #818CF8, #22D3EE) 1;
     border-left: 0;

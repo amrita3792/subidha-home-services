@@ -8,19 +8,19 @@ const Sidebar = () => {
     {
       id: 1,
       name: "My Profile",
-      path: "/profile",
+      path: "/profile/my-hub",
       icon: <UserIcon className="w-6 h-6" />,
     },
     {
       id: 2,
       name: "My Service Locations",
-      path: "/service-locations",
+      path: "/profile/service-locations",
       icon: <MapPinIcon className="w-6 h-6" />
     },
     {
       id: 3,
       name: "My Service Rewards",
-      path: "/service-rewards",
+      path: "/profile/service-rewards",
       icon: <TrophyIcon className="w-6 h-6" />
     },
     {
@@ -44,7 +44,7 @@ const Sidebar = () => {
     },
   ];
   return (
-    <div className="basis-1/5 border-e">
+    <div className="basis-3/12 border-e">
       <ul className="link-container">
         {profileLinks.map((profileLink) => (
           <li key={profileLink.id}>
@@ -52,7 +52,7 @@ const Sidebar = () => {
               {({ isActive, isPending }) => (
                 <>
                   {profileLink.icon}
-                  <span className={isActive ? "active" : "Link"}>
+                  <span className={isActive ? "active" : ""}>
                     {profileLink.name}
                   </span>
                 </>

@@ -72,14 +72,25 @@ const NavbarComponent = () => {
           <button>
             <MagnifyingGlass color="white" size={25} />
           </button>
+
           {user?.uid ? (
-            <button className="text-white flex items-center gap-3">
-              <UserIcon className="h-6 w-6" />
-              <p className="flex items-center">
-                <span className="text-sm font-semibold">Profile</span>
-                <ChevronDoubleDownIcon className="h-6 w-6" />
-              </p>
-            </button>
+            user?.photoURL ? (
+              <div>
+                <img
+                  className="w-10 h-10 rounded-full"
+                  src={user.photoURL}
+                  alt=""
+                />
+              </div>
+            ) : (
+              <button className="text-white flex items-center gap-3">
+                <UserIcon className="h-6 w-6" />
+                <p className="flex items-center">
+                  <span className="text-sm font-semibold">Profile</span>
+                  <ChevronDoubleDownIcon className="h-6 w-6" />
+                </p>
+              </button>
+            )
           ) : (
             <button>
               <Link

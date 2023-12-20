@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const PromoBar = () => {
     return (
-        <section className="xl:max-w-screen-xl mx-auto flex justify-between items-center flex-col gap-10  xl:flex-row my-10">
+        <section className="xl:max-w-screen-xl mx-auto flex justify-between items-center flex-col gap-10  xl:flex-row my-10 px-4">
             <Link to="/" className="flex items-center gap-2">
                 <img className="h-16" src={logo} alt="" />
                 <h2 className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent text-4xl font-bold">SUBIDHA</h2>
