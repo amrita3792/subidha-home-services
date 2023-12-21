@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./Sidebar.css";
 import { DocumentMagnifyingGlassIcon, FireIcon, MapIcon, MapPinIcon, TrophyIcon, UserIcon, WalletIcon } from "@heroicons/react/24/solid";
+import { ThemeContext } from "../../../App";
 
 const Sidebar = () => {
+  const {theme} = useContext(ThemeContext);
   const profileLinks = [
     {
       id: 1,
@@ -44,7 +46,7 @@ const Sidebar = () => {
     },
   ];
   return (
-    <div className="basis-1/5 border-e">
+    <div className={`hidden lg:block relative basis-[280px] border-e ${theme === "dark" ? "border-gray-500" : "dark:border-gray-300 md"}`}>
       <ul className="link-container">
         {profileLinks.map((profileLink) => (
           <li key={profileLink.id}>

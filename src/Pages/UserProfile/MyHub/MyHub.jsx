@@ -3,6 +3,7 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import { CheckIcon, PencilIcon, UserIcon } from "@heroicons/react/24/solid";
 import { Tooltip } from "keep-react";
 import { toast } from "react-toastify";
+import { ThemeContext } from "../../../App";
 
 const MyHub = () => {
   const {
@@ -14,6 +15,7 @@ const MyHub = () => {
     setLoading,
     updateUserEmail,
   } = useContext(AuthContext);
+  const {theme} = useContext(ThemeContext);
 
   const fileInputRef = useRef(null);
   const imageHostKey = import.meta.env.VITE_IMGBB_KEY;
@@ -100,7 +102,7 @@ const MyHub = () => {
 
   return (
     <div className="p-5">
-      <div className="relative overflow-x-auto flex flex-col justify-center items-center gap-10 w-3/6 mx-auto">
+      <div className="relative overflow-x-auto flex flex-col justify-center items-center gap-10 md:p-14 lg:p-0 md:max-w-screen-sm lg:w-3/6 mx-auto">
         <h2 className="text-5xl">WELCOME BACK!</h2>
         <input
           type="file"
@@ -154,10 +156,10 @@ const MyHub = () => {
 
         <table className="w-full  text-left  text-gray-500">
           <tbody>
-            <tr className="bg-white border-b  dark:border-gray-300">
+            <tr className={`border-b ${theme === "light" ? "dark:border-gray-300" : "dark:border-gray-600"}`}>
               <th
                 scope="row"
-                className="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap"
+                className="px-6 py-4 font-semibold whitespace-nowrap"
               >
                 Name
               </th>
@@ -206,19 +208,19 @@ const MyHub = () => {
                 )}
               </td>
             </tr>
-            <tr className="bg-white border-b  dark:border-gray-300">
+            <tr className={`border-b ${theme === "light" ? "dark:border-gray-300" : "dark:border-gray-600"}`}>
               <th
                 scope="row"
-                className="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap"
+                className="px-6 py-4 font-semibold whitespace-nowrap"
               >
                 Phone
               </th>
               <td className="px-6 py-4">+8801311929644</td>
             </tr>
-            <tr className="bg-white border-b  dark:border-gray-300">
+            <tr className={`border-b ${theme === "light" ? "dark:border-gray-300" : "dark:border-gray-600"}`}>
               <th
                 scope="row"
-                className="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap"
+                className="px-6 py-4 font-semibold whitespace-nowrap"
               >
                 Email
               </th>

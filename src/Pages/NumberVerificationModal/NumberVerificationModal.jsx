@@ -28,7 +28,7 @@ export const NumberVerificatonModal = ({
     setVisibleRecaptcha,
   } = useContext(AuthContext);
 
-  const {theme, handleToggle} = useContext(ThemeContext);
+  const {theme} = useContext(ThemeContext);
 
   const [OTP, setOTP] = useState("");
   const [phone, setPhone] = useState("");
@@ -106,13 +106,13 @@ export const NumberVerificatonModal = ({
   };
 
   return (
-    <Modal
+    <Modal id={`${theme === "dark" && "modal-theme"}`}
       icon={<CloudArrowUp size={28} color="#1B4DFF" />}
       size="2xl"
       show={showModal}
       onClose={handleChangeModalState}
     >
-      <Modal.Body>
+      <div>
         <div className="flex flex-col items-center relative">
           {!showOTP ? (
             <div className="mx-auto w-72">
@@ -218,7 +218,7 @@ export const NumberVerificatonModal = ({
           </button>
           <div id="recaptcha-container"></div>
         </div>
-      </Modal.Body>
+      </div>
     </Modal>
   );
 };

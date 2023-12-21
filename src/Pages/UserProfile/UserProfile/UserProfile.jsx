@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import Display from "../Display/Display";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -12,9 +12,11 @@ const UserProfile = () => {
 
   return (
     <div className="my-14">
-      <div className="xl:max-w-screen-xl mx-auto flex min-h-[60vh]">
+      <div className="xl:max-w-screen-xl mx-auto flex lg:min-h-[60vh]">
         <Sidebar />
-        <Display />
+        <div className="grow">
+            <Outlet></Outlet>
+        </div>
       </div>
     </div>
   );

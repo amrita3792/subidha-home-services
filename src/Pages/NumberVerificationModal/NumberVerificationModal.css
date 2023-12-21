@@ -42,3 +42,16 @@
 #rc-anchor-container {
     width: 100% !important;
 }
+
+#modal-theme > div > div {
+    background-color: rgb(29, 35, 42) !important;
+    /* border: 1px solid lightgray; */ 
+}
+
+#modal-theme {
+   @apply bg-black bg-opacity-50
+}
+
+#modal-theme > div > div .form-control {
+    background-color: inherit !important;
+}

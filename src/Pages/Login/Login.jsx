@@ -7,9 +7,11 @@ import google from "../../assets/icons/google.png";
 import phone from '../../assets/icons/phone.png';
 import NumberVerificatonModal from "../NumberVerificationModal/NumberVerificationModal";
 import { AuthContext } from "../../contexts/AuthProvider";
+import { ThemeContext } from "../../App";
 
 const Login = () => {
   const {googleSignIn} = useContext(AuthContext);
+  const {theme} = useContext(ThemeContext);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -27,7 +29,7 @@ const Login = () => {
             <EnvelopeIcon className="h-5 w-5 text-white" />
           </span>
           <input
-            className={`w-full px-3 py-[8px] font-medium ${styles.emailField}`}
+            className={`w-full px-3 py-[8px] font-medium ${theme === "light" ? styles.emailField : "border-2 border-l-0 border-gray-400 rounded-r-xl"}`}
             type="email"
             name=""
             id="#id-10"
@@ -39,7 +41,7 @@ const Login = () => {
             <LockClosedIcon className="h-5 w-5 text-white" />
           </span>
           <input
-            className={`w-full px-3 py-[8px] font-medium ${styles.passwordField}`}
+            className={`w-full px-3 py-[8px] font-medium ${theme === "light" ? styles.passwordField : "border-2 border-l-0 border-gray-400 rounded-r-xl"}`}
             type="password"
             name=""
             id="#id-11"
