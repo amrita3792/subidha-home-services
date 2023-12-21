@@ -4,9 +4,8 @@
 @tailwind components;
 @tailwind utilities;
   
-@import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap');
 
 body {
-    /* font-family: 'Lato', sans-serif; */
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Signika', sans-serif;
+
 }

@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useRef, useState } from "react";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -6,6 +6,8 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
   signInWithPopup,
+  updateEmail,
+  updateProfile,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 
@@ -16,39 +18,47 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
-
+  const [updateProfilePicture, setUpdateProfilePicture] = useState(false);
+  const [updateProfileName, setUpdateProfileName] = useState(false);
+  const recaptchaVerifierRef = useRef(null);
+  const [visibleRecaptcha, setVisibleRecaptcha] = useState(false);
   const googleProvider = new GoogleAuthProvider();
-
+  
   const googleSignIn = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
   const generateRecaptcha = () => {
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        auth,
-        "recaptcha-container",
-        {
-          size: "invisible",
-          callback: (response) => {
-            // reCAPTCHA solved, allow signInWithPhoneNumber.
-            // ...
-          },
-          "expired-callback": () => {
-            // Response expired. Ask user to solve reCAPTCHA again.
-            // ...
-          },
-        }
-      );
+    // Create RecaptchaVerifier only once
+    recaptchaVerifierRef.current = new RecaptchaVerifier(auth, 'recaptcha-container', {
+      'size': 'normal',
+      'callback': (response) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+
+      }
+    });
+    
+  };
+
+  const sendOTP = async (phoneNumber) => {
+    setLoading(true);
+    generateRecaptcha();
+    if (recaptchaVerifierRef.current) {
+      const appVerifier = recaptchaVerifierRef.current;
+      return signInWithPhoneNumber(auth, '+' + phoneNumber, appVerifier);
+    } else {
+      // setRecaptchaError("Recaptcha not initialized");
     }
   };
 
-  const sendOTP = (phoneNumber) => {
-    setLoading(true);
-    generateRecaptcha();
-    let appVerifier = window.recaptchaVerifier;
-    return signInWithPhoneNumber(auth, "+" + phoneNumber, appVerifier);
+  const resendOTP = (phoneNumber) => {
+    // Clear existing RecaptchaVerifier before re-rendering
+    if (recaptchaVerifierRef.current) {
+      recaptchaVerifierRef.current.clear();
+    }
+
+    return sendOTP(phoneNumber);
   };
 
   const verifyOTP = (OTP) => {
@@ -57,13 +67,30 @@ const AuthProvider = ({ children }) => {
     return confirmationResult.confirm(OTP);
   };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+  const updateUserProfile = (displayName, photoURL) => {
+    setLoading(true);
+    return updateProfile(auth.currentUser, {
+      displayName,
+      photoURL,
     });
+  };
+
+  const updateUserEmail = (email) => {
+    console.log(email);
+    return updateEmail(auth.currentUser, email);
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (user) => {
+        setUser(user);
+      },
+      []
+    );
 
     return () => unsubscribe();
-  }, []);
+  }, [updateProfilePicture, updateProfileName]);
 
   const authInfo = {
     loading,
@@ -71,8 +98,17 @@ const AuthProvider = ({ children }) => {
     sendOTP,
     verifyOTP,
     user,
-    googleSignIn
+    googleSignIn,
+    updateUserProfile,
+    updateUserEmail,
+    setUpdateProfilePicture,
+    setUpdateProfileName,
+    resendOTP,
+    visibleRecaptcha, 
+    setVisibleRecaptcha,
+
   };
+
   console.log(user);
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

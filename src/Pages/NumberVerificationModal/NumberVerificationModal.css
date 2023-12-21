@@ -10,8 +10,12 @@
     height: 60px !important;
 }
 
+.flag-dropdown {
+    background-color: inherit !important;
+}
+
 .react-tel-input .form-control {
-    @apply  py-5 !text-base;
+    @apply  py-5 !text-base w-[300px] bg-inherit;
 
 }
  
@@ -29,4 +33,12 @@
 
 .resend-otp span {
     @apply font-bold
+}
+
+.recaptcha-container > div > div {
+    width: 100% !important;
+}
+
+#rc-anchor-container {
+    width: 100% !important;
 }

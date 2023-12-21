@@ -9,7 +9,6 @@ import {
   X,
 } from "@phosphor-icons/react";
 import { AuthContext } from "../../../contexts/AuthProvider";
-import { UserCircle } from "@phosphor-icons/react/dist/ssr";
 import { ChevronDoubleDownIcon, UserIcon } from "@heroicons/react/24/solid";
 
 const NavbarComponent = () => {
@@ -60,7 +59,7 @@ const NavbarComponent = () => {
           {navLinks.map((navLink) => (
             <li key={navLink.idx}>
               <Link
-                className={`lg:text-white font-semibold text-sm  ${styles.hover_underline_animation}`}
+                className={`lg:text-white text-lg  ${styles.hover_underline_animation}`}
                 to={navLink.path}
               >
                 {navLink.name}
@@ -95,9 +94,9 @@ const NavbarComponent = () => {
             <button>
               <Link
                 to="/login"
-                className="block font-medium text-sm border-2 border-white text-white rounded-md px-4 py-2 active:scale-95"
+                className="block text-lg border-2 border-white text-white rounded-md px-4 py-2 active:scale-95"
               >
-                LOGIN
+                LOG IN
               </Link>
             </button>
           )}

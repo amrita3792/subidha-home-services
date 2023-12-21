@@ -10,7 +10,7 @@ const PromoBar = () => {
         <section className="xl:max-w-screen-xl mx-auto flex justify-between items-center flex-col gap-10  xl:flex-row my-10 px-4">
             <Link to="/" className="flex items-center gap-2">
                 <img className="h-16" src={logo} alt="" />
-                <h2 className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent text-4xl font-bold">SUBIDHA</h2>
+                <h2 className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent text-4xl font-extrabold">SUBIDHA</h2>
             </Link>
             <div className="flex flex-col md:flex-row gap-10 md:gap-20">
                 <div className="flex md:block flex-col items-center text-stone-600">
