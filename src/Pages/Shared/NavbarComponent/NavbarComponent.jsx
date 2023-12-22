@@ -132,19 +132,20 @@ const NavbarComponent = () => {
               </div>
               
             ) : (
-              <button className="text-white flex items-center gap-3">
+              <button onClick={() => setIsOpen((prev) => !prev)} className="text-white flex items-center gap-3 relative">
                 <UserIcon className="h-6 w-6" />
                 <p className="flex items-center">
                   <span className="text-sm font-semibold">Profile</span>
                   <ChevronDoubleDownIcon className="h-6 w-6" />
                 </p>
+                <UserAccessLinks isOpen={isOpen} setIsOpen={setIsOpen} />
               </button>
             )
           ) : (
             <button>
               <Link
                 to="/login"
-                className="block text-lg border-2 border-white text-white rounded-md px-4 py-2 active:scale-95"
+                className="block  border-2 border-white text-white rounded-md px-4 py-2 active:scale-95"
               >
                 LOG IN
               </Link>

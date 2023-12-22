@@ -103,20 +103,20 @@ const Login = () => {
       <div className="divider font-medium">OR</div>
       <button
         onClick={handleChangeModalState}
-        className="bg-[#409899] px-10 py-3 text-white text-lg w-full rounded-lg my-3 flex justify-center items-center gap-3"
+        className="bg-[#409899] px-10 py-2 text-white text-lg w-full rounded-lg my-3 flex justify-center items-center gap-3"
       >
         <span>
-          <img className="w-7" src={phone} alt="" />
+          <img className="w-5" src={phone} alt="" />
         </span>
         Mobile Number
       </button>
-      <button onClick={handleGooleSignIn} className="bg-[#DF4930] px-10 py-3 text-white text-lg w-full rounded-lg mb-3 flex justify-center items-center gap-3">
+      <button onClick={handleGooleSignIn} className="bg-[#DF4930] px-10 py-2 text-white text-lg w-full rounded-lg mb-3 flex justify-center items-center gap-3">
         <span>
           <img src={google} alt="" />
         </span>
         Continue with Google
       </button>
-      <button className="bg-[#507CC0] px-10 py-3 text-white text-lg w-full rounded-lg flex justify-center items-center gap-3">
+      <button className="bg-[#507CC0] px-10 py-2 text-white text-lg w-full rounded-lg flex justify-center items-center gap-3">
         <span>
           <img src={facebook} alt="" />
         </span>

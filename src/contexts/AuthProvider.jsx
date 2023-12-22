@@ -6,6 +6,7 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
   signInWithPopup,
+  signOut,
   updateEmail,
   updateProfile,
 } from "firebase/auth";
@@ -28,6 +29,10 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
+
+  const logout = () => {
+    return signOut(auth);
+  }
 
   const generateRecaptcha = () => {
     // Create RecaptchaVerifier only once
@@ -106,6 +111,7 @@ const AuthProvider = ({ children }) => {
     resendOTP,
     visibleRecaptcha, 
     setVisibleRecaptcha,
+    logout,
 
   };
 

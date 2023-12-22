@@ -68,7 +68,6 @@ export const NumberVerificatonModal = ({
         console.log(user);
         console.log("User signed in successfully");
         toast.success("✅ Your verification is successful.", {
-          icon: <CheckIcon className="w-5 h-5 text-white" />,
           theme: "colored"
         });
         handleChangeModalState();

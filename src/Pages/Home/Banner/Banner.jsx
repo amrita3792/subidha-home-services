@@ -4,9 +4,9 @@ import styles from "./Banner.module.css";
 
 const Banner = () => {
   return (
-    <section className="lg:h-[750px]  bg-gradient-to-r to-emerald-500 from-emerald-900 overflow-hidden">
+    <section className="lg:h-[650px]  bg-gradient-to-r to-emerald-500 from-emerald-900 overflow-hidden">
       <div className="flex flex-col lg:flex-row justify-between items-center xl:max-w-screen-xl lg:max-w-screen-lg  mx-auto h-full pt-12 px-5">
-        <div className="basis-7/12">
+        <div className="basis-6/12">
           <h2 className="text-6xl font-bold text-white leading-snug">
             SOLUTION FOR ALL HOME SERVICES
           </h2>
@@ -20,8 +20,8 @@ const Banner = () => {
             More Information
           </button>
         </div>
-        <div className="h-full flex items-end">
-          <img src={electrician} alt="" />
+        <div className="h-full flex items-end grow">
+          <img className="h-full" src={electrician} alt="" />
         </div>
       </div>
     </section>

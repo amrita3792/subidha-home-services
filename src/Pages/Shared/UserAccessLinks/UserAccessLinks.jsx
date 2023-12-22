@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider";
-import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
+import { ArrowDownTrayIcon, UserIcon } from "@heroicons/react/24/solid";
 import { ThemeContext } from "../../../App";
+import { toast } from "react-toastify";
 
 const UserAccessLinks = ({ isOpen, setIsOpen }) => {
-
-  const { user } = useContext(AuthContext);
-  const {theme} = useContext(ThemeContext);
+  const { user, logout, setLoading } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
 
   const profileLinks = [
     {
@@ -42,6 +42,23 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
     },
   ];
 
+  const handleLogout = () => {
+    logout()
+    .then(() => {
+        toast.success("Successfully Logout", {
+            hideProgressBar: true,
+            theme: "colored"
+          })
+      }).catch((error) => {
+        // An error happened.
+        toast.error(error.message, {
+            hideProgressBar: true,
+            theme: "colored"
+          })
+        setLoading(false)
+      });
+  }
+
   return (
     isOpen && (
       <>
@@ -50,7 +67,11 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
             setIsOpen(true);
             e.stopPropagation();
           }}
-          className={`absolute -right-3 top-12 ${theme === "dark" ? "bg-[#1D232A]" : "bg-white"}  py-4 px-5 rounded-xl w-[250px] z-[1000]`}
+          className={`absolute -right-3 top-12 border ${
+            theme === "dark"
+              ? "bg-[#1D232A] border-gray-700"
+              : "bg-white border-gray-300"
+          }  py-4 px-5 rounded-xl w-[250px] z-[1000]`}
         >
           <div className="flex items-center gap-3 mb-3">
             {user?.photoURL ? (
@@ -60,23 +81,25 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
                 alt=""
               />
             ) : (
-              ""
+              <div className="bg-gradient-to-r from-indigo-400 to-cyan-400 text-white p-3 rounded-full relative">
+                <UserIcon className="w-8 h-8" />
+              </div>
             )}
             <div>
-              <p className="font-semibold line-clamp-0">{user?.displayName}</p>
+              <p className="font-semibold line-clamp-0">{user?.displayName ? user.displayName : "N/A"}</p>
               <span className="text-sm">User</span>
             </div>
           </div>
 
-          <ul className="flex flex-col gap-3  w-[150px]">
+          <ul className="flex flex-col items-start gap-3  w-[150px]">
             {profileLinks.map((profileLink) => (
               <li key={profileLink.id}>
-                <Link className="text-sm hover:underline">
+                <Link className="text-sm hover:underline text-start">
                   {profileLink.name}
                 </Link>
               </li>
             ))}
-            <li className="flex items-center justify-center gap-1 cursor-pointer bg-gradient-to-r from-slate-500 to-slate-800 hover:to-slate-500 hover:from-slate-800 text-white px-3 py-2 rounded-lg">
+            <li onClick={handleLogout} className="flex items-center justify-center gap-1 cursor-pointer bg-gradient-to-r from-slate-500 to-slate-800 hover:to-slate-500 hover:from-slate-800 text-white px-3 py-2 rounded-lg">
               <span>Logout</span>
               <span>
                 <ArrowDownTrayIcon className="w-6 h-6 rotate-90" />
