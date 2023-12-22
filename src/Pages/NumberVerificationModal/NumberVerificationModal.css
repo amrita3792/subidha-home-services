@@ -3,7 +3,7 @@
     border: double 2px transparent;
     border-radius: 8px;
     background-image: linear-gradient(white, white),
-        linear-gradient(to left, #818CF8, #22D3EE);
+        linear-gradient(to left, #10B989, #047857);
     background-origin: border-box;
     background-clip: padding-box, border-box;
     width: 50px !important;
@@ -28,7 +28,7 @@
 }
 
 .resend-otp button {
-    @apply font-bold cursor-pointer text-sm hover:underline text-blue-600
+    @apply font-bold cursor-pointer text-sm hover:underline text-emerald-500
 }
 
 .resend-otp span {

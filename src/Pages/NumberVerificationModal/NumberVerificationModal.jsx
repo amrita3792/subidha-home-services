@@ -2,9 +2,9 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
 import OTPInput, { ResendOTP } from "otp-input-react";
-import telephone from "../../assets/icons/telephone2.png";
+import telephone from "../../assets/icons/send-otp.png";
 import "./NumberVerificationModal.css";
-import sendOtp from "../../assets/icons/send-otp.png";
+import sendOtp from "../../assets/icons/otp-code.png";
 import { Modal } from "keep-react";
 import { CloudArrowUp } from "@phosphor-icons/react";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
@@ -32,7 +32,7 @@ export const NumberVerificatonModal = ({
 
   const [OTP, setOTP] = useState("");
   const [phone, setPhone] = useState("");
-  const [showOTP, setShowOTP] = useState(false);
+  const [showOTP, setShowOTP] = useState(true);
 
   const handleSendOTP = async () => {
     await setVisibleRecaptcha(true);
@@ -117,7 +117,7 @@ export const NumberVerificatonModal = ({
           {!showOTP ? (
             <div className="mx-auto w-72">
               <div className="flex justify-center my-5">
-                <img className="h-10" src={telephone} alt="" />
+                <img className="w-40" src={telephone} alt="" />
               </div>
               <h3 className="my-2 text-2xl text-center font-semibold">
                 Verify Your Number
@@ -142,7 +142,7 @@ export const NumberVerificatonModal = ({
                 disabled={phone.length !== 13 && "disabled"}
                 className={`  ${
                   phone.length === 13
-                    ? " bg-gradient-to-r from-indigo-400 to-cyan-400 active:scale-95"
+                    ? " bg-gradient-to-r from-slate-500 to-slate-700 active:scale-95"
                     : "bg-neutral-300"
                 } text-white  mx-auto my-5 py-2  flex justify-center items-center gap-4 rounded-sm w-[300px]`}
               >
@@ -154,17 +154,17 @@ export const NumberVerificatonModal = ({
               {visibleRecaptcha && <div id="recaptcha-container"></div>}
               <button
                 onClick={handleChangeModalState}
-                className="block mx-auto text-sm font-medium text-blue-600 underline hover:no-underline mt-3"
+                className="block mx-auto text-sm font-medium text-emerald-500 underline hover:no-underline mt-3"
               >
                 Login with other options
               </button>
             </div>
           ) : (
             <div>
-              <img className="w-60 block mx-auto" src={sendOtp} alt="" />
-              <p className="text-center mb-5 text-sm">
+              <img className="w-48 block mx-auto" src={sendOtp} alt="" />
+              <p className="text-center mb-5 text-lg">
                 Type the 6 digit code sent to this <br /> number{" "}
-                <span className="text-blue-600 font-bold">{`"+${phone}"`}</span>{" "}
+                <span className="text-emerald-500 font-bold">{`"+${phone}"`}</span>{" "}
               </p>
               <OTPInput
                 className="otp-container"
@@ -184,7 +184,7 @@ export const NumberVerificatonModal = ({
                 onClick={handleVerifyOTP}
                 className={` ${
                   OTP.length === 6
-                    ? "bg-gradient-to-r from-indigo-400 to-cyan-400"
+                    ? "bg-gradient-to-r from-slate-500 to-slate-700"
                     : "bg-neutral-300"
                 }  text-white w-[270px] mx-auto my-5 py-2 rounded-sm flex justify-center items-center gap-4`}
               >
@@ -198,7 +198,7 @@ export const NumberVerificatonModal = ({
                   setShowOTP(false);
                   setPhone("");
                 }}
-                className="block mx-auto text-sm font-medium text-blue-600 hover:underline"
+                className="block mx-auto text-sm font-medium text-emerald-500 hover:underline mb-3"
               >
                 Change Phone Number
               </button>
