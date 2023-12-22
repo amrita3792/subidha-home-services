@@ -8,13 +8,3 @@ body {
     font-family: 'Signika', sans-serif;
 
 }
-
-.firebaseui-auth-container {
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    position: fixed;
-    background-color: white;
-    z-index: 9999; /* Ensure it's above other elements */
-  }

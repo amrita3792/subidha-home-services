@@ -1,7 +1,8 @@
 #cover {
-    background: url('../../../assets/Banner/hotel-room-blurred-background.jpg');
+    background: url('../../../assets/Banner/cover-photo.png');
     background-repeat: no-repeat;
     background-size: cover;
+    background-blend-mode: multiply;
 }
 
 .zoom {

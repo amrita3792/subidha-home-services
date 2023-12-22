@@ -16,12 +16,14 @@ import {
 } from "@heroicons/react/24/solid";
 import { ThemeContext } from "../../../App";
 import { profileLinks } from "../../../utilities/user-dashboard-links";
+import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
 
 const NavbarComponent = () => {
   const { user } = useContext(AuthContext);
   const { theme, handleToggle } = useContext(ThemeContext);
 
   const [openSidebar, setOpenSidebar] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleSidebarState = () => {
     setOpenSidebar((prev) => !prev);
@@ -120,13 +122,15 @@ const NavbarComponent = () => {
 
           {user?.uid ? (
             user?.photoURL ? (
-              <div>
+              <div onClick={() => setIsOpen((prev) => !prev)} className="relative">
                 <img
-                  className="w-10 h-10 rounded-full"
+                  className="w-10 h-10 rounded-full  cursor-pointer"
                   src={user.photoURL}
                   alt=""
                 />
+                <UserAccessLinks isOpen={isOpen} setIsOpen={setIsOpen} />
               </div>
+              
             ) : (
               <button className="text-white flex items-center gap-3">
                 <UserIcon className="h-6 w-6" />

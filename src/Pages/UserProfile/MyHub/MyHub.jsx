@@ -185,13 +185,13 @@ const MyHub = () => {
                   <div className="flex items-center gap-3">
                     <button
                       onClick={handleUpdateUserName}
-                      className="text-blue-600 font-semibold hover:underline text-sm"
+                      className="text-emerald-500 font-semibold hover:underline text-sm"
                     >
                       Update
                     </button>
                     <button
                       onClick={() => setIsUpdateName(false)}
-                      className="text-red-600 font-semibold hover:underline text-sm"
+                      className="text-pink-600 font-semibold hover:underline text-sm"
                     >
                       Cancel
                     </button>
@@ -201,7 +201,7 @@ const MyHub = () => {
                     onClick={() => {
                       setIsUpdateName(true);
                     }}
-                    className="text-blue-600 font-semibold hover:underline text-sm"
+                    className="text-emerald-500 font-semibold hover:underline text-sm"
                   >
                     Edit
                   </button>
@@ -215,7 +215,7 @@ const MyHub = () => {
               >
                 Phone
               </th>
-              <td className="px-6 py-4">+8801311929644</td>
+              <td className="px-6 py-4">{user?.phoneNumber ? user.phoneNumber: "N/A"}</td>
             </tr>
             <tr className={`border-b ${theme === "light" ? "dark:border-gray-300" : "dark:border-gray-600"}`}>
               <th

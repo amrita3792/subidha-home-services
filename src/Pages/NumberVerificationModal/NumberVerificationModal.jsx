@@ -32,7 +32,7 @@ export const NumberVerificatonModal = ({
 
   const [OTP, setOTP] = useState("");
   const [phone, setPhone] = useState("");
-  const [showOTP, setShowOTP] = useState(true);
+  const [showOTP, setShowOTP] = useState(false);
 
   const handleSendOTP = async () => {
     await setVisibleRecaptcha(true);

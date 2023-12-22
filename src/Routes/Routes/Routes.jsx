@@ -6,6 +6,7 @@ import UserProfile from "../../Pages/UserProfile/UserProfile/UserProfile";
 import MyHub from "../../Pages/UserProfile/MyHub/MyHub";
 import ServiceLocation from "../../Pages/UserProfile/ServiceLocations/ServiceLocation";
 import ServiceRewards from "../../Pages/UserProfile/ServiceRewards/ServiceRewards";
+import Signup from "../../Pages/Signup/Signup";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login />
+            },
+            {
+                path: '/signup',
+                element: <Signup />
             },
             {
                 path: '/profile',
