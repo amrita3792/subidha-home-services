@@ -99,7 +99,7 @@
                         "details": [
                             "Low refrigerant levels: This star fighter needs enough ammo (refrigerant) to work effectively. When levels are low, the coils get too cold, leading to ice buildup.",
                             "Airflow restrictions: Clogged filters or blocked vents are like enemy barricades hindering the air circulation. Without proper airflow, the coils freeze as they struggle to release cold air.",
-                            "Dirty coils: Layers of dust and grime act like thermal blankets, trapping the cold and creating icy landscapes on the coils.",
+                            "Dirty coils: Layers of dust and grime act like thermal blankets, trapping the cold and creating icy landscapes on the coils."
                         ]
                     },
                     {
@@ -108,7 +108,7 @@
                         "details": [
                             "Weak or non-existent cooling: Your AC becomes a frosty prisoner, unable to bring you the sweet relief of cool air.",
                             "Higher energy bills: The overworked AC consumes more energy in its futile battle, leaving you with a shocking surprise on your next bill.",
-                            "Potential system damage: Ice can expand and crack components, leading to costly repairs.",
+                            "Potential system damage: Ice can expand and crack components, leading to costly repairs."
                         ]
                     },
                     {
@@ -227,7 +227,7 @@
         ]
     },
     {
-        "serviceName:": "Appliance repair",
+        "serviceName": "Appliance repair",
         "icon": "https://i.ibb.co/GcHPVd3/refrigerator.png",
         "serviceOverview": [
             {
@@ -484,8 +484,8 @@
         ]
     },
     {
-        "serviceName:": "Beauty & Wellness",
-        "icon": "",
+        "serviceName": "Beauty & Wellness",
+        "icon": "https://i.ibb.co/xDB6WQf/hand-comb.png",
         "serviceOverview": [
             {
                 "title": "Pamper Yourself with Our Restorative Services",
@@ -686,79 +686,79 @@
         ]
     },
     {
-        "serviceName:": "Shifting",
+        "serviceName": "Shifting",
         "icon": "https://i.ibb.co/8md2ZQw/home-shift.png",
         "serviceOverview": [
             {
-              "title": "Relax and Focus on Your New Home While We Handle the Heavy Lifting",
-              "details": [
-                "Expert guidance:",
-                "Personalized Moving Plan: We'll collaborate with you to understand your needs and create a tailored plan that ensures everything runs smoothly.",
-                "Initial Consultation: Our relocation specialists will assess your belongings and discuss logistical details to provide an accurate quote.",
-                "Efficient execution:",
-                "Professional Packing & Unpacking: Our trained professionals will handle your belongings with care, using high-quality packing materials and techniques.",
-                "Safe & Secure Transportation: We utilize clean, insured vehicles to ensure your items arrive at your new home safely and damage-free.",
-                "Careful Furniture Handling: We disassemble and reassemble furniture with expertise, taking proper precautions to avoid any damage.",
-                "Stress-free experience:",
-                "Flexible Scheduling: We work around your availability to find a convenient time for your move.",
-                "Transparent Communication: We keep you informed throughout the process, addressing any questions or concerns you may have.",
-                "Reliable Service: We are licensed and insured, providing peace of mind and assurance of professional service."
-              ]
+                "title": "Relax and Focus on Your New Home While We Handle the Heavy Lifting",
+                "details": [
+                    "Expert guidance:",
+                    "Personalized Moving Plan: We'll collaborate with you to understand your needs and create a tailored plan that ensures everything runs smoothly.",
+                    "Initial Consultation: Our relocation specialists will assess your belongings and discuss logistical details to provide an accurate quote.",
+                    "Efficient execution:",
+                    "Professional Packing & Unpacking: Our trained professionals will handle your belongings with care, using high-quality packing materials and techniques.",
+                    "Safe & Secure Transportation: We utilize clean, insured vehicles to ensure your items arrive at your new home safely and damage-free.",
+                    "Careful Furniture Handling: We disassemble and reassemble furniture with expertise, taking proper precautions to avoid any damage.",
+                    "Stress-free experience:",
+                    "Flexible Scheduling: We work around your availability to find a convenient time for your move.",
+                    "Transparent Communication: We keep you informed throughout the process, addressing any questions or concerns you may have.",
+                    "Reliable Service: We are licensed and insured, providing peace of mind and assurance of professional service."
+                ]
             },
             {
-              "title": "Additional Services (May Incur Additional Costs):",
-              "details": [
-                "Packing materials beyond the standard allocation",
-                "Disassembly and reassembly of complex furniture or appliances",
-                "Specialty packing for fragile or valuable items",
-                "Cleaning services at your old or new residence",
-                "Storage if needed during the move",
-                "Gratuities for our moving crew (optional)"
-              ]
+                "title": "Additional Services (May Incur Additional Costs):",
+                "details": [
+                    "Packing materials beyond the standard allocation",
+                    "Disassembly and reassembly of complex furniture or appliances",
+                    "Specialty packing for fragile or valuable items",
+                    "Cleaning services at your old or new residence",
+                    "Storage if needed during the move",
+                    "Gratuities for our moving crew (optional)"
+                ]
             }
-          ],
+        ],
         "faq": [
             {
-              "question": "What does your Local Home Shifting service include?",
-              "answer": "Our comprehensive service covers everything you need for a smooth and stress-free local move, from expert packing and loading to careful transportation and unloading of your belongings in your new home. We take care of the heavy lifting, so you can focus on settling in and enjoying your new space."
+                "question": "What does your Local Home Shifting service include?",
+                "answer": "Our comprehensive service covers everything you need for a smooth and stress-free local move, from expert packing and loading to careful transportation and unloading of your belongings in your new home. We take care of the heavy lifting, so you can focus on settling in and enjoying your new space."
             },
             {
-              "question": "What types of local moves do you handle?",
-              "answer": "We specialize in assisting with all types of local relocations within [city/region name]. Whether you're moving across town, to a nearby suburb, or within the same building, we can tailor our services to your specific needs."
+                "question": "What types of local moves do you handle?",
+                "answer": "We specialize in assisting with all types of local relocations within [city/region name]. Whether you're moving across town, to a nearby suburb, or within the same building, we can tailor our services to your specific needs."
             },
             {
-              "question": "What is included in your moving quote?",
-              "answer": "Our upfront quotes typically include: * Initial consultation to assess your moving needs * Personalized moving plan and timeline * Expert packing and unpacking by trained professionals * High-quality packing materials and boxes provided * Careful furniture disassembly and reassembly * Safe and efficient transportation on clean, insured vehicles * Unloading and placement of your belongings in your new home * Disposal or donation of unwanted items, if requested"
+                "question": "What is included in your moving quote?",
+                "answer": "Our upfront quotes typically include: * Initial consultation to assess your moving needs * Personalized moving plan and timeline * Expert packing and unpacking by trained professionals * High-quality packing materials and boxes provided * Careful furniture disassembly and reassembly * Safe and efficient transportation on clean, insured vehicles * Unloading and placement of your belongings in your new home * Disposal or donation of unwanted items, if requested"
             },
             {
-              "question": "What is not included in your moving quote?",
-              "answer": "Please note that our quotes may not include: * Additional packing materials beyond the standard allocation * Disassembly and reassembly of complex furniture or appliances * Specialty packing for fragile or valuable items * Cleaning services at your old or new residence * Storage if needed during the move * Gratuities for our moving crew (optional)"
+                "question": "What is not included in your moving quote?",
+                "answer": "Please note that our quotes may not include: * Additional packing materials beyond the standard allocation * Disassembly and reassembly of complex furniture or appliances * Specialty packing for fragile or valuable items * Cleaning services at your old or new residence * Storage if needed during the move * Gratuities for our moving crew (optional)"
             },
             {
-              "question": "How much does a local move typically cost?",
-              "answer": "The cost of your local move depends on several factors, such as the size of your home, distance to your new location, additional services requested, and packing materials needed. We provide transparent pricing, and our quotes are always based on your specific needs."
+                "question": "How much does a local move typically cost?",
+                "answer": "The cost of your local move depends on several factors, such as the size of your home, distance to your new location, additional services requested, and packing materials needed. We provide transparent pricing, and our quotes are always based on your specific needs."
             },
             {
-              "question": "Do you offer any discounts or promotions?",
-              "answer": "Yes! We frequently offer special deals and discounts, such as [mention current promotions]. Be sure to inquire about any current offers when requesting a quote."
+                "question": "Do you offer any discounts or promotions?",
+                "answer": "Yes! We frequently offer special deals and discounts, such as [mention current promotions]. Be sure to inquire about any current offers when requesting a quote."
             },
             {
-              "question": "How can I schedule a Local Home Shifting appointment?",
-              "answer": "Contact us today through [phone number, website, email address] to request a free quote and schedule your move. Our friendly team is happy to answer any questions you may have and help you plan your relocation stress-free."
+                "question": "How can I schedule a Local Home Shifting appointment?",
+                "answer": "Contact us today through [phone number, website, email address] to request a free quote and schedule your move. Our friendly team is happy to answer any questions you may have and help you plan your relocation stress-free."
             },
             {
-              "question": "Are you licensed and insured?",
-              "answer": "Yes, we are fully licensed and insured for your peace of mind. We take pride in providing reliable and professional moving services, and your belongings are always in good hands with us."
+                "question": "Are you licensed and insured?",
+                "answer": "Yes, we are fully licensed and insured for your peace of mind. We take pride in providing reliable and professional moving services, and your belongings are always in good hands with us."
             },
             {
-              "question": "What do your customers say about your service?",
-              "answer": "We have a long track record of satisfied customers who appreciate our efficient, professional, and friendly service. See what our happy clients have to say by checking out our online reviews or testimonials."
+                "question": "What do your customers say about your service?",
+                "answer": "We have a long track record of satisfied customers who appreciate our efficient, professional, and friendly service. See what our happy clients have to say by checking out our online reviews or testimonials."
             },
             {
-              "question": "How can I get started with my local move?",
-              "answer": "Simply reach out to us for a free quote and consultation. We'll guide you through the process and make your local move a smooth and worry-free experience."
+                "question": "How can I get started with my local move?",
+                "answer": "Simply reach out to us for a free quote and consultation. We'll guide you through the process and make your local move a smooth and worry-free experience."
             }
-          ],
+        ],
         "subCategories": [
             {
                 "id": "1",
@@ -916,6 +916,48 @@
                 ]
             }
         ],
+        "faq": [
+            {
+                "question": "What services are included in your Men's Care and Salon offerings?",
+                "answer": "Our comprehensive Men's Care and Salon services cover a range of grooming and relaxation options, including haircuts, beard grooming, skincare consultations, relaxing shaves, and nail care. We aim to provide a personalized and enjoyable grooming experience tailored to your preferences."
+            },
+            {
+                "question": "Do you specialize in any particular grooming styles or trends?",
+                "answer": "Yes, our experienced stylists are well-versed in a variety of grooming styles and stay updated on the latest trends. Whether you're looking for a classic look, a modern style, or something unique, we can customize our services to match your desired aesthetic."
+            },
+            {
+                "question": "What products do you use for grooming, and are they available for purchase?",
+                "answer": "We use premium grooming products to ensure the best results for your hair and skin. Some of these products may be available for purchase so that you can maintain your grooming routine at home with quality products recommended by our stylists."
+            },
+            {
+                "question": "Do you offer any specialized grooming packages or services for special occasions?",
+                "answer": "Yes, we provide exclusive Men's Care packages, event grooming services, and wedding grooming packages to help you look your best for special occasions. These may include extended styling sessions, additional services, and personalized grooming plans."
+            },
+            {
+                "question": "What is not included in the standard Men's Care and Salon services?",
+                "answer": "Please note that additional costs may apply for premium hair products for home use, specialized skin treatments, extended styling or grooming sessions, exclusive Men's Care packages, and gratuities for our professional stylists (optional). These are not included in the standard service offerings."
+            },
+            {
+                "question": "How can I schedule an appointment for Men's Care and Salon services?",
+                "answer": "You can easily schedule an appointment by contacting us through [phone number, website, email address]. Our team will assist you in booking a convenient time for your grooming session and answer any questions you may have about our services."
+            },
+            {
+                "question": "Are your stylists licensed and experienced?",
+                "answer": "Absolutely! Our stylists are licensed professionals with extensive experience in Men's Care and Salon services. You can trust that you are in capable hands, and our team is dedicated to providing a high-quality and enjoyable grooming experience."
+            },
+            {
+                "question": "Do you have any ongoing promotions or discounts?",
+                "answer": "Yes, we regularly offer special deals and discounts. Keep an eye out for our current promotions, which may include discounts on specific services, packages, or products. Feel free to inquire about any ongoing offers when booking your appointment or requesting a quote."
+            },
+            {
+                "question": "What do your clients say about your Men's Care and Salon services?",
+                "answer": "Our satisfied clients consistently commend our professional, friendly, and efficient service. You can read reviews and testimonials from our happy customers on our website or other online platforms to get a sense of the positive experiences others have had with our Men's Care and Salon services."
+            },
+            {
+                "question": "How can I get started with my grooming experience at your salon?",
+                "answer": "To get started, simply reach out to us for a consultation or book an appointment. Whether you need a haircut, beard grooming, or a relaxing shave, we'll guide you through the process and ensure your Men's Care and Salon experience is enjoyable and tailored to your needs."
+            }
+        ],
         "subCategories": [
             {
                 "id": "1",
@@ -1022,6 +1064,543 @@
     },
     {
         "serviceName": "Cleaning Service",
-        "icon": ""
+        "icon": "https://i.ibb.co/X4L9svZ/cleaning-mop.png",
+        "serviceOverview": [
+            {
+                "title": "Experience Professional Cleaning Services for a Sparkling Home",
+                "details": [
+                    "Expert Cleaning Team:",
+                    "Consultation and Assessment: Our skilled team will assess your cleaning needs and provide a customized cleaning plan.",
+                    "Cleaning Services: Thorough cleaning using the latest techniques and high-quality cleaning agents for a pristine environment.",
+                    "Surface Sanitization: Expert sanitization of surfaces to ensure a clean and hygienic living space.",
+                    "Specialized Cleaning:",
+                    "Carpet and Upholstery Cleaning: Professional cleaning to revitalize and extend the life of your carpets and upholstery.",
+                    "Window and Glass Cleaning: Crystal-clear windows and glass surfaces for a brighter and more inviting space.",
+                    "Floor Care: Specialized care for different flooring types, including wood, tile, and carpet.",
+                    "Stress-free Experience:",
+                    "Flexible Scheduling: We work around your schedule to provide convenient cleaning services.",
+                    "Clear Communication: Stay informed about the cleaning process, and our team is available to address any questions or concerns.",
+                    "Professional Service: Licensed and dedicated professionals for a reliable and satisfying cleaning experience."
+                ]
+            },
+            {
+                "title": "Additional Services (May Incur Additional Costs):",
+                "details": [
+                    "Environmentally Friendly Cleaning Products",
+                    "Deep Cleaning for Specific Areas",
+                    "Appliance Cleaning",
+                    "Post-Event or Party Cleaning",
+                    "Emergency or Short Notice Cleaning",
+                    "Customized Cleaning Packages (Tailored to Your Needs)"
+                ]
+            }
+        ],
+        "faq": [
+            {
+                "question": "What cleaning services are included in your offerings?",
+                "answer": "Our cleaning services cover a comprehensive range, including general cleaning, surface sanitization, carpet and upholstery cleaning, window and glass cleaning, floor care, and specialized cleaning for various areas. We aim to provide a thorough and customized cleaning experience to meet your specific needs."
+            },
+            {
+                "question": "Do you use environmentally friendly cleaning products?",
+                "answer": "Yes, we prioritize eco-friendly practices and use environmentally friendly cleaning products. Our commitment to sustainability ensures effective cleaning while minimizing the environmental impact of our services."
+            },
+            {
+                "question": "Can I schedule cleaning for specific areas or items in my home or office?",
+                "answer": "Absolutely! Our services are customizable, and you can schedule cleaning for specific areas, items, or surfaces in your home or office. Whether it's a deep clean for certain rooms or specialized cleaning for particular items, we can tailor our services to your requirements."
+            },
+            {
+                "question": "Do you offer emergency or short notice cleaning services?",
+                "answer": "Yes, we understand that cleaning needs can arise unexpectedly. We provide emergency or short notice cleaning services to accommodate urgent requirements. Contact us, and we'll do our best to schedule a prompt cleaning session for you."
+            },
+            {
+                "question": "What additional services may incur extra costs?",
+                "answer": "While our standard cleaning services are comprehensive, additional costs may apply for services such as environmentally friendly cleaning products, deep cleaning for specific areas, appliance cleaning, post-event or party cleaning, and customized cleaning packages tailored to your unique needs."
+            },
+            {
+                "question": "How can I request a quote or schedule a cleaning appointment?",
+                "answer": "You can request a quote or schedule a cleaning appointment by contacting us through [phone number, website, email address]. Our team will assist you in assessing your cleaning needs, providing a quote, and booking a convenient time for our services."
+            },
+            {
+                "question": "Are your cleaning professionals licensed and experienced?",
+                "answer": "Absolutely! Our cleaning professionals are licensed, experienced, and dedicated to delivering high-quality cleaning services. You can trust that your cleaning needs are in capable hands, and our team is committed to ensuring a clean and hygienic environment for your home or office."
+            },
+            {
+                "question": "Do you have any ongoing promotions or discounts for your cleaning services?",
+                "answer": "Yes, we regularly offer special promotions and discounts on our cleaning services. Keep an eye out for our current deals, which may include discounts on specific services or packages. Feel free to inquire about any ongoing offers when requesting a quote or booking your cleaning appointment."
+            },
+            {
+                "question": "What do your clients say about your cleaning services?",
+                "answer": "Our satisfied clients consistently praise our professional, thorough, and reliable cleaning services. You can find reviews and testimonials from our happy customers on our website or other online platforms, showcasing the positive experiences others have had with our cleaning services."
+            },
+            {
+                "question": "How can I get started with scheduling a cleaning session for my home or office?",
+                "answer": "To get started, simply reach out to us for a consultation or book a cleaning appointment. Whether you need general cleaning, specialized services, or have specific requests, we'll guide you through the process and ensure your cleaning experience is tailored to your satisfaction."
+            }
+        ],
+        "subCategories": [
+            {
+                "id": "1",
+                "serviceName": "General Cleaning",
+                "image": "https://img.freepik.com/free-photo/professional-cleaning-service-person-using-vacuum-cleaner-office_23-2150520631.jpg?w=1380&t=st=1703412319~exp=1703412919~hmac=c9b4bf7d79ab815cd58432027ce997c699aad03193a3e772577cbbc08e35c778",
+                "description": "Experience a thorough and comprehensive general cleaning service for your home or office. Our dedicated cleaning professionals ensure a clean and hygienic environment.",
+                "details": [
+                    {
+                        "title": "Our Services:",
+                        "description": "Our general cleaning services include:",
+                        "details": [
+                            "Surface cleaning",
+                            "Dusting and polishing",
+                            "Vacuuming and mopping",
+                            "Bathroom and kitchen cleaning",
+                            "Trash removal",
+                            "Interior window cleaning"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us:",
+                        "description": "Choose us for:",
+                        "details": [
+                            "Experienced cleaning professionals",
+                            "Customizable cleaning plans",
+                            "Use of environmentally friendly cleaning products",
+                            "Flexible scheduling",
+                            "Competitive pricing"
+                        ]
+                    },
+                    {
+                        "description": "Book our general cleaning service for a spotless and refreshing space!"
+                    }
+                ]
+            },
+            {
+                "id": "2",
+                "serviceName": "Deep Cleaning",
+                "image": "https://img.freepik.com/free-photo/full-shot-people-cleaning-office_23-2150454568.jpg?w=1380&t=st=1703412361~exp=1703412961~hmac=128789b59765565fcc01ba5a3df366fd908d5b9566bd0a6279437255faed294e",
+                "description": "Give your space a deep and thorough cleaning with our specialized deep cleaning services. We target hidden dirt and grime for a truly clean environment.",
+                "details": [
+                    {
+                        "title": "Our Services:",
+                        "description": "Our deep cleaning services cover:",
+                        "details": [
+                            "Carpet and upholstery cleaning",
+                            "Appliance cleaning",
+                            "Wall and ceiling cleaning",
+                            "Air duct cleaning",
+                            "Baseboard and molding cleaning",
+                            "Specialized floor care"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us:",
+                        "description": "Choose us for deep cleaning expertise:",
+                        "details": [
+                            "Trained and certified cleaning professionals",
+                            "Advanced cleaning equipment",
+                            "Thorough and detailed cleaning approach",
+                            "A focus on hard-to-reach areas",
+                            "Enhanced indoor air quality"
+                        ]
+                    },
+                    {
+                        "description": "Revitalize your space with our deep cleaning services. Book now for a cleaner and healthier environment!"
+                    }
+                ]
+            },
+            {
+                "id": "3",
+                "serviceName": "Specialized Cleaning",
+                "image": "https://img.freepik.com/free-photo/person-taking-care-office-cleaning_23-2149374455.jpg?w=1380&t=st=1703412415~exp=1703413015~hmac=387c94986b809cb8885f764bee75b88ebff2de454f67cf990e559cf609fc1ce8",
+                "description": "Address specific cleaning needs with our specialized cleaning services. We tailor our approach to meet the unique requirements of different areas and items.",
+                "details": [
+                    {
+                        "title": "Our Services:",
+                        "description": "Our specialized cleaning services include:",
+                        "details": [
+                            "Window and glass cleaning",
+                            "Carpet and rug cleaning",
+                            "Upholstery and furniture cleaning",
+                            "Electronic equipment cleaning",
+                            "Post-event or party cleaning"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us:",
+                        "description": "Choose us for specialized cleaning excellence:",
+                        "details": [
+                            "Customized cleaning plans",
+                            "Use of appropriate cleaning agents for different surfaces",
+                            "Attention to detail",
+                            "Timely and efficient service",
+                            "Competitive pricing"
+                        ]
+                    },
+                    {
+                        "description": "Transform your space with our specialized cleaning services. Book now for tailored and effective cleaning solutions!"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "serviceName": "Plumbing Service",
+        "icon": "https://i.ibb.co/QMJT4bF/sink.png",
+        "serviceOverview": [
+            {
+                "title": "Professional Plumbing Services for a Well-Functioning Home",
+                "details": [
+                    "Experienced Plumbing Team:",
+                    "Consultation and Assessment: Our skilled team will assess your plumbing needs and provide a customized service plan.",
+                    "Plumbing Services: Thorough plumbing services using advanced techniques and high-quality materials for optimal functionality.",
+                    "Pipe Inspection and Repair: Expert inspection and repair of pipes to ensure a leak-free plumbing system.",
+                    "Fixture Installation and Repair: Professional installation and repair of fixtures for a reliable plumbing setup.",
+                    "Specialized Plumbing:",
+                    "Drain Cleaning: Efficient removal of clogs and debris for free-flowing drains.",
+                    "Water Heater Services: Installation, repair, and maintenance of water heaters for a continuous supply of hot water.",
+                    "Sewer Line Services: Comprehensive services for sewer line inspection, cleaning, and repairs.",
+                    "Stress-free Experience:",
+                    "Flexible Scheduling: We work around your schedule to provide convenient plumbing services.",
+                    "Clear Communication: Stay informed about the plumbing process, and our team is available to address any questions or concerns.",
+                    "Professional Service: Licensed and dedicated professionals for a reliable and satisfying plumbing experience."
+                ]
+            },
+            {
+                "title": "Additional Plumbing Services (May Incur Additional Costs):",
+                "details": [
+                    "Environmentally Friendly Plumbing Products",
+                    "Emergency Plumbing Services",
+                    "Fixture Upgrades",
+                    "Water Efficiency Upgrades",
+                    "Pipe Insulation for Cold Weather",
+                    "Customized Plumbing Packages (Tailored to Your Needs)"
+                ]
+            }
+        ],
+        "faq": [
+            {
+                "question": "What plumbing services are included in your offerings?",
+                "answer": "Our plumbing services cover a comprehensive range, including pipe inspection and repair, fixture installation and repair, drain cleaning, water heater services, sewer line services, and more. We aim to provide thorough plumbing solutions to meet your specific needs."
+            },
+            {
+                "question": "Do you use environmentally friendly plumbing products?",
+                "answer": "Yes, we prioritize eco-friendly practices and use environmentally friendly plumbing products. Our commitment to sustainability ensures effective plumbing solutions while minimizing the environmental impact of our services."
+            },
+            {
+                "question": "Can I schedule plumbing services for specific areas or items in my home?",
+                "answer": "Absolutely! Our plumbing services are customizable, and you can schedule services for specific areas, fixtures, or plumbing components in your home. Whether it's a pipe inspection, fixture upgrade, or specialized plumbing service, we can tailor our services to your requirements."
+            },
+            {
+                "question": "Do you offer emergency plumbing services or short notice appointments?",
+                "answer": "Yes, we understand that plumbing issues can arise unexpectedly. We provide emergency plumbing services and short notice appointments to accommodate urgent requirements. Contact us, and we'll do our best to schedule a prompt plumbing service for you."
+            },
+            {
+                "question": "What additional plumbing services may incur extra costs?",
+                "answer": "While our standard plumbing services are comprehensive, additional costs may apply for services such as environmentally friendly plumbing products, emergency plumbing services, fixture upgrades, water efficiency upgrades, and customized plumbing packages tailored to your unique needs."
+            },
+            {
+                "question": "How can I request a quote or schedule a plumbing appointment?",
+                "answer": "You can request a quote or schedule a plumbing appointment by contacting us through [phone number, website, email address]. Our team will assist you in assessing your plumbing needs, providing a quote, and booking a convenient time for our services."
+            },
+            {
+                "question": "Are your plumbing professionals licensed and experienced?",
+                "answer": "Absolutely! Our plumbing professionals are licensed, experienced, and dedicated to delivering high-quality plumbing services. You can trust that your plumbing needs are in capable hands, and our team is committed to ensuring a well-functioning plumbing system for your home."
+            },
+            {
+                "question": "Do you have any ongoing promotions or discounts for your plumbing services?",
+                "answer": "Yes, we regularly offer special promotions and discounts on our plumbing services. Keep an eye out for our current deals, which may include discounts on specific services or packages. Feel free to inquire about any ongoing offers when requesting a quote or booking your plumbing appointment."
+            },
+            {
+                "question": "What do your clients say about your plumbing services?",
+                "answer": "Our satisfied clients consistently praise our professional, efficient, and reliable plumbing services. You can find reviews and testimonials from our happy customers on our website or other online platforms, showcasing the positive experiences others have had with our plumbing services."
+            },
+            {
+                "question": "How can I get started with scheduling a plumbing service for my home?",
+                "answer": "To get started, simply reach out to us for a consultation or book a plumbing appointment. Whether you need a pipe inspection, fixture installation, or have specific plumbing concerns, we'll guide you through the process and ensure your plumbing experience is tailored to your satisfaction."
+            }
+        ],
+        "subCategories": [
+            {
+                "id": "1",
+                "serviceName": "General Plumbing Services",
+                "image": "https://img.freepik.com/free-photo/service-maintenance-worker-repairing_23-2149176719.jpg?w=1380&t=st=1703414356~exp=1703414956~hmac=f58f7e52ceb819791a28ffecd300671299d834f38cb42b8e87edfa20b6dc8839",
+                "description": "Experience reliable and professional plumbing services for your home or business. Our skilled plumbers are ready to tackle a wide range of plumbing needs.",
+                "details": [
+                    {
+                        "title": "Our Services:",
+                        "description": "Our general plumbing services include:",
+                        "details": [
+                            "Leak detection and repair",
+                            "Pipe installation and repair",
+                            "Fixture installation and repair",
+                            "Clog removal",
+                            "Water heater services",
+                            "Plumbing inspections",
+                            "Emergency plumbing services"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us:",
+                        "description": "Choose us for your plumbing needs because of:",
+                        "details": [
+                            "Licensed and experienced plumbers",
+                            "Prompt and reliable service",
+                            "Quality workmanship",
+                            "Transparent pricing",
+                            "Emergency services available"
+                        ]
+                    },
+                    {
+                        "description": "Trust us for all your plumbing requirements. Contact us today for a hassle-free and efficient plumbing service!"
+                    }
+                ]
+            },
+            {
+                "id": "2",
+                "serviceName": "Drain Cleaning",
+                "image": "https://img.freepik.com/free-photo/man-fixing-kitchen-sink_53876-13430.jpg?w=1380&t=st=1703414433~exp=1703415033~hmac=5c710f51888b90dbdc57831f75a0b428a1ad82eed95aeab8201cb7b8f7904f1f",
+                "description": "Ensure smooth water flow with our expert drain cleaning services. We use advanced techniques to eliminate clogs and keep your drains flowing freely.",
+                "details": [
+                    {
+                        "title": "Our Services:",
+                        "description": "Our drain cleaning services cover:",
+                        "details": [
+                            "Clog detection and removal",
+                            "Hydro-jetting",
+                            "Sewer line cleaning",
+                            "Preventive drain maintenance",
+                            "Emergency drain services"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us:",
+                        "description": "Choose us for drain cleaning expertise:",
+                        "details": [
+                            "Specialized tools and equipment",
+                            "Thorough and efficient service",
+                            "Affordable pricing",
+                            "Preventive maintenance plans",
+                            "24/7 emergency services"
+                        ]
+                    },
+                    {
+                        "description": "Keep your drains clear and flowing. Schedule our drain cleaning service for a clean and clog-free plumbing system!"
+                    }
+                ]
+            },
+            {
+                "id": "3",
+                "serviceName": "Water Heater Installation and Repair",
+                "image": "https://img.freepik.com/free-photo/worker-repairing-water-heater_23-2149334229.jpg?w=1380&t=st=1703414514~exp=1703415114~hmac=1c72bf974b24f26f052b16ec5bfbabe97f7c4623e776a48a1c7e02667d6e8776",
+                "description": "Ensure a reliable supply of hot water with our water heater installation and repair services. Our experts handle everything from installation to troubleshooting.",
+                "details": [
+                    {
+                        "title": "Our Services:",
+                        "description": "Our water heater services include:",
+                        "details": [
+                            "Water heater installation",
+                            "Tankless water heater installation",
+                            "Water heater repair",
+                            "Temperature and pressure relief valve testing",
+                            "Regular maintenance"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us:",
+                        "description": "Choose us for water heater services because of:",
+                        "details": [
+                            "Experienced technicians",
+                            "Quality water heater brands",
+                            "Timely installations and repairs",
+                            "Transparent pricing",
+                            "Emergency services available"
+                        ]
+                    },
+                    {
+                        "description": "Enjoy reliable hot water with our water heater services. Contact us for installations, repairs, and maintenance!"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "serviceName": "Painting Service",
+        "icon": "https://i.ibb.co/pKVnCFp/painting-brush.png",
+        "faq": [
+            {
+                "question": "What plumbing services are included in your offerings?",
+                "answer": "Our plumbing services cover a comprehensive range, including pipe inspection and repair, fixture installation and repair, drain cleaning, water heater services, sewer line services, and more. We aim to provide thorough plumbing solutions to meet your specific needs."
+            },
+            {
+                "question": "Do you use environmentally friendly plumbing products?",
+                "answer": "Yes, we prioritize eco-friendly practices and use environmentally friendly plumbing products. Our commitment to sustainability ensures effective plumbing solutions while minimizing the environmental impact of our services."
+            },
+            {
+                "question": "Can I schedule plumbing services for specific areas or items in my home?",
+                "answer": "Absolutely! Our plumbing services are customizable, and you can schedule services for specific areas, fixtures, or plumbing components in your home. Whether it's a pipe inspection, fixture upgrade, or specialized plumbing service, we can tailor our services to your requirements."
+            },
+            {
+                "question": "Do you offer emergency plumbing services or short notice appointments?",
+                "answer": "Yes, we understand that plumbing issues can arise unexpectedly. We provide emergency plumbing services and short notice appointments to accommodate urgent requirements. Contact us, and we'll do our best to schedule a prompt plumbing service for you."
+            },
+            {
+                "question": "What additional plumbing services may incur extra costs?",
+                "answer": "While our standard plumbing services are comprehensive, additional costs may apply for services such as environmentally friendly plumbing products, emergency plumbing services, fixture upgrades, water efficiency upgrades, and customized plumbing packages tailored to your unique needs."
+            },
+            {
+                "question": "How can I request a quote or schedule a plumbing appointment?",
+                "answer": "You can request a quote or schedule a plumbing appointment by contacting us through [phone number, website, email address]. Our team will assist you in assessing your plumbing needs, providing a quote, and booking a convenient time for our services."
+            },
+            {
+                "question": "Are your plumbing professionals licensed and experienced?",
+                "answer": "Absolutely! Our plumbing professionals are licensed, experienced, and dedicated to delivering high-quality plumbing services. You can trust that your plumbing needs are in capable hands, and our team is committed to ensuring a well-functioning plumbing system for your home."
+            },
+            {
+                "question": "Do you have any ongoing promotions or discounts for your plumbing services?",
+                "answer": "Yes, we regularly offer special promotions and discounts on our plumbing services. Keep an eye out for our current deals, which may include discounts on specific services or packages. Feel free to inquire about any ongoing offers when requesting a quote or booking your plumbing appointment."
+            },
+            {
+                "question": "What do your clients say about your plumbing services?",
+                "answer": "Our satisfied clients consistently praise our professional, efficient, and reliable plumbing services. You can find reviews and testimonials from our happy customers on our website or other online platforms, showcasing the positive experiences others have had with our plumbing services."
+            },
+            {
+                "question": "How can I get started with scheduling a plumbing service for my home?",
+                "answer": "To get started, simply reach out to us for a consultation or book a plumbing appointment. Whether you need a pipe inspection, fixture installation, or have specific plumbing concerns, we'll guide you through the process and ensure your plumbing experience is tailored to your satisfaction."
+            }
+        ],
+        "serviceOverview": [
+            {
+                "title": "Professional Painting Services for a Beautiful Home",
+                "details": [
+                    "Experienced Painting Team:",
+                    "Consultation and Assessment: Our skilled team will assess your painting needs and provide a customized service plan.",
+                    "Painting Services: Thorough painting services using advanced techniques and high-quality materials for a beautiful and lasting finish.",
+                    "Surface Preparation: Expert preparation of surfaces to ensure a smooth and long-lasting paint application.",
+                    "Interior Painting: Professional painting of interior spaces with a focus on precision and attention to detail.",
+                    "Exterior Painting: Enhance your home's appearance with our expert exterior painting services.",
+                    "Specialized Painting:",
+                    "Custom Color Consultation: Guidance in choosing the perfect colors to match your style and preferences.",
+                    "Furniture and Cabinet Painting: Revitalize your furniture and cabinets with our expert painting services.",
+                    "Textured Finishes: Explore textured finishes to add depth and character to your walls.",
+                    "Stress-free Experience:",
+                    "Flexible Scheduling: We work around your schedule to provide convenient painting services.",
+                    "Clear Communication: Stay informed about the painting process, and our team is available to address any questions or concerns.",
+                    "Professional Service: Licensed and dedicated professionals for a reliable and satisfying painting experience."
+                ]
+            },
+            {
+                "title": "Additional Painting Services (May Incur Additional Costs):",
+                "details": [
+                    "Premium Paint Brands for Custom Finishes",
+                    "Accent Wall Design and Painting",
+                    "Ceiling Painting and Repair",
+                    "Exterior Trim Painting",
+                    "Wallpaper Installation and Removal",
+                    "Customized Painting Packages (Tailored to Your Needs)"
+                ]
+            }
+        ],
+        "subCategories": [
+            {
+                "id": "1",
+                "serviceName": "Interior Painting",
+                "image": "https://img.freepik.com/free-photo/buckets-paint-floor_53876-63280.jpg?w=1380&t=st=1703415663~exp=1703416263~hmac=7b00c1a79429777eabace267f882b2c6ed81e2ae6c94520f8a1d1650decc2616",
+                "description": "Enhance the beauty of your living spaces with our expert interior painting services. Our skilled painters bring creativity and precision to every project.",
+                "details": [
+                    {
+                        "title": "Our Services:",
+                        "description": "Transform your interiors with our comprehensive painting services, including:",
+                        "details": [
+                            "Wall Painting",
+                            "Ceiling Painting",
+                            "Trim and Molding Painting",
+                            "Door and Window Frame Painting",
+                            "Accent Wall Painting",
+                            "Custom Murals and Artwork"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us:",
+                        "description": "Choose our interior painting services for the following reasons:",
+                        "details": [
+                            "Skilled Painting Team",
+                            "Color Consultation",
+                            "Attention to Detail",
+                            "Efficient and Timely Service",
+                            "Clean and Tidy Workmanship"
+                        ]
+                    },
+                    {
+                        "description": "Revitalize your living spaces with our interior painting expertise. Contact us for a consultation and bring new life to your home!"
+                    }
+                ]
+            },
+            {
+                "id": "2",
+                "serviceName": "Exterior Painting",
+                "image": "https://img.freepik.com/free-photo/painting-red_1385-599.jpg?w=1380&t=st=1703415930~exp=1703416530~hmac=cadac16c990db890500dffe9b2d31415a4b1f66b5f9c49ff2161471116f58032",
+                "description": "Boost your property's curb appeal with our professional exterior painting services. Our skilled painters ensure a durable and attractive finish.",
+                "details": [
+                    {
+                        "title": "Our Services:",
+                        "description": "Elevate your property's appearance with our comprehensive exterior painting services, including:",
+                        "details": [
+                            "House Painting",
+                            "Deck and Patio Painting",
+                            "Fence Painting",
+                            "Trim and Siding Painting",
+                            "Exterior Door and Window Painting",
+                            "Commercial Building Painting"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us:",
+                        "description": "Choose our exterior painting services for the following reasons:",
+                        "details": [
+                            "Experienced Painting Team",
+                            "Weather-resistant Finishes",
+                            "Surface Preparation",
+                            "Quality Exterior Paints",
+                            "Timely Project Completion"
+                        ]
+                    },
+                    {
+                        "description": "Transform your property's exterior with our expert painting. Contact us for a consultation and give your home or business a fresh look!"
+                    }
+                ]
+            },
+            {
+                "id": "3",
+                "serviceName": "Custom Painting Finishes",
+                "image": "https://img.freepik.com/free-photo/color-palette-catalogue-scheme-brush_144627-21968.jpg?w=1380&t=st=1703415970~exp=1703416570~hmac=f773a2b8ee8f2ccd4bef0d931bae5f7302e88d3a610ca560b825e0499f13a9b5",
+                "description": "Add a unique touch to your spaces with our custom painting finishes. Our skilled artists can create bespoke designs to suit your style and preferences.",
+                "details": [
+                    {
+                        "title": "Our Services:",
+                        "description": "Express your individuality with our custom painting finishes, including:",
+                        "details": [
+                            "Textured Finishes",
+                            "Faux Painting",
+                            "Stenciling and Patterns",
+                            "Metallic Finishes",
+                            "Chalkboard and Whiteboard Paints",
+                            "Custom Murals and Artwork"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us:",
+                        "description": "Choose our custom painting services for the following reasons:",
+                        "details": [
+                            "Creative and Skilled Artists",
+                            "Collaborative Design Process",
+                            "Quality Custom Finishes",
+                            "Attention to Detail",
+                            "Unique and Personalized Results"
+                        ]
+                    },
+                    {
+                        "description": "Make a statement with our custom painting finishes. Contact us to discuss your ideas and let us turn them into stunning works of art!"
+                    }
+                ]
+            }
+        ]
     }
 ]
