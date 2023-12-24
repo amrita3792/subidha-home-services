@@ -8,3 +8,7 @@ body {
     font-family: 'Signika', sans-serif;
 
 }
+
+.react-multiple-carousel__arrow--right, .react-multiple-carousel__arrow--left {
+    background-color: gray;
+}
