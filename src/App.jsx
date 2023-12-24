@@ -1,7 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import router from "./Routes/Routes/Routes";
-import { createContext, useContext, useEffect, useState } from "react";
-import { AuthContext } from "./contexts/AuthProvider";
+import { createContext, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

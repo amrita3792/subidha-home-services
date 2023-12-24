@@ -1,6 +1,5 @@
 import React from "react";
 import electrician from "../../../assets/Banner/pngegg.png";
-import styles from "./Banner.module.css";
 
 const Banner = () => {
   return (
@@ -20,7 +19,7 @@ const Banner = () => {
             More Information
           </button>
         </div>
-        <div className="h-full flex items-end grow">
+        <div className="h-full flex items-end justify-center grow">
           <img className="h-full" src={electrician} alt="" />
         </div>
       </div>

@@ -1,0 +1,1027 @@
+[
+    {
+        "serviceName": "AC Repair Service",
+        "icon": "https://i.ibb.co/Jqw8p3v/air-conditioner.png",
+        "serviceOverview": [
+            {
+                "title": "What's Included?",
+                "details": [
+                    "Only service charge",
+                    "7 Days service warranty"
+                ]
+            },
+            {
+                "title": "What's Excluded?",
+                "details": [
+                    "Price of materials or parts",
+                    "Transportation cost for carrying new materials/parts",
+                    "Warranty given by manufacturer"
+                ]
+            },
+            {
+                "title": "Available Services",
+                "details": [
+                    "Refrigerant Issues",
+                    "Frozen Coils",
+                    "Thermostat Issues",
+                    "Air Filter Replacement",
+                    "Duct Cleaning"
+                ]
+            }
+        ],
+        "faq": [
+            {
+                "question": "What does the AC repair service include?",
+                "answer": "Our AC repair service includes professional diagnosis, troubleshooting, regular maintenance, common AC repairs, refrigerant recharging, ductwork inspection and repair, electrical system checks, thermostat calibration, emergency repairs, replacement parts, and energy efficiency recommendations."
+            },
+            {
+                "question": "What is covered in the service charge?",
+                "answer": "The service charge covers the cost of the technician's visit, diagnosis, and basic troubleshooting. It ensures that a qualified professional assesses your AC unit and provides expert advice on necessary repairs."
+            },
+            {
+                "question": "Is there a warranty for the service?",
+                "answer": "Yes, we provide a 7-day service warranty. If any issues persist or reoccur within this period, our team will address them promptly at no additional cost."
+            },
+            {
+                "question": "What is not included in the service?",
+                "answer": "The service charge does not cover the price of materials or parts required for repairs. Additionally, transportation costs for carrying new materials/parts and any warranty provided by the manufacturer are excluded from the service."
+            },
+            {
+                "question": "What types of AC services do you offer?",
+                "answer": "We offer a range of services, including AC Basic Servicing, AC Master Service, AC Water Drop Solution, and AC Jet Wash. Each service is designed to address specific needs and ensure the optimal functioning of your AC unit."
+            },
+            {
+                "question": "How can I schedule an AC repair service?",
+                "answer": "You can schedule an AC repair service by contacting our customer service team through phone or email. We will arrange a convenient time for a technician to visit your location and assess your AC unit."
+            }
+        ],
+        "subCategories": [
+            {
+                "id": "1",
+                "serviceName": "Refrigerant Issues",
+                "image": "https://img.freepik.com/free-photo/repairman-doing-air-conditioner-service_1303-26541.jpg?w=1380&t=st=1703403190~exp=1703403790~hmac=4d062d86817d6526ba709aab08e49ee666329515fa2e6d60f7cd7c97dcb708a1",
+                "description": "Refrigerant is the magic potion that absorbs heat from your home and releases it outside, making your cool air possible. Leaks, low levels, or contamination can disrupt this process, leading to several problems",
+                "details": [
+                    {
+                        "title": "What are Refrigerant Issues?",
+                        "description": "Refrigerant is the magic potion that absorbs heat from your home and releases it outside, making your cool air possible. Leaks, low levels, or contamination can disrupt this process, leading to several problems:",
+                        "details": [
+                            "Weak or nonexistent cooling: Your AC struggles to reach desired temperatures, leaving you in a sweaty situation.",
+                            "Hissing or gurgling sounds: Unusual noises often indicate refrigerant escaping the system.",
+                            "Increased energy bills: Leaky or inefficient systems work harder to cool, racking up your energy costs.",
+                            "Frost buildup on the evaporator coil: This indicates low refrigerant levels, hindering proper cooling."
+                        ]
+                    },
+                    {
+                        "title": "Our Expert Solution:",
+                        "description": "Our skilled technicians are adept at diagnosing and resolving any refrigerant issue:",
+                        "details": [
+                            "Leak detection: We use advanced tools to pinpoint leaks, even the tiniest ones.",
+                            "Refrigerant recharge: We safely and responsibly refill your system to optimal levels.",
+                            "System repair: We address any underlying leak sources or component malfunctions.",
+                            "Preventive maintenance: We recommend regular inspections to catch small issues before they become big problems."
+                        ]
+                    },
+                    {
+                        "description": "Don't let refrigerant issues leave you hot and bothered. Contact us today for a thorough diagnosis and expert repair. We'll have your AC humming happily and your home comfortably cool in no time!"
+                    }
+                ]
+            },
+            {
+                "id": "2",
+                "serviceName": "Frozen Coils",
+                "image": "https://img.freepik.com/premium-photo/repairman-uniform-installing-outside-unit-air-conditioner_93675-91162.jpg?w=1380",
+                "description": "Is your AC blowing icy whispers instead of refreshing breezes? Do you see frosty fingers creeping across the evaporator coil like a chilly villain? Those, my friend, are the telltale signs of frozen coils, a common AC nemesis, ready to sabotage your summer comfort. But fear not! This guide will equip you with the knowledge to thaw the situation and reclaim your cool haven.",
+                "details": [
+                    {
+                        "title": "The Case of the Frozen Coils:",
+                        "description": "Imagine your AC as a tireless warrior battling the heat. It absorbs the warm air from your home and sends it packing like a defeated dragon. The cold coils are its weapon, but when they become encased in ice, the battle is lost. This can happen for several reasons:",
+                        "details": [
+                            "Low refrigerant levels: This star fighter needs enough ammo (refrigerant) to work effectively. When levels are low, the coils get too cold, leading to ice buildup.",
+                            "Airflow restrictions: Clogged filters or blocked vents are like enemy barricades hindering the air circulation. Without proper airflow, the coils freeze as they struggle to release cold air.",
+                            "Dirty coils: Layers of dust and grime act like thermal blankets, trapping the cold and creating icy landscapes on the coils.",
+                        ]
+                    },
+                    {
+                        "title": "The Chilling Consequences:",
+                        "description": "gnoring frozen coils is like letting the icy villain win:",
+                        "details": [
+                            "Weak or non-existent cooling: Your AC becomes a frosty prisoner, unable to bring you the sweet relief of cool air.",
+                            "Higher energy bills: The overworked AC consumes more energy in its futile battle, leaving you with a shocking surprise on your next bill.",
+                            "Potential system damage: Ice can expand and crack components, leading to costly repairs.",
+                        ]
+                    },
+                    {
+                        "title": "The Thaw-some Solution:",
+                        "description": "Don't let frozen coils steal your comfort! Call in the home services heroes for a quick and effective rescue:",
+                        "details": [
+                            "Expert diagnosis: Our skilled technicians will identify the root cause of the freeze, whether it's low refrigerant, airflow issues, or dirty coils.",
+                            "Safe and efficient thawing: We have the expertise and tools to safely melt the ice without damaging your AC system.",
+                            "Underlying problem fix: We'll address the source of the freeze, whether it's refilling refrigerant, cleaning clogged filters, or repairing airflow restrictions."
+                        ]
+                    },
+                    {
+                        "title": "Call to Action",
+                        "description": "Don't let frozen coils steal your comfort! Call in the home services heroes for a quick and effective rescue:",
+                        "details": [
+                            "Beat the heat! Get your AC back on track with our expert refrigerant repair services. Call us today!",
+                            "Don't suffer in the swelter. Fix your AC's refrigerant issues now and stay cool all summer long.",
+                            "Keep your cool confidence intact. Schedule your AC's refrigerant checkup with us today!"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "3",
+                "serviceName": "Thermostat Issues",
+                "image": "https://img.freepik.com/free-photo/skilled-electrician-contracted-check-up-outdoor-air-conditioner-starting-work-shift-trained-worker-wearing-protective-gear-preparing-service-faulty-external-hvac-system_482257-63954.jpg?w=1380&t=st=1703403362~exp=1703403962~hmac=e3761793f08f8559363360d0f43e92518479f4bf052e46b088f21895d17f8eff",
+                "description": "Is your AC blowing hot and cold? Acting like it has a mind of its own? Thermostat problems can lead to uncomfortable temperatures and wasted energy. We'll help you regain control of your cool.",
+                "details": [
+                    {
+                        "title": "Common Thermostat Symptoms:",
+                        "description": "Here are some signs that your thermostat might need attention:",
+                        "details": [
+                            "Inconsistent or erratic cooling: Your AC runs constantly or cycles on and off frequently.",
+                            "Incorrect temperature readings: The displayed temperature doesn't match how your home feels.",
+                            "Unresponsiveness: The thermostat doesn't turn on or off when you adjust it.",
+                            "Blank or error messages on the display screen."
+                        ]
+                    },
+                    {
+                        "title": "Our Expert Thermostat Solutions:",
+                        "description": "We offer a range of services to address thermostat issues:",
+                        "details": [
+                            "Diagnostics and troubleshooting: We'll pinpoint the exact cause of your thermostat trouble.",
+                            "Thermostat repair: We'll fix any faulty wiring, sensors, or components.",
+                            "Thermostat replacement: If your thermostat is beyond repair, we'll install a new, energy-efficient model.",
+                            "Programming and calibration: We'll ensure your thermostat is set up correctly for optimal comfort and savings."
+                        ]
+                    },
+                    {
+                        "description": "Don't sweat thermostat troubles! Contact us today to restore control of your AC and enjoy a comfortable home without surprises. We'll get your system back on track in no time."
+                    }
+                ]
+            },
+            {
+                "id": "4",
+                "serviceName": "Air Filter Replacement",
+                "image": "https://img.freepik.com/free-photo/hvac-technician-working-capacitor-part-condensing-unit-male-worker-repairman-uniform-repairing-adjusting-conditioning-system-diagnosing-looking-technical-issues_155003-18260.jpg?w=1380&t=st=1703403453~exp=1703404053~hmac=c06cb9c56766ed8de65b866200bb421469eb006b58bf554e43b78fc561cbad80",
+                "description": "Clogged air filters can choke your AC, leading to poor airflow, reduced efficiency, and even system damage. Regular replacement is essential for a healthy and happy AC.",
+                "details": [
+                    {
+                        "title": "Why It's Important:",
+                        "description": "Air filters trap dust, debris, and allergens, preventing them from recirculating in your home. But over time, they become clogged, reducing airflow and making your AC work harder.",
+                        "details": [
+                            "Improved airflow and cooling",
+                            "Reduced energy costs",
+                            "Extended AC life",
+                            "Cleaner indoor air quality"
+                        ]
+                    },
+                    {
+                        "title": "Our Professional Filter Service:",
+                        "description": "We make filter replacement quick and easy:",
+                        "details": [
+                            "Expert assessment and recommendations",
+                            "High-quality filter options",
+                            "Thorough cleaning of filter housing",
+                            "Installation and testing"
+                        ]
+                    },
+                    {
+                        "description": "Breathe easier and keep your AC performing at its best. Schedule your air filter replacement today!"
+                    }
+                ]
+            },
+            {
+                "id": "5",
+                "serviceName": "Duct Cleaning",
+                "images": "https://img.freepik.com/free-photo/full-shot-man-working-with-equipment_23-2148921407.jpg?w=1380&t=st=1703403815~exp=1703404415~hmac=257fc5dacf7b888de89f8f1ce651072cef982ffaae558980ecc73a6532b7c109",
+                "description": "Dirty ducts can trap dust, allergens, and even mold, contaminating your indoor air and hindering your AC's performance. Our thorough duct cleaning restores clean airflow and peace of mind.",
+                "details": [
+                    {
+                        "title": "Signs You May Need Duct Cleaning:",
+                        "description": "Here are some indicators that your ducts might benefit from a cleaning:",
+                        "details": [
+                            "Reduced airflow from vents",
+                            "Dusty air coming from vents",
+                            "Increased allergies or respiratory symptoms",
+                            "Higher energy bills"
+                        ]
+                    },
+                    {
+                        "title": "Our Comprehensive Duct Cleaning Process:",
+                        "description": "We use specialized equipment and techniques to thoroughly clean your ducts:",
+                        "details": [
+                            "Inspection and assessment",
+                            "Powerful vacuuming and brushing",
+                            "Removal of debris and contaminants",
+                            "Sanitization and deodorization"
+                        ]
+                    },
+                    {
+                        "description": "Don't let dirty ducts compromise your comfort and health. Schedule a duct cleaning today and breathe cleaner, fresher air."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "serviceName:": "Appliance repair",
+        "icon": "https://i.ibb.co/GcHPVd3/refrigerator.png",
+        "serviceOverview": [
+            {
+                "title": "What's Included?",
+                "details": [
+                    "Diagnosis and troubleshooting",
+                    "Labor for repair or replacement of faulty parts",
+                    "Warranty on parts and labor (up to 90 days)",
+                    "Basic safety checks and cleaning"
+                ]
+            },
+            {
+                "title": "What's Excluded?",
+                "details": [
+                    "Cost of replacement parts",
+                    "Additional labor for extensive repairs or modifications",
+                    "Transportation costs for hauling appliances",
+                    "Manufacturer's warranty coverage"
+                ]
+            },
+            {
+                "title": "Available Services",
+                "details": [
+                    "Refrigerator repair (cooling issues, leaks, ice maker problems)",
+                    "Washing machine repair (leaks, drainage issues, spin cycle problems)",
+                    "Dryer repair (heating issues, not drying properly, lint buildup)",
+                    "Dishwasher repair (not cleaning dishes, water leaks, noise)",
+                    "Stove and oven repair (burners not working, heating problems, electrical issues)",
+                    "Microwave repair (not heating, turntable problems, electrical faults)",
+                    "Small appliance repair (toasters, blenders, coffee makers, vacuum cleaners)"
+                ]
+            }
+        ],
+        "faq": [
+            {
+                "question": "What does your appliance repair service include?",
+                "answer": "Our appliance repair service includes professional diagnosis, troubleshooting, expert repairs for common issues, replacement of faulty parts, safety checks, performance checks, and recommendations for extending the life of your appliance."
+            },
+            {
+                "question": "What appliances do you service?",
+                "answer": "We repair a wide range of appliances, including refrigerators, washing machines, dryers, dishwashers, stoves, ovens, microwaves, and small appliances like toasters, blenders, and coffee makers."
+            },
+            {
+                "question": "What is covered in the service charge?",
+                "answer": "The service charge covers the cost of the technician's visit, diagnosis, and basic troubleshooting. It ensures you receive expert advice on the issue and potential repairs."
+            },
+            {
+                "question": "Is there a warranty for the service?",
+                "answer": "Yes, we offer a [warranty duration] warranty on parts and labor used during the repair. This gives you peace of mind knowing your appliance is fixed right."
+            },
+            {
+                "question": "What is not included in the service?",
+                "answer": "The service charge does not cover the cost of replacement parts. Additionally, transportation costs for carrying new parts and any manufacturer warranties are excluded."
+            },
+            {
+                "question": "How much does appliance repair typically cost?",
+                "answer": "The cost depends on the specific appliance, the type of issue, and the required repairs. We offer transparent pricing and provide estimates before starting any work."
+            },
+            {
+                "question": "Do you offer emergency repair services?",
+                "answer": "Yes, we understand that appliance breakdowns can be inconvenient. We offer [availability details] emergency repair services to get your appliance back up and running quickly."
+            },
+            {
+                "question": "How can I schedule an appliance repair service?",
+                "answer": "You can easily schedule an appointment by [options: phone, website, booking system]. We'll work with your schedule to find a convenient time for our technician to visit."
+            }
+        ],
+        "subCategories": [
+            {
+                "id": "1",
+                "serviceName": "Refrigerator Repair",
+                "image": "https://img.freepik.com/free-photo/portrait-handsome-male-technician-doing-work-report-broken-fridge-home-kitchen_662251-2719.jpg?w=1380&t=st=1703406958~exp=1703407558~hmac=23d43c7a6ba2f63bd895c79b4fdcb6c830946252f76a58b9b79d57b7a360eb8a",
+                "description": "Is your fridge on the fritz? Don't let a malfunctioning appliance spoil your day (and your groceries). Our expert technicians are here to diagnose and fix any refrigerator issue, keeping your food fresh and your kitchen happy.",
+                "details": [
+                    {
+                        "title": "Common Refrigerator Problems We Solve:",
+                        "description": "We tackle a wide range of fridge troubles, including:",
+                        "details": [
+                            "Not cooling properly",
+                            "Making unusual noises",
+                            "Leaking water",
+                            "Ice maker issues",
+                            "Defrost problems",
+                            "Door seal problems",
+                            "Electrical malfunctions"
+                        ]
+                    },
+                    {
+                        "title": "Our Comprehensive Refrigerator Repair Services:",
+                        "description": "We offer a complete solution for your fridge woes:",
+                        "details": [
+                            "Thorough diagnosis and troubleshooting",
+                            "Repair or replacement of faulty parts",
+                            "Expert knowledge of all major brands",
+                            "Fast and efficient service",
+                            "Affordable pricing",
+                            "Warranty on parts and labor"
+                        ]
+                    },
+                    {
+                        "description": "Don't let a broken fridge put a chill on your day. Schedule your repair service today and get back to enjoying fresh food and cold drinks."
+                    }
+                ]
+            },
+            {
+                "id": "2",
+                "serviceName": "Washing Machine Repair",
+                "image": "https://img.freepik.com/free-photo/high-angle-man-working-as-plumber_23-2150746327.jpg?w=1380&t=st=1703407063~exp=1703407663~hmac=ad874bdf1de2130ad323d4edd4bef5bb332247b3b214194e42a5f73433acfb21",
+                "description": "Laundry day blues? A malfunctioning washing machine can dampen your spirits. We specialize in diagnosing and fixing all washer issues, from leaks and noise to poor cleaning and spinning problems. Keep your laundry on track with our expert repair services.",
+                "details": [
+                    {
+                        "id": "1",
+                        "title": "Common Washing Machine Issues:",
+                        "description": "Don't let these troubles bog you down:",
+                        "details": [
+                            "Not draining properly",
+                            "Leaking water",
+                            "Excessive noise or vibration",
+                            "Clothes not getting clean",
+                            "Spinning problems",
+                            "Door lock malfunction",
+                            "Electrical issues"
+                        ]
+                    },
+                    {
+                        "id": "2",
+                        "title": "Our Washing Machine Repair Solutions:",
+                        "description": "We'll get your laundry flowing again:",
+                        "details": [
+                            "Precise diagnosis and troubleshooting",
+                            "Expert repair or replacement of parts",
+                            "Knowledge of all major brands and models",
+                            "Fast and convenient service",
+                            "Upfront and competitive pricing",
+                            "Warranty on parts and labor"
+                        ]
+                    },
+                    {
+                        "id": "3",
+                        "description": "Skip the laundry frustration. Call us today for quick and reliable washing machine repair!"
+                    }
+                ]
+            },
+            {
+                "id": "3",
+                "serviceName": "Oven/Range Repair",
+                "image": "https://img.freepik.com/free-photo/service-maintenance-worker-repairing_23-2149176714.jpg?w=1380&t=st=1703407160~exp=1703407760~hmac=e2108941429b38cc55df74b1785e1c8c2b26190aa962c88067377f919f28af1b",
+                "description": "Burning dinners (or dreams)? Don't let a malfunctioning oven or range ruin your meals. We specialize in fixing all cooking troubles, from uneven heating and ignition problems to faulty controls and sensor issues. Restore your culinary confidence with our expert repair services.",
+                "details": [
+                    {
+                        "title": "Common Oven/Range Issues We Fix:",
+                        "description": "No need to get in a heated debate with your appliance:",
+                        "details": [
+                            "Uneven heating or hot spots",
+                            "Oven not preheating or reaching temperature",
+                            "Burner ignition problems",
+                            "Faulty temperature controls",
+                            "Malfunctioning timer or clock",
+                            "Broken door seal",
+                            "Electrical issues"
+                        ]
+                    },
+                    {
+                        "title": "Our Oven/Range Repair Solutions:",
+                        "description": "Get your kitchen back in the cook zone:",
+                        "details": [
+                            "Thorough diagnosis and troubleshooting",
+                            "Professional repair or replacement of parts",
+                            "Experience with all major brands and models",
+                            "Fast and reliable service",
+                            "Competitive and transparent pricing",
+                            "Warranty on parts and labor"
+                        ]
+                    },
+                    {
+                        "description": "Turn up the flavor, not the frustration. Call us today for efficient and affordable oven/range repair!"
+                    }
+                ]
+            },
+            {
+                "id": "3",
+                "serviceName": "Microwave Repair",
+                "image": "https://img.freepik.com/free-photo/service-maintenance-worker-repairing_23-2149176697.jpg?w=1380&t=st=1703407322~exp=1703407922~hmac=e6792187c23124acbcee81d2421552cf6aea1df9efcbbdd6ae8c93f6b791db9d",
+                "description": "Don't get zapped by microwave woes! We tackle all kinds of microwave malfunctions, from sparking and overheating to uneven cooking and control panel issues. Get your quick meals back on track with our expert repair services.",
+                "details": [
+                    {
+                        "id": "1",
+                        "title": "Common Microwave Problems We Address:",
+                        "description": "Say goodbye to these microwave mishaps:",
+                        "details": [
+                            "Sparking or arcing inside the cavity",
+                            "Overheating",
+                            "Uneven cooking or hot spots",
+                            "Display or control panel malfunctions",
+                            "Turntable not rotating",
+                            "Door not closing properly",
+                            "Loud humming or buzzing"
+                        ]
+                    },
+                    {
+                        "id": "2",
+                        "title": "Our Microwave Repair Solutions:",
+                        "description": "We'll keep your meals on a roll:",
+                        "details": [
+                            "Accurate diagnosis and troubleshooting",
+                            "Professional repair or replacement of parts",
+                            "Knowledge of all major brands and models",
+                            "Fast and convenient service",
+                            "Competitive and transparent pricing",
+                            "Warranty on parts and labor"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "4",
+                "serviceName": "Dishwasher Repair",
+                "image": "https://img.freepik.com/free-photo/dishwasher-repair-top-view-middleaged-man-crouching-near-open-dishwasher_259150-58282.jpg?w=1380&t=st=1703407432~exp=1703408032~hmac=0f47a80a03c0576d8cf5bc8793ce8089e7e9187903b7b564c6a38d183da0f279",
+                "description": "Skip the dishwashing drama! We're here to tackle any dishwasher dilemma, from leaks and spraying issues to poor cleaning and noisy operation. Get your kitchen back in sync with our expert repair services.",
+                "details": [
+                    {
+                        "id": "1",
+                        "title": "Common Dishwasher Problems We Solve:",
+                        "description": "Don't let these issues leave you with a sink full of dishes:",
+                        "details": [
+                            "Leaking water",
+                            "Not spraying properly",
+                            "Dishes not getting clean",
+                            "Excessive noise or vibration",
+                            "Drain pump problems",
+                            "Clogged filters",
+                            "Faulty control panel"
+                        ]
+                    },
+                    {
+                        "id": "2",
+                        "title": "Our Dishwasher Repair Solutions:",
+                        "description": "We'll have your dishes sparkling clean again:",
+                        "details": [
+                            "Precise diagnosis and troubleshooting",
+                            "Expert repair or replacement of parts",
+                            "Knowledge of all major brands and models",
+                            "Fast and convenient service",
+                            "Competitive and transparent pricing",
+                            "Warranty on parts and labor"
+                        ]
+                    },
+                    {
+                        "id": "3",
+                        "description": "Ditch the dishwashing dread. Contact us today for reliable and affordable dishwasher repair!"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "serviceName:": "Beauty & Wellness",
+        "icon": "",
+        "serviceOverview": [
+            {
+                "title": "Pamper Yourself with Our Restorative Services",
+                "details": [
+                    "Expert consultation and personalized treatment plans",
+                    "High-quality products and professional techniques",
+                    "Relaxing and rejuvenating spa experiences",
+                    "Flexible scheduling and convenient appointments",
+                    "Commitment to your satisfaction and results"
+                ]
+            },
+            {
+                "title": "What's Included?",
+                "details": [
+                    "Initial consultation and assessment",
+                    "Personalized treatment plan and recommendations",
+                    "Use of professional-grade products and equipment",
+                    "Expert application and techniques by licensed professionals",
+                    "Relaxing spa amenities and atmosphere"
+                ]
+            },
+            {
+                "title": "What's Excluded?",
+                "details": [
+                    "Cost of retail products for home use",
+                    "Additional treatments or services not included in the package",
+                    "Gratuities for service providers",
+                    "Personal items or services (e.g., transportation, childcare)"
+                ]
+            },
+            {
+                "title": "Available Services",
+                "details": [
+                    "Facials: cleansing, exfoliation, masks, massage, targeted treatments",
+                    "Massages: Swedish, deep tissue, hot stone, aromatherapy, couples massage",
+                    "Body treatments: wraps, scrubs, waxing, cellulite reduction, firming",
+                    "Hair care: cuts, styling, coloring, extensions, treatments, scalp care",
+                    "Nail care: manicures, pedicures, gel polish, nail art, extensions",
+                    "Makeup: application, lessons, special occasion makeup, airbrushing",
+                    "Wellness therapies: acupuncture, aromatherapy, reflexology"
+                ]
+            }
+        ],
+        "faq": [
+            {
+                "question": "What does your Beauty & Wellness service include?",
+                "answer": "Our services encompass a wide range of treatments to enhance your inner and outer beauty. We offer personalized consultations, expert advice, professional techniques, and high-quality products to create a tailored experience."
+            },
+            {
+                "question": "What types of services do you offer?",
+                "answer": "We provide a variety of services, including facials, massages, body treatments, hair care, nail care, makeup, and wellness therapies. Explore our full menu of options for more details."
+            },
+            {
+                "question": "What is covered in the service charge?",
+                "answer": "The service charge typically covers the initial consultation, personalized treatment plan, use of professional products and equipment, and expert application of services by our licensed professionals."
+            },
+            {
+                "question": "Is there a warranty for the service?",
+                "answer": "We offer a [warranty duration] satisfaction guarantee on our services. If you're not fully satisfied with your experience, please let us know so we can make it right."
+            },
+            {
+                "question": "What is not included in the service?",
+                "answer": "The service charge does not cover the cost of retail products for home use, additional treatments not included in your package, gratuities for service providers, or personal items or services (e.g., transportation, childcare)."
+            },
+            {
+                "question": "How much do your services typically cost?",
+                "answer": "Pricing varies depending on the specific service, duration, and any additional products or add-ons. We provide transparent pricing and will always discuss costs with you before starting any treatment."
+            },
+            {
+                "question": "Do you offer packages or memberships?",
+                "answer": "Yes, we offer various packages and membership programs to help you save on multiple services and enjoy exclusive benefits."
+            },
+            {
+                "question": "How can I schedule a Beauty & Wellness appointment?",
+                "answer": "You can easily book your appointment by [options: phone, website, booking system]. Our team is ready to assist you in finding a convenient time that suits your schedule."
+            }
+        ],
+        "subCategories": [
+            {
+                "id": "1",
+                "serviceName": "Facial Treatments",
+                "image": "https://img.freepik.com/free-photo/beautician-with-brush-applies-white-moisturizing-mask-face-young-girl-client-spa-beauty-salon_343596-4246.jpg?w=1380&t=st=1703408078~exp=1703408678~hmac=55ff35a412801fe5aabd930de08809201c763cb6f2c55e027bed9a7aea3c751a",
+                "description": "Unveil your radiant skin! Our personalized facial treatments address your unique needs, from deep cleansing and hydration to anti-aging and acne reduction. Discover a youthful glow and revitalized confidence with our expert skincare solutions.",
+                "details": [
+                    {
+                        "title": "Our Diverse Facial Offerings:",
+                        "description": "We have a treatment for every complexion:",
+                        "details": [
+                            "Classic cleansing and hydrating facials",
+                            "Exfoliating treatments for smoother texture",
+                            "Masque therapy for targeted concerns",
+                            "Anti-aging facials with collagen-boosting techniques",
+                            "Acne-fighting facials to balance oil production",
+                            "Microneedling and chemical peels for advanced rejuvenation",
+                            "Customizable add-ons like microdermabrasion or LED therapy"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us for Your Facial Experience:",
+                        "description": "Indulge in relaxation and results:",
+                        "details": [
+                            "Experienced and licensed estheticians",
+                            "Personalized consultations to create the perfect treatment plan",
+                            "High-quality skincare products for optimal results",
+                            "Relaxing spa-like environment",
+                            "Focus on holistic wellness and beauty",
+                            "Affordable pricing and package options"
+                        ]
+                    },
+                    {
+                        "description": "Embrace your natural beauty from within. Book your facial treatment today and unlock your skin's true potential."
+                    }
+                ]
+            },
+            {
+                "id": "2",
+                "serviceName": "Massage Therapy",
+                "image": "https://img.freepik.com/free-photo/beauty-spa_144627-46202.jpg?w=1380&t=st=1703408135~exp=1703408735~hmac=a8804b55a46c18b92b090893a1acc10a61050d5986daaca74c6faea8c24c87b8",
+                "description": "Unwind and rejuvenate with the power of touch. Our experienced massage therapists offer a variety of techniques to relieve stress, ease muscle tension, and improve overall well-being. Restore your balance and discover deep relaxation with our therapeutic massages.",
+                "details": [
+                    {
+                        "title": "Experience the Benefits of Massage:",
+                        "description": "Relieve more than just physical tension:",
+                        "details": [
+                            "Reduce stress and anxiety",
+                            "Improve sleep quality",
+                            "Alleviate muscle pain and tension",
+                            "Increase circulation and flexibility",
+                            "Boost immunity and overall well-being",
+                            "Enhance mood and positive energy",
+                            "Promote relaxation and inner peace"
+                        ]
+                    },
+                    {
+                        "title": "Our Tailored Massage Options:",
+                        "description": "Find the perfect massage for your needs:",
+                        "details": [
+                            "Swedish massage for relaxation and stress relief",
+                            "Deep tissue massage for muscle tension and pain relief",
+                            "Sports massage for improved athletic performance",
+                            "Trigger point therapy for targeted pain relief",
+                            "Prenatal massage for comfort and relaxation during pregnancy",
+                            "Hot stone massage for deep relaxation and warmth",
+                            "Aromatherapy massage for added therapeutic benefits"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "3",
+                "serviceName": "Hair Styling & Haircuts",
+                "image": "https://img.freepik.com/free-photo/terrified-woman-looking-her-hair-while-barber-making-her-hair_144627-76506.jpg?w=1380&t=st=1703408289~exp=1703408889~hmac=8306c829c4cfdaaf31d9a414ed4d20e81ad741d25e628c5d78d211770207e9af",
+                "description": "Unleash your inner hair icon! Our skilled stylists are your partners in crafting the perfect look. From chic haircuts to on-trend styles, we elevate your hair experience with personalized consultations, expert techniques, and top-quality products. Discover confidence and beauty that shines from within.",
+                "details": [
+                    {
+                        "title": "Tailored Haircuts:",
+                        "description": "Shape your style with precision cutting:",
+                        "details": [
+                            "Men's haircuts: Fade, undercut, classic, textured, and more",
+                            "Women's haircuts: Long layers, bobs, lobs, pixies, shags, and more",
+                            "Kid's haircuts: Fun and functional styles for little heads",
+                            "Consultations to understand your hair type, face shape, and desired style",
+                            "Expert recommendations for cuts that flatter and enhance your features",
+                            "Precise techniques for seamless blending and clean lines",
+                            "Finishing touches with styling products for a polished look"
+                        ]
+                    },
+                    {
+                        "title": "Transformative Styling:",
+                        "description": "Express yourself through a kaleidoscope of styles:",
+                        "details": [
+                            "Blowouts and waves for smooth, voluminous locks",
+                            "Updos for elegance and sophistication, from braids to chignons",
+                            "Curling and straightening for texture and versatility",
+                            "Special occasion styling for weddings, proms, and other events",
+                            "Trendy braids and hair accessories for a playful touch",
+                            "Styling tips and tricks for recreating salon looks at home"
+                        ]
+                    },
+                    {
+                        "title": "Vibrant Color Transformations:",
+                        "description": "Embrace your color personality:",
+                        "details": [
+                            "Single-process color for a complete shade change",
+                            "Highlights and lowlights for dimension and depth",
+                            "Balayage and ombre for a sun-kissed effect",
+                            "Creative color techniques like dip-dye and fashion colors",
+                            "Color correction and toning services",
+                            "Gentle and high-quality hair color products for lasting results",
+                            "Expert advice on choosing the perfect color for your skin tone and style"
+                        ]
+                    },
+                    {
+                        "description": "Step into our salon and step out with a look that inspires confidence. Book your Hair Styling & Haircuts appointment today and let your inner beauty shine!"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "serviceName:": "Shifting",
+        "icon": "https://i.ibb.co/8md2ZQw/home-shift.png",
+        "serviceOverview": [
+            {
+              "title": "Relax and Focus on Your New Home While We Handle the Heavy Lifting",
+              "details": [
+                "Expert guidance:",
+                "Personalized Moving Plan: We'll collaborate with you to understand your needs and create a tailored plan that ensures everything runs smoothly.",
+                "Initial Consultation: Our relocation specialists will assess your belongings and discuss logistical details to provide an accurate quote.",
+                "Efficient execution:",
+                "Professional Packing & Unpacking: Our trained professionals will handle your belongings with care, using high-quality packing materials and techniques.",
+                "Safe & Secure Transportation: We utilize clean, insured vehicles to ensure your items arrive at your new home safely and damage-free.",
+                "Careful Furniture Handling: We disassemble and reassemble furniture with expertise, taking proper precautions to avoid any damage.",
+                "Stress-free experience:",
+                "Flexible Scheduling: We work around your availability to find a convenient time for your move.",
+                "Transparent Communication: We keep you informed throughout the process, addressing any questions or concerns you may have.",
+                "Reliable Service: We are licensed and insured, providing peace of mind and assurance of professional service."
+              ]
+            },
+            {
+              "title": "Additional Services (May Incur Additional Costs):",
+              "details": [
+                "Packing materials beyond the standard allocation",
+                "Disassembly and reassembly of complex furniture or appliances",
+                "Specialty packing for fragile or valuable items",
+                "Cleaning services at your old or new residence",
+                "Storage if needed during the move",
+                "Gratuities for our moving crew (optional)"
+              ]
+            }
+          ],
+        "faq": [
+            {
+              "question": "What does your Local Home Shifting service include?",
+              "answer": "Our comprehensive service covers everything you need for a smooth and stress-free local move, from expert packing and loading to careful transportation and unloading of your belongings in your new home. We take care of the heavy lifting, so you can focus on settling in and enjoying your new space."
+            },
+            {
+              "question": "What types of local moves do you handle?",
+              "answer": "We specialize in assisting with all types of local relocations within [city/region name]. Whether you're moving across town, to a nearby suburb, or within the same building, we can tailor our services to your specific needs."
+            },
+            {
+              "question": "What is included in your moving quote?",
+              "answer": "Our upfront quotes typically include: * Initial consultation to assess your moving needs * Personalized moving plan and timeline * Expert packing and unpacking by trained professionals * High-quality packing materials and boxes provided * Careful furniture disassembly and reassembly * Safe and efficient transportation on clean, insured vehicles * Unloading and placement of your belongings in your new home * Disposal or donation of unwanted items, if requested"
+            },
+            {
+              "question": "What is not included in your moving quote?",
+              "answer": "Please note that our quotes may not include: * Additional packing materials beyond the standard allocation * Disassembly and reassembly of complex furniture or appliances * Specialty packing for fragile or valuable items * Cleaning services at your old or new residence * Storage if needed during the move * Gratuities for our moving crew (optional)"
+            },
+            {
+              "question": "How much does a local move typically cost?",
+              "answer": "The cost of your local move depends on several factors, such as the size of your home, distance to your new location, additional services requested, and packing materials needed. We provide transparent pricing, and our quotes are always based on your specific needs."
+            },
+            {
+              "question": "Do you offer any discounts or promotions?",
+              "answer": "Yes! We frequently offer special deals and discounts, such as [mention current promotions]. Be sure to inquire about any current offers when requesting a quote."
+            },
+            {
+              "question": "How can I schedule a Local Home Shifting appointment?",
+              "answer": "Contact us today through [phone number, website, email address] to request a free quote and schedule your move. Our friendly team is happy to answer any questions you may have and help you plan your relocation stress-free."
+            },
+            {
+              "question": "Are you licensed and insured?",
+              "answer": "Yes, we are fully licensed and insured for your peace of mind. We take pride in providing reliable and professional moving services, and your belongings are always in good hands with us."
+            },
+            {
+              "question": "What do your customers say about your service?",
+              "answer": "We have a long track record of satisfied customers who appreciate our efficient, professional, and friendly service. See what our happy clients have to say by checking out our online reviews or testimonials."
+            },
+            {
+              "question": "How can I get started with my local move?",
+              "answer": "Simply reach out to us for a free quote and consultation. We'll guide you through the process and make your local move a smooth and worry-free experience."
+            }
+          ],
+        "subCategories": [
+            {
+                "id": "1",
+                "serviceName": "Local Home Shifting",
+                "image": "https://img.freepik.com/free-vector/flat-design-house-moving-concept-with-truck_23-2148665508.jpg?w=1380&t=st=1703408719~exp=1703409319~hmac=0d9acdd9baf863eb7e85ac344339c0e82949a491f47c697f99cd6c4b3b065a24",
+                "description": "Moving within your city? Let us handle the heavy lifting! Our efficient and reliable local relocation services minimize stress and ensure a smooth transition to your new home. Sit back and relax while we pack, load, transport, and unload your belongings with care.",
+                "details": [
+                    {
+                        "title": "Our Comprehensive Solutions:",
+                        "description": "Everything you need for a seamless local move:",
+                        "details": [
+                            "Expert packing and unpacking by trained professionals",
+                            "High-quality packing materials and boxes provided",
+                            "Careful furniture disassembly and reassembly",
+                            "Safe and efficient transportation on clean, insured vehicles",
+                            "Unloading and placement of your belongings in your new home",
+                            "Disposal or donation of unwanted items, if needed",
+                            "Flexible schedule and affordable pricing"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us for Your Local Move:",
+                        "description": "Experience the difference with our dedicated team:",
+                        "details": [
+                            "Licensed and insured for your peace of mind",
+                            "Experienced and friendly crew to handle your belongings with care",
+                            "Personalized moving plan tailored to your specific needs",
+                            "Transparent pricing with no hidden fees",
+                            "24/7 customer support for any questions or concerns",
+                            "Positive testimonials and satisfied customers"
+                        ]
+                    },
+                    {
+                        "description": "Moving day doesn't have to be a hassle. Contact us today for a free quote and start planning your stress-free local move!"
+                    }
+                ]
+            },
+            {
+                "id": "2",
+                "serviceName": "Long-Distance Relocation",
+                "image": "https://img.freepik.com/free-photo/couple-with-cardboard-boxes-their-new-home_23-2149086870.jpg?w=1380&t=st=1703408844~exp=1703409444~hmac=0c8c100914108cd5a7c8dc40df1137c7a70928f230cccb2a26a6a910731fdf5a",
+                "description": "Crossing state lines with your belongings? Our long-distance moving expertise ensures your belongings arrive safely and securely at your new destination. Relax and focus on the exciting new chapter ahead, while we handle every detail of your interstate move.",
+                "details": [
+                    {
+                        "title": "Seamless Relocation Across Any Distance:",
+                        "description": "Nationwide coverage for your peace of mind:",
+                        "details": [
+                            "Professional packing and crating for fragile items",
+                            "Secure and safe transportation via licensed and insured vehicles",
+                            "Real-time tracking of your shipment during transit",
+                            "Unloading and unpacking services at your new destination",
+                            "Assistance with connecting utilities and local services",
+                            "Storage options if needed",
+                            "Competitive pricing based on distance and needs"
+                        ]
+                    },
+                    {
+                        "title": "Experienced Team to Guide You Every Step of the Way:",
+                        "description": "Moving doesn't have to be complicated:",
+                        "details": [
+                            "Dedicated move coordinator to oversee your entire relocation",
+                            "Custom moving plan tailored to your specific distance and requirements",
+                            "Insurance options to protect your belongings",
+                            "Clear communication and updates throughout the moving process",
+                            "Helpful tips and advice for settling into your new location"
+                        ]
+                    },
+                    {
+                        "description": "Make your long-distance move worry-free. Contact us today for a personalized quote and let us handle the logistics while you focus on the adventure ahead!"
+                    }
+                ]
+            },
+            {
+                "id": "3",
+                "serviceName": "Commercial Office Relocation",
+                "image": "https://img.freepik.com/free-photo/person-presenting-their-job-resignation_23-2149445151.jpg?w=1380&t=st=1703408894~exp=1703409494~hmac=ca1d09952dac60b8d81d4f93c5ac81fef28fcfca848cb09036219153ff6b45bf",
+                "description": "Streamline your office move and minimize downtime with our expert relocation services. We understand the complexities of relocating a business and are dedicated to ensuring a smooth, efficient, and stress-free transition to your new space.",
+                "details": [
+                    {
+                        "title": "Tailored Solutions for Every Office:",
+                        "description": "Whether you're a small startup or a large corporation, we have a plan for you:",
+                        "details": [
+                            "Free on-site consultation to assess your specific needs and challenges",
+                            "Development of a customized relocation plan with detailed timelines and budgets",
+                            "Flexible scheduling options to minimize disruption to your operations",
+                            "Dedicated project manager to oversee every aspect of your move",
+                            "Experienced and trained professional movers to handle your belongings with care",
+                            "Specialized equipment for safe and efficient handling of furniture, electronics, and sensitive equipment"
+                        ]
+                    },
+                    {
+                        "title": "Beyond Move Day: Comprehensive Support:",
+                        "description": "We're with you every step of the way:",
+                        "details": [
+                            "Expert packing and unpacking services with custom labeling and inventory control",
+                            "Disconnection and reconnection of IT infrastructure and data lines",
+                            "Furniture disassembly and reassembly in your new office space",
+                            "Post-move cleaning and waste removal",
+                            "Furniture installation and set-up according to your needs",
+                            "Change of address updates for clients and vendors",
+                            "Technology setup and assistance with connecting new equipment",
+                            "Ongoing support and advice throughout the settling-in process"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us for Your Office Relocation:",
+                        "description": "Experience the peace of mind that comes with partnering with the best:",
+                        "details": [
+                            "Licensed and insured for your complete protection",
+                            "Highly-trained and experienced team with meticulous attention to detail",
+                            "Open communication and regular updates throughout the relocation process",
+                            "Commitment to safety and environmental responsibility",
+                            "Competitive pricing and transparent cost estimates",
+                            "Satisfied clients and proven track record of successful relocations"
+                        ]
+                    },
+                    {
+                        "description": "Don't let office relocation disrupt your business. Contact us today for a free consultation and let our expertise guide you to a seamless transition to your new space!"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "serviceName": "Men's Care & Salon",
+        "icon": "https://i.ibb.co/mTLMDhS/moustache.png",
+        "serviceOverview": [
+            {
+                "title": "Indulge in Personalized Grooming and Relaxation at Our Men's Care and Salon",
+                "details": [
+                    "Expert Stylists:",
+                    "Consultation and Styling Plan: Our experienced stylists will consult with you to understand your grooming preferences and create a personalized styling plan.",
+                    "Haircut and Styling: Precision haircuts and styling using the latest techniques to enhance your look.",
+                    "Beard Grooming: Tailored beard trims and grooming for a polished and well-maintained appearance.",
+                    "Skin Care Consultation: Expert advice on skincare tailored to your unique needs.",
+                    "Efficient Services:",
+                    "Quality Products: We use premium grooming products to ensure the best results for your hair and skin.",
+                    "Relaxing Shave Services: Enjoy a classic shave or grooming services for a clean and refreshed look.",
+                    "Manicure and Pedicure: Nail care services for well-groomed hands and feet.",
+                    "Stress-free Experience:",
+                    "Flexible Appointments: We accommodate your schedule for a convenient grooming experience.",
+                    "Clear Communication: Stay informed about the grooming process, and our stylists are happy to address any questions or concerns.",
+                    "Professional Service: Licensed and dedicated professionals for a reliable and enjoyable salon experience."
+                ]
+            },
+            {
+                "title": "Additional Services (May Incur Additional Costs):",
+                "details": [
+                    "Premium Hair Products for Home Use",
+                    "Specialized Skin Treatments",
+                    "Extended Styling or Grooming Sessions",
+                    "Exclusive Men's Care Packages",
+                    "Event or Wedding Grooming Packages",
+                    "Gratuities for our Professional Stylists (optional)"
+                ]
+            }
+        ],
+        "subCategories": [
+            {
+                "id": "1",
+                "serviceName": "Haircuts and Styling",
+                "image": "https://img.freepik.com/free-photo/stylish-man-sitting-barbershop_1157-20487.jpg?w=1380&t=st=1703410303~exp=1703410903~hmac=cfb7d125591c6b937c6697c48944f68802ce15c72d00e8c88a777011d2ebed1a",
+                "description": "Get the perfect cut and style to match your personality and lifestyle. Our experienced stylists are skilled in all hair types and trends.",
+                "details": [
+                    {
+                        "title": "Our Services:",
+                        "description": "We offer a wide range of hair services, including:",
+                        "details": [
+                            "Haircuts",
+                            "Styling",
+                            "Coloring",
+                            "Highlighting",
+                            "Bleaching",
+                            "Texture treatments",
+                            "Hair extensions",
+                            "Head shaves",
+                            "Beard trims"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us:",
+                        "description": "We're known for our:",
+                        "details": [
+                            "Expert stylists",
+                            "Personalized consultations",
+                            "Trendy styles",
+                            "Quality products",
+                            "Relaxing atmosphere"
+                        ]
+                    },
+                    {
+                        "description": "Book your appointment today and let us transform your look!"
+                    }
+                ]
+            },
+            {
+                "id": "2",
+                "serviceName": "Shaves and Beard Trims",
+                "image": "https://img.freepik.com/free-photo/young-man-getting-his-beard-styled-barber_23-2148985728.jpg?w=1380&t=st=1703410367~exp=1703410967~hmac=2f7e83a5a8ea143011766716ac148159b259cdba3ecc55106b60d3a7896246ba",
+                "description": "Enjoy a close, comfortable shave or maintain a well-groomed beard with our professional barbering services.",
+                "details": [
+                    {
+                        "title": "Our Services:",
+                        "description": "We offer a variety of shave and beard trim options, including:",
+                        "details": [
+                            "Hot towel shaves",
+                            "Straight razor shaves",
+                            "Beard shaping",
+                            "Beard trimming",
+                            "Beard line-ups"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us:",
+                        "description": "Our barbers are experts in:",
+                        "details": [
+                            "Precision shaving techniques",
+                            "Beard styling",
+                            "Using high-quality products",
+                            "Creating a relaxing experience"
+                        ]
+                    },
+                    {
+                        "description": "Book your appointment today and leave feeling refreshed and confident!"
+                    }
+                ]
+            },
+            {
+                "id": "4",
+                "serviceName": "Facials",
+                "image": "https://img.freepik.com/free-photo/profile-view-young-man-getting-moisturizing-facial-treatment-health-spa_662251-2552.jpg?w=1380&t=st=1703410552~exp=1703411152~hmac=f992b11591d665e7d4deb76bfcf7ce8d192ef29706466bb61db08645e8791c92",
+                "description": "Give your skin the care it deserves with our rejuvenating facial treatments. We offer a variety of facials to address different skin concerns.",
+                "details": [
+                    {
+                        "title": "Our Facials:",
+                        "description": "We offer a range of facials, including:",
+                        "details": [
+                            "Deep cleansing facials",
+                            "Hydrating facials",
+                            "Anti-aging facials",
+                            "Acne-fighting facials",
+                            "Blackhead removal facials"
+                        ]
+                    },
+                    {
+                        "title": "Why Choose Us:",
+                        "description": "Our facials are:",
+                        "details": [
+                            "Tailored to your specific skin needs",
+                            "Performed by experienced estheticians",
+                            "Using high-quality products",
+                            "Designed to leave your skin feeling refreshed and radiant"
+                        ]
+                    },
+                    {
+                        "description": "Book your facial today and experience the difference!"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "serviceName": "Cleaning Service",
+        "icon": ""
+    }
+]
