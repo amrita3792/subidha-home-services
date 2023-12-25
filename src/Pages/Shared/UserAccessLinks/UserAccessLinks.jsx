@@ -71,7 +71,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
             theme === "dark"
               ? "bg-[#1D232A] border-gray-700"
               : "bg-white border-gray-300"
-          }  py-4 px-5 rounded-xl w-[250px] z-[1000]`}
+          }  py-4 px-5 rounded-xl w-[250px] z-[5000]`}
         >
           <div className="flex items-center gap-3 mb-3">
             {user?.photoURL ? (
@@ -107,7 +107,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
             </li>
           </ul>
         </div>
-        <div className="fixed left-0 top-0 h-screen w-screen z-[999]"></div>
+        <div className="fixed left-0 top-0 h-screen w-screen z-[4999]"></div>
       </>
     )
   );

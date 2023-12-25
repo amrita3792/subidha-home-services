@@ -15,6 +15,12 @@ const AllServiceCategories = () => {
       ),
   });
 
+  if(isLoading) {
+    return <div className="xl:max-w-screen-xl mx-auto -mt-[63px] relative z-50">
+      <div className="skeleton h-32"></div>
+    </div>
+  }
+  
   console.log(allServiceCategories);
 
   const responsive = {
@@ -44,7 +50,7 @@ const AllServiceCategories = () => {
   console.log(allServiceCategories.length);
 
   return (
-    <div className={`xl:max-w-screen-xl mx-auto -mt-[75px] ${theme === "light"? "bg-white" : "bg-[#1D232A]"} rounded-xl relative z-50 shadow-sm multicarousel mb-20`}>
+    <div className={`xl:max-w-screen-xl mx-auto -mt-[75px] ${theme === "light"? "bg-white" : "bg-[#1D232A]"} rounded-xl relative z-50 shadow-lg multicarousel mb-20`}>
       <Carousel
         swipeable={true}
         draggable={false}
