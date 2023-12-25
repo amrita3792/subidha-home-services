@@ -105,7 +105,7 @@ const Signup = () => {
             required
           />
         </div>
-        <button className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] text-white hover:to-[#10e2ee] hover:from-[#04ffa3] px-10 py-3 active:scale-95 font-semibold w-full rounded-lg mt-8">
+        <button className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-10 py-3 active:scale-95 font-semibold w-full rounded-lg mt-8">
           SIGN UP
         </button>
         <p className="font-semibold mt-3 text-xs text-center">

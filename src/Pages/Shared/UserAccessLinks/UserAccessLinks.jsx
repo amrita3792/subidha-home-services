@@ -81,7 +81,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
                 alt=""
               />
             ) : (
-              <div className="bg-gradient-to-r from-indigo-400 to-cyan-400 text-white p-3 rounded-full relative">
+              <div className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] text-white p-3 rounded-full relative">
                 <UserIcon className="w-8 h-8" />
               </div>
             )}
@@ -99,7 +99,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
                 </Link>
               </li>
             ))}
-            <li onClick={handleLogout} className="flex items-center justify-center gap-1 cursor-pointer bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white px-3 py-2 rounded-lg">
+            <li onClick={handleLogout} className="flex items-center justify-center gap-1 cursor-pointer bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-3 py-2 rounded-lg">
               <span>Logout</span>
               <span>
                 <ArrowDownTrayIcon className="w-6 h-6 rotate-90" />

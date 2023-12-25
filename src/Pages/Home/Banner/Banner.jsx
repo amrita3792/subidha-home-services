@@ -16,7 +16,7 @@ const Banner = () => {
             service needs into stress-free solutions. Explore the endless
             possibilities today!
           </p>
-          <button className="border-2 text-white px-8 py-4 rounded-lg active:scale-95 font-semibold">
+          <button className="btn border-none bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-8 py-4 active:scale-95 font-semibold">
             More Information
           </button>
         </div>

@@ -12,12 +12,15 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { toast } from "react-toastify";
 import { ThemeContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 
 export const NumberVerificatonModal = ({
   showModal,
   handleChangeModalState,
 }) => {
+  let from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
   const {
     loading,
     sendOTP,
@@ -65,8 +68,7 @@ export const NumberVerificatonModal = ({
       .then((result) => {
         // User signed in successfully.
         let user = result.user;
-        console.log(user);
-        console.log("User signed in successfully");
+        navigate(from, { replace: true });
         toast.success("Your verification is successful.", {
           theme: "colored"
         });
@@ -99,7 +101,7 @@ export const NumberVerificatonModal = ({
           theme: "colored"
         })
         setLoading(false);
-        setVisibleRecaptcha(false);
+        setVisibleRecaptcha(true);
         setShowOTP(false);
       });
   };
@@ -141,9 +143,9 @@ export const NumberVerificatonModal = ({
                 disabled={phone.length !== 13 && "disabled"}
                 className={`  ${
                   phone.length === 13
-                    ? " bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] active:scale-95"
+                    ? "btn bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] "
                     : "bg-neutral-300"
-                } text-white  mx-auto my-5 py-2  flex justify-center items-center gap-4 rounded-sm w-[300px] font-semibold`}
+                }  mx-auto my-5 py-2  flex justify-center items-center gap-4 rounded-sm w-[300px] font-semibold`}
               >
                 {loading && (
                   <span className="loading loading-spinner loading-md"></span>
@@ -183,9 +185,9 @@ export const NumberVerificatonModal = ({
                 onClick={handleVerifyOTP}
                 className={` ${
                   OTP.length === 6
-                    ? "bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] "
+                    ? "btn bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] "
                     : "bg-neutral-300"
-                }  text-white w-[270px] mx-auto my-5 py-2 rounded-sm flex justify-center items-center gap-4 font-semibold`}
+                }   w-[270px] mx-auto my-5 py-2 rounded-sm flex justify-center items-center gap-4 font-semibold`}
               >
                 {!visibleRecaptcha && loading && (
                   <span className="loading loading-spinner loading-md"></span>

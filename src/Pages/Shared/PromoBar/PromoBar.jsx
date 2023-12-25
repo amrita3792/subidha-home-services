@@ -30,7 +30,7 @@ const PromoBar = () => {
                 <div className="flex md:block flex-col items-center">
                     <img className="w-[30px]" src={telephone} alt="" />
                     <h3 className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] bg-clip-text text-transparent text-3xl font-extrabold">1234 5678 90</h3>
-                    <button className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] hover:to-slate-500 hover:from-slate-700 px-10 py-2 text-white active:scale-95 font-semibold">Get a Quote</button>
+                    <button className="btn bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-10 py-2 active:scale-95 font-semibold">Get a Quote</button>
                 </div>
             </div>
         </section>

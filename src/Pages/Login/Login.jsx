@@ -87,7 +87,7 @@ const Login = () => {
         >
           Forgot your password?
         </Link>
-        <button className="bg-gradient-to-r text-white from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-10 py-3 active:scale-95 font-semibold w-full rounded-lg">
+        <button className="btn bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-10 py-3 font-semibold w-full rounded-lg">
           LOG IN
         </button>
         <p className="font-semibold mt-3 text-xs text-center">
