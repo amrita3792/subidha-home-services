@@ -121,7 +121,7 @@ export const NumberVerificatonModal = ({
               <h3 className="my-2 text-2xl text-center font-semibold">
                 Verify Your Number
               </h3>
-              <p className="text-center mb-5">
+              <p className="text-center mb-5 text-sm font-semibold">
                 Verification code on its way! Please enter it to unlock your
                 account.
               </p>
@@ -143,7 +143,7 @@ export const NumberVerificatonModal = ({
                   phone.length === 13
                     ? " bg-gradient-to-r from-slate-500 to-slate-700 active:scale-95"
                     : "bg-neutral-300"
-                } text-white  mx-auto my-5 py-2  flex justify-center items-center gap-4 rounded-sm w-[300px]`}
+                } text-white  mx-auto my-5 py-2  flex justify-center items-center gap-4 rounded-sm w-[300px] font-semibold`}
               >
                 {loading && (
                   <span className="loading loading-spinner loading-md"></span>
@@ -153,7 +153,7 @@ export const NumberVerificatonModal = ({
               {visibleRecaptcha && <div id="recaptcha-container"></div>}
               <button
                 onClick={handleChangeModalState}
-                className="block mx-auto text-sm font-medium text-emerald-500 underline hover:no-underline mt-3"
+                className="block mx-auto text-sm font-semibold text-emerald-500 underline hover:no-underline mt-3"
               >
                 Login with other options
               </button>
@@ -161,9 +161,9 @@ export const NumberVerificatonModal = ({
           ) : (
             <div>
               <img className="w-48 block mx-auto" src={sendOtp} alt="" />
-              <p className="text-center mb-5 text-lg">
+              <p className="text-center font-semibold mb-5 ">
                 Type the 6 digit code sent to this <br /> number{" "}
-                <span className="text-emerald-500 font-bold">{`"+${phone}"`}</span>{" "}
+                <span className="text-emerald-500 font-semibold">{`"+${phone}"`}</span>{" "}
               </p>
               <OTPInput
                 className="otp-container"
@@ -185,19 +185,19 @@ export const NumberVerificatonModal = ({
                   OTP.length === 6
                     ? "bg-gradient-to-r from-slate-500 to-slate-700"
                     : "bg-neutral-300"
-                }  text-white w-[270px] mx-auto my-5 py-2 rounded-sm flex justify-center items-center gap-4`}
+                }  text-white w-[270px] mx-auto my-5 py-2 rounded-sm flex justify-center items-center gap-4 font-semibold`}
               >
                 {!visibleRecaptcha && loading && (
                   <span className="loading loading-spinner loading-md"></span>
                 )}
-                VERIFY OTP
+                Verify OTP
               </button>
               <button
                 onClick={() => {
                   setShowOTP(false);
                   setPhone("");
                 }}
-                className="block mx-auto text-sm font-medium text-emerald-500 hover:underline mb-3"
+                className="block mx-auto text-sm font-semibold text-emerald-500 hover:underline mb-3"
               >
                 Change Phone Number
               </button>

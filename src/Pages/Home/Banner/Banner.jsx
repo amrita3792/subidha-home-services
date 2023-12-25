@@ -15,7 +15,7 @@ const Banner = () => {
             service needs into stress-free solutions. Explore the endless
             possibilities today!
           </p>
-          <button className="border-2 text-white font-medium px-8 py-4 rounded-lg active:scale-95">
+          <button className="border-2 text-white px-8 py-4 rounded-lg active:scale-95 font-semibold">
             More Information
           </button>
         </div>

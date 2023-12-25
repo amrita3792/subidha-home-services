@@ -76,7 +76,7 @@ const AllServiceCategories = () => {
               </h4>
               {
                 serviceCategory?.totalService && <p>
-                <small>{serviceCategory?.totalService} Services</small>
+                <small className="font-semibold">{serviceCategory?.totalService} Services</small>
               </p>
               }
             </div>

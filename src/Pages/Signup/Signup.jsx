@@ -52,7 +52,7 @@ const Signup = () => {
 
   return (
     <div className="max-w-[400px] mx-auto my-12 px-5">
-      <h2 className="text-4xl font-medium text-center mb-6">Sign Up</h2>
+      <h2 className="text-4xl text-center mb-6 font-semibold">Sign Up</h2>
       <form>
         <div className="form-control flex flex-row items-center my-5">
           <span className="bg-gradient-to-r from-emerald-500 to-emerald-800 p-3 rounded-l-[8px]">
@@ -105,20 +105,20 @@ const Signup = () => {
             required
           />
         </div>
-        <button className="bg-gradient-to-r from-slate-500 to-slate-700 hover:to-slate-500 hover:from-slate-700 px-10 py-3 text-white active:scale-95 font-medium w-full rounded-lg mt-8">
+        <button className="bg-gradient-to-r from-slate-500 to-slate-700 hover:to-slate-500 hover:from-slate-700 px-10 py-3 text-white active:scale-95 font-semibold w-full rounded-lg mt-8">
           SIGN UP
         </button>
-        <p className="font-medium mt-3 text-sm text-center">
+        <p className="font-semibold mt-3 text-xs text-center">
           Already have an account?{" "}
           <Link
             to="/login"
-            className="text-emerald-500 hover:underline font-semibold"
+            className="text-emerald-500 hover:underline text-sm"
           >
             Log In
           </Link>
         </p>
       </form>
-      <div className="divider font-medium">OR</div>
+      <div className="divider font-semibold">OR</div>
       <button
         onClick={handleChangeModalState}
         className="bg-[#409899] px-10 py-2 text-white text-lg w-full rounded-lg my-3 flex justify-center items-center gap-3"

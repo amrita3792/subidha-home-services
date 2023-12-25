@@ -17,19 +17,19 @@ const PromoBar = () => {
             <div className="flex flex-col md:flex-row gap-10 md:gap-20">
                 <div className={`flex md:block flex-col ${theme === "light" && "text-stone-600" } items-center`}>
                     <img className="w-[30px]" src={location} alt="" />
-                    <h6 className="font-bold text-lg text-start">ADDRESS</h6>
+                    <h6 className="text-lg text-start font-semibold">ADDRESS</h6>
                     <small className="font-semibold">House of ABL, 404/56,<br />
                         Ashulia DOHS, Dhaka</small>
                 </div>
                 <div className={`flex md:block flex-col ${theme === "light" && "text-stone-600" } items-center`}>
                     <img className="w-[30px]" src={email} alt="" />
-                    <h6 className="font-bold text-lg text-start">MAIL CONTACT</h6>
+                    <h6 className="font-semibold text-lg text-start">MAIL CONTACT</h6>
                     <small className="font-semibold">subidha@gmail.com <br />
                         support@gmail.com</small>
                 </div>
                 <div className="flex md:block flex-col items-center">
                     <img className="w-[30px]" src={telephone} alt="" />
-                    <h3 className="bg-gradient-to-r from-emerald-500 to-emerald-700 bg-clip-text text-transparent text-3xl font-bold">1234 5678 90</h3>
+                    <h3 className="bg-gradient-to-r from-emerald-500 to-emerald-700 bg-clip-text text-transparent text-3xl font-extrabold">1234 5678 90</h3>
                     <button className="bg-gradient-to-r from-slate-500 to-slate-700 hover:to-slate-500 hover:from-slate-700 px-10 py-2 text-white active:scale-95 font-semibold">Get a Quote</button>
                 </div>
             </div>
