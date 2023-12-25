@@ -6,12 +6,12 @@
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     background-image: linear-gradient(white, white),
-        linear-gradient(to left, #10B989, #047857);
+        linear-gradient(to top, #04ffa3, #10e2ee);
     background-origin: border-box;
     background-clip: padding-box, border-box;
 }
 
-
+/* bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] */
 .form-control span {
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
@@ -20,3 +20,4 @@
 input:focus {
     outline: none;
 }
+

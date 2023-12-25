@@ -50,7 +50,7 @@ const Login = () => {
       <h2 className="text-4xl font-semibold text-center mb-6">Log in</h2>
       <form>
         <div className="form-control flex flex-row items-center my-5">
-          <span className="bg-gradient-to-r from-emerald-500 to-emerald-800 p-3 rounded-l-[8px]">
+          <span className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] p-3 rounded-l-[8px]">
             <EnvelopeIcon className="h-5 w-5 text-white" />
           </span>
           <input
@@ -66,7 +66,7 @@ const Login = () => {
           />
         </div>
         <div className="form-control flex flex-row items-center mt-5">
-          <span className="bg-gradient-to-r from-emerald-500 to-emerald-800 p-3 rounded-l-[8px]">
+          <span className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] p-3 rounded-l-[8px]">
             <LockClosedIcon className="h-5 w-5 text-white" />
           </span>
           <input
@@ -87,7 +87,7 @@ const Login = () => {
         >
           Forgot your password?
         </Link>
-        <button className="bg-gradient-to-r from-slate-500 to-slate-700 hover:to-slate-500 hover:from-slate-700 px-10 py-3 text-white active:scale-95 font-semibold w-full rounded-lg">
+        <button className="bg-gradient-to-r text-white from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-10 py-3 active:scale-95 font-semibold w-full rounded-lg">
           LOG IN
         </button>
         <p className="font-semibold mt-3 text-xs text-center">

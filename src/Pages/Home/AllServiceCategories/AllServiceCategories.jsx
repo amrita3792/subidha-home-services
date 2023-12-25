@@ -44,7 +44,7 @@ const AllServiceCategories = () => {
   allServiceCategories.push({
     id: "658853432456dsdfde3d98449a637",
     serviceName: "All Services",
-    icon: widget,
+    icon: "https://i.ibb.co/Hdkx3sJ/category.png",
   })
 
   console.log(allServiceCategories.length);

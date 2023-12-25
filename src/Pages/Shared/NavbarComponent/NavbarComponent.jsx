@@ -48,10 +48,10 @@ const NavbarComponent = () => {
   ];
 
   return (
-    <nav className="bg-gradient-to-r from-slate-400 to-slate-500 h-16">
+    <nav className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] h-16">
       <div className="xl:max-w-screen-xl mx-auto flex items-center justify-end lg:justify-between h-full px-5">
         <ul
-          className={`flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-7 fixed lg:static  top-0 ${
+          className={`flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-7 fixed z-[1000] lg:static  top-0 ${
             openSidebar ? "right-0" : "right-[-1000px]"
           } ${
             theme === "light" ? "bg-white" : "bg-[#1D232A]"
@@ -66,7 +66,7 @@ const NavbarComponent = () => {
           {navLinks.map((navLink) => (
             <li key={navLink.idx}>
               <Link
-                className={`lg:text-white   ${styles.hover_underline_animation}`}
+                className={`font-medium   ${styles.hover_underline_animation}`}
                 to={navLink.path}
               >
                 {navLink.name}
@@ -89,9 +89,9 @@ const NavbarComponent = () => {
         </ul>
         <div className="flex items-center gap-5">
           <button onClick={handleToggle}>
-            <MagnifyingGlass color="white" size={25} />
+            <MagnifyingGlass color="black" size={25} />
           </button>
-          <button className="text-white">
+          <button className="text-black">
             <label className="swap swap-rotate">
               {/* this hidden checkbox controls the state */}
               <input
@@ -145,7 +145,7 @@ const NavbarComponent = () => {
             <button>
               <Link
                 to="/login"
-                className="block  border-2 border-white text-white rounded-md px-4 py-2 active:scale-95"
+                className="block border-2 border-black rounded-md px-4 py-2 active:scale-95"
               >
                 LOG IN
               </Link>

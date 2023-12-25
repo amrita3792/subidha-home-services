@@ -3,24 +3,18 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "node_modules/keep-react/**/*.{js,jsx,ts,tsx}"
+    "node_modules/keep-react/**/*.{js,jsx,ts,tsx}",
   ],
   presets: [keepPreset],
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require("tailwindcss-gradients")],
   theme: {
     extend: {
       colors: {
-        leafGreen: {
-          400: "#85c226",
-          500: "#4b740b",
-        },
-        skyGlow: {
-          200: "#222222",
-        }
-      }
-    }
+        'gradient-custom': 'linear-gradient(to right, #10e2ee, #04ffa3)',
+      },
+    },
   },
   daisyui: {
     themes: ["light", "dark"],
-  }
+  },
 };

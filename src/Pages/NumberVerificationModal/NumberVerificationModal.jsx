@@ -67,7 +67,7 @@ export const NumberVerificatonModal = ({
         let user = result.user;
         console.log(user);
         console.log("User signed in successfully");
-        toast.success("✅ Your verification is successful.", {
+        toast.success("Your verification is successful.", {
           theme: "colored"
         });
         handleChangeModalState();
@@ -141,7 +141,7 @@ export const NumberVerificatonModal = ({
                 disabled={phone.length !== 13 && "disabled"}
                 className={`  ${
                   phone.length === 13
-                    ? " bg-gradient-to-r from-slate-500 to-slate-700 active:scale-95"
+                    ? " bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] active:scale-95"
                     : "bg-neutral-300"
                 } text-white  mx-auto my-5 py-2  flex justify-center items-center gap-4 rounded-sm w-[300px] font-semibold`}
               >
@@ -163,7 +163,7 @@ export const NumberVerificatonModal = ({
               <img className="w-48 block mx-auto" src={sendOtp} alt="" />
               <p className="text-center font-semibold mb-5 ">
                 Type the 6 digit code sent to this <br /> number{" "}
-                <span className="text-emerald-500 font-semibold">{`"+${phone}"`}</span>{" "}
+                <span className="text-pink-600 font-semibold">{`"+${phone}"`}</span>{" "}
               </p>
               <OTPInput
                 className="otp-container"
@@ -183,7 +183,7 @@ export const NumberVerificatonModal = ({
                 onClick={handleVerifyOTP}
                 className={` ${
                   OTP.length === 6
-                    ? "bg-gradient-to-r from-slate-500 to-slate-700"
+                    ? "bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] "
                     : "bg-neutral-300"
                 }  text-white w-[270px] mx-auto my-5 py-2 rounded-sm flex justify-center items-center gap-4 font-semibold`}
               >
