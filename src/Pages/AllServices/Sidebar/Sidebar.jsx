@@ -61,8 +61,8 @@ const Sidebar = () => {
           className="drawer-overlay"
         ></label>
         <ul className={`menu p-4 w-80 min-h-full ${theme === "light"? "bg-white" : "bg-bage-200 border-gray-600"} text-base-content gap-2  border-e`}>
-          <li className="text-2xl font-semibold px-4 pt-10 pb-5">
-            ALL SERVICES
+          <li className="text-3xl font-semibold px-4 pt-10 pb-5">
+            All Services
           </li>
           {/* Sidebar content here */}
           {serviceCategories.map((serviceCategory) => (
