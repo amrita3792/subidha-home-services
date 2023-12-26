@@ -9,7 +9,7 @@ const ServiceFAQ = ({ faq }) => {
 
   return (
     <div className="mt-14">
-      <h2 className="text-3xl font-semibold mb-5">FAQ</h2>
+      <h2 name="faq" className="text-3xl font-semibold mb-5">FAQ</h2>
       {faq.map((item, idx) => (
         <div key={idx} className="collapse collapse-plus bg-base-200">
           <input onChange={() => handleInputChange(idx)} type="radio" name="my-accordion-3" checked={index === idx ? true : false} />

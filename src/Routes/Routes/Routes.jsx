@@ -5,6 +5,7 @@ import Login from "../../Pages/Login/Login";
 import Signup from "../../Pages/Signup/Signup";
 import AllServices from "../../Pages/AllServices/AllServices/AllServices";
 import ServiceDetails from "../../Pages/ServiceDetails/ServiceDetails";
+import AdminLayout from "../../Layout/AdminLayout/AdminLayout";
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             
         ]
         
+    },
+    {
+        path: '/admin-dashboard',
+        element: <AdminLayout />
     }
 ]);
 

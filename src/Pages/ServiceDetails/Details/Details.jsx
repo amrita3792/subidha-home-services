@@ -4,7 +4,7 @@ const Details = ({ details }) => {
   console.log(details);
   return (
     <div className="mt-8">
-      <h2 className="text-3xl font-semibold">Details</h2>
+      <h2 name="details"  className="text-3xl font-semibold">Details</h2>
 
       {details?.map((item, idx) => (
         <div className="mt-7" key={idx}>

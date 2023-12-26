@@ -1,14 +1,37 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import ServiceFAQ from "./ServiceFAQ/ServiceFAQ";
 import ServiceOverview from "./ServiceOverview/ServiceOverview";
 import Details from "./Details/Details";
+import { Link } from "react-scroll";
+import {
+  ChatBubbleOvalLeftEllipsisIcon,
+  ClipboardDocumentListIcon,
+  DocumentMagnifyingGlassIcon,
+} from "@heroicons/react/24/solid";
+import { DeviceContext } from "../../App";
 
 const ServiceDetails = () => {
+  const { device } = useContext(DeviceContext);
   const { subCategory, serviceOverview, faq } = useLoaderData();
-  console.log(serviceOverview)
-  console.log(subCategory)
-  // console.log(data);
+  console.log(serviceOverview);
+  console.log(subCategory);
+
+  useEffect(() => {
+    // Set the desired scroll position when the component is mounted
+    if (device.isSmallDevice || device.isMediumDevice) {
+      window.scrollTo({
+        top: 574,
+        behavior: "smooth",
+      });
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, []); // The empty dependency array ensures that this effect runs only once after the initial render
+
   return (
     <section className="xl:max-w-screen-xl mx-auto my-10">
       <div className="relative">
@@ -17,68 +40,44 @@ const ServiceDetails = () => {
           src={subCategory.image}
           alt=""
         />
-
         <div className="bg-black opacity-50 absolute top-0 left-0 w-full h-full rounded-xl"></div>
         <div className="absolute z-50 top-8 left-8">
           <h2 className="text-4xl font-semibold mb-4 text-white">
             {subCategory?.serviceName}
           </h2>
-          <ul className="menu bg-base-200 lg:menu-horizontal rounded-box">
-            <li>
-              <a>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                  />
-                </svg>
-                Service Overview
-              </a>
-            </li>
-            <li>
-              <a>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                FAQ
-                <span className="badge badge-sm badge-warning">NEW</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                Details
-                <span className="badge badge-xs badge-info"></span>
-              </a>
-            </li>
-          </ul>
         </div>
       </div>
-      <div className="flex mt-7">
+      <div className="flex mt-7 gap-5">
+        <ul className="menu bg-base-200 lg:menu-vertical rounded-box h-fit shadow-xl border text-sm font-semibold sticky top-4">
+          <li>
+            <Link to="service-overview" smooth={true} duration={500}>
+              <ClipboardDocumentListIcon className="w-5 h-5" />
+              Service Overview
+            </Link>
+          </li>
+          <li>
+            <Link to="faq" smooth={true} duration={500}>
+              <ChatBubbleOvalLeftEllipsisIcon className="h-5 w-5" />
+              FAQ
+              <span className="badge badge-sm badge-warning">NEW</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="details" smooth={true} duration={500}>
+              <DocumentMagnifyingGlassIcon className="h-5 w-5" />
+              Details
+              <span className="badge badge-xs badge-info"></span>
+            </Link>
+          </li>
+        </ul>
         <div className="basis-3/5">
-          <ServiceOverview serviceOverview={serviceOverview}/>
-          <ServiceFAQ faq={faq} />
-          <Details details={subCategory.details} />
+          <ServiceOverview
+            name="service-overview"
+            serviceOverview={serviceOverview}
+          />
+          <ServiceFAQ name="faq" faq={faq} />
+          <Details name="details" details={subCategory.details} />
         </div>
-        <div></div>
       </div>
     </section>
   );
