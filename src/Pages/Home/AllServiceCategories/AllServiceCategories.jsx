@@ -21,8 +21,6 @@ const AllServiceCategories = () => {
     </div>
   }
   
-  console.log(allServiceCategories);
-
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -46,8 +44,6 @@ const AllServiceCategories = () => {
   //   serviceName: "All Services",
   //   icon: "https://i.ibb.co/z7WhDpg/widget.png",
   // })
-
-  console.log(allServiceCategories.length);
 
   return (
     <div className={`xl:max-w-screen-xl mx-auto -mt-[75px] ${theme === "light"? "bg-white border" : "bg-[#1D232A]"}  rounded-xl relative z-50 shadow-lg multicarousel mb-20`}>

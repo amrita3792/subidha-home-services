@@ -21,7 +21,6 @@ import { profileLinks } from "../../../utilities/user-dashboard-links";
 import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
 
 const NavbarComponent = ({ isMounted }) => {
-  console.log(isMounted);
   const { user } = useContext(AuthContext);
   const { theme, handleToggle } = useContext(ThemeContext);
 
@@ -101,7 +100,7 @@ const NavbarComponent = ({ isMounted }) => {
           <button>
             <MagnifyingGlass color="black" size={25} />
           </button>
-          <button className="text-blac cursor-pointer">
+          <button className="text-blac cursor-pointer text-black">
             <label className="swap swap-rotate">
               {/* this hidden checkbox controls the state */}
               <input

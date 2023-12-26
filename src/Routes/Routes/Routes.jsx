@@ -28,8 +28,15 @@ const router = createBrowserRouter([
                 element: <AllServices />
             },
             {
-                path: '/service-details/:serviceId/:subCategoryId',
-                element: <ServiceDetails />
+                path: '/service-details/:categoryId/:subCategoryId',
+                element: <ServiceDetails />,
+                loader: async({params}) => {
+                    const categoryId = params.categoryId;
+                    const subCategoryId = params.subCategoryId;
+                    console.log(categoryId);
+                    console.log(subCategoryId)
+                    return fetch(`http://localhost:5000/subcategory/${categoryId}/${subCategoryId}`)
+                }
             }
             
         ]
