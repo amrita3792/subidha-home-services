@@ -3,8 +3,10 @@ import router from "./Routes/Routes/Routes";
 import { createContext, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useMediaQuery } from "react-responsive";
 
 export const ThemeContext = createContext();
+export const DeviceContext = createContext();
 
 function App() {
   const [theme, setTheme] = useState(
@@ -25,8 +27,19 @@ function App() {
     }
   };
 
+  const isSmallDevice = useMediaQuery({ maxWidth: 767 });
+  const isMediumDevice = useMediaQuery({ minWidth: 768, maxWidth: 991 });
+  const isLargeDevice = useMediaQuery({ minWidth: 992 });
+
+  const device = {
+    isSmallDevice,
+    isMediumDevice,
+    isLargeDevice,
+  }
+
   return (
-    <ThemeContext.Provider value={{ theme, handleToggle }}>
+    <DeviceContext.Provider value={{device}}>
+      <ThemeContext.Provider value={{ theme, handleToggle }}>
       <RouterProvider router={router} />
       <ToastContainer
         position="top-right"
@@ -37,6 +50,7 @@ function App() {
         theme="light"
       />
     </ThemeContext.Provider>
+    </DeviceContext.Provider>
   );
 }
 

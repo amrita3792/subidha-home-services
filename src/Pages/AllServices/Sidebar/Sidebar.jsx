@@ -40,19 +40,18 @@ const Sidebar = () => {
 
   const handleDetailsButtonClick = (service, subCategoryId) => {
     navigate(`/service-details/${service._id}/${subCategoryId}`);
-  }
+  };
 
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content py-10 px-8">
-        {serviceId && <Service handleDetailsButtonClick={handleDetailsButtonClick} service={service} />}
-        <label
-          htmlFor="my-drawer-2"
-          className="btn btn-primary drawer-button lg:hidden"
-        >
-          Open drawer
-        </label>
+        {serviceId && (
+          <Service
+            handleDetailsButtonClick={handleDetailsButtonClick}
+            service={service}
+          />
+        )}
       </div>
       <div className="drawer-side">
         <label
@@ -60,7 +59,11 @@ const Sidebar = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className={`menu p-4 w-80 min-h-full ${theme === "light"? "bg-white" : "bg-bage-200 border-gray-600"} text-base-content gap-2  border-e`}>
+        <ul
+          className={`menu p-4 w-80 min-h-full ${
+            theme === "light" ? "bg-white" : "bg-bage-200 border-gray-600 relative z-[30005]"
+          } text-base-content gap-2  border-e`}
+        >
           <li className="text-3xl font-semibold px-4 pt-10 pb-5">
             All Services
           </li>

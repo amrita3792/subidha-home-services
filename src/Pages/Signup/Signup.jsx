@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./Signup.module.css";
 import {
   EnvelopeIcon,
@@ -11,12 +11,23 @@ import google from "../../assets/icons/google.png";
 import phone from "../../assets/icons/telephone.png";
 import NumberVerificatonModal from "../NumberVerificationModal/NumberVerificationModal";
 import { AuthContext } from "../../contexts/AuthProvider";
-import { ThemeContext } from "../../App";
+import { DeviceContext, ThemeContext } from "../../App";
 import { toast } from "react-toastify";
 
 const Signup = () => {
   const { googleSignIn, setLoading } = useContext(AuthContext);
+  const {device} = useContext(DeviceContext);
   const { theme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    // Set the desired scroll position when the component is mounted
+    if(device.isSmallDevice || device.isMediumDevice) {
+      window.scrollTo({
+        top: 574,
+        behavior: 'smooth',
+      });
+    }
+  }, []); // The empty dependency array ensures that this effect runs only once after the initial render
 
   const [showModal, setShowModal] = useState(false);
 
@@ -105,7 +116,7 @@ const Signup = () => {
             required
           />
         </div>
-        <button className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-10 py-3 active:scale-95 font-semibold w-full rounded-lg mt-8">
+        <button className="bg-gradient-to-r text-black btn from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-10 py-3 font-semibold w-full rounded-lg mt-8">
           SIGN UP
         </button>
         <p className="font-semibold mt-3 text-xs text-center">

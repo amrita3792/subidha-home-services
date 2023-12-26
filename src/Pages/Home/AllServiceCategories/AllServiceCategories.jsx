@@ -41,16 +41,16 @@ const AllServiceCategories = () => {
     },
   };
 
-  allServiceCategories.push({
-    id: "658853432456dsdfde3d98449a637",
-    serviceName: "All Services",
-    icon: "https://i.ibb.co/z7WhDpg/widget.png",
-  })
+  // allServiceCategories.push({
+  //   id: "658853432456dsdfde3d98449a637",
+  //   serviceName: "All Services",
+  //   icon: "https://i.ibb.co/z7WhDpg/widget.png",
+  // })
 
   console.log(allServiceCategories.length);
 
   return (
-    <div className={`xl:max-w-screen-xl mx-auto -mt-[75px] ${theme === "light"? "bg-white" : "bg-[#1D232A]"} rounded-xl relative z-50 shadow-lg multicarousel mb-20`}>
+    <div className={`xl:max-w-screen-xl mx-auto -mt-[75px] ${theme === "light"? "bg-white border" : "bg-[#1D232A]"}  rounded-xl relative z-50 shadow-lg multicarousel mb-20`}>
       <Carousel
         swipeable={true}
         draggable={false}

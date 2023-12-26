@@ -12,13 +12,16 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import {
   ChevronDoubleDownIcon,
   ChevronRightIcon,
+  Square2StackIcon,
+  Squares2X2Icon,
   UserIcon,
 } from "@heroicons/react/24/solid";
 import { ThemeContext } from "../../../App";
 import { profileLinks } from "../../../utilities/user-dashboard-links";
 import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
 
-const NavbarComponent = () => {
+const NavbarComponent = ({ isMounted }) => {
+  console.log(isMounted);
   const { user } = useContext(AuthContext);
   const { theme, handleToggle } = useContext(ThemeContext);
 
@@ -33,29 +36,29 @@ const NavbarComponent = () => {
     {
       idx: 0,
       path: "/",
-      name: "Home",
+      name: "HOME",
     },
     {
       idx: 1,
       path: "/all-services",
-      name: "All Services",
+      name: "ALL SERVICES",
     },
     {
       idx: 2,
       path: "/blog",
-      name: "Blog",
+      name: "BLOG",
     },
   ];
 
   return (
-    <nav className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] h-16">
+    <nav className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] h-16 relative">
       <div className="xl:max-w-screen-xl mx-auto flex items-center justify-end lg:justify-between h-full px-5">
         <ul
-          className={`flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-7 fixed z-[1000] lg:static  top-0 ${
+          className={`flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-7 fixed z-[30000] lg:static  top-0 ${
             openSidebar ? "right-0" : "right-[-1000px]"
           } ${
             theme === "light" ? "bg-white" : "bg-[#1D232A]"
-          } lg:bg-inherit w-full md:w-1/2 lg:w-auto h-screen lg lg:h-auto p-10 lg:p-0 z-50 transition-all lg:transition-none duration-500 ease-in-out`}
+          } lg:bg-inherit w-4/5 md:w-1/2 lg:w-auto h-screen lg lg:h-auto p-10 lg:p-0 z-50 transition-all lg:transition-none duration-500 ease-in-out`}
         >
           <li
             onClick={handleSidebarState}
@@ -66,7 +69,8 @@ const NavbarComponent = () => {
           {navLinks.map((navLink) => (
             <li key={navLink.idx}>
               <Link
-                className={`font-medium   ${styles.hover_underline_animation}`}
+                onClick={handleSidebarState}
+                className={`text-sm lg:font-semibold lg:text-black  ${styles.hover_underline_animation}`}
                 to={navLink.path}
               >
                 {navLink.name}
@@ -74,24 +78,30 @@ const NavbarComponent = () => {
             </li>
           ))}
           <li className="menu bg-base-200 rounded-box p-0 lg:hidden bg-inherit">
-              <details open>
-                <summary className="text-base  hover:bg-none p-0">Dashboard</summary>
-                <ul className="gap-8">
-                  {
-                    profileLinks.map(profileLink => <li key={profileLink.id}>
-                      <Link to={profileLink.path}>{profileLink.name}</Link>
-                    </li>)
-                  }
-                  
-                </ul>
-              </details>
+            <details open>
+              <summary className="text-base  hover:bg-none p-0">
+                Dashboard
+              </summary>
+              <ul className="gap-8">
+                {profileLinks.map((profileLink) => (
+                  <li key={profileLink.id}>
+                    <Link to={profileLink.path}>{profileLink.name}</Link>
+                  </li>
+                ))}
+              </ul>
+            </details>
           </li>
         </ul>
         <div className="flex items-center gap-5">
-          <button onClick={handleToggle}>
+          {isMounted && (
+            <label htmlFor="my-drawer-2" className= "lg:hidden cursor-pointer">
+              <Squares2X2Icon className="w-7 h-7 text-black" />
+            </label>
+          )}
+          <button>
             <MagnifyingGlass color="black" size={25} />
           </button>
-          <button className="text-black">
+          <button className="text-blac cursor-pointer">
             <label className="swap swap-rotate">
               {/* this hidden checkbox controls the state */}
               <input
@@ -122,7 +132,10 @@ const NavbarComponent = () => {
 
           {user?.uid ? (
             user?.photoURL ? (
-              <div onClick={() => setIsOpen((prev) => !prev)} className="relative">
+              <div
+                onClick={() => setIsOpen((prev) => !prev)}
+                className="relative"
+              >
                 <img
                   className="w-10 h-10 rounded-full  cursor-pointer"
                   src={user.photoURL}
@@ -130,9 +143,11 @@ const NavbarComponent = () => {
                 />
                 <UserAccessLinks isOpen={isOpen} setIsOpen={setIsOpen} />
               </div>
-              
             ) : (
-              <button onClick={() => setIsOpen((prev) => !prev)} className="text-white flex items-center gap-3 relative">
+              <button
+                onClick={() => setIsOpen((prev) => !prev)}
+                className="text-white flex items-center gap-3 relative"
+              >
                 <UserIcon className="h-6 w-6" />
                 <p className="flex items-center">
                   <span className="text-sm font-semibold">Profile</span>
@@ -145,7 +160,7 @@ const NavbarComponent = () => {
             <button>
               <Link
                 to="/login"
-                className="block border-2 border-black rounded-md px-4 py-2 active:scale-95"
+                className="btn bg-inherit hover:bg-inherit text-black border-2 border-black"
               >
                 LOG IN
               </Link>
@@ -153,11 +168,11 @@ const NavbarComponent = () => {
           )}
           {openSidebar ? (
             <button className="lg:hidden">
-              <X size={32} color="white" />
+              <X size={32} color="dark" />
             </button>
           ) : (
             <button className="lg:hidden" onClick={handleSidebarState}>
-              <List size={32} color="white" />
+              <List size={32} color="dark" />
             </button>
           )}
           {/* <button>
@@ -168,7 +183,7 @@ const NavbarComponent = () => {
       {openSidebar && (
         <div
           onClick={handleSidebarState}
-          className="absolute top-0 left-0 w-full h-[2000px] bg-black opacity-25 lg:hidden"
+          className="fixed z-[29999] top-0 left-0 w-full min-h-[3000px] bg-black opacity-60 lg:hidden"
         ></div>
       )}
     </nav>

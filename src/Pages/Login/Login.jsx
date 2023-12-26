@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./Login.module.css";
 import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
@@ -7,14 +7,29 @@ import google from "../../assets/icons/google.png";
 import phone from "../../assets/icons/telephone.png";
 import NumberVerificatonModal from "../NumberVerificationModal/NumberVerificationModal";
 import { AuthContext } from "../../contexts/AuthProvider";
-import { ThemeContext } from "../../App";
+import { DeviceContext, ThemeContext } from "../../App";
 import { toast } from "react-toastify";
+import { useMediaQuery } from "react-responsive";
 
 const Login = () => {
   const { googleSignIn, setLoading } = useContext(AuthContext);
-  const { theme } = useContext(ThemeContext);
+  const {device} = useContext(DeviceContext);
 
+
+  console.log(device);
+
+  const { theme } = useContext(ThemeContext);
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    // Set the desired scroll position when the component is mounted
+    if(device.isSmallDevice || device.isMediumDevice) {
+      window.scrollTo({
+        top: 574,
+        behavior: 'smooth',
+      });
+    }
+  }, []); // The empty dependency array ensures that this effect runs only once after the initial render
 
   const handleChangeModalState = () => {
     setShowModal(!showModal);
@@ -87,7 +102,7 @@ const Login = () => {
         >
           Forgot your password?
         </Link>
-        <button className="btn bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-10 py-3 font-semibold w-full rounded-lg">
+        <button className="text-black btn bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-10 py-3 font-semibold w-full rounded-lg">
           LOG IN
         </button>
         <p className="font-semibold mt-3 text-xs text-center">

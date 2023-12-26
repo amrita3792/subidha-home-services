@@ -7,7 +7,7 @@ const Service = ({service, handleDetailsButtonClick}) => {
         <div>
             <h2 className="text-4xl font-bold">{service?.serviceName}</h2>
             <h4 className="font-bold">{service?.subCategories?.length} Related Services</h4>
-            <div className="grid grid-cols-3 gap-5 my-10">
+            <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-5 my-10">
             {
             service?.subCategories?.map((subCategory) => (
                 <ServiceCard handleDetailsButtonClick={handleDetailsButtonClick} service={service} subCategory={subCategory} key={subCategory.id} />

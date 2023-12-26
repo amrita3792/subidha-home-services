@@ -71,7 +71,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
             theme === "dark"
               ? "bg-[#1D232A] border-gray-700"
               : "bg-white border-gray-300"
-          }  py-4 px-5 rounded-xl w-[250px] z-[5000]`}
+          }  py-4 px-5 rounded-xl w-[250px] z-[30001]`}
         >
           <div className="flex items-center gap-3 mb-3">
             {user?.photoURL ? (
@@ -99,10 +99,10 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
                 </Link>
               </li>
             ))}
-            <li onClick={handleLogout} className="flex items-center justify-center gap-1 cursor-pointer bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-3 py-2 rounded-lg">
-              <span>Logout</span>
+            <li onClick={handleLogout} className="btn flex items-center justify-center gap-1 cursor-pointer bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-3 py-2 rounded-lg">
+              <span className="text-black">Logout</span>
               <span>
-                <ArrowDownTrayIcon className="w-6 h-6 rotate-90" />
+                <ArrowDownTrayIcon className="w-6 h-6 rotate-90 text-black" />
               </span>
             </li>
           </ul>

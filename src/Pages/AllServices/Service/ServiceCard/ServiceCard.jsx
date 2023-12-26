@@ -14,7 +14,7 @@ const ServiceCard = ({ service, subCategory, handleDetailsButtonClick }) => {
         <h2 className="card-title">{subCategory.serviceName}</h2>
         <p className="text-sm font-semibold">{subCategory.description.length > 70 ? subCategory.description.slice(0, 70) + "..." : subCategory.description}</p>
         <div className="card-actions justify-end">
-          <button onClick={() => handleDetailsButtonClick(service, subCategory.id)} className="btn bg-gradient-to-r from-[#10e2ee] to-[#04ffa3]">Details</button>
+          <button onClick={() => handleDetailsButtonClick(service, subCategory.id)} className="btn bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] text-black">See Details</button>
         </div>
       </div>
     </div>

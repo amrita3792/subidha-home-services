@@ -22,6 +22,7 @@ const Banner = () => {
         </div>
         <div className="h-full flex items-end justify-center grow relative">
           <img className="h-full relative z-50" src={electrician} alt="" />
+          <div className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] h-80 w-80 rounded-full absolute top-10 right-1/3 shadow-xl"></div>
         </div>
       </div>
       <div id={styles.overlay} className="absolute w-full h-full top-0 left-0" >
