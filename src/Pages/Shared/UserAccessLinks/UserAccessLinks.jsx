@@ -46,14 +46,12 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
     logout()
     .then(() => {
         toast.success("Successfully Logout", {
-            hideProgressBar: true,
-            theme: "colored"
+            hideProgressBar: false,
+      
           })
       }).catch((error) => {
-        // An error happened.
         toast.error(error.message, {
-            hideProgressBar: true,
-            theme: "colored"
+            hideProgressBar: false,
           })
         setLoading(false)
       });
@@ -99,10 +97,10 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
                 </Link>
               </li>
             ))}
-            <li onClick={handleLogout} className="btn flex items-center justify-center gap-1 cursor-pointer bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-3 py-2 rounded-lg">
-              <span className="text-black">Logout</span>
+            <li onClick={handleLogout} className="btn flex items-center justify-center gap-1 cursor-pointer bg-[#FFA51D] hover:bg-[#393CC6]  px-3 py-2 rounded-lg">
+              <span className="text-white">Logout</span>
               <span>
-                <ArrowDownTrayIcon className="w-6 h-6 rotate-90 text-black" />
+                <ArrowDownTrayIcon className="w-6 h-6 rotate-90 text-white" />
               </span>
             </li>
           </ul>

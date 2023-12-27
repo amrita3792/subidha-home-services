@@ -143,7 +143,7 @@ export const NumberVerificatonModal = ({
                 disabled={phone.length !== 13 && "disabled"}
                 className={`  ${
                   phone.length === 13
-                    ? "btn bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] "
+                    ? "btn bg-[#FFA51D] hover:bg-[#393CC6] text-white"
                     : "bg-neutral-300"
                 }  mx-auto my-5 py-2  flex justify-center items-center gap-4 rounded-sm w-[300px] font-semibold`}
               >
@@ -155,7 +155,7 @@ export const NumberVerificatonModal = ({
               {visibleRecaptcha && <div id="recaptcha-container"></div>}
               <button
                 onClick={handleChangeModalState}
-                className="block mx-auto text-sm font-semibold text-emerald-500 underline hover:no-underline mt-3"
+                className="block mx-auto text-sm font-semibold text-blue-500 underline hover:no-underline mt-3"
               >
                 Login with other options
               </button>
@@ -185,7 +185,7 @@ export const NumberVerificatonModal = ({
                 onClick={handleVerifyOTP}
                 className={` ${
                   OTP.length === 6
-                    ? "btn bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] "
+                    ? "btn bg-[#FFA51D] hover:bg-[#393CC6] text-white"
                     : "bg-neutral-300"
                 }   w-[270px] mx-auto my-5 py-2 rounded-sm flex justify-center items-center gap-4 font-semibold`}
               >
@@ -199,7 +199,7 @@ export const NumberVerificatonModal = ({
                   setShowOTP(false);
                   setPhone("");
                 }}
-                className="block mx-auto text-sm font-semibold text-emerald-500 hover:underline mb-3"
+                className="block mx-auto text-sm font-semibold text-blue-500 hover:underline mb-3"
               >
                 Change Phone Number
               </button>

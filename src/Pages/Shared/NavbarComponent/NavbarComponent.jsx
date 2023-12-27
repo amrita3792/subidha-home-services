@@ -1,21 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./NavbarComponent.module.css";
-import {
-  CaretLeft,
-  List,
-  MagnifyingGlass,
-  Triangle,
-  X,
-} from "@phosphor-icons/react";
+import { CaretLeft, List, MagnifyingGlass, X } from "@phosphor-icons/react";
 import { AuthContext } from "../../../contexts/AuthProvider";
-import {
-  ChevronDoubleDownIcon,
-  ChevronRightIcon,
-  Square2StackIcon,
-  Squares2X2Icon,
-  UserIcon,
-} from "@heroicons/react/24/solid";
+import { ChevronDoubleDownIcon, UserIcon } from "@heroicons/react/24/solid";
 import { ThemeContext } from "../../../App";
 import { profileLinks } from "../../../utilities/user-dashboard-links";
 import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
@@ -50,7 +38,7 @@ const NavbarComponent = ({ isMounted }) => {
   ];
 
   return (
-    <nav className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] h-16 relative">
+    <nav className="bg-[#393CC6]  h-16 relative z-[29000]">
       <div className="xl:max-w-screen-xl mx-auto flex items-center justify-end lg:justify-between h-full px-5">
         <ul
           className={`flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-7 fixed z-[30000] lg:static  top-0 ${
@@ -69,7 +57,7 @@ const NavbarComponent = ({ isMounted }) => {
             <li key={navLink.idx}>
               <Link
                 onClick={handleSidebarState}
-                className={`text-sm lg:font-semibold lg:text-black  ${styles.hover_underline_animation}`}
+                className={`text-sm lg:text-white  ${styles.hover_underline_animation}`}
                 to={navLink.path}
               >
                 {navLink.name}
@@ -93,14 +81,27 @@ const NavbarComponent = ({ isMounted }) => {
         </ul>
         <div className="flex items-center gap-5">
           {isMounted && (
-            <label htmlFor="my-drawer-2" className= "lg:hidden cursor-pointer">
-              <Squares2X2Icon className="w-7 h-7 text-black" />
+            <label htmlFor="my-drawer-2" className="lg:hidden cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-8 h-8"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"
+                />
+              </svg>
             </label>
           )}
           <button>
-            <MagnifyingGlass color="black" size={25} />
+            <MagnifyingGlass color="white" size={25} />
           </button>
-          <button className="text-blac cursor-pointer text-black">
+          <button className="text-blac cursor-pointer text-white">
             <label className="swap swap-rotate">
               {/* this hidden checkbox controls the state */}
               <input
@@ -128,7 +129,6 @@ const NavbarComponent = ({ isMounted }) => {
               </svg>
             </label>
           </button>
-
           {user?.uid ? (
             user?.photoURL ? (
               <div
@@ -159,7 +159,7 @@ const NavbarComponent = ({ isMounted }) => {
             <button>
               <Link
                 to="/login"
-                className="btn bg-inherit hover:bg-inherit text-black border-2 border-black"
+                className="btn bg-inherit hover:bg-inherit text-white border-2 border-white"
               >
                 LOG IN
               </Link>

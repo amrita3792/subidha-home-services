@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Header from "./Header/Header";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import AdminLinks from "./AdminLinks/AdminLinks";
 
 
@@ -11,8 +11,11 @@ const AdminDashboard = () => {
       <input id="admin-dashboard" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         <Header />
+        <div className="p-4 lg:mx-9">
+        <Outlet />
+        </div>
       </div>
-      <div className="drawer-side">
+      <div className="drawer-side z-[3000]">
         <label
           htmlFor="admin-dashboard"
           aria-label="close sidebar"

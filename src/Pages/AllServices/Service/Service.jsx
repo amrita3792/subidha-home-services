@@ -2,7 +2,6 @@ import React from 'react';
 import ServiceCard from './ServiceCard/ServiceCard';
 
 const Service = ({service, handleDetailsButtonClick}) => {
-
     return (
         <div>
             <h2 className="text-4xl font-bold">{service?.serviceName}</h2>

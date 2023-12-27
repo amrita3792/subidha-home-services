@@ -66,7 +66,7 @@ const Signup = () => {
       <h2 className="text-4xl text-center mb-6 font-semibold">Sign Up</h2>
       <form>
         <div className="form-control flex flex-row items-center my-5">
-          <span className="bg-gradient-to-r text-white from-[#10e2ee] to-[#04ffa3] p-3 rounded-l-[8px]">
+          <span className="bg-[#393CC6] p-3 rounded-l-[8px]">
             <UserIcon className="h-5 w-5 text-white" />
           </span>
           <input
@@ -83,7 +83,7 @@ const Signup = () => {
           />
         </div>
         <div className="form-control flex flex-row items-center my-5">
-          <span className="bg-gradient-to-r text-white from-[#10e2ee] to-[#04ffa3] p-3 rounded-l-[8px]">
+          <span className="bg-[#393CC6] p-3 rounded-l-[8px]">
             <EnvelopeIcon className="h-5 w-5 text-white" />
           </span>
           <input
@@ -100,7 +100,7 @@ const Signup = () => {
           />
         </div>
         <div className="form-control flex flex-row items-center mt-5">
-          <span className="bg-gradient-to-r text-white from-[#10e2ee] to-[#04ffa3] p-3 rounded-l-[8px]">
+          <span className="bg-[#393CC6] p-3 rounded-l-[8px]">
             <LockClosedIcon className="h-5 w-5 text-white" />
           </span>
           <input
@@ -116,14 +116,14 @@ const Signup = () => {
             required
           />
         </div>
-        <button className="bg-gradient-to-r text-black btn from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] hover:from-[#04ffa3] px-10 py-3 font-semibold w-full rounded-lg mt-8">
+        <button className="btn text-white bg-[#FFA51D] hover:bg-[#393CC6] px-10 py-3 font-semibold w-full rounded-lg mt-8">
           SIGN UP
         </button>
         <p className="font-semibold mt-3 text-xs text-center">
           Already have an account?{" "}
           <Link
             to="/login"
-            className="text-emerald-500 hover:underline text-sm"
+            className="text-blue-500 hover:underline text-sm"
           >
             Log In
           </Link>

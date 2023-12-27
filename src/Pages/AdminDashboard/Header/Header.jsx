@@ -10,7 +10,7 @@ const Header = () => {
   const { theme, handleToggle } = useContext(ThemeContext);
   return (
     <header
-      className={`sticky top-0 z-999 w-full ${
+      className={`sticky top-0 z-[1000] w-full ${
         theme === "light" ? "bg-white" : "bg-[#24303F]"
       } `}
     >

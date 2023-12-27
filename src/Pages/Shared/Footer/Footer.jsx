@@ -8,7 +8,7 @@ const Footer = () => {
       <aside>
         <Link to="/" className="flex items-center gap-2">
           <img className="h-12" src={logo} alt="" />
-          <h2 className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] hover:to-[#10e2ee] bg-clip-text text-transparent text-2xl font-bold">
+          <h2 className="text-[#FFA51D] text-2xl font-bold">
             SUBIDHA
           </h2>
         </Link>
