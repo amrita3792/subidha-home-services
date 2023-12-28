@@ -9,14 +9,18 @@ export const MountContext = createContext();
 const Main = () => {
   const [isMounted, setIsMounted] = useState(false);
   return (
-    <div>
+    <>
       <PromoBar />
-      <MountContext.Provider value={{isMounted, setIsMounted}}>
-        <NavbarComponent isMounted={isMounted} />
-        <Outlet />
+      <MountContext.Provider value={{ isMounted, setIsMounted }}>
+        <header>
+          <NavbarComponent isMounted={isMounted} />
+        </header>
+        <main>
+          <Outlet />
+        </main>
       </MountContext.Provider>
       <Footer />
-    </div>
+    </>
   );
 };
 

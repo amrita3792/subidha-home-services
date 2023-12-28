@@ -1,5 +1,4 @@
 import React from "react";
-import electrician from "../../../assets/Banner/pngegg.png";
 import styles from "./Banner.module.css";
 
 const Banner = () => {
@@ -8,7 +7,7 @@ const Banner = () => {
       id={styles.cover}
       className="lg:h-[650px]  bg-gradient-to-r to-blue-600 from-violet-600 overflow-hidden relative"
     >
-      <div className="flex flex-col lg:flex-row justify-between items-center xl:max-w-screen-xl lg:max-w-screen-lg  mx-auto h-full pt-12 px-5 relative z-50">
+      <div className="flex flex-col lg:flex-row justify-between items-center xl:max-w-screen-xl lg:max-w-screen-lg  mx-auto h-full py-12 px-5 relative z-50">
         <div className="basis-6/12">
           <h2 className="text-6xl font-bold leading-snug">
             SOLUTION FOR ALL{" "}
@@ -41,5 +40,3 @@ const Banner = () => {
 
 export default Banner;
 
-// #C026D3
-// #DB2777
