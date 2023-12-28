@@ -6,7 +6,7 @@ import { ThemeContext } from "../../../App";
 import { toast } from "react-toastify";
 
 const UserAccessLinks = ({ isOpen, setIsOpen }) => {
-  const { user, logout, setLoading } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
 
   const profileLinks = [
@@ -46,14 +46,15 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
     logout()
     .then(() => {
         toast.success("Successfully Logout", {
-            hideProgressBar: false,
+          hideProgressBar: true,
+          theme: "colored"
       
           })
       }).catch((error) => {
         toast.error(error.message, {
-            hideProgressBar: false,
+          hideProgressBar: true,
+          theme: "colored"
           })
-        setLoading(false)
       });
   }
 
@@ -79,17 +80,17 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
                 alt=""
               />
             ) : (
-              <div className="bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] text-white p-3 rounded-full relative">
+              <div className="bg-[#FF6600] text-white p-3 rounded-full relative">
                 <UserIcon className="w-8 h-8" />
               </div>
             )}
             <div>
               <p className="font-semibold line-clamp-0">{user?.displayName ? user.displayName : "N/A"}</p>
-              <span className="text-sm">User</span>
+              <p className="text-sm text-start">User</p>
             </div>
           </div>
 
-          <ul className="flex flex-col items-start gap-3  w-[150px]">
+          <ul className="flex flex-col items-start gap-3 w-[150px]">
             {profileLinks.map((profileLink) => (
               <li key={profileLink.id}>
                 <Link className="text-sm hover:underline text-start">

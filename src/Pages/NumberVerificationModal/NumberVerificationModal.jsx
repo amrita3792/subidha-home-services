@@ -165,7 +165,7 @@ export const NumberVerificatonModal = ({
               <img className="w-48 block mx-auto" src={sendOtp} alt="" />
               <p className="text-center font-semibold mb-5 ">
                 Type the 6 digit code sent to this <br /> number{" "}
-                <span className="text-pink-600 font-semibold">{`"+${phone}"`}</span>{" "}
+                <span className="text-blue-500 font-semibold">{`"+${phone}"`}</span>{" "}
               </p>
               <OTPInput
                 className="otp-container"

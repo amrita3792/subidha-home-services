@@ -81,7 +81,10 @@ const NavbarComponent = ({ isMounted }) => {
         </ul>
         <div className="flex items-center gap-5">
           {isMounted && (
-            <label htmlFor="my-drawer-2" className="lg:hidden cursor-pointer text-white">
+            <label
+              htmlFor="my-drawer-2"
+              className="lg:hidden cursor-pointer text-white"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -145,13 +148,15 @@ const NavbarComponent = ({ isMounted }) => {
             ) : (
               <button
                 onClick={() => setIsOpen((prev) => !prev)}
-                className="text-white flex items-center gap-3 relative"
+                className="relative"
               >
-                <UserIcon className="h-6 w-6" />
-                <p className="flex items-center">
-                  <span className="text-sm font-semibold">Profile</span>
-                  <ChevronDoubleDownIcon className="h-6 w-6" />
-                </p>
+                <div className="text-white flex items-center gap-3">
+                  <UserIcon className="h-6 w-6" />
+                  <p className="flex items-center">
+                    <span className="text-sm font-semibold">Profile</span>
+                    <ChevronDoubleDownIcon className="h-6 w-6" />
+                  </p>
+                </div>
                 <UserAccessLinks isOpen={isOpen} setIsOpen={setIsOpen} />
               </button>
             )

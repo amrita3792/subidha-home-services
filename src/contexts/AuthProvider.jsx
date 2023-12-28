@@ -1,9 +1,11 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
 import {
+  createUserWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
   RecaptchaVerifier,
+  signInWithEmailAndPassword,
   signInWithPhoneNumber,
   signInWithPopup,
   signOut,
@@ -11,6 +13,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
 
@@ -24,26 +27,27 @@ const AuthProvider = ({ children }) => {
   const recaptchaVerifierRef = useRef(null);
   const [visibleRecaptcha, setVisibleRecaptcha] = useState(false);
   const googleProvider = new GoogleAuthProvider();
-  
+
   const googleSignIn = () => {
-    setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
   const logout = () => {
     return signOut(auth);
-  }
+  };
 
   const generateRecaptcha = () => {
     // Create RecaptchaVerifier only once
-    recaptchaVerifierRef.current = new RecaptchaVerifier(auth, 'recaptcha-container', {
-      'size': 'normal',
-      'callback': (response) => {
-        // reCAPTCHA solved, allow signInWithPhoneNumber.
-
+    recaptchaVerifierRef.current = new RecaptchaVerifier(
+      auth,
+      "recaptcha-container",
+      {
+        size: "normal",
+        callback: (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+        },
       }
-    });
-    
+    );
   };
 
   const sendOTP = async (phoneNumber) => {
@@ -51,7 +55,7 @@ const AuthProvider = ({ children }) => {
     generateRecaptcha();
     if (recaptchaVerifierRef.current) {
       const appVerifier = recaptchaVerifierRef.current;
-      return signInWithPhoneNumber(auth, '+' + phoneNumber, appVerifier);
+      return signInWithPhoneNumber(auth, "+" + phoneNumber, appVerifier);
     } else {
       // setRecaptchaError("Recaptcha not initialized");
     }
@@ -72,6 +76,17 @@ const AuthProvider = ({ children }) => {
     return confirmationResult.confirm(OTP);
   };
 
+  const createUser = (email, password) => {
+    setLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const signIn = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+}
+
+
   const updateUserProfile = (displayName, photoURL) => {
     setLoading(true);
     return updateProfile(auth.currentUser, {
@@ -89,7 +104,16 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(
       auth,
       (user) => {
-        setUser(user);
+        if (!user || user?.emailVerified || user?.phoneNumber) {
+          setUser(user);
+        } else {
+          toast.warning("Your Email is not verified", {
+            hideProgressBar: true,
+            theme: "colored"
+          })
+          logout();
+        }
+        setLoading(false);
       },
       []
     );
@@ -109,10 +133,11 @@ const AuthProvider = ({ children }) => {
     setUpdateProfilePicture,
     setUpdateProfileName,
     resendOTP,
-    visibleRecaptcha, 
+    visibleRecaptcha,
     setVisibleRecaptcha,
     logout,
-
+    createUser,
+    signIn,
   };
 
   return (

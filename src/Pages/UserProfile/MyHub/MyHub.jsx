@@ -83,6 +83,7 @@ const MyHub = () => {
         setLoading(false);
         toast.success("Name updated successfully", {
           icon: <CheckIcon className="w-5 h-5 text-white" />,
+          hideProgressBar: true,
           theme: "colored"
         });
       })

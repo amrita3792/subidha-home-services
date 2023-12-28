@@ -1,14 +1,7 @@
 .passwordField, .emailField {
-    padding: 0.5rem;
-    border: double 2px transparent;
+    border: 2px solid gray;
     border-left: 0px;
-    border-radius: 8px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    background-image: linear-gradient(white, white),
-        linear-gradient(to top, gray, gray);
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
+    border--radius: 8px ;
 }
 
 /* bg-gradient-to-r from-[#10e2ee] to-[#04ffa3] */
