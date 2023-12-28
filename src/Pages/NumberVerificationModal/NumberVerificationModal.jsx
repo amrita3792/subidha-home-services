@@ -22,9 +22,7 @@ export const NumberVerificatonModal = ({
   let from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
   const {
-    loading,
     sendOTP,
-    setLoading,
     verifyOTP,
     resendOTP,
     visibleRecaptcha,
@@ -36,8 +34,10 @@ export const NumberVerificatonModal = ({
   const [OTP, setOTP] = useState("");
   const [phone, setPhone] = useState("");
   const [showOTP, setShowOTP] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSendOTP = async () => {
+    setLoading(true);
     await setVisibleRecaptcha(true);
     sendOTP(phone)
       .then((confirmationResult) => {
@@ -64,6 +64,7 @@ export const NumberVerificatonModal = ({
   };
 
   const handleVerifyOTP = () => {
+    setLoading(true);
     verifyOTP(OTP)
       .then((result) => {
         // User signed in successfully.
@@ -83,6 +84,7 @@ export const NumberVerificatonModal = ({
   };
 
   const handleResendOTP = async () => {
+    setLoading(true);
     await setVisibleRecaptcha(true);
     resendOTP(phone)
       .then((confirmationResult) => {

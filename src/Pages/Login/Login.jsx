@@ -10,10 +10,12 @@ import { AuthContext } from "../../contexts/AuthProvider";
 import { DeviceContext, ThemeContext } from "../../App";
 import { toast } from "react-toastify";
 import { useMediaQuery } from "react-responsive";
+import ForgotPasswordModal from "./FogotPasswordModal/ForgotPasswordModal";
 
 const Login = () => {
   const { googleSignIn, setLoading, signIn, loading } = useContext(AuthContext);
   const [error, setError] = useState(null);
+  const [resetPassword, setResetPassword] = useState(false);
   const { device } = useContext(DeviceContext);
   const navigate = useNavigate();
 
@@ -74,7 +76,7 @@ const Login = () => {
     signIn(email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        if(user.emailVerified) {
+        if (user.emailVerified) {
           navigate(from, { replace: true });
         }
         setLoading(false);
@@ -118,8 +120,12 @@ const Login = () => {
           />
         </div>
         <Link
+          to="#"
+          onClick={async() => {
+            await setResetPassword(true);
+            document.getElementById("my_modal_3").showModal()
+          }}
           className="text-blue-600 font-semibold text-sm block my-7 mt-1 text-center hover:underline"
-          to="/forgot-password"
         >
           Forgot your password?
         </Link>
@@ -152,15 +158,15 @@ const Login = () => {
           <span>{error}</span>
         </div>
       )}
-       <p className="font-semibold mt-3 text-xs text-center">
-          Don't have an account?{" "}
-          <Link
-            to="/signup"
-            className="text-blue-500 hover:underline font-semibold text-sm"
-          >
-            Sign Up
-          </Link>
-        </p>
+      <p className="font-semibold mt-3 text-xs text-center">
+        Don't have an account?{" "}
+        <Link
+          to="/signup"
+          className="text-blue-500 hover:underline font-semibold text-sm"
+        >
+          Sign Up
+        </Link>
+      </p>
       <div className="divider font-semibold">OR</div>
       <button
         onClick={handleChangeModalState}
@@ -193,6 +199,7 @@ const Login = () => {
           setShowModal={setShowModal}
         />
       )}
+      {resetPassword && <ForgotPasswordModal setResetPassword={setResetPassword} />}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   RecaptchaVerifier,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPhoneNumber,
   signInWithPopup,
@@ -51,7 +52,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const sendOTP = async (phoneNumber) => {
-    setLoading(true);
     generateRecaptcha();
     if (recaptchaVerifierRef.current) {
       const appVerifier = recaptchaVerifierRef.current;
@@ -71,7 +71,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const verifyOTP = (OTP) => {
-    setLoading(true);
     let confirmationResult = window.confirmationResult;
     return confirmationResult.confirm(OTP);
   };
@@ -84,8 +83,13 @@ const AuthProvider = ({ children }) => {
   const signIn = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
-}
+  };
 
+  const resetPassword = (email) => {
+    console.log(email)
+    // setLoading(true);
+    return sendPasswordResetEmail(auth, email);
+  };
 
   const updateUserProfile = (displayName, photoURL) => {
     setLoading(true);
@@ -109,8 +113,8 @@ const AuthProvider = ({ children }) => {
         } else {
           toast.warning("Your Email is not verified", {
             hideProgressBar: true,
-            theme: "colored"
-          })
+            theme: "colored",
+          });
           logout();
         }
         setLoading(false);
@@ -138,6 +142,7 @@ const AuthProvider = ({ children }) => {
     logout,
     createUser,
     signIn,
+    resetPassword,
   };
 
   return (

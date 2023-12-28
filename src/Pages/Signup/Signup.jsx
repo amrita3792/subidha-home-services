@@ -1,18 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import ReactLoading from "react-loading";
-import styles from "./Signup.module.css";
-import {
-  EnvelopeIcon,
-  LockClosedIcon,
-  UserIcon,
-} from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import facebook from "../../assets/icons/facebook.png";
 import google from "../../assets/icons/google.png";
 import phone from "../../assets/icons/telephone.png";
 import NumberVerificatonModal from "../NumberVerificationModal/NumberVerificationModal";
 import { AuthContext } from "../../contexts/AuthProvider";
-import { DeviceContext, ThemeContext } from "../../App";
+import { DeviceContext } from "../../App";
 import { toast } from "react-toastify";
 import { sendEmailVerification, updateProfile } from "firebase/auth";
 import newMessage from '../../assets/images/new-messages.png'
@@ -21,12 +14,13 @@ const Signup = () => {
   const { googleSignIn, setLoading, loading, createUser, logout } =
     useContext(AuthContext);
   const { device } = useContext(DeviceContext);
-  const { theme } = useContext(ThemeContext);
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
   const [error, setError] = useState(null);
   const [isReceive, setIsReceive] = useState(false);
   const [email, setEmail] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Set the desired scroll position when the component is mounted
@@ -48,6 +42,7 @@ const Signup = () => {
   const handleGooleSignIn = () => {
     googleSignIn()
       .then((result) => {
+        navigate(from, { replace: true });
         // This gives you a Google Access Token. You can use it to access the Google API.
         // The signed-in user info.
         const user = result.user;
