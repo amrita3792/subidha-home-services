@@ -38,10 +38,10 @@ const NavbarComponent = ({ isMounted }) => {
   ];
 
   return (
-    <nav className="bg-[#393CC6]  h-16 relative z-[29000]">
+    <nav className="bg-[#1d2736] h-16 relative">
       <div className="xl:max-w-screen-xl mx-auto flex items-center justify-end lg:justify-between h-full px-5">
         <ul
-          className={`flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-7 fixed z-[30000] lg:static  top-0 ${
+          className={`flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-7 fixed z-[30000] lg:z-auto lg:static  top-0 ${
             openSidebar ? "right-0" : "right-[-1000px]"
           } ${
             theme === "light" ? "bg-white" : "bg-[#1D232A]"
@@ -81,7 +81,7 @@ const NavbarComponent = ({ isMounted }) => {
         </ul>
         <div className="flex items-center gap-5">
           {isMounted && (
-            <label htmlFor="my-drawer-2" className="lg:hidden cursor-pointer">
+            <label htmlFor="my-drawer-2" className="lg:hidden cursor-pointer text-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -167,11 +167,11 @@ const NavbarComponent = ({ isMounted }) => {
           )}
           {openSidebar ? (
             <button className="lg:hidden">
-              <X size={32} color="dark" />
+              <X size={32} color="white" />
             </button>
           ) : (
             <button className="lg:hidden" onClick={handleSidebarState}>
-              <List size={32} color="dark" />
+              <List size={32} color="white" />
             </button>
           )}
           {/* <button>

@@ -13,7 +13,7 @@ const ServiceCard = ({ service, subCategory, handleDetailsButtonClick }) => {
         <h2 className="card-title">{subCategory.serviceName}</h2>
         <p className="text-sm font-semibold">{subCategory.description.length > 70 ? subCategory.description.slice(0, 70) + "..." : subCategory.description}</p>
         <div className="">
-          <button onClick={() => handleDetailsButtonClick(service, subCategory.id)} className="btn bg-[#FFA51D] hover:bg-[#393CC6] text-white px-3 py-1 font-medium">See Details</button>
+          <button onClick={() => handleDetailsButtonClick(service, subCategory.id)} className="btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-3 py-1 font-medium">See Details</button>
         </div>
       </div>
     </div>

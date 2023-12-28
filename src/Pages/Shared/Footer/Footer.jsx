@@ -1,17 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from '../../../assets/logo/subidha-logo.png';
+import logo from "../../../assets/logo/subidha-logo.png";
 
 const Footer = () => {
   return (
     <footer className="footer p-10 bg-base-200 text-base-content">
       <aside>
-        <Link to="/" className="flex items-center gap-2">
-          <img className="h-12" src={logo} alt="" />
-          <h2 className="text-[#FFA51D] text-2xl font-bold">
-            SUBIDHA
-          </h2>
-        </Link>
+        <img className="h-12" src={logo} alt="" />
         <p>
           ACME Industries Ltd.
           <br />

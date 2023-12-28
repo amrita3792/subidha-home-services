@@ -8,10 +8,10 @@
   position: absolute;
   width: 100%;
   transform: scaleX(0);
-  height: 1px;
+  height: 2px;
   bottom: -4px;
   left: 0;
-  background-color: black;
+  background-color: white;
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }

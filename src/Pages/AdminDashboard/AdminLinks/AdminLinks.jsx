@@ -5,7 +5,7 @@ import { ThemeContext } from "../../../App";
 const AdminLinks = () => {
   const { theme } = useContext(ThemeContext);
   return (
-    <ul className={`p-4 w-80 min-h-full bg-[#345DA7]`}>
+    <ul className={`p-4 w-80 min-h-full ${theme === "light" ? "bg-[#345DA7]" : "bg-[#24303F] border-slate-700"}`}>
       <li className="text-white border-none w-full">
         <Link className="btn active:bg-none font-medium bg-inherit border-none text-white items-center justify-start w-full hover:bg-slate-700">
           <svg

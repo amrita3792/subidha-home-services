@@ -143,7 +143,7 @@ export const NumberVerificatonModal = ({
                 disabled={phone.length !== 13 && "disabled"}
                 className={`  ${
                   phone.length === 13
-                    ? "btn bg-[#FFA51D] hover:bg-[#393CC6] text-white"
+                    ? "btn bg-[#FF6600] hover:bg-[#1D2736]  text-white"
                     : "bg-neutral-300"
                 }  mx-auto my-5 py-2  flex justify-center items-center gap-4 rounded-sm w-[300px] font-semibold`}
               >
@@ -185,7 +185,7 @@ export const NumberVerificatonModal = ({
                 onClick={handleVerifyOTP}
                 className={` ${
                   OTP.length === 6
-                    ? "btn bg-[#FFA51D] hover:bg-[#393CC6] text-white"
+                    ? "btn bg-[#FF6600] hover:bg-[#1D2736]  text-white"
                     : "bg-neutral-300"
                 }   w-[270px] mx-auto my-5 py-2 rounded-sm flex justify-center items-center gap-4 font-semibold`}
               >

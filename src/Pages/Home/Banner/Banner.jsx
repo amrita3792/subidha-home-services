@@ -12,7 +12,7 @@ const Banner = () => {
         <div className="basis-6/12">
           <h2 className="text-6xl font-bold leading-snug">
             SOLUTION FOR ALL{" "}
-            <span className="text-[#FFA51D]">HOME SERVICES</span>
+            <span className="text-[#383838]">HOME SERVICES</span>
           </h2>
           <p className="font-medium my-4">
             Experience the ultimate in home service convenience with Subidha.
@@ -20,16 +20,16 @@ const Banner = () => {
             service needs into stress-free solutions. Explore the endless
             possibilities today!
           </p>
-          <button className="btn border-none hover:bg-[#FFA51D] bg-[#393CC6] text-white px-8 py-4 active:scale-95 font-semibold">
-            More Information
+          <button className="btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-2 active:scale-95 border-none">
+              More Information
           </button>
         </div>
-        <div className="h-full flex items-end justify-center grow relative">
+        {/* <div className="h-full flex items-end justify-center grow relative">
           <img className="h-full relative z-50" src={electrician} alt="" />
           <div className="bg-[#393CC6] h-80 w-80 rounded-full absolute top-10 right-1/3 shadow-xl"></div>
           <div className="bg-[#FFA51D] h-12 w-12 rounded-full absolute top-10 right-1.5 shadow-xl"></div>
           <div className="bg-[#FFA51D] h-20 w-20 rounded-full absolute top-28 right-2.5 shadow-xl"></div>
-        </div>
+        </div> */}
       </div>
       <div
         id={styles.overlay}

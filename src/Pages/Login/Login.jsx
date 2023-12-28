@@ -65,7 +65,7 @@ const Login = () => {
       <h2 className="text-4xl font-semibold text-center mb-6">Log in</h2>
       <form>
         <div className="form-control flex flex-row items-center my-5">
-          <span className="bg-[#393CC6] p-3 rounded-l-[8px]">
+          <span className="bg-[#FF6600] p-3 rounded-l-[8px]">
             <EnvelopeIcon className="h-5 w-5 text-white" />
           </span>
           <input
@@ -81,7 +81,7 @@ const Login = () => {
           />
         </div>
         <div className="form-control flex flex-row items-center mt-5">
-          <span className="bg-[#393CC6] p-3 rounded-l-[8px]">
+          <span className="bg-[#FF6600] p-3 rounded-l-[8px]">
             <LockClosedIcon className="h-5 w-5 text-white" />
           </span>
           <input
@@ -102,7 +102,7 @@ const Login = () => {
         >
           Forgot your password?
         </Link>
-        <button className="text-white btn bg-[#FFA51D] hover:bg-[#393CC6] px-10 py-3 font-semibold w-full rounded-lg">
+        <button className="text-white btn bg-[#FF6600] hover:bg-[#1D2736] px-10 py-3 font-semibold w-full rounded-lg">
           LOG IN
         </button>
         <p className="font-semibold mt-3 text-xs text-center">
@@ -118,20 +118,20 @@ const Login = () => {
       <div className="divider font-semibold">OR</div>
       <button
         onClick={handleChangeModalState}
-        className="bg-[#409899] px-10 py-2 text-white text-lg w-full rounded-lg my-3 flex justify-center items-center gap-3"
+        className="bg-[#409899] font-medium hover:bg-[#409899] btn px-10 py-2 text-white text-lg w-full rounded-lg my-3 flex justify-center items-center gap-3"
       >
         <span>
           <img className="w-5" src={phone} alt="" />
         </span>
         Mobile Number
       </button>
-      <button onClick={handleGooleSignIn} className="bg-[#DF4930] px-10 py-2 text-white text-lg w-full rounded-lg mb-3 flex justify-center items-center gap-3">
+      <button onClick={handleGooleSignIn} className="bg-[#DF4930] font-medium hover:bg-[#DF4930] btn px-10 py-2 text-white text-lg w-full rounded-lg mb-3 flex justify-center items-center gap-3">
         <span>
           <img src={google} alt="" />
         </span>
         Continue with Google
       </button>
-      <button className="bg-[#507CC0] px-10 py-2 text-white text-lg w-full rounded-lg flex justify-center items-center gap-3">
+      <button className="bg-[#507CC0] hover:bg-[#507CC0] font-medium btn px-10 py-2 text-white text-lg w-full rounded-lg flex justify-center items-center gap-3">
         <span>
           <img src={facebook} alt="" />
         </span>

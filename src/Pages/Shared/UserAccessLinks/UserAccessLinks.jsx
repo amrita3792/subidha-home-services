@@ -97,7 +97,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
                 </Link>
               </li>
             ))}
-            <li onClick={handleLogout} className="btn flex items-center justify-center gap-1 cursor-pointer bg-[#FFA51D] hover:bg-[#393CC6]  px-3 py-2 rounded-lg">
+            <li onClick={handleLogout} className="btn flex items-center justify-center gap-1 cursor-pointer bg-[#FF6600] hover:bg-[#1D2736]  px-3 py-2 rounded-lg">
               <span className="text-white">Logout</span>
               <span>
                 <ArrowDownTrayIcon className="w-6 h-6 rotate-90 text-white" />

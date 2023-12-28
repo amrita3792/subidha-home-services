@@ -14,7 +14,7 @@ const Home = () => {
     return (
         <div>
             <Banner />
-            {/* <AllServicesCategories /> */}
+            <AllServicesCategories />
         </div>
     );
 };

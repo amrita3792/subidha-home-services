@@ -3,7 +3,7 @@
     border: double 2px transparent;
     border-radius: 8px;
     background-image: linear-gradient(white, white),
-        linear-gradient(to left, #393CC6, #393CC6);
+        linear-gradient(to left, #1D2736, #1D2736);
     background-origin: border-box;
     background-clip: padding-box, border-box;
     width: 50px !important;
