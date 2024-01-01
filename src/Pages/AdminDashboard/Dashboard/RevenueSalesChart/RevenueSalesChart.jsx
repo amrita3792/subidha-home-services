@@ -56,6 +56,7 @@ const RevenueSalesChart = () => {
     //   position: "top",
     // },
     grid: {
+      borderColor: theme === "dark" ? "#323D4A" : "#DCDCDC",
       xaxis: {
         lines: {
           show: true,

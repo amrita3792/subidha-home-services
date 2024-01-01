@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import widget from "../../../assets/icons/widget.png";
 import { ThemeContext } from "../../../App";
 
 const AllServiceCategories = () => {

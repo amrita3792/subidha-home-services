@@ -3,12 +3,12 @@ import Chart from "react-apexcharts";
 import { ThemeContext } from "../../../../App";
 
 const ProfitChart = () => {
-    const {theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const options = {
     colors: ["#3C50E0", "#80CAEE"],
     chart: {
       fontFamily: "Satoshi, sans-serif",
-      foreColor: theme === "dark" && '#A6ADBB',
+      foreColor: theme === "dark" && "#A6ADBB",
       type: "bar",
       height: 335,
       stacked: true,
@@ -33,6 +33,16 @@ const ProfitChart = () => {
         },
       },
     ],
+
+    grid: {
+      borderColor: theme === "dark" ? "#323D4A" : "#DCDCDC",
+      yaxis: {
+        lines: {
+          show: true,
+        },
+      },
+    },
+
     plotOptions: {
       bar: {
         horizontal: false,
@@ -55,7 +65,6 @@ const ProfitChart = () => {
       fontFamily: "Satoshi",
       fontWeight: 500,
       fontSize: "14px",
-      
 
       markers: {
         radius: 99,
@@ -77,12 +86,16 @@ const ProfitChart = () => {
     },
   ];
   return (
-    <div className={`grow p-7 shadow-xl border rounded-lg ${theme === "light" ? "" : "bg-[#24303F] border-slate-700"}`}>
-        <div className="mb-4">
-            <h3 className="text-xl font-semibold">Profit This Week</h3>
-        </div>
+    <div
+      className={`grow p-7 shadow-xl border rounded-lg ${
+        theme === "light" ? "" : "bg-[#24303F] border-slate-700"
+      }`}
+    >
+      <div className="mb-4">
+        <h3 className="text-xl font-semibold">Profit This Week</h3>
+      </div>
       <div>
-      <Chart options={options} series={series} type="bar" height={350} />
+        <Chart options={options} series={series} type="bar" height={350} />
       </div>
     </div>
   );

@@ -9,18 +9,18 @@ const Banner = () => {
     >
       <div className="flex flex-col lg:flex-row justify-between items-center xl:max-w-screen-xl lg:max-w-screen-lg  mx-auto h-full py-12 px-5 relative z-50">
         <div className="basis-6/12">
-          <h2 className="text-6xl font-bold leading-snug">
-            SOLUTION FOR ALL{" "}
-            <span className="text-[#383838]">HOME SERVICES</span>
+          <h2 className="text-6xl font-bold leading-snug text-black">
+            SOLUTION FOR ALL <br />
+            HOME SERVICES
           </h2>
-          <p className="font-medium my-4">
+          <p className="my-4 text-stone-600 font-semibold">
             Experience the ultimate in home service convenience with Subidha.
             Your satisfaction is our priority, and we're here to turn your home
             service needs into stress-free solutions. Explore the endless
             possibilities today!
           </p>
           <button className="btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-2 active:scale-95 border-none">
-              More Information
+            More Information
           </button>
         </div>
         {/* <div className="h-full flex items-end justify-center grow relative">
@@ -39,4 +39,3 @@ const Banner = () => {
 };
 
 export default Banner;
-

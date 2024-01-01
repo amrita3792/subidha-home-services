@@ -10,15 +10,16 @@
     height: 60px !important;
 }
 
+
 .flag-dropdown {
     background-color: inherit !important;
 }
 
 .react-tel-input .form-control {
-    @apply  py-5 !text-base w-[300px] bg-inherit;
+    @apply py-5 !text-base w-[300px] bg-inherit;
 
 }
- 
+
 .otp-container {
     justify-content: center;
 }
@@ -35,7 +36,7 @@
     @apply font-bold
 }
 
-.recaptcha-container > div > div {
+.recaptcha-container>div>div {
     width: 100% !important;
 }
 
@@ -43,15 +44,15 @@
     width: 100% !important;
 }
 
-#modal-theme > div > div {
+#modal-theme>div>div {
     background-color: rgb(29, 35, 42) !important;
-    /* border: 1px solid lightgray; */ 
+    /* border: 1px solid lightgray; */
 }
 
 #modal-theme {
-   @apply bg-black bg-opacity-50
+    @apply bg-black bg-opacity-50
 }
 
-#modal-theme > div > div .form-control {
+#modal-theme>div>div .form-control {
     background-color: inherit !important;
 }

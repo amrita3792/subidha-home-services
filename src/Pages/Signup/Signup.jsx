@@ -8,7 +8,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 import { DeviceContext } from "../../App";
 import { toast } from "react-toastify";
 import { sendEmailVerification, updateProfile } from "firebase/auth";
-import newMessage from '../../assets/images/new-messages.png'
+import newMessage from "../../assets/images/new-messages.png";
 
 const Signup = () => {
   const { googleSignIn, setLoading, loading, createUser, logout } =
@@ -90,6 +90,11 @@ const Signup = () => {
         })
         .catch((error) => {
           const errorMessage = error.message;
+          if(errorMessage === 'Firebase: Error (auth/email-already-in-use).') {
+              setError('The email address is already in use.');
+              setLoading(false);
+              return;
+          }
           setError(errorMessage);
           setLoading(false);
           console.log(`Error: ${errorMessage}`);
@@ -139,16 +144,20 @@ const Signup = () => {
   };
 
   return isReceive ? (
-    <div className="max-w-[400px] mx-auto flex flex-col items-center text-center my-16">
-      <img className="" src={newMessage} alt="" />
-      <h2 className="text-3xl font-semibold mt-12 mb-5">Verify Your Email</h2>
-      <p className="text-lg font-semibold my-2">
-        Thank you for signing up! To complete your registration, we've sent a verification link to your email address <span className="text-blue-500">({email})</span>.
+    <div className="mx-auto flex flex-col items-center text-center my-16">
+      <img className="w-72" src={newMessage} alt="" />
+      <h2 className="text-2xl font-semibold mb-3">Please verify your email</h2>
+      <p className="my-2 text-xl font-semibold">
+        We have sent a verification link to
+        <span className="text-blue-500"> ({email})</span>.
       </p>
-      <p className="text-sm text-[#ff6347] font-semibold">
-        Please check your inbox and click on the verification link to activate your account. If you don't see the email in your inbox, please check your spam folder.
+      <p className="text-sm font-semibold mb-4">
+        Click on the link to complete the verification process. <br />
+        You might need to check your spam folder.
       </p>
-      <p className="text-blue-500 font-semibold underline my-3"><Link to="/login">Go to login screen</Link></p>
+      <Link to="/login" className="btn btn-outline">
+        Go to login screen
+      </Link>
       {/* You can customize the message further based on your application's specific requirements. */}
     </div>
   ) : (
@@ -156,7 +165,7 @@ const Signup = () => {
       <h2 className="text-4xl text-center mb-6 font-semibold">Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-control flex flex-row items-center my-5">
-        <input
+          <input
             name="name"
             type="text"
             placeholder="Name"
@@ -165,7 +174,8 @@ const Signup = () => {
           />
         </div>
         <div className="form-control flex flex-row items-center mt-5">
-        <input onBlur={handleOnBlur}
+          <input
+            onBlur={handleOnBlur}
             name="email"
             type="email"
             placeholder="Email"
@@ -195,7 +205,8 @@ const Signup = () => {
           </div>
         )}
         <div className="form-control flex flex-row items-center mt-5">
-        <input onBlur={handleOnBlur}
+          <input
+            onBlur={handleOnBlur}
             name="password"
             type="password"
             placeholder="Password"
@@ -228,7 +239,7 @@ const Signup = () => {
           {loading ? (
             <>
               <span className="loading loading-spinner loading-md"></span>
-              Sugning Up...
+              Signing Up...
             </>
           ) : (
             "Sign Up"
@@ -253,36 +264,72 @@ const Signup = () => {
           <span>{error}</span>
         </div>
       )}
-      <p className="font-semibold mt-3 text-xs text-center">
+      <p className="font-semibold mt-3 text-sm text-center">
         Already have an account?{" "}
-        <Link to="/login" className="text-blue-500 hover:underline text-sm">
+        <Link to="/login" className="text-blue-500 hover:underline">
           Log In
         </Link>
       </p>
       <div className="divider font-semibold">OR</div>
       <button
         onClick={handleChangeModalState}
-        className="bg-[#409899] font-medium hover:bg-[#409899] btn px-10 py-2 text-white text-lg w-full rounded-lg my-3 flex justify-center items-center gap-3"
+        type="button"
+        className="text-white bg-[#24292F] btn hover:bg-[#24292F]/90 font-medium rounded-lg text-lg px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2 w-full"
       >
-        <span>
-          <img className="w-5" src={phone} alt="" />
-        </span>
-        Mobile Number
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"
+          />
+        </svg>
+        Phone Number
       </button>
       <button
         onClick={handleGooleSignIn}
-        className="bg-[#DF4930] font-medium hover:bg-[#DF4930] btn px-10 py-2 text-white text-lg w-full rounded-lg mb-3 flex justify-center items-center gap-3"
+        type="button"
+        className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 btn font-medium rounded-lg text-lg px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2 w-full"
       >
-        <span>
-          <img src={google} alt="" />
-        </span>
-        Continue with Google
+        <svg
+          className="w-4 h-4 me-2"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 18 19"
+        >
+          <path
+            fillRule="evenodd"
+            d="M8.842 18.083a8.8 8.8 0 0 1-8.65-8.948 8.841 8.841 0 0 1 8.8-8.652h.153a8.464 8.464 0 0 1 5.7 2.257l-2.193 2.038A5.27 5.27 0 0 0 9.09 3.4a5.882 5.882 0 0 0-.2 11.76h.124a5.091 5.091 0 0 0 5.248-4.057L14.3 11H9V8h8.34c.066.543.095 1.09.088 1.636-.086 5.053-3.463 8.449-8.4 8.449l-.186-.002Z"
+            clipRule="evenodd"
+          />
+        </svg>
+        Sign in with Google
       </button>
-      <button className="bg-[#507CC0] hover:bg-[#507CC0] font-medium btn px-10 py-2 text-white text-lg w-full rounded-lg flex justify-center items-center gap-3">
-        <span>
-          <img src={facebook} alt="" />
-        </span>
-        Continue with Facebook
+      <button
+        type="button"
+        className="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 btn focus:outline-none font-medium rounded-lg text-lg px-5 py-2.5 text-center  items-center dark:focus:ring-[#3b5998]/55 me-2 mb-2 w-full flex justify-center"
+      >
+        <svg
+          className="w-4 h-4 me-2"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 8 19"
+        >
+          <path
+            fillRule="evenodd"
+            d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z"
+            clipRule="evenodd"
+          />
+        </svg>
+        Sign in with Facebook
       </button>
       {showModal && (
         <NumberVerificatonModal

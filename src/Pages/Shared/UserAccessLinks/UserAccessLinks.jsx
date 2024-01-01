@@ -44,19 +44,19 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
 
   const handleLogout = () => {
     logout()
-    .then(() => {
+      .then(() => {
         toast.success("Successfully Logout", {
           hideProgressBar: true,
-          theme: "colored"
-      
-          })
-      }).catch((error) => {
+          theme: "colored",
+        });
+      })
+      .catch((error) => {
         toast.error(error.message, {
           hideProgressBar: true,
-          theme: "colored"
-          })
+          theme: "colored",
+        });
       });
-  }
+  };
 
   return (
     isOpen && (
@@ -85,7 +85,9 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
               </div>
             )}
             <div>
-              <p className="font-semibold line-clamp-0">{user?.displayName ? user.displayName : "N/A"}</p>
+              <p className="font-semibold line-clamp-0">
+                {user?.displayName ? user.displayName : "N/A"}
+              </p>
               <p className="text-sm text-start">User</p>
             </div>
           </div>
@@ -93,12 +95,15 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
           <ul className="flex flex-col items-start gap-3 w-[150px]">
             {profileLinks.map((profileLink) => (
               <li key={profileLink.id}>
-                <Link className="text-sm hover:underline text-start">
+                <Link className="text-sm font-semibold hover:underline text-start">
                   {profileLink.name}
                 </Link>
               </li>
             ))}
-            <li onClick={handleLogout} className="btn flex items-center justify-center gap-1 cursor-pointer bg-[#FF6600] hover:bg-[#1D2736]  px-3 py-2 rounded-lg">
+            <li
+              onClick={handleLogout}
+              className="btn flex items-center justify-center gap-1 cursor-pointer bg-[#FF6600] hover:bg-[#1D2736]  px-3 py-2 rounded-lg"
+            >
               <span className="text-white">Logout</span>
               <span>
                 <ArrowDownTrayIcon className="w-6 h-6 rotate-90 text-white" />

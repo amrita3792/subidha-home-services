@@ -1,11 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import styles from "./NavbarComponent.module.css";
-import { CaretLeft, List, MagnifyingGlass, X } from "@phosphor-icons/react";
+import { List, MagnifyingGlass, X } from "@phosphor-icons/react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { ChevronDoubleDownIcon, UserIcon } from "@heroicons/react/24/solid";
 import { ThemeContext } from "../../../App";
-import { profileLinks } from "../../../utilities/user-dashboard-links";
 import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
 
 const NavbarComponent = ({ isMounted }) => {
@@ -23,17 +21,17 @@ const NavbarComponent = ({ isMounted }) => {
     {
       idx: 0,
       path: "/",
-      name: "HOME",
+      name: "Home",
     },
     {
       idx: 1,
       path: "/all-services",
-      name: "ALL SERVICES",
+      name: "All Services",
     },
     {
       idx: 2,
       path: "/blog",
-      name: "BLOG",
+      name: "Blog",
     },
   ];
 
@@ -41,7 +39,7 @@ const NavbarComponent = ({ isMounted }) => {
     <nav className="bg-[#1d2736] h-16 relative">
       <div className="xl:max-w-screen-xl mx-auto flex items-center justify-end lg:justify-between h-full px-5">
         <ul
-          className={`flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-7 fixed z-[30000] lg:z-auto lg:static  top-0 ${
+          className={`flex flex-col pt-20 lg:flex-row lg:items-center gap-4 lg:gap-7 fixed z-[30000] lg:z-auto lg:static  top-0 ${
             openSidebar ? "right-0" : "right-[-1000px]"
           } ${
             theme === "light" ? "bg-white" : "bg-[#1D232A]"
@@ -49,22 +47,37 @@ const NavbarComponent = ({ isMounted }) => {
         >
           <li
             onClick={handleSidebarState}
-            className="flex items-center gap-1 font-medium text-sm cursor-pointer lg:hidden"
+            className="flex items-center gap-1 font-medium text-sm cursor-pointer lg:hidden absolute top-3 left-3"
           >
-            <CaretLeft size={16} /> <span>Go Back</span>
+            <button className="btn btn-circle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>{" "}
           </li>
           {navLinks.map((navLink) => (
             <li key={navLink.idx}>
               <Link
                 onClick={handleSidebarState}
-                className={`text-sm lg:text-white  ${styles.hover_underline_animation}`}
+                className="text-sm lg:text-white font-semibold"
                 to={navLink.path}
               >
                 {navLink.name}
               </Link>
             </li>
           ))}
-          <li className="menu bg-base-200 rounded-box p-0 lg:hidden bg-inherit">
+          {/* <li className="menu bg-base-200 rounded-box p-0 lg:hidden bg-inherit">
             <details open>
               <summary className="text-base  hover:bg-none p-0">
                 Dashboard
@@ -77,7 +90,7 @@ const NavbarComponent = ({ isMounted }) => {
                 ))}
               </ul>
             </details>
-          </li>
+          </li> */}
         </ul>
         <div className="flex items-center gap-5">
           {isMounted && (
@@ -164,9 +177,9 @@ const NavbarComponent = ({ isMounted }) => {
             <button>
               <Link
                 to="/login"
-                className="btn bg-inherit hover:bg-inherit text-white border-2 border-white"
+                className="btn text-sm bg-inherit hover:bg-inherit text-white border-2 border-white"
               >
-                LOG IN
+                Log In
               </Link>
             </button>
           )}

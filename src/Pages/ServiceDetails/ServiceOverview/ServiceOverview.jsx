@@ -3,21 +3,21 @@ import React from "react";
 const ServiceOverview = ({ serviceOverview }) => {
   console.log(serviceOverview);
   return (
-    <>
-      <h2 name="service-overview" className="text-3xl font-semibold mb-4">
+    <div className="mt-5">
+      <h2 name="service-overview" className="text-2xl font-semibold">
         Service Overview
       </h2>
       {serviceOverview.map((item, idx) => (
-        <div className="mt-7" key={idx}>
-          <h2 className="text-xl font-bold">{item.title}</h2>
+        <div className="mt-3" key={idx}>
+          <h2 className="font-bold">{item.title}</h2>
           <ul className="ps-10" style={{ listStyleType: "disc" }}>
             {item.details.map((item, idx) => (
-              <li key={idx}>{item}</li>
+              <li className="" key={idx}>{item}</li>
             ))}
           </ul>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

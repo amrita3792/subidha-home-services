@@ -10,7 +10,7 @@ const ServiceDetails = () => {
   const { device } = useContext(DeviceContext);
   const { subCategory, serviceOverview, faq } = useLoaderData();
   console.log(serviceOverview);
-  console.log(subCategory);
+  console.log(subCategory.details);
 
   useEffect(() => {
     if (device.isSmallDevice || device.isMediumDevice) {
@@ -27,22 +27,12 @@ const ServiceDetails = () => {
   }, []); // The empty dependency array ensures that this effect runs only once after the initial render
 
   return (
-    <section className="xl:max-w-screen-xl mx-auto my-10">
-      <div className="relative">
-        <img
-          className="h-[400px] w-full rounded-xl"
-          src={subCategory.image}
-          alt=""
-        />
-        <div className="bg-black opacity-50 absolute top-0 left-0 w-full h-full rounded-xl"></div>
-        <div className="absolute z-50 top-8 left-8">
-          <h2 className="text-4xl font-semibold mb-4 text-white">
-            {subCategory?.serviceName}
-          </h2>
-        </div>
-      </div>
-      <div className="flex mt-7 gap-5">
-        <ul className="menu bg-base-200 lg:menu-vertical rounded-box h-fit shadow-lg border text-sm font-semibold sticky top-4">
+    <section className="xl:max-w-screen-xl mx-auto flex my-16 px-5">
+      <div className="card card-compact bg-base-100 basis-full lg:basis-2/3">
+        <h2 className="text-3xl font-semibold mb-5 text-[#FF6600]">
+          {subCategory.serviceName}
+        </h2>
+        <ul className="menu bg-base-200 menu-horizontal rounded-box h-fit shadow-lg text-sm font-semibold w-fit mb-4">
           <li>
             <Link to="service-overview" smooth={true} duration={500}>
               <svg
@@ -79,7 +69,6 @@ const ServiceDetails = () => {
                 />
               </svg>
               FAQ
-              <span className="badge badge-sm badge-warning">NEW</span>
             </Link>
           </li>
           <li>
@@ -99,19 +88,22 @@ const ServiceDetails = () => {
                 />
               </svg>
               Details
-              <span className="badge badge-xs badge-info"></span>
             </Link>
           </li>
         </ul>
-        <div className="basis-3/5">
-          <ServiceOverview
-            name="service-overview"
-            serviceOverview={serviceOverview}
-          />
-          <ServiceFAQ name="faq" faq={faq} />
-          <Details name="details" details={subCategory.details} />
+        <p className="my-8 font-semibold">{subCategory.description}</p>
+        <img
+          className="rounded-3xl w-full"
+          src={subCategory.image}
+          alt="Shoes"
+        />
+        <div className="card-body">
+          <ServiceOverview serviceOverview={serviceOverview} />
+          <ServiceFAQ faq={faq} />
+          <Details details={subCategory.details} />
         </div>
       </div>
+      <div className="grow"></div>
     </section>
   );
 };

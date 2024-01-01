@@ -1,7 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import Sidebar from "../Sidebar/Sidebar";
-import { useMediaQuery } from "react-responsive";
-import { AuthContext } from "../../../contexts/AuthProvider";
 import { DeviceContext } from "../../../App";
 import { MountContext } from "../../../Layout/Main/Main";
 

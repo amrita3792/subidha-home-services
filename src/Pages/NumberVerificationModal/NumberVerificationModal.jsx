@@ -14,7 +14,6 @@ import { toast } from "react-toastify";
 import { ThemeContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 
-
 export const NumberVerificatonModal = ({
   showModal,
   handleChangeModalState,
@@ -29,7 +28,7 @@ export const NumberVerificatonModal = ({
     setVisibleRecaptcha,
   } = useContext(AuthContext);
 
-  const {theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   const [OTP, setOTP] = useState("");
   const [phone, setPhone] = useState("");
@@ -45,8 +44,8 @@ export const NumberVerificatonModal = ({
         console.log(confirmationResult);
         toast.success("We successfully sent an OTP to your phone number", {
           hideProgressBar: true,
-          theme: "colored"
-        })
+          theme: "colored",
+        });
         setShowOTP(true);
         setLoading(false);
         setVisibleRecaptcha(false);
@@ -58,8 +57,8 @@ export const NumberVerificatonModal = ({
         setVisibleRecaptcha(false);
         toast.error(error.message, {
           hideProgressBar: true,
-          theme: "colored"
-        })
+          theme: "colored",
+        });
       });
   };
 
@@ -71,7 +70,7 @@ export const NumberVerificatonModal = ({
         let user = result.user;
         navigate(from, { replace: true });
         toast.success("Your verification is successful.", {
-          theme: "colored"
+          theme: "colored",
         });
         handleChangeModalState();
         setLoading(false);
@@ -91,8 +90,8 @@ export const NumberVerificatonModal = ({
         window.confirmationResult = confirmationResult;
         toast.success("We successfully resent an OTP to your phone number", {
           hideProgressBar: true,
-          theme: "colored"
-        })
+          theme: "colored",
+        });
         setShowOTP(true);
         setLoading(false);
         setVisibleRecaptcha(false);
@@ -100,8 +99,8 @@ export const NumberVerificatonModal = ({
       .catch((error) => {
         toast.error(error.message, {
           hideProgressBar: true,
-          theme: "colored"
-        })
+          theme: "colored",
+        });
         setLoading(false);
         setVisibleRecaptcha(true);
         setShowOTP(false);
@@ -109,7 +108,8 @@ export const NumberVerificatonModal = ({
   };
 
   return (
-    <Modal id={`${theme === "dark" && "modal-theme"}`}
+    <Modal
+      id={`${theme === "dark" && "modal-theme"}`}
       icon={<CloudArrowUp size={28} color="#1B4DFF" />}
       size="2xl"
       show={showModal}
@@ -152,7 +152,7 @@ export const NumberVerificatonModal = ({
                 {loading && (
                   <span className="loading loading-spinner loading-md"></span>
                 )}
-                GET OPT
+                GET OTP
               </button>
               {visibleRecaptcha && <div id="recaptcha-container"></div>}
               <button
@@ -215,9 +215,22 @@ export const NumberVerificatonModal = ({
               setLoading(false);
               setPhone(false);
             }}
-            className="absolute top-0 right-0"
+            className="btn btn-circle absolute top-0 right-0"
           >
-            <XMarkIcon className="h-7 w-7 tex" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
           </button>
           <div id="recaptcha-container"></div>
         </div>
