@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react";
 import PromoBar from "../../Pages/Shared/PromoBar/PromoBar";
 import { Outlet } from "react-router-dom";
-import NavbarComponent from "../../Pages/Shared/NavbarComponent/NavbarComponent";
+import Navbar from "../../Pages/Shared/Navbar/Navbar";
 import Footer from "../../Pages/Shared/Footer/Footer";
 
 export const MountContext = createContext();
@@ -13,7 +13,7 @@ const Main = () => {
       <PromoBar />
       <MountContext.Provider value={{ isMounted, setIsMounted }}>
         <header>
-          <NavbarComponent isMounted={isMounted} />
+          <Navbar isMounted={isMounted} />
         </header>
         <main>
           <Outlet />

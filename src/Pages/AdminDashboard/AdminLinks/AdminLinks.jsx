@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../../App";
 
 const AdminLinks = () => {
   const { theme } = useContext(ThemeContext);
+  const navigate = useNavigate();
+
+
   return (
     <ul className={`p-4 w-80 min-h-full ${theme === "light" ? "bg-[#345DA7]" : "bg-[#24303F] border-slate-700"}`}>
       <li className="text-white border-none w-full">
@@ -99,7 +102,7 @@ const AdminLinks = () => {
               <li>
                 <a to="#">Admin</a>
               </li>
-              <li>
+              <li onClick={() => navigate('/admin-dashboard/users')}>
                 <a>Users</a>
               </li>
               <li>

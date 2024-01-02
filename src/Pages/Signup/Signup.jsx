@@ -9,6 +9,7 @@ import { DeviceContext } from "../../App";
 import { toast } from "react-toastify";
 import { sendEmailVerification, updateProfile } from "firebase/auth";
 import newMessage from "../../assets/images/new-messages.png";
+import { getDate } from "../../utilities/date";
 
 const Signup = () => {
   const { googleSignIn, setLoading, loading, createUser, logout } =
@@ -42,13 +43,41 @@ const Signup = () => {
   const handleGooleSignIn = () => {
     googleSignIn()
       .then((result) => {
-        navigate(from, { replace: true });
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        // The signed-in user info.
         const user = result.user;
-        setLoading(false);
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
+
+        const currentDate = getDate();
+
+        const currentUser = {
+          uid: user.uid,
+          userName: user.displayName,
+          email: user.email,
+          phone: user.phoneNumber,
+          photo: user?.photoURL
+            ? user.photoURL
+            : "https://i.ibb.co/M1qvZxP/user.png",
+          signupDate: currentDate,
+          lastLogin: currentDate,
+        };
+
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.acknowledged) {
+              navigate(from, { replace: true });
+              setLoading(false);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            setLoading(false);
+          });
       })
       .catch((error) => {
         // Handle Errors here.
@@ -90,10 +119,10 @@ const Signup = () => {
         })
         .catch((error) => {
           const errorMessage = error.message;
-          if(errorMessage === 'Firebase: Error (auth/email-already-in-use).') {
-              setError('The email address is already in use.');
-              setLoading(false);
-              return;
+          if (errorMessage === "Firebase: Error (auth/email-already-in-use).") {
+            setError("The email address is already in use.");
+            setLoading(false);
+            return;
           }
           setError(errorMessage);
           setLoading(false);

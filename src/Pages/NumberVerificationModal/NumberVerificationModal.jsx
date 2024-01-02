@@ -7,12 +7,12 @@ import "./NumberVerificationModal.css";
 import sendOtp from "../../assets/icons/otp-code.png";
 import { Modal } from "keep-react";
 import { CloudArrowUp } from "@phosphor-icons/react";
-import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { toast } from "react-toastify";
 import { ThemeContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import { getDate } from "../../utilities/date";
 
 export const NumberVerificatonModal = ({
   showModal,
@@ -68,12 +68,42 @@ export const NumberVerificatonModal = ({
       .then((result) => {
         // User signed in successfully.
         let user = result.user;
-        navigate(from, { replace: true });
-        toast.success("Your verification is successful.", {
-          theme: "colored",
-        });
-        handleChangeModalState();
-        setLoading(false);
+        var currentDate = getDate();
+        const currentUser = {
+          uid: user.uid,
+          userName: user.displayName,
+          email: user.email,
+          phone: user.phoneNumber,
+          photo: user?.photoURL
+            ? user.photoURL
+            : "https://i.ibb.co/M1qvZxP/user.png",
+          signupDate: currentDate,
+          lastLogin: currentDate,
+        };
+
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.acknowledged) {
+              navigate(from, { replace: true });
+              toast.success("Your verification is successful.", {
+                theme: "colored",
+              });
+              handleChangeModalState();
+              setLoading(false);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            setLoading(false);
+          });
         // ...
       })
       .catch((error) => {
@@ -184,6 +214,7 @@ export const NumberVerificatonModal = ({
                 className="resend-otp"
               />
               <button
+                disabled={OTP.length !== 6 && "disabled"}
                 onClick={handleVerifyOTP}
                 className={` ${
                   OTP.length === 6

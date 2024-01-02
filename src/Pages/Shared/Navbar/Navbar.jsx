@@ -5,12 +5,14 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import { ChevronDoubleDownIcon, UserIcon } from "@heroicons/react/24/solid";
 import { ThemeContext } from "../../../App";
 import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
+import ChatPopup from "../../ChatPopup/ChatPopup";
 
-const NavbarComponent = ({ isMounted }) => {
+const Navbar = ({ isMounted }) => {
   const { user } = useContext(AuthContext);
   const { theme, handleToggle } = useContext(ThemeContext);
 
   const [openSidebar, setOpenSidebar] = useState(false);
+  const [openChatPopup, setOpenChatPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSidebarState = () => {
@@ -77,20 +79,6 @@ const NavbarComponent = ({ isMounted }) => {
               </Link>
             </li>
           ))}
-          {/* <li className="menu bg-base-200 rounded-box p-0 lg:hidden bg-inherit">
-            <details open>
-              <summary className="text-base  hover:bg-none p-0">
-                Dashboard
-              </summary>
-              <ul className="gap-8">
-                {profileLinks.map((profileLink) => (
-                  <li key={profileLink.id}>
-                    <Link to={profileLink.path}>{profileLink.name}</Link>
-                  </li>
-                ))}
-              </ul>
-            </details>
-          </li> */}
         </ul>
         <div className="flex items-center gap-5">
           {isMounted && (
@@ -114,10 +102,7 @@ const NavbarComponent = ({ isMounted }) => {
               </svg>
             </label>
           )}
-          <button>
-            <MagnifyingGlass color="white" size={25} />
-          </button>
-          <button className="text-blac cursor-pointer text-white">
+                <button className="text-blac cursor-pointer text-white">
             <label className="swap swap-rotate">
               {/* this hidden checkbox controls the state */}
               <input
@@ -145,6 +130,43 @@ const NavbarComponent = ({ isMounted }) => {
               </svg>
             </label>
           </button>
+          <button className="text-white">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-7 h-7"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+              />
+            </svg>
+          </button>
+          {user?.uid && (
+            <div className="text-white relative">
+              <button onClick={() => setOpenChatPopup(true)}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-7 h-7"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
+                  />
+                </svg>
+              </button>
+              {openChatPopup && <ChatPopup setOpenChatPopup={setOpenChatPopup} />}
+            </div>
+          )}
           {user?.uid ? (
             user?.photoURL ? (
               <div
@@ -156,7 +178,7 @@ const NavbarComponent = ({ isMounted }) => {
                   src={user.photoURL}
                   alt=""
                 />
-                <UserAccessLinks isOpen={isOpen} setIsOpen={setIsOpen} />
+                {isOpen && <UserAccessLinks isOpen={isOpen} setIsOpen={setIsOpen} />}
               </div>
             ) : (
               <button
@@ -170,7 +192,7 @@ const NavbarComponent = ({ isMounted }) => {
                     <ChevronDoubleDownIcon className="h-6 w-6" />
                   </p>
                 </div>
-                <UserAccessLinks isOpen={isOpen} setIsOpen={setIsOpen} />
+                {isOpen && <UserAccessLinks isOpen={isOpen} setIsOpen={setIsOpen} />}
               </button>
             )
           ) : (
@@ -192,9 +214,6 @@ const NavbarComponent = ({ isMounted }) => {
               <List size={32} color="white" />
             </button>
           )}
-          {/* <button>
-            <User color="white" size={25} />
-          </button> */}
         </div>
       </div>
       {openSidebar && (
@@ -207,4 +226,4 @@ const NavbarComponent = ({ isMounted }) => {
   );
 };
 
-export default NavbarComponent;
+export default Navbar;

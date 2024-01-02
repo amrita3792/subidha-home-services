@@ -1,16 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
-import facebook from "../../assets/icons/facebook.png";
-import google from "../../assets/icons/google.png";
-import phone from "../../assets/icons/telephone.png";
 import NumberVerificatonModal from "../NumberVerificationModal/NumberVerificationModal";
 import { AuthContext } from "../../contexts/AuthProvider";
 import { DeviceContext, ThemeContext } from "../../App";
 import { toast } from "react-toastify";
-import { useMediaQuery } from "react-responsive";
 import ForgotPasswordModal from "./FogotPasswordModal/ForgotPasswordModal";
 import ResendEmailVerifyModal from "./ResendEmailVerifyModal/ResendEmailVerifyModal";
+import { getDate } from "../../utilities/date";
 
 const Login = () => {
   const { googleSignIn, setLoading, signIn, loading } = useContext(AuthContext);
@@ -39,10 +35,9 @@ const Login = () => {
     }
   }, []); // The empty dependency array ensures that this effect runs only once after the initial render
 
-
   useEffect(() => {
-    if(verifyEmail) {
-      document.getElementById('resend_email').showModal()
+    if (verifyEmail) {
+      document.getElementById("resend_email").showModal();
     }
   }, [verifyEmail]);
 
@@ -53,13 +48,41 @@ const Login = () => {
   const handleGooleSignIn = () => {
     googleSignIn()
       .then((result) => {
-        navigate(from, { replace: true });
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        // The signed-in user info.
         const user = result.user;
-        setLoading(false);
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
+
+        const currentDate = getDate();
+
+        const currentUser = {
+          uid: user.uid,
+          userName: user.displayName,
+          email: user.email,
+          phone: user.phoneNumber,
+          photo: user?.photoURL
+            ? user.photoURL
+            : "https://i.ibb.co/M1qvZxP/user.png",
+          signupDate: currentDate,
+          lastLogin: currentDate,
+        };
+
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.acknowledged) {
+              navigate(from, { replace: true });
+              setLoading(false);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            setLoading(false);
+          })
       })
       .catch((error) => {
         // Handle Errors here.

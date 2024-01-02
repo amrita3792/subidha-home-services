@@ -9,6 +9,7 @@ export const ThemeContext = createContext();
 export const DeviceContext = createContext();
 
 function App() {
+
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );

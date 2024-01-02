@@ -44,17 +44,9 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
 
   const handleLogout = () => {
     logout()
-      .then(() => {
-        toast.success("Successfully Logout", {
-          hideProgressBar: true,
-          theme: "colored",
-        });
-      })
+      .then(() => {})
       .catch((error) => {
-        toast.error(error.message, {
-          hideProgressBar: true,
-          theme: "colored",
-        });
+        console.error(`Error: ${error}`);
       });
   };
 
@@ -101,7 +93,11 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
               </li>
             ))}
             <li
-              onClick={handleLogout}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleLogout();
+                setIsOpen(false);
+              }}
               className="btn flex items-center justify-center gap-1 cursor-pointer bg-[#FF6600] hover:bg-[#1D2736]  px-3 py-2 rounded-lg"
             >
               <span className="text-white">Logout</span>

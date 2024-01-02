@@ -6,8 +6,9 @@ import Signup from "../../Pages/Signup/Signup";
 import AllServices from "../../Pages/AllServices/AllServices/AllServices";
 import ServiceDetails from "../../Pages/ServiceDetails/ServiceDetails";
 import AdminLayout from "../../Layout/AdminLayout/AdminLayout";
-import AdminDashboard from "../../Pages/AdminDashboard/AdminDashboard";
 import Dashboard from "../../Pages/AdminDashboard/Dashboard/Dashboard/Dashboard";
+import Users from "../../Pages/AdminDashboard/Users/Users/users";
+// import 
 
 const router = createBrowserRouter([
     {
@@ -36,8 +37,6 @@ const router = createBrowserRouter([
                 loader: async({params}) => {
                     const categoryId = params.categoryId;
                     const subCategoryId = params.subCategoryId;
-                    console.log(categoryId);
-                    console.log(subCategoryId)
                     return fetch(`http://localhost:5000/subcategory/${categoryId}/${subCategoryId}`)
                 }
             }
@@ -52,6 +51,11 @@ const router = createBrowserRouter([
             {
                 path: '/admin-dashboard',
                 element: <Dashboard />
+            },
+            {
+                path: '/admin-dashboard/users',
+                element: <Users />,
+                loader: () => fetch('http://localhost:5000/users'),
             }
         ]
     }
