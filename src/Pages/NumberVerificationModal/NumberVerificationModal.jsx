@@ -79,6 +79,7 @@ export const NumberVerificatonModal = ({
             : "https://i.ibb.co/M1qvZxP/user.png",
           signupDate: currentDate,
           lastLogin: currentDate,
+          status: (user.emailVerified || user.phoneNumber) ? 'Active' : 'Pending',
         };
 
         fetch("http://localhost:5000/users", {
