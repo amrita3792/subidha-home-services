@@ -2,14 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import img from "../../../../assets/images/Setting Research (1).gif";
 
-/*
-count: loaded
-perpage: (size): 10
-pages: count/perpage
-currentPage (Page)
-
-*/
-
 const users = () => {
   const [users, setUsers] = useState([]);
   const [count, setCount] = useState(0);
@@ -26,9 +18,7 @@ const users = () => {
   }, [page, size]);
 
   const pages = Math.ceil(count / size);
-  console.log;
 
-  console.log(users);
 
   const roles = ["Admin", "Subadmin", "Super Admin"];
 
@@ -52,7 +42,7 @@ const users = () => {
           className="input input-bordered focus:border-none input-info w-full max-w-xs h-10"
         />
       </div>
-      <div className="overflow-x-auto min-h-[500px] bg-white shadow-md rounded-lg border p-4">
+      <div className="overflow-x-auto min-h-[600px] bg-white shadow-md rounded-lg border p-4">
         <table className="table">
           {/* head */}
           <thead>
@@ -145,11 +135,15 @@ const users = () => {
       <div className="flex flex-wrap justify-end gap-5 mt-10">
         <div className="flex items-center gap-3">
           <select
-            onChange={(event) => setSize(event.target.value)}
+            onChange={(event) => {
+              setSize(event.target.value)
+              setPage(0);
+            }}
             defaultValue={30}
             className="select select-bordered w-fit focus:border-none"
           >
             <option defaultValue="15">15</option>
+            <option defaultValue="1">1</option>
             <option selected defaultValue="30">
               30
             </option>
@@ -163,7 +157,7 @@ const users = () => {
         </div>
         <div className="join">
           {page > 0 && (
-            <button className="join-item btn">
+            <button onClick={() => setPage(page-1)} className="join-item btn">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -181,7 +175,10 @@ const users = () => {
               Previous page
             </button>
           )}
-          {[...Array(pages).keys()].map((number) => (
+
+          {[...Array(pages).keys()].map((number, idx) => {
+            console.log("The value of: ", number === page)
+            return (
             <input
               onClick={() => setPage(number)}
               key={number}
@@ -189,11 +186,12 @@ const users = () => {
               type="radio"
               name="options"
               aria-label={number + 1}
-              defaultChecked={page === number && true}
+              checked={page === idx}
             />
-          ))}
+          )})}
+          
           {(page + 1) * size < count && (
-            <button className="join-item btn">
+            <button onClick={() => setPage((prev) => prev + 1)} className="join-item btn">
               Next
               <svg
                 xmlns="http://www.w3.org/2000/svg"

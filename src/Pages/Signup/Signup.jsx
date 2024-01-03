@@ -224,12 +224,12 @@ const Signup = () => {
     <div className="max-w-[400px] mx-auto my-12 px-5">
       <h2 className="text-4xl text-center mb-6 font-semibold">Sign Up</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-control flex flex-row items-center my-5">
+        <div className="form-control flex flex-row items-center my-5 focus:outline-none">
           <input
             name="name"
             type="text"
             placeholder="Name"
-            className="input input-bordered input-md w-full font-semibold h-11"
+            className="input input-bordered input-md w-full font-semibold h-11 focus:outline-none"
             required
           />
         </div>
@@ -239,7 +239,7 @@ const Signup = () => {
             name="email"
             type="email"
             placeholder="Email"
-            className="input input-bordered input-md w-full font-semibold h-11"
+            className="input input-bordered input-md w-full font-semibold h-11 focus:outline-none"
             required
           />
         </div>
@@ -270,7 +270,7 @@ const Signup = () => {
             name="password"
             type="password"
             placeholder="Password"
-            className="input input-bordered input-md w-full font-semibold h-11"
+            className="input input-bordered input-md w-full font-semibold h-11 focus:outline-none"
             required
           />
         </div>

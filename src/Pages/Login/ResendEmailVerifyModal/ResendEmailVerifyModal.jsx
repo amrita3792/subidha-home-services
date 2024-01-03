@@ -3,24 +3,23 @@ import { toast } from "react-toastify";
 import { sendEmailVerification } from "firebase/auth";
 
 const ResendEmailVerifyModal = ({ email, currentUser, setVerifyEmail }) => {
+
   const handleResendEmail = () => {
     sendEmailVerification(currentUser).then(() => {
-        setVerifyEmail(false);
-        toast.success("A verification link has been sent to your email account", {
-            hideProgressBar: true,
-            theme: "colored",
-          });
+      setVerifyEmail(false);
+      toast.success("A verification link has been sent to your email account", {
+        hideProgressBar: true,
+        theme: "colored",
+      });
     });
   };
+  
   return (
     <dialog id="resend_email" className="modal">
       <div className="modal-box">
-        <form method="dialog">
-          {/* if there is a button in form, it will close the modal */}
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-            ✕
-          </button>
-        </form>
+        <button onClick={() => setVerifyEmail(false)} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          ✕
+        </button>
         <h3 className="font-bold text-2xl">Please verify your email</h3>
         <p className="font-semibold text-sm mt-3">
           To complete your registration process, you have to verify your email
@@ -44,7 +43,12 @@ const ResendEmailVerifyModal = ({ email, currentUser, setVerifyEmail }) => {
             Not to worry, we can send the link again!
           </span>
           <div>
-            <button onClick={handleResendEmail} className="btn btn-sm btn-outline">Resend</button>
+            <button
+              onClick={handleResendEmail}
+              className="btn btn-sm btn-outline"
+            >
+              Resend
+            </button>
           </div>
         </div>
       </div>

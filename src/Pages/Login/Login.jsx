@@ -163,7 +163,7 @@ const Login = () => {
             name="email"
             type="text"
             placeholder="Email"
-            className="input input-bordered input-md w-full font-semibold h-11"
+            className="input input-bordered input-md w-full font-semibold h-11 focus:outline-none"
             required
           />
         </div>
@@ -172,7 +172,7 @@ const Login = () => {
             name="password"
             type="password"
             placeholder="password"
-            className="input input-bordered input-md w-full font-semibold h-11"
+            className="input input-bordered input-md w-full font-semibold h-11 focus:outline-none"
             required
           />
         </div>

@@ -68,7 +68,7 @@ const ForgotPasswordModal = ({ setResetPassword }) => {
                 name="email"
                 type="text"
                 placeholder="Email"
-                className="input input-bordered input-md  font-semibold h-11 w-full max-w-xs"
+                className="input input-bordered input-md  font-semibold h-11 w-full max-w-xs focus:outline-none"
                 required
               />
               <button className="btn btn-neutral mt-3 flex">
