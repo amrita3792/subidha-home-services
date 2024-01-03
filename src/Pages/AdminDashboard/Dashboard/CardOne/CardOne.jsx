@@ -5,7 +5,7 @@ const CardOne = () => {
  const {theme} = useContext(ThemeContext);
 
   return (
-    <div className={`card ${theme === "light" ? "" : "bg-[#24303F] border-slate-700"} shadow-xl mt-9 border rounded-lg`}>
+    <div className={`card ${theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-700"} shadow-md mt-9 border rounded-lg`}>
       <div className="card-body">
         <div className={`flex h-11 w-11 rounded-full items-center justify-center ${theme === "light" ? "bg-[#EFF2F7]" : "bg-[#313D4A]"}`}>
           <svg

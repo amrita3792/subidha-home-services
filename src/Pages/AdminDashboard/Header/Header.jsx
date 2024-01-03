@@ -5,9 +5,12 @@ import {
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../../App";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const Header = () => {
   const { theme, handleToggle } = useContext(ThemeContext);
+  const { user } = useContext(AuthContext);
+
   return (
     <header
       className={`sticky top-0 z-[1000] w-full ${
@@ -134,14 +137,14 @@ const Header = () => {
           </div>
           <div className="flex gap-4 items-center">
             <div>
-              <h4 className="font-semibold leading-none">Amrita Dey</h4>
+              <h4 className="font-semibold leading-none">{user?.displayName}</h4>
               <small className="leading-none font-semibold">Admin</small>
             </div>
             <div className="avatar online">
               <div className="w-14 rounded-full">
                 <img
                   className="w-14 rounded-full"
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  src={user?.photoURL ? user.photoURL : "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"}
                 />
               </div>
             </div>

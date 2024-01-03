@@ -57,6 +57,7 @@ const Signup = () => {
             : "https://i.ibb.co/M1qvZxP/user.png",
           signupDate: currentDate,
           lastLogin: currentDate,
+          status: (user.emailVerified || user.phoneNumber) ? 'Active' : 'Pending',
         };
 
         fetch("http://localhost:5000/users", {
@@ -106,12 +107,42 @@ const Signup = () => {
 
       createUser(email, password)
         .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
-          setLoading(false);
-          form.reset();
+        const user = userCredential.user;
+
+        const currentDate = getDate();
+
+        const currentUser = {
+          uid: user.uid,
+          userName: user.displayName,
+          email: user.email,
+          phone: user.phoneNumber,
+          photo: user?.photoURL
+            ? user.photoURL
+            : "https://i.ibb.co/M1qvZxP/user.png",
+          signupDate: currentDate,
+          lastLogin: currentDate,
+          status: (user.emailVerified || user.phoneNumber) ? 'Active' : 'Pending',
+        };
+
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.acknowledged) {
+              form.reset();
+              setLoading(false);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            setLoading(false);
+          });
           updateName(user, name);
-          console.log(user);
           setIsReceive(false);
           emailVerify(user);
           setEmail(user.email);

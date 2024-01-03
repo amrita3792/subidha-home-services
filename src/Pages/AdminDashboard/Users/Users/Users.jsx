@@ -1,9 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import img from "../../../../assets/images/Setting Research (1).gif";
 
+/*
+count: loaded
+perpage: (size): 10
+pages: count/perpage
+currentPage (Page)
+
+*/
+
 const users = () => {
-  const [users, setUsers] = useState(useLoaderData());
+  const [users, setUsers] = useState([]);
+  const [count, setCount] = useState(0);
+  const [page, setPage] = useState(0);
+  const [size, setSize] = useState(30);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/users?page=${page}&size=${size}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUsers(data.users);
+        setCount(data.count);
+      });
+  }, [page, size]);
+
+  const pages = Math.ceil(count / size);
+  console.log;
 
   console.log(users);
 
@@ -13,13 +36,15 @@ const users = () => {
     const searchText = e.target.value;
     fetch(`http://localhost:5000/users?searchText=${searchText}`)
       .then((res) => res.json())
-      .then((data) => setUsers(data));
+      .then((data) => {
+        setUsers(data.users);
+      });
   };
 
   return (
     <div className="mt-8">
-      <div className="flex justify-between mb-8">
-        <h2 className="text-3xl font-semibold mb-5">All Users</h2>
+      <div className="flex flex-col md:flex-row justify-between items-center mb- p-5">
+        <h2 className="text-2xl font-semibold mb-5">All Users</h2>
         <input
           onChange={handleOnChnage}
           type="search"
@@ -27,7 +52,7 @@ const users = () => {
           className="input input-bordered focus:border-none input-info w-full max-w-xs h-10"
         />
       </div>
-      <div className="overflow-x-auto min-h-[500px]">
+      <div className="overflow-x-auto min-h-[500px] bg-white shadow-md rounded-lg border p-4">
         <table className="table">
           {/* head */}
           <thead>
@@ -110,10 +135,83 @@ const users = () => {
           <div className="flex justify-center items-center">
             <div>
               <img className="w-52" src={img} alt="" />
-              <h2 className="text-center text-2xl font-semibold">Sorry! No results found</h2>
+              <h2 className="text-center text-2xl font-semibold">
+                Sorry! No results found
+              </h2>
             </div>
           </div>
         )}
+      </div>
+      <div className="flex flex-wrap justify-end gap-5 mt-10">
+        <div className="flex items-center gap-3">
+          <select
+            onChange={(event) => setSize(event.target.value)}
+            defaultValue={30}
+            className="select select-bordered w-fit focus:border-none"
+          >
+            <option defaultValue="15">15</option>
+            <option selected defaultValue="30">
+              30
+            </option>
+            <option defaultValue="45">45</option>
+            <option defaultValue="60">60</option>
+            <option defaultValue="75">75</option>
+            <option defaultValue="90">90</option>
+            <option defaultValue="105">105</option>
+          </select>
+          <p className="font-semibold text-sm">Items per page</p>
+        </div>
+        <div className="join">
+          {page > 0 && (
+            <button className="join-item btn">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5"
+                />
+              </svg>
+              Previous page
+            </button>
+          )}
+          {[...Array(pages).keys()].map((number) => (
+            <input
+              onClick={() => setPage(number)}
+              key={number}
+              className="join-item btn btn-square"
+              type="radio"
+              name="options"
+              aria-label={number + 1}
+              defaultChecked={page === number && true}
+            />
+          ))}
+          {(page + 1) * size < count && (
+            <button className="join-item btn">
+              Next
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

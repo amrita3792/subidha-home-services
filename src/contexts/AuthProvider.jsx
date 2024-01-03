@@ -143,6 +143,7 @@ const AuthProvider = ({ children }) => {
     createUser,
     signIn,
     resetPassword,
+    auth,
   };
 
   return (

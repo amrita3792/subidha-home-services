@@ -62,7 +62,7 @@ const Login = () => {
             : "https://i.ibb.co/M1qvZxP/user.png",
           signupDate: currentDate,
           lastLogin: currentDate,
-          status: (user.emailVerified || user.phoneNumber) ? 'Active' : 'Pending',
+          status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
         };
 
         fetch("http://localhost:5000/users", {
@@ -83,7 +83,7 @@ const Login = () => {
           .catch((error) => {
             console.log(error);
             setLoading(false);
-          })
+          });
       })
       .catch((error) => {
         // Handle Errors here.
@@ -111,8 +111,26 @@ const Login = () => {
     signIn(email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        const status = "active";
         if (user.emailVerified) {
-          navigate(from, { replace: true });
+          fetch(`http://localhost:5000/update-status/${user.uid}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ status }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.acknowledged) {
+                navigate(from, { replace: true });
+                setLoading(false);
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+              setLoading(false);
+            });
         } else {
           setVerifyEmail(true);
           setCurrentUser(user);

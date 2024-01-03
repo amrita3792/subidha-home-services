@@ -6,7 +6,7 @@ import { ThemeContext } from "../../../App";
 import { toast } from "react-toastify";
 
 const UserAccessLinks = ({ isOpen, setIsOpen }) => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, auth } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
 
   const profileLinks = [
@@ -43,10 +43,23 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
   ];
 
   const handleLogout = () => {
-    logout()
-      .then(() => {})
-      .catch((error) => {
-        console.error(`Error: ${error}`);
+    const status = "Offline";
+    fetch(`http://localhost:5000/update-status/${user.uid}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          logout()
+            .then(() => {})
+            .catch((error) => {
+              console.error(`Error: ${error}`);
+            });
+        }
       });
   };
 

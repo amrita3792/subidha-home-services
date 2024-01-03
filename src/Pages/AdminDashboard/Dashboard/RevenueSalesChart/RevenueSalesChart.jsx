@@ -132,8 +132,8 @@ const RevenueSalesChart = () => {
   ];
   return (
     <div
-      className={`basis-4/6 p-7 shadow-xl border rounded-lg ${
-        theme === "dark" && "bg-[#24303F] border-slate-700"
+      className={`basis-4/6 p-7 shadow-md border rounded-lg ${
+        theme === "dark" ? "bg-[#24303F] border-slate-700" : "bg-white"
       }`}
     >
       <div className="flex gap-10">

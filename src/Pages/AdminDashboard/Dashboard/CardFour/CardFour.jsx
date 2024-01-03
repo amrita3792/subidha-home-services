@@ -6,8 +6,8 @@ const CardFour = () => {
   return (
     <div
       className={`card ${
-        theme === "light" ? "" : "bg-[#24303F] border-slate-700"
-      } shadow-xl mt-9 border rounded-lg`}
+        theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-700"
+      } shadow-md mt-9 border rounded-lg`}
     >
       <div className="card-body">
         <div

@@ -87,8 +87,8 @@ const ProfitChart = () => {
   ];
   return (
     <div
-      className={`grow p-7 shadow-xl border rounded-lg ${
-        theme === "light" ? "" : "bg-[#24303F] border-slate-700"
+      className={`grow p-7 shadow-md border rounded-lg ${
+        theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-700"
       }`}
     >
       <div className="mb-4">
