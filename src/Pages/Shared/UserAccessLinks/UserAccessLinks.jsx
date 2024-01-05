@@ -36,6 +36,11 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
       path: "/user-orders",
     },
     {
+      id: 7,
+      name: "Get Jobs",
+      path: "/get-jobs",
+    },
+    {
       id: 6,
       name: "Chat",
       path: "/user-chat",
@@ -71,11 +76,11 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
             setIsOpen(true);
             e.stopPropagation();
           }}
-          className={`absolute -right-3 top-12 border ${
+          className={`absolute -right-3 top-12 border  ${
             theme === "dark"
               ? "bg-[#1D232A] border-gray-700"
               : "bg-white border-gray-300"
-          }  py-4 px-5 rounded-xl w-[250px] z-[30001]`}
+          }  py-4 px-5 rounded-xl w-[270px] z-[30001]`}
         >
           <div className="flex items-center gap-3 mb-3">
             {user?.photoURL ? (
@@ -99,8 +104,17 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
 
           <ul className="flex flex-col items-start gap-3 w-[150px]">
             {profileLinks.map((profileLink) => (
-              <li key={profileLink.id}>
-                <Link className="text-sm font-semibold hover:underline text-start">
+              <li
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsOpen(false);
+                }}
+                key={profileLink.id}
+              >
+                <Link
+                  to={profileLink.path}
+                  className="text-sm font-semibold hover:underline text-start"
+                >
                   {profileLink.name}
                 </Link>
               </li>
@@ -119,6 +133,28 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
               </span>
             </li>
           </ul>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen(false)
+            }}
+            className="btn btn-circle bg-inherit border-none absolute top-2 right-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
         </div>
         <div className="fixed left-0 top-0 h-screen w-screen z-[4999]"></div>
       </>

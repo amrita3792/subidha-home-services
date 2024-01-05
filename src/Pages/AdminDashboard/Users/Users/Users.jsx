@@ -42,7 +42,7 @@ const users = () => {
           className="input input-bordered focus:border-none input-info w-full max-w-xs h-10"
         />
       </div>
-      <div className="overflow-x-auto min-h-[600px] bg-white shadow-md rounded-lg border p-4">
+      <div className="overflow-x-auto overflow-y-hidden bg-white shadow-md rounded-lg border p-4">
         <table className="table">
           {/* head */}
           <thead>
@@ -119,6 +119,7 @@ const users = () => {
                 </td>
               </tr>
             ))}
+           
           </tbody>
         </table>
         {!users?.length && (
@@ -143,7 +144,6 @@ const users = () => {
             className="select select-bordered w-fit focus:border-none"
           >
             <option defaultValue="15">15</option>
-            <option defaultValue="1">1</option>
             <option selected defaultValue="30">
               30
             </option>

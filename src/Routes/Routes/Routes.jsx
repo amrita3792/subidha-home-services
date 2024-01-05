@@ -8,6 +8,7 @@ import ServiceDetails from "../../Pages/ServiceDetails/ServiceDetails";
 import AdminLayout from "../../Layout/AdminLayout/AdminLayout";
 import Dashboard from "../../Pages/AdminDashboard/Dashboard/Dashboard/Dashboard";
 import Users from "../../Pages/AdminDashboard/Users/Users/users";
+import GetJobs from "../../Pages/GetJobs/GetJobs/GetJobs";
 // import 
 
 const router = createBrowserRouter([
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
                     const subCategoryId = params.subCategoryId;
                     return fetch(`http://localhost:5000/subcategory/${categoryId}/${subCategoryId}`)
                 }
+            },
+            {
+                path: '/get-jobs',
+                element: <GetJobs />
             }
             
         ]

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { List, MagnifyingGlass, X } from "@phosphor-icons/react";
 import { AuthContext } from "../../../contexts/AuthProvider";
@@ -6,6 +6,7 @@ import { ChevronDoubleDownIcon, UserIcon } from "@heroicons/react/24/solid";
 import { ThemeContext } from "../../../App";
 import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
 import ChatPopup from "../../ChatPopup/ChatPopup";
+import { Widget, addResponseMessage, addUserMessage } from "react-chat-widget";
 
 const Navbar = ({ isMounted }) => {
   const { user } = useContext(AuthContext);
@@ -17,6 +18,17 @@ const Navbar = ({ isMounted }) => {
 
   const handleSidebarState = () => {
     setOpenSidebar((prev) => !prev);
+  };
+
+  useEffect(() => {
+    addResponseMessage("Welcome to this awesome chat!");
+  }, []);
+
+  const handleNewUserMessage = (newMessage) => {
+    console.log(`New message incoming! ${newMessage}`);
+    // Now send the message throught the backend API
+    // addResponseMessage(Response);
+    addUserMessage("Hello");
   };
 
   const navLinks = [
@@ -102,7 +114,7 @@ const Navbar = ({ isMounted }) => {
               </svg>
             </label>
           )}
-                <button className="text-blac cursor-pointer text-white">
+          <button className="text-blac cursor-pointer text-white">
             <label className="swap swap-rotate">
               {/* this hidden checkbox controls the state */}
               <input
@@ -164,7 +176,9 @@ const Navbar = ({ isMounted }) => {
                   />
                 </svg>
               </button>
-              {openChatPopup && <ChatPopup setOpenChatPopup={setOpenChatPopup} />}
+              {openChatPopup && (
+                <ChatPopup setOpenChatPopup={setOpenChatPopup} />
+              )}
             </div>
           )}
           {user?.uid ? (
@@ -178,7 +192,9 @@ const Navbar = ({ isMounted }) => {
                   src={user.photoURL}
                   alt=""
                 />
-                {isOpen && <UserAccessLinks isOpen={isOpen} setIsOpen={setIsOpen} />}
+                {isOpen && (
+                  <UserAccessLinks isOpen={isOpen} setIsOpen={setIsOpen} />
+                )}
               </div>
             ) : (
               <button
@@ -192,7 +208,9 @@ const Navbar = ({ isMounted }) => {
                     <ChevronDoubleDownIcon className="h-6 w-6" />
                   </p>
                 </div>
-                {isOpen && <UserAccessLinks isOpen={isOpen} setIsOpen={setIsOpen} />}
+                {isOpen && (
+                  <UserAccessLinks isOpen={isOpen} setIsOpen={setIsOpen} />
+                )}
               </button>
             )
           ) : (
@@ -222,6 +240,10 @@ const Navbar = ({ isMounted }) => {
           className="fixed z-[29999] top-0 left-0 w-full min-h-[3000px] bg-black opacity-60 lg:hidden"
         ></div>
       )}
+      <Widget
+        emojis={true}
+        handleNewUserMessage={handleNewUserMessage}
+      />
     </nav>
   );
 };

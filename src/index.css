@@ -13,3 +13,24 @@ body {
 .react-multiple-carousel__arrow--left {
     background-color: gray;
 }
+
+.rcw-conversation-container > .rcw-header {
+    background-color: #FF6600;
+  }
+
+  .rcw-client > .rcw-message-text {
+    background-color: #FF6600 !important;
+    color: white;
+  }
+
+.rcw-widget-container .rcw-launcher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FF6600;
+}
+
+.rcw-sender {
+    align-items: center;
+    
+}

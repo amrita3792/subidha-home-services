@@ -4,6 +4,9 @@ import { createContext, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useMediaQuery } from "react-responsive";
+import { Widget } from 'react-chat-widget';
+import 'react-chat-widget/lib/styles.css';
+// import 'react-chat-widget/lib/styles.css';
 
 export const ThemeContext = createContext();
 export const DeviceContext = createContext();
