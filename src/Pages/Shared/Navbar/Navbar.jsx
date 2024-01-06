@@ -6,7 +6,14 @@ import { ChevronDoubleDownIcon, UserIcon } from "@heroicons/react/24/solid";
 import { ThemeContext } from "../../../App";
 import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
 import ChatPopup from "../../ChatPopup/ChatPopup";
-import { Widget, addResponseMessage, addUserMessage } from "react-chat-widget";
+import {
+  Widget,
+  addResponseMessage,
+  toggleWidget,
+  handleToggle as widgetToggle,
+} from "react-chat-widget";
+import io from "socket.io-client";
+import ChatWindow from "../ChatWindow/ChatWindow";
 
 const Navbar = ({ isMounted }) => {
   const { user } = useContext(AuthContext);
@@ -15,20 +22,87 @@ const Navbar = ({ isMounted }) => {
   const [openSidebar, setOpenSidebar] = useState(false);
   const [openChatPopup, setOpenChatPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [socket, setSocket] = useState(null);
+  const [openChatWindow, setOpenChatWindow] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [receiver, setReceiver] = useState(null);
+
+  console.log(openChatWindow);
+
+  console.log(receiver);
 
   const handleSidebarState = () => {
     setOpenSidebar((prev) => !prev);
   };
 
   useEffect(() => {
-    addResponseMessage("Welcome to this awesome chat!");
-  }, []);
+    // Connect to the Socket.io server
+    const newSocket = io("http://localhost:5000");
+
+    // Join the room based on user UID
+    newSocket.emit("joinRoom", user?.uid);
+    setSocket(newSocket);
+
+    return () => {
+      // Disconnect the socket on component unmount
+      newSocket.disconnect();
+    };
+  }, [user]);
+
+  useEffect(() => {
+    if (socket) {
+      // Listen for private messages
+      socket.on("privateMessage", ({ sender, content }) => {
+        setMessages((prevMessages, idx) => [
+          ...prevMessages,
+          <div key={idx} className="chat chat-start">
+            <div className="chat-image avatar">
+              <div className="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS chat bubble component"
+                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                />
+              </div>
+            </div>
+            <div className="chat-bubble text-white">{content}</div>
+          </div>,
+        ]);
+      });
+    }
+  }, [socket]);
+
+  useEffect(() => {
+    if (receiver) {
+      setOpenChatWindow(true);
+    }
+  }, [receiver]);
 
   const handleNewUserMessage = (newMessage) => {
-    console.log(`New message incoming! ${newMessage}`);
-    // Now send the message throught the backend API
-    // addResponseMessage(Response);
-    addUserMessage("Hello");
+    setMessages((prevMessages, idx) => [
+      ...prevMessages,
+      <div key={idx} className="chat chat-end">
+        <div className="chat-image avatar">
+          <div className="w-10 rounded-full">
+            <img
+              alt="Tailwind CSS chat bubble component"
+              src={
+                user?.photoURL
+                  ? user.photoURL
+                  : "https://i.ibb.co/M1qvZxP/user.png"
+              }
+            />
+          </div>
+        </div>
+        <div className="chat-bubble bg-[#FF6600] text-white">{newMessage}</div>
+      </div>,
+    ]);
+    if (socket && receiver.uid && newMessage) {
+      socket.emit("privateMessage", {
+        sender: user.uid,
+        receiver: receiver.uid,
+        content: newMessage,
+      });
+    }
   };
 
   const navLinks = [
@@ -177,7 +251,10 @@ const Navbar = ({ isMounted }) => {
                 </svg>
               </button>
               {openChatPopup && (
-                <ChatPopup setOpenChatPopup={setOpenChatPopup} />
+                <ChatPopup
+                  setReceiver={setReceiver}
+                  setOpenChatPopup={setOpenChatPopup}
+                />
               )}
             </div>
           )}
@@ -240,10 +317,54 @@ const Navbar = ({ isMounted }) => {
           className="fixed z-[29999] top-0 left-0 w-full min-h-[3000px] bg-black opacity-60 lg:hidden"
         ></div>
       )}
-      <Widget
-        emojis={true}
-        handleNewUserMessage={handleNewUserMessage}
-      />
+      {receiver?.uid && (
+        <div className="fixed bottom-5 right-5 z-[20000]">
+          <button
+            onClick={() => setOpenChatWindow(!openChatWindow)}
+            className="flex items-center justify-center  bg-[#FF6600] hover:bg-[#FF6600] btn-circle h-[60px] w-[60px] text-white"
+          >
+            {openChatWindow ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-8 h-8 rotate-90 transition-all duration-500"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-8 h-8  transition-all duration-500"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"
+                />
+              </svg>
+            )}
+          </button>
+          {openChatWindow && (
+            <ChatWindow
+              receiver={receiver}
+              messages={messages}
+              handleNewUserMessage={handleNewUserMessage}
+              setOpenChatWindow={setOpenChatWindow}
+            />
+          )}
+        </div>
+      )}
     </nav>
   );
 };

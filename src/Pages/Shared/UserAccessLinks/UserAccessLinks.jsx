@@ -133,7 +133,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
               </span>
             </li>
           </ul>
-          <button
+          {/* <button
             onClick={(e) => {
               e.stopPropagation();
               setIsOpen(false)
@@ -154,7 +154,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
                 d="M6 18L18 6M6 6l12 12"
               />
             </svg>
-          </button>
+          </button> */}
         </div>
         <div className="fixed left-0 top-0 h-screen w-screen z-[4999]"></div>
       </>
