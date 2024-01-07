@@ -6,12 +6,6 @@ import { ChevronDoubleDownIcon, UserIcon } from "@heroicons/react/24/solid";
 import { ThemeContext } from "../../../App";
 import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
 import ChatPopup from "../../ChatPopup/ChatPopup";
-import {
-  Widget,
-  addResponseMessage,
-  toggleWidget,
-  handleToggle as widgetToggle,
-} from "react-chat-widget";
 import io from "socket.io-client";
 import ChatWindow from "../ChatWindow/ChatWindow";
 
@@ -26,10 +20,14 @@ const Navbar = ({ isMounted }) => {
   const [openChatWindow, setOpenChatWindow] = useState(false);
   const [messages, setMessages] = useState([]);
   const [receiver, setReceiver] = useState(null);
+  const [roomId, setRoomId] = useState("");
 
-  console.log(openChatWindow);
-
-  console.log(receiver);
+  function beep() {
+    var snd = new Audio(
+      "https://dl.sndup.net/rsb9/announcement-sound-4-21464.mp3"
+    );
+    snd.play();
+  }
 
   const handleSidebarState = () => {
     setOpenSidebar((prev) => !prev);
@@ -40,19 +38,75 @@ const Navbar = ({ isMounted }) => {
     const newSocket = io("http://localhost:5000");
 
     // Join the room based on user UID
-    newSocket.emit("joinRoom", user?.uid);
+    if (user && receiver) {
+      setMessages(null);
+      newSocket.emit("joinRoom", { uid1: user?.uid, uid2: receiver?.uid });
+    }
+
+    newSocket.on("roomJoined", ({ success, roomId }) => {
+      if (success) {
+        setRoomId(roomId);
+      } else {
+        // Handle the case where the room is full or other errors
+        console.error("Failed to join room");
+      }
+    });
+
+    // newSocket.on('previousMessages', (previousMessages) => {
+    //   // Update UI to display previous messages
+    //   setMessages(previousMessages);
+    // });
+
     setSocket(newSocket);
 
     return () => {
       // Disconnect the socket on component unmount
       newSocket.disconnect();
     };
-  }, [user]);
+  }, [user, receiver]);
 
   useEffect(() => {
-    if (socket) {
+    if (roomId)
+      [
+        fetch(`http://localhost:5000/chats/${roomId}`)
+          .then((res) => res.json())
+          .then((data) => {
+            const previousMessages = data.messages.map((message, idx) => (
+              <div
+                key={idx}
+                className={
+                  message.senderId === user.uid
+                    ? "chat chat-end"
+                    : "chat chat-start"
+                }
+              >
+                <div className="chat-image avatar">
+                  <div className="w-10 rounded-full">
+                    <img
+                      alt="Tailwind CSS chat bubble component"
+                      src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                    />
+                  </div>
+                </div>
+                <div
+                  className={`chat-bubble overflow-hidden ${
+                    message.senderId === user.uid && "bg-[#FF6600]"
+                  } text-white`}
+                >
+                  {message.message}
+                </div>
+              </div>
+            ));
+            setMessages(previousMessages);
+          }),
+      ];
+  }, [roomId]);
+
+  useEffect(() => {
+    if (socket && user) {
       // Listen for private messages
-      socket.on("privateMessage", ({ sender, content }) => {
+      socket.on(`privateMessage-${user.uid}`, ({ senderId, message }) => {
+         beep();
         setMessages((prevMessages, idx) => [
           ...prevMessages,
           <div key={idx} className="chat chat-start">
@@ -64,7 +118,29 @@ const Navbar = ({ isMounted }) => {
                 />
               </div>
             </div>
-            <div className="chat-bubble text-white">{content}</div>
+            <div className="chat-bubble overflow-hidden text-white">
+              {message}
+            </div>
+          </div>,
+        ]);
+      });
+
+      socket.on(`myMessage-${user.uid}`, ({ senderId, message }) => {
+        console.log(message);
+        setMessages((prevMessages, idx) => [
+          ...prevMessages,
+          <div key={idx} className="chat chat-end">
+            <div className="chat-image avatar">
+              <div className="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS chat bubble component"
+                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                />
+              </div>
+            </div>
+            <div className="chat-bubble overflow-hidden bg-[#FF6600] text-white">
+              {message}
+            </div>
           </div>,
         ]);
       });
@@ -78,29 +154,13 @@ const Navbar = ({ isMounted }) => {
   }, [receiver]);
 
   const handleNewUserMessage = (newMessage) => {
-    setMessages((prevMessages, idx) => [
-      ...prevMessages,
-      <div key={idx} className="chat chat-end">
-        <div className="chat-image avatar">
-          <div className="w-10 rounded-full">
-            <img
-              alt="Tailwind CSS chat bubble component"
-              src={
-                user?.photoURL
-                  ? user.photoURL
-                  : "https://i.ibb.co/M1qvZxP/user.png"
-              }
-            />
-          </div>
-        </div>
-        <div className="chat-bubble bg-[#FF6600] text-white">{newMessage}</div>
-      </div>,
-    ]);
+    console.log(roomId);
     if (socket && receiver.uid && newMessage) {
       socket.emit("privateMessage", {
-        sender: user.uid,
-        receiver: receiver.uid,
-        content: newMessage,
+        roomId,
+        senderId: user.uid,
+        receiverId: receiver.uid,
+        message: newMessage,
       });
     }
   };
@@ -317,11 +377,11 @@ const Navbar = ({ isMounted }) => {
           className="fixed z-[29999] top-0 left-0 w-full min-h-[3000px] bg-black opacity-60 lg:hidden"
         ></div>
       )}
-      {receiver?.uid && (
+      {receiver?.uid && user?.uid && (
         <div className="fixed bottom-5 right-5 z-[20000]">
           <button
             onClick={() => setOpenChatWindow(!openChatWindow)}
-            className="flex items-center justify-center  bg-[#FF6600] hover:bg-[#FF6600] btn-circle h-[60px] w-[60px] text-white"
+            className="flex items-center justify-center rcc-launcher bg-[#FF6600] hover:bg-[#FF6600] btn-circle h-[60px] w-[60px] text-white"
           >
             {openChatWindow ? (
               <svg
@@ -370,3 +430,25 @@ const Navbar = ({ isMounted }) => {
 };
 
 export default Navbar;
+
+/*
+
+{
+  roomID: "ahhdhfkhsddfskh-xhksherhedhdhfdk",
+  senderId: "ahhdhfkhsddfskh",
+  receiverId: "xhksherhedhdhfdk",
+  conversations: [
+    {
+      senderId: "ahhdhfkhsddfskh",
+      message: "Hey how are you?",
+    },
+    {
+      receiverId: "xhksherhedhdhfdk",
+      message: "I am fine. and you?",
+    }
+  ]
+
+}
+
+
+*/

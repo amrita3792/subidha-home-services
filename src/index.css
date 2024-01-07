@@ -8,37 +8,14 @@ body {
     font-family: 'Heebo', sans-serif;
 
 }
+.rcc-launcher {
 
-.react-multiple-carousel__arrow--right,
-.react-multiple-carousel__arrow--left {
-    background-color: gray;
-}
-
-.rcw-conversation-container > .rcw-header {
-    background-color: #FF6600;
-  }
-
-  .rcw-client > .rcw-message-text {
-    background-color: #FF6600 !important;
-    color: white;
-  }
-
-.rcw-widget-container .rcw-launcher {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #FF6600;
     animation: animate 2s linear infinite;
-}
-
-.rcw-sender {
-    align-items: center;
-    
 }
 
 @keyframes animate{
     0%{
-      box-shadow: 0 0 0 0 rgba(255,102,0,0.7);
+      box-shadow: 0 0 0 0 rgba(141, 135, 135, 0.7);
     }
     40%{
       box-shadow: 0 0 0 50px rgba(255,193,7,0);
