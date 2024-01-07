@@ -21,6 +21,7 @@ const Navbar = ({ isMounted }) => {
   const [messages, setMessages] = useState([]);
   const [receiver, setReceiver] = useState(null);
   const [roomId, setRoomId] = useState("");
+  const [totalUnseenMessage, setTotalUnseenMessage] = useState(0);
 
   function beep() {
     var snd = new Audio(
@@ -28,6 +29,8 @@ const Navbar = ({ isMounted }) => {
     );
     snd.play();
   }
+
+  console.log("Hello")
 
   const handleSidebarState = () => {
     setOpenSidebar((prev) => !prev);
@@ -39,7 +42,8 @@ const Navbar = ({ isMounted }) => {
 
     // Join the room based on user UID
     if (user && receiver) {
-      setMessages(null);
+      setMessages([]);
+      setTotalUnseenMessage(0);
       newSocket.emit("joinRoom", { uid1: user?.uid, uid2: receiver?.uid });
     }
 
@@ -100,16 +104,17 @@ const Navbar = ({ isMounted }) => {
             setMessages(previousMessages);
           }),
       ];
-  }, [roomId]);
+  }, [roomId, user]);
 
   useEffect(() => {
     if (socket && user) {
       // Listen for private messages
       socket.on(`privateMessage-${user.uid}`, ({ senderId, message }) => {
-         beep();
-        setMessages((prevMessages, idx) => [
+        setTotalUnseenMessage((prev) => prev + 1);
+
+        setMessages((prevMessages) => [
           ...prevMessages,
-          <div key={idx} className="chat chat-start">
+          <div key={prevMessages.length} className="chat chat-start">
             <div className="chat-image avatar">
               <div className="w-10 rounded-full">
                 <img
@@ -127,9 +132,9 @@ const Navbar = ({ isMounted }) => {
 
       socket.on(`myMessage-${user.uid}`, ({ senderId, message }) => {
         console.log(message);
-        setMessages((prevMessages, idx) => [
+        setMessages((prevMessages) => [
           ...prevMessages,
-          <div key={idx} className="chat chat-end">
+          <div key={prevMessages.length} className="chat chat-end">
             <div className="chat-image avatar">
               <div className="w-10 rounded-full">
                 <img
@@ -145,7 +150,7 @@ const Navbar = ({ isMounted }) => {
         ]);
       });
     }
-  }, [socket]);
+  }, [socket, user]);
 
   useEffect(() => {
     if (receiver) {
@@ -153,8 +158,13 @@ const Navbar = ({ isMounted }) => {
     }
   }, [receiver]);
 
+  useEffect(() => {
+    if (openChatWindow && totalUnseenMessage > 0) {
+      setTotalUnseenMessage(0);
+    }
+  }, [openChatWindow]);
+
   const handleNewUserMessage = (newMessage) => {
-    console.log(roomId);
     if (socket && receiver.uid && newMessage) {
       socket.emit("privateMessage", {
         roomId,
@@ -378,9 +388,9 @@ const Navbar = ({ isMounted }) => {
         ></div>
       )}
       {receiver?.uid && user?.uid && (
-        <div className="fixed bottom-5 right-5 z-[20000]">
+        <div className="fixed bottom-6 right-6 z-[20000]">
           <button
-            onClick={() => setOpenChatWindow(!openChatWindow)}
+            onClick={() => setOpenChatWindow((prev) => !prev)}
             className="flex items-center justify-center rcc-launcher bg-[#FF6600] hover:bg-[#FF6600] btn-circle h-[60px] w-[60px] text-white"
           >
             {openChatWindow ? (
@@ -414,6 +424,11 @@ const Navbar = ({ isMounted }) => {
                 />
               </svg>
             )}
+            {!openChatWindow && totalUnseenMessage > 0 && (
+              <span className="w-6 h-6 bg-red-600 flex justify-center items-center text-sm rounded-full absolute -right-1 -top-2 shadow-lg">
+                {totalUnseenMessage}
+              </span>
+            )}
           </button>
           {openChatWindow && (
             <ChatWindow
@@ -430,25 +445,3 @@ const Navbar = ({ isMounted }) => {
 };
 
 export default Navbar;
-
-/*
-
-{
-  roomID: "ahhdhfkhsddfskh-xhksherhedhdhfdk",
-  senderId: "ahhdhfkhsddfskh",
-  receiverId: "xhksherhedhdhfdk",
-  conversations: [
-    {
-      senderId: "ahhdhfkhsddfskh",
-      message: "Hey how are you?",
-    },
-    {
-      receiverId: "xhksherhedhdhfdk",
-      message: "I am fine. and you?",
-    }
-  ]
-
-}
-
-
-*/

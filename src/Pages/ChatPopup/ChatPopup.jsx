@@ -8,7 +8,6 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
       fetch(`http://localhost:5000/users`).then((res) => res.json()),
   });
 
-  console.log(users);
 
   if (isLoading) {
     return;
