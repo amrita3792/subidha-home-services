@@ -30,8 +30,6 @@ const Navbar = ({ isMounted }) => {
     snd.play();
   }
 
-  console.log("Hello")
-
   const handleSidebarState = () => {
     setOpenSidebar((prev) => !prev);
   };
@@ -131,7 +129,6 @@ const Navbar = ({ isMounted }) => {
       });
 
       socket.on(`myMessage-${user.uid}`, ({ senderId, message }) => {
-        console.log(message);
         setMessages((prevMessages) => [
           ...prevMessages,
           <div key={prevMessages.length} className="chat chat-end">

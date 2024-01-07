@@ -41,7 +41,7 @@ const ChatWindow = ({
         setOpenChatWindow(true);
         e.stopPropagation();
       }}
-      className="absolute bg-white w-[calc(100vw-40px)] md:w-96 bottom-[70px] right-0 rounded-xl shadow-xl text-black
+      className="absolute bg-white w-[calc(100vw-40px)] md:w-96 bottom-[70px] right-0 rounded-xl shadow-2xl text-black
       "
     >
       <div className="bg-[#FF6600] min-h-24 rounded-t-xl flex items-center gap-4 p-4">

@@ -8,7 +8,6 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
       fetch(`http://localhost:5000/users`).then((res) => res.json()),
   });
 
-
   if (isLoading) {
     return;
   }
@@ -42,11 +41,21 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
             </div>
           ))}
         </div>
-        <button
-          onClick={() => setOpenChatPopup(false)}
-          className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-        >
-          ✕
+        <button  onClick={() => setOpenChatPopup(false)} className="btn btn-circle absolute right-4 top-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
         </button>
       </div>
       <div
