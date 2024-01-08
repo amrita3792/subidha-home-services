@@ -8,8 +8,10 @@ import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
 import ChatPopup from "../../ChatPopup/ChatPopup";
 import io from "socket.io-client";
 import ChatWindow from "../ChatWindow/ChatWindow";
+import logo from "../../../assets/logo/subidha-logo.png";
 
 const Navbar = ({ isMounted }) => {
+
   const { user } = useContext(AuthContext);
   const { theme, handleToggle } = useContext(ThemeContext);
 
@@ -22,6 +24,7 @@ const Navbar = ({ isMounted }) => {
   const [receiver, setReceiver] = useState(null);
   const [roomId, setRoomId] = useState("");
   const [totalUnseenMessage, setTotalUnseenMessage] = useState(0);
+
 
   function beep() {
     var snd = new Audio(
@@ -77,7 +80,7 @@ const Navbar = ({ isMounted }) => {
               <div
                 key={idx}
                 className={
-                  message.senderId === user.uid
+                  message.senderId === user?.uid
                     ? "chat chat-end"
                     : "chat chat-start"
                 }
@@ -109,7 +112,7 @@ const Navbar = ({ isMounted }) => {
       // Listen for private messages
       socket.on(`privateMessage-${user.uid}`, ({ senderId, message }) => {
         setTotalUnseenMessage((prev) => prev + 1);
-
+        beep();
         setMessages((prevMessages) => [
           ...prevMessages,
           <div key={prevMessages.length} className="chat chat-start">
@@ -191,8 +194,11 @@ const Navbar = ({ isMounted }) => {
   ];
 
   return (
-    <nav className="bg-[#1d2736] h-16 relative">
-      <div className="xl:max-w-screen-xl mx-auto flex items-center justify-end lg:justify-between h-full px-5">
+    <nav className="bg-[#1d2736] h-[70px] relative w-full">
+      <div className="xl:max-w-screen-xl mx-auto flex items-center justify-between h-full px-5">
+        <Link to="/" className="text-2xl md:text-3xl text-white font-semibold">
+          SUBIDHA
+        </Link>
         <ul
           className={`flex flex-col pt-20 lg:flex-row lg:items-center gap-4 lg:gap-7 fixed z-[30000] lg:z-auto lg:static  top-0 ${
             openSidebar ? "right-0" : "right-[-1000px]"
@@ -233,6 +239,7 @@ const Navbar = ({ isMounted }) => {
             </li>
           ))}
         </ul>
+
         <div className="flex items-center gap-5">
           {isMounted && (
             <label

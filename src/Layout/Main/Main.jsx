@@ -9,7 +9,7 @@ export const MountContext = createContext();
 const Main = () => {
   const [isMounted, setIsMounted] = useState(false);
   return (
-    <>
+    <main>
       <PromoBar />
       <MountContext.Provider value={{ isMounted, setIsMounted }}>
         <header>
@@ -20,7 +20,7 @@ const Main = () => {
         </main>
       </MountContext.Provider>
       <Footer />
-    </>
+    </main>
   );
 };
 

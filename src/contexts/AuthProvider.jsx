@@ -86,8 +86,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const resetPassword = (email) => {
-    console.log(email)
-    // setLoading(true);
     return sendPasswordResetEmail(auth, email);
   };
 
@@ -100,7 +98,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const updateUserEmail = (email) => {
-    console.log(email);
     return updateEmail(auth.currentUser, email);
   };
 

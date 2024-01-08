@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NumberVerificatonModal from "../NumberVerificationModal/NumberVerificationModal";
 import { AuthContext } from "../../contexts/AuthProvider";
-import { DeviceContext, ThemeContext } from "../../App";
+import { DeviceContext, PromoBarContext, ThemeContext } from "../../App";
 import { toast } from "react-toastify";
 import ForgotPasswordModal from "./FogotPasswordModal/ForgotPasswordModal";
 import ResendEmailVerifyModal from "./ResendEmailVerifyModal/ResendEmailVerifyModal";
-import { getDate } from "../../utilities/date";
+import { getDate, getTime } from "../../utilities/date";
 
 const Login = () => {
   const { googleSignIn, setLoading, signIn, loading } = useContext(AuthContext);
@@ -23,13 +23,19 @@ const Login = () => {
   console.log(device);
 
   const { theme } = useContext(ThemeContext);
+  const {isVisible, setIsVisible} = useContext(PromoBarContext);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     // Set the desired scroll position when the component is mounted
-    if (device.isSmallDevice || device.isMediumDevice) {
+    if (device.isSmallDevice && isVisible || device.isMediumDevice && isVisible) {
       window.scrollTo({
-        top: 574,
+        top: 340,
+        behavior: "smooth",
+      });
+    } else {
+      window.scrollTo({
+        top: 0,
         behavior: "smooth",
       });
     }
@@ -50,7 +56,17 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
 
-        const currentDate = getDate();
+        const { createdAt, lastLoginAt, lastSignInTime, creationTime } =
+          user.metadata;
+
+        const creationDate = getDate(creationTime);
+        const lastSignInDate = getDate(lastSignInTime);
+
+        const fCreationTime = getTime(createdAt);
+        const lastLoginTime = getTime(lastLoginAt);
+
+        const formattedLastSignInWithTime = `${lastSignInDate} | ${lastLoginTime}`;
+        const formattedCreationTimeWithTime = `${creationDate} | ${fCreationTime}`;
 
         const currentUser = {
           uid: user.uid,
@@ -60,8 +76,8 @@ const Login = () => {
           photo: user?.photoURL
             ? user.photoURL
             : "https://i.ibb.co/M1qvZxP/user.png",
-          signupDate: currentDate,
-          lastLogin: currentDate,
+          signupDate: formattedCreationTimeWithTime,
+          lastLogin: formattedLastSignInWithTime,
           status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
         };
 
@@ -74,7 +90,6 @@ const Login = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             if (data.acknowledged) {
               navigate(from, { replace: true });
               setLoading(false);
@@ -86,18 +101,14 @@ const Login = () => {
           });
       })
       .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
         const errorMessage = error.message;
+
         toast.error(errorMessage, {
           hideProgressBar: true,
           theme: "colored",
         });
-        setLoading(false);
-        // The email of the user's account used.
-        // The AuthCredential type that was used.
 
-        // ...
+        setLoading(false);
       });
   };
 
@@ -111,42 +122,10 @@ const Login = () => {
     signIn(email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+
         const status = "active";
 
         if (user.emailVerified) {
-          var currentDate = getDate();
-          const currentUser = {
-            uid: user.uid,
-            userName: user.displayName,
-            email: user.email,
-            phone: user.phoneNumber,
-            photo: user?.photoURL
-              ? user.photoURL
-              : "https://i.ibb.co/M1qvZxP/user.png",
-            signupDate: currentDate,
-            lastLogin: currentDate,
-            status:
-              user.emailVerified || user.phoneNumber ? "Active" : "Pending",
-          };
-
-          fetch("http://localhost:5000/users", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(currentUser),
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.acknowledged) {
-                //
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-              setLoading(false);
-            });
-
           fetch(`http://localhost:5000/update-status/${user.uid}`, {
             method: "PUT",
             headers: {
@@ -162,7 +141,7 @@ const Login = () => {
               }
             })
             .catch((error) => {
-              console.log(error);
+              console.error(error);
               setLoading(false);
             });
         } else {
@@ -172,7 +151,6 @@ const Login = () => {
         }
         setLoading(false);
       })
-
       .catch((error) => {
         if (error.message === "Firebase: Error (auth/invalid-credential).") {
           setError("The email or password you entered is incorrect.");

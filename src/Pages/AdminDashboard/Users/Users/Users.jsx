@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
 import img from "../../../../assets/images/Setting Research (1).gif";
 
 const users = () => {
@@ -18,7 +17,6 @@ const users = () => {
   }, [page, size]);
 
   const pages = Math.ceil(count / size);
-
 
   const roles = ["Admin", "Subadmin", "Super Admin"];
 
@@ -39,10 +37,10 @@ const users = () => {
           onChange={handleOnChnage}
           type="search"
           placeholder="Search..."
-          className="input input-bordered focus:border-none input-info w-full max-w-xs h-10"
+          className="input input-bordered focus:border-none input-info w-full max-w-xs h-10 font-semibold"
         />
       </div>
-      <div className="overflow-x-auto overflow-y-hidden bg-white shadow-md rounded-lg border p-4">
+      <div className="overflow-auto bg-white shadow-md rounded-lg border p-4">
         <table className="table">
           {/* head */}
           <thead>
@@ -73,7 +71,6 @@ const users = () => {
                       <div className="font-bold">
                         {user.userName ? user.userName : "N/A"}
                       </div>
-                      <small className="font-bold">{user.uid}</small>
                     </div>
                   </div>
                 </td>
@@ -83,43 +80,23 @@ const users = () => {
                 <td>{user.lastLogin}</td>
                 <td>{user?.status}</td>
                 <td>{user.role ? user.role : "Member"}</td>
-                <td>
-                  <div className="dropdown">
-                    <div
-                      tabIndex={0}
-                      role="button"
-                      className="btn m-1 relative"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                        />
-                      </svg>
-                    </div>
-                    <ul
-                      tabIndex={0}
-                      className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 absolute right-0 bg-gray-200"
-                    >
-                      {roles.map((role, idx) => (
-                        <li key={idx}>
-                          <a>{role}</a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                <td className="relative z-50">
+                  <select
+                    defaultValue="Change user role"
+                    className="select select-ghost w-full font-semibold focus:border-none focus:outline-none"
+                  >
+                    <option disabled selected>
+                      Change user role
+                    </option>
+                    {roles.map((role, idx) => (
+                      <option value={role} key={idx}>
+                        {role}
+                      </option>
+                    ))}
+                  </select>
                 </td>
               </tr>
             ))}
-           
           </tbody>
         </table>
         {!users?.length && (
@@ -137,27 +114,26 @@ const users = () => {
         <div className="flex items-center gap-3">
           <select
             onChange={(event) => {
-              setSize(event.target.value)
+              setSize(event.target.value);
               setPage(0);
             }}
-            defaultValue={30}
+            value={size} // Use the state variable to control the selected option
             className="select select-bordered w-fit focus:border-none"
           >
-            <option defaultValue="15">15</option>
-            <option selected defaultValue="30">
-              30
-            </option>
-            <option defaultValue="45">45</option>
-            <option defaultValue="60">60</option>
-            <option defaultValue="75">75</option>
-            <option defaultValue="90">90</option>
-            <option defaultValue="105">105</option>
+            <option value="15">15</option>
+            <option value="30">30</option>
+            <option value="45">45</option>
+            <option value="60">60</option>
+            <option value="75">75</option>
+            <option value="90">90</option>
+            <option value="105">105</option>
           </select>
+
           <p className="font-semibold text-sm">Items per page</p>
         </div>
         <div className="join">
           {page > 0 && (
-            <button onClick={() => setPage(page-1)} className="join-item btn">
+            <button onClick={() => setPage(page - 1)} className="join-item btn">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -175,23 +151,24 @@ const users = () => {
               Previous page
             </button>
           )}
-
           {[...Array(pages).keys()].map((number, idx) => {
-            console.log("The value of: ", number === page)
             return (
-            <input
-              onClick={() => setPage(number)}
-              key={number}
-              className="join-item btn btn-square"
-              type="radio"
-              name="options"
-              aria-label={number + 1}
-              checked={page === idx}
-            />
-          )})}
-          
+              <input
+                onClick={() => setPage(number)}
+                key={number}
+                className="join-item btn btn-square"
+                type="radio"
+                name="options"
+                aria-label={number + 1}
+                defaultChecked={page === idx}
+              />
+            );
+          })}
           {(page + 1) * size < count && (
-            <button onClick={() => setPage((prev) => prev + 1)} className="join-item btn">
+            <button
+              onClick={() => setPage((prev) => prev + 1)}
+              className="join-item btn"
+            >
               Next
               <svg
                 xmlns="http://www.w3.org/2000/svg"

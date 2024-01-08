@@ -1,15 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import facebook from "../../assets/icons/facebook.png";
-import google from "../../assets/icons/google.png";
-import phone from "../../assets/icons/telephone.png";
 import NumberVerificatonModal from "../NumberVerificationModal/NumberVerificationModal";
 import { AuthContext } from "../../contexts/AuthProvider";
 import { DeviceContext } from "../../App";
 import { toast } from "react-toastify";
 import { sendEmailVerification, updateProfile } from "firebase/auth";
 import newMessage from "../../assets/images/new-messages.png";
-import { getDate } from "../../utilities/date";
+import { getDate, getTime } from "../../utilities/date";
 
 const Signup = () => {
   const { googleSignIn, setLoading, loading, createUser, logout } =
@@ -31,7 +28,7 @@ const Signup = () => {
         behavior: "smooth",
       });
     }
-  }, []); // The empty dependency array ensures that this effect runs only once after the initial render
+  }, []);
 
   const [showModal, setShowModal] = useState(false);
   let from = location.state?.from?.pathname || "/";
@@ -43,9 +40,20 @@ const Signup = () => {
   const handleGooleSignIn = () => {
     googleSignIn()
       .then((result) => {
+
         const user = result.user;
 
-        const currentDate = getDate();
+        const { createdAt, lastLoginAt, lastSignInTime, creationTime } =
+          user.metadata;
+
+        const creationDate = getDate(creationTime);
+        const lastSignInDate = getDate(lastSignInTime);
+
+        const fCreationTime = getTime(createdAt);
+        const lastLoginTime = getTime(lastLoginAt);
+
+        const formattedLastSignInWithTime = `${lastSignInDate} | ${lastLoginTime}`;
+        const formattedCreationTimeWithTime = `${creationDate} | ${fCreationTime}`;
 
         const currentUser = {
           uid: user.uid,
@@ -55,9 +63,9 @@ const Signup = () => {
           photo: user?.photoURL
             ? user.photoURL
             : "https://i.ibb.co/M1qvZxP/user.png",
-          signupDate: currentDate,
-          lastLogin: currentDate,
-          status: (user.emailVerified || user.phoneNumber) ? 'Active' : 'Pending',
+          signupDate: formattedCreationTimeWithTime,
+          lastLogin: formattedLastSignInWithTime,
+          status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
         };
 
         fetch("http://localhost:5000/users", {
@@ -69,60 +77,69 @@ const Signup = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             if (data.acknowledged) {
               navigate(from, { replace: true });
               setLoading(false);
             }
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
             setLoading(false);
           });
       })
       .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
         const errorMessage = error.message;
+
         toast.error(errorMessage, {
           hideProgressBar: true,
           theme: "colored",
         });
-        setLoading(false);
-        // The email of the user's account used.
-        // The AuthCredential type that was used.
 
-        // ...
+        setLoading(false);
       });
   };
 
   const handleSubmit = (e) => {
     setError(null);
+
     e.preventDefault();
+
     const form = e.target;
+
     if (!emailError && !passwordError) {
       const name = form.name.value;
       const email = form.email.value;
       const password = form.password.value;
 
       createUser(email, password)
-        .then((userCredential) => {
-        const user = userCredential.user;
+        .then((result) => {
 
-        const currentDate = getDate();
+          const user = result.user;
 
-        const currentUser = {
-          uid: user.uid,
-          userName: user.displayName,
-          email: user.email,
-          phone: user.phoneNumber,
-          photo: user?.photoURL
-            ? user.photoURL
-            : "https://i.ibb.co/M1qvZxP/user.png",
-          signupDate: currentDate,
-          lastLogin: currentDate,
-          status: (user.emailVerified || user.phoneNumber) ? 'Active' : 'Pending',
-        };
+          const { createdAt, lastLoginAt, lastSignInTime, creationTime } =
+            user.metadata;
+  
+          const creationDate = getDate(creationTime);
+          const lastSignInDate = getDate(lastSignInTime);
+  
+          const fCreationTime = getTime(createdAt);
+          const lastLoginTime = getTime(lastLoginAt);
+  
+          const formattedLastSignInWithTime = `${lastSignInDate} | ${lastLoginTime}`;
+          const formattedCreationTimeWithTime = `${creationDate} | ${fCreationTime}`;
+  
+          const currentUser = {
+            uid: user.uid,
+            userName: user.displayName,
+            email: user.email,
+            phone: user.phoneNumber,
+            photo: user?.photoURL
+              ? user.photoURL
+              : "https://i.ibb.co/M1qvZxP/user.png",
+            signupDate: formattedCreationTimeWithTime,
+            lastLogin: formattedLastSignInWithTime,
+            status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
+          };
 
         fetch("http://localhost:5000/users", {
           method: "POST",
