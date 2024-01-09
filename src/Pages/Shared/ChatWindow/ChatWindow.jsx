@@ -1,16 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import send from "../../../assets/icons/send.png";
-
-// import InputEmoji from 'react-input-emoji'
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const ChatWindow = ({
   setOpenChatWindow,
   handleNewUserMessage,
   messages,
+  socket,
   receiver,
   roomId,
 }) => {
   const scrollableElementRef = useRef(null);
+  const { user } = useContext(AuthContext);
+  const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     if (scrollableElementRef.current) {
@@ -19,7 +21,28 @@ const ChatWindow = ({
         behavior: "smooth",
       });
     }
-  }, [messages]);
+  }, [messages, isTyping]);
+
+  useEffect(() => {
+    if (socket && user) {
+      socket.on(`typing-${user.uid}`, ({ senderId }) => {
+        setIsTyping(true);
+      });
+      socket.on(`notTyping-${user.uid}`, ({ senderId }) => {
+        setIsTyping(false);
+      });
+    }
+    return () => handleOnBlur();
+  }, [socket, user, receiver]);
+
+  useEffect(() => {
+    // Event listener for tab/window closing
+    window.addEventListener('beforeunload', handleOnBlur);
+  
+    return () => {
+      window.removeEventListener('beforeunload', handleOnBlur);
+    };
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,6 +54,26 @@ const ChatWindow = ({
       scrollableElementRef.current.scrollTo({
         top: scrollableElementRef.current.scrollHeight,
         behavior: "smooth",
+      });
+    }
+  };
+
+  const handleOnFocus = (e) => {
+    if (socket && receiver.uid) {
+      socket.emit("typing", {
+        roomId,
+        senderId: user.uid,
+        receiverId: receiver.uid,
+      });
+    }
+  };
+
+  const handleOnBlur = (e) => {
+    if (socket && receiver.uid) {
+      socket.emit("notTyping", {
+        roomId,
+        senderId: user.uid,
+        receiverId: receiver.uid,
       });
     }
   };
@@ -48,7 +91,7 @@ const ChatWindow = ({
         <div className="flex items-center gap-3">
           <div className="avatar">
             <div className="w-16 rounded-full">
-              <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              <img src={user.photoURL} />
             </div>
           </div>
           <div className="text-white leading-none">
@@ -64,6 +107,21 @@ const ChatWindow = ({
         className="h-[55vh] overflow-y-scroll box-border bg-white p-5"
       >
         {messages}
+        {isTyping && (
+          <div className="chat chat-start">
+            <div className="chat-image avatar">
+              <div className="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS chat bubble component"
+                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                />
+              </div>
+            </div>
+            <div className="chat-bubble flex">
+              <span className="loading loading-dots loading-sm"></span>
+            </div>
+          </div>
+        )}
       </div>
       <div id="bottom"></div>
       <form
@@ -71,7 +129,8 @@ const ChatWindow = ({
         className="flex items-center rounded-b-xl p-5 w-full bg-white border-t border-gray-300"
       >
         <input
-          autoFocus
+          onFocus={handleOnFocus}
+          onBlur={handleOnBlur}
           className="focus:outline-none grow px-2"
           type="text"
           name="message"

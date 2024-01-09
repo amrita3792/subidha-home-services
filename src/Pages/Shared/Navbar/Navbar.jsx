@@ -89,7 +89,7 @@ const Navbar = ({ isMounted }) => {
                   <div className="w-10 rounded-full">
                     <img
                       alt="Tailwind CSS chat bubble component"
-                      src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                      src={user.photoURL}
                     />
                   </div>
                 </div>
@@ -436,8 +436,10 @@ const Navbar = ({ isMounted }) => {
           </button>
           {openChatWindow && (
             <ChatWindow
+              socket={socket}
               receiver={receiver}
               messages={messages}
+              roomId={roomId}
               handleNewUserMessage={handleNewUserMessage}
               setOpenChatWindow={setOpenChatWindow}
             />
