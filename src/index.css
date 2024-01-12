@@ -32,3 +32,20 @@ body {
       box-shadow: 0 0 0 rgba(255,193,7,0);
     }
   } */
+.custom-chat-scrollbar::-webkit-scrollbar {
+    width: 10px; /* You can adjust the width as needed */
+}
+
+.custom-chat-scrollbar::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0px; /* You can adjust the width as needed */
+
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: lightgray; /* Set the color of the thumb */
+  border-radius: 20px; /* Set the border radius of the thumb */
+}

@@ -1,11 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import logo from "../../../assets/logo/subidha-logo.png";
 import { Link } from "react-router-dom";
-import { PromoBarContext, ThemeContext } from "../../../App";
+import { ThemeContext } from "../../../App";
+
 
 const PromoBar = () => {
   const { theme } = useContext(ThemeContext);
-  const {isVisible, setIsVisible} = useContext(PromoBarContext)
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    // Check local storage to see if the user has closed the promo bar before
+    const hasClosed = localStorage.getItem("promoBarClosed");
+    if (hasClosed) {
+      setIsVisible(false);
+    }
+  }, []);
 
   const handleClose = () => {
     // Update state and store in local storage when the user closes the promo bar

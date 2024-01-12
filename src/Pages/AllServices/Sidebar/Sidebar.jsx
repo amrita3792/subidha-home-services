@@ -61,7 +61,7 @@ const Sidebar = () => {
         ></label>
         <ul
           className={`menu p-4 w-80 min-h-full ${
-            theme === "light" ? "bg-white" : "bg-bage-200 border-gray-600 relative z-[30005]"
+            theme === "light" ? "bg-white" : "bg-bage-200 border-slate-600 relative z-[30005]"
           } text-base-content gap-2  border-e`}
         >
           <li className="text-3xl font-semibold px-4 pt-10 pb-5">

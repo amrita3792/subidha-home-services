@@ -5,16 +5,19 @@
 
 .otp-container input {
     padding: 0.5rem;
-    border: double 2px transparent;
-    border-radius: 8px;
-    background-image: linear-gradient(white, white),
-        linear-gradient(to left, #FF6600, #1D2736);
+    border-bottom: 2px solid #FF6600;
     background-origin: border-box;
     background-clip: padding-box, border-box;
     width: 53px !important;
     height: 60px !important;
     margin-right: 0px !important;
-    font-size: 23px;
+    font-size: 20px;
+    background-color: inherit;
+}
+
+.otp-container input:focus {
+    outline: none;
+    border-bottom: 2px solid gray;
 }
 
 @media screen and (max-width: 767px) {
@@ -48,7 +51,7 @@
 }
 
 .resend-otp button {
-    @apply font-bold cursor-pointer text-base hover:underline text-blue-500
+    @apply font-bold cursor-pointer text-base hover:underline text-[#FF6600]
 }
 
 .resend-otp span {

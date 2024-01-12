@@ -5,13 +5,12 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import { ChevronDoubleDownIcon, UserIcon } from "@heroicons/react/24/solid";
 import { ThemeContext } from "../../../App";
 import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
-import ChatPopup from "../../ChatPopup/ChatPopup";
+import ChatPopup from "../ChatPopup/ChatPopup";
 import io from "socket.io-client";
 import ChatWindow from "../ChatWindow/ChatWindow";
 import logo from "../../../assets/logo/subidha-logo.png";
 
 const Navbar = ({ isMounted }) => {
-
   const { user } = useContext(AuthContext);
   const { theme, handleToggle } = useContext(ThemeContext);
 
@@ -24,7 +23,6 @@ const Navbar = ({ isMounted }) => {
   const [receiver, setReceiver] = useState(null);
   const [roomId, setRoomId] = useState("");
   const [totalUnseenMessage, setTotalUnseenMessage] = useState(0);
-
 
   function beep() {
     var snd = new Audio(
@@ -89,14 +87,22 @@ const Navbar = ({ isMounted }) => {
                   <div className="w-10 rounded-full">
                     <img
                       alt="Tailwind CSS chat bubble component"
-                      src={user.photoURL}
+                      src={
+                        message.senderId === user?.uid
+                          ? user?.photoURL
+                            ? user.photoURL
+                            : "https://i.ibb.co/M1qvZxP/user.png"
+                          : receiver.photo
+                          ? receiver.photo
+                          : "https://i.ibb.co/M1qvZxP/user.png"
+                      }
                     />
                   </div>
                 </div>
                 <div
                   className={`chat-bubble overflow-hidden ${
-                    message.senderId === user.uid && "bg-[#FF6600]"
-                  } text-white`}
+                    message.senderId === user.uid ? "bg-[#FF6600] text-white" : "bg-gray-200 text-black"
+                  } `}
                 >
                   {message.message}
                 </div>
@@ -120,11 +126,15 @@ const Navbar = ({ isMounted }) => {
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS chat bubble component"
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  src={
+                    receiver?.photo
+                      ? receiver?.photo
+                      : "https://i.ibb.co/M1qvZxP/user.png"
+                  }
                 />
               </div>
             </div>
-            <div className="chat-bubble overflow-hidden text-white">
+            <div className="chat-bubble overflow-hidden bg-gray-200 text-black">
               {message}
             </div>
           </div>,
@@ -139,7 +149,11 @@ const Navbar = ({ isMounted }) => {
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS chat bubble component"
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  src={
+                    user?.photoURL
+                      ? user.photoURL
+                      : "https://i.ibb.co/M1qvZxP/user.png"
+                  }
                 />
               </div>
             </div>
@@ -194,7 +208,7 @@ const Navbar = ({ isMounted }) => {
   ];
 
   return (
-    <nav className="bg-[#1d2736] h-[70px] relative w-full">
+    <nav className="bg-[#345DA7] h-[70px] relative w-full">
       <div className="xl:max-w-screen-xl mx-auto flex items-center justify-between h-full px-5">
         <Link to="/" className="text-2xl md:text-3xl text-white font-semibold">
           SUBIDHA
@@ -262,7 +276,7 @@ const Navbar = ({ isMounted }) => {
               </svg>
             </label>
           )}
-          <button className="text-blac cursor-pointer text-white">
+          <button className="text-blac cursor-pointer text-white tooltip" data-tip="Change Theme">
             <label className="swap swap-rotate">
               {/* this hidden checkbox controls the state */}
               <input
@@ -290,7 +304,7 @@ const Navbar = ({ isMounted }) => {
               </svg>
             </label>
           </button>
-          <button className="text-white">
+          <button className="text-white lg:tooltip" data-tip="Search">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -308,7 +322,7 @@ const Navbar = ({ isMounted }) => {
           </button>
           {user?.uid && (
             <div className="text-white relative">
-              <button onClick={() => setOpenChatPopup(true)}>
+              <button className="lg:tooltip" data-tip="Messages" onClick={() => setOpenChatPopup(true)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -336,10 +350,10 @@ const Navbar = ({ isMounted }) => {
             user?.photoURL ? (
               <div
                 onClick={() => setIsOpen((prev) => !prev)}
-                className="relative"
+                className="relative tooltip" data-tip="Account"
               >
                 <img
-                  className="w-10 h-10 rounded-full  cursor-pointer"
+                  className="w-10 h-10 rounded-full cursor-pointer lg:tooltip" data-tip="Account"
                   src={user.photoURL}
                   alt=""
                 />
@@ -353,11 +367,11 @@ const Navbar = ({ isMounted }) => {
                 className="relative"
               >
                 <div className="text-white flex items-center gap-3">
-                  <UserIcon className="h-6 w-6" />
-                  <p className="flex items-center">
-                    <span className="text-sm font-semibold">Profile</span>
-                    <ChevronDoubleDownIcon className="h-6 w-6" />
-                  </p>
+                  <img
+                    className="w-10 h-10 cursor-pointer lg:tooltip" data-tip="Account"
+                    src="https://i.ibb.co/M1qvZxP/user.png"
+                    alt=""
+                  />
                 </div>
                 {isOpen && (
                   <UserAccessLinks isOpen={isOpen} setIsOpen={setIsOpen} />

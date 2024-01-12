@@ -12,7 +12,7 @@ import "react-phone-input-2/lib/style.css";
 import { toast } from "react-toastify";
 import { ThemeContext } from "../../App";
 import { useNavigate } from "react-router-dom";
-import { getDate } from "../../utilities/date";
+import { getDate, getTime } from "../../utilities/date";
 
 export const NumberVerificatonModal = ({
   showModal,
@@ -28,7 +28,7 @@ export const NumberVerificatonModal = ({
     setVisibleRecaptcha,
   } = useContext(AuthContext);
 
-  const { theme } = useContext(ThemeContext);
+  const { theme, updateUserProfile } = useContext(ThemeContext);
 
   const [OTP, setOTP] = useState("");
   const [phone, setPhone] = useState("");
@@ -67,8 +67,28 @@ export const NumberVerificatonModal = ({
     verifyOTP(OTP)
       .then((result) => {
         // User signed in successfully.
-        let user = result.user;
-        var currentDate = getDate();
+        const user = result.user;
+        // updateUserProfile(user.displayName, user.photoURL ? user.photoURL : "https://i.ibb.co/M1qvZxP/user.png")
+        // .then(() => {
+        //   // Profile updated!
+        //   // ...
+        // }).catch((error) => {
+        //   // An error occurred
+        //   // ...
+        // });
+
+        const { createdAt, lastLoginAt, lastSignInTime, creationTime } =
+          user.metadata;
+
+        const creationDate = getDate(creationTime);
+        const lastSignInDate = getDate(lastSignInTime);
+
+        const fCreationTime = getTime(createdAt);
+        const lastLoginTime = getTime(lastLoginAt);
+
+        const formattedLastSignInWithTime = `${lastSignInDate} | ${lastLoginTime}`;
+        const formattedCreationTimeWithTime = `${creationDate} | ${fCreationTime}`;
+
         const currentUser = {
           uid: user.uid,
           userName: user.displayName,
@@ -77,9 +97,9 @@ export const NumberVerificatonModal = ({
           photo: user?.photoURL
             ? user.photoURL
             : "https://i.ibb.co/M1qvZxP/user.png",
-          signupDate: currentDate,
-          lastLogin: currentDate,
-          status: (user.emailVerified || user.phoneNumber) ? 'Active' : 'Pending',
+          signupDate: formattedCreationTimeWithTime,
+          lastLogin: formattedLastSignInWithTime,
+          status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
         };
 
         fetch("http://localhost:5000/users", {
@@ -108,6 +128,7 @@ export const NumberVerificatonModal = ({
         // ...
       })
       .catch((error) => {
+        console.log(error)
         alert("User couldn't sign in (bad verification code?)");
         setLoading(false);
       });
@@ -151,15 +172,15 @@ export const NumberVerificatonModal = ({
           {!showOTP ? (
             <div className="mx-auto w-72">
               <div className="flex justify-center my-5">
-                <img className="w-40" src={telephone} alt="" />
+                <img
+                  className="w-32"
+                  src="https://i.ibb.co/yVH3dc3/otp-security-2.png"
+                  alt=""
+                />
               </div>
-              <h3 className="my-2 text-2xl text-center font-semibold">
+              <h3 className="mb-6 text-2xl text-center font-semibold">
                 Verify Your Number
               </h3>
-              <p className="text-center mb-5 text-sm font-semibold">
-                Verification code on its way! Please enter it to unlock your
-                account.
-              </p>
 
               <p className="mb-2 font-bold">Mobile Number</p>
               <PhoneInput
@@ -188,17 +209,21 @@ export const NumberVerificatonModal = ({
               {visibleRecaptcha && <div id="recaptcha-container"></div>}
               <button
                 onClick={handleChangeModalState}
-                className="block mx-auto text-sm font-semibold text-blue-500 underline hover:no-underline mt-3"
+                className="block mx-auto text-sm font-semibold text-[#FF6600] underline hover:no-underline mt-3"
               >
                 Login with other options
               </button>
             </div>
           ) : (
             <div>
-              <img className="w-48 block mx-auto" src={sendOtp} alt="" />
-              <p className="text-center font-semibold mb-5 ">
+              <img
+                className="block mx-auto w-32"
+                src="https://i.ibb.co/yVH3dc3/otp-security-2.png"
+                alt=""
+              />
+              <p className="text-center font-semibold mb-2">
                 Type the 6 digit code sent to this <br /> number{" "}
-                <span className="text-blue-500 font-semibold">{`"+${phone}"`}</span>{" "}
+                <span className="text-[#FF6600] font-semibold">{`"+${phone}"`}</span>{" "}
               </p>
               <OTPInput
                 className="otp-container"
@@ -208,7 +233,6 @@ export const NumberVerificatonModal = ({
                 OTPLength={6}
                 otpType="number"
                 disabled={false}
-                secure
               />
               <ResendOTP
                 onResendClick={handleResendOTP}
@@ -233,7 +257,7 @@ export const NumberVerificatonModal = ({
                   setShowOTP(false);
                   setPhone("");
                 }}
-                className="block mx-auto text-sm font-semibold text-blue-500 hover:underline mb-3"
+                className="block mx-auto text-sm font-semibold text-[#FF6600] hover:underline mb-3"
               >
                 Change Phone Number
               </button>

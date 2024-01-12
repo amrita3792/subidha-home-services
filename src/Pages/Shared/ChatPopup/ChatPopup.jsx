@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../../../App";
 
 const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
+  const {theme} = useContext(ThemeContext);
   const { data: users = [], isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: () =>
@@ -13,8 +15,8 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
   }
 
   return (
-    <div className="relative z-[45000] text-black">
-      <div className="p-2 bg-white fixed md:absolute top-0 left-0 md:left-auto md:top-2 md:-right-28 lg:right-0 z-[50000] md:rounded-xl md:shadow-2xl">
+    <div className={`relative z-[45000] ${theme === "light" && "text-black"}`}>
+      <div className={`p-2 ${theme === "dark" ? "bg-[#1D232A] border border-slate-600" : "bg-white"} fixed md:absolute top-0 left-0 md:left-auto md:top-2 md:-right-28 lg:right-0 z-[50000] md:rounded-xl md:shadow-2xl`}>
         <div className="flex items-center justify-between px-4 my-3">
           <h2 className="text-2xl font-semibold">Chats</h2>
           <button
@@ -48,7 +50,7 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
                     e.stopPropagation();
                   }}
                   key={user?.uid}
-                  className="card flex-row items-center gap-3  hover:bg-gray-200 cursor-pointer"
+                  className={`card flex-row items-center gap-3 ${theme === "light" ? "hover:bg-gray-200" : "hover:bg-gray-700"} cursor-pointer border-none`}
                 >
                   <td>
                     <div className="flex items-center gap-3">

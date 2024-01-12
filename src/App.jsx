@@ -6,29 +6,20 @@ import "react-toastify/dist/ReactToastify.css";
 import { useMediaQuery } from "react-responsive";
 
 export const ThemeContext = createContext();
-export const DeviceContext = createContext();
-export const PromoBarContext = createContext();
+export const ModalContext = createContext();
 
 function App() {
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
 
-  const [isVisible, setIsVisible] = useState(true); // Promo Bar state
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
     const localTheme = localStorage.getItem("theme");
     document.querySelector("html").setAttribute("data-theme", localTheme);
   }, [theme]);
-
-  useEffect(() => {
-    // Check local storage to see if the user has closed the promo bar before
-    const hasClosed = localStorage.getItem("promoBarClosed");
-    if (hasClosed) {
-      setIsVisible(false);
-    }
-  }, []);
 
   const handleToggle = (e) => {
     if (e.target.checked) {
@@ -38,32 +29,22 @@ function App() {
     }
   };
 
-  const isSmallDevice = useMediaQuery({ maxWidth: 767 });
-  const isMediumDevice = useMediaQuery({ minWidth: 768, maxWidth: 991 });
-  const isLargeDevice = useMediaQuery({ minWidth: 992 });
-
-  const device = {
-    isSmallDevice,
-    isMediumDevice,
-    isLargeDevice,
-  };
-
   return (
-    <DeviceContext.Provider value={{ device }}>
-      <ThemeContext.Provider value={{ theme, handleToggle }}>
-        <PromoBarContext.Provider value={{ isVisible, setIsVisible }}>
+    <div className={`${showModal && "max-h-screen overflow-hidden"}`}>
+      <ModalContext.Provider value={{ showModal, setShowModal }}>
+        <ThemeContext.Provider value={{ theme, handleToggle }}>
           <RouterProvider router={router} />
-        </PromoBarContext.Provider>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          theme="light"
-        />
-      </ThemeContext.Provider>
-    </DeviceContext.Provider>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            theme="light"
+          />
+        </ThemeContext.Provider>
+      </ModalContext.Provider>
+    </div>
   );
 }
 

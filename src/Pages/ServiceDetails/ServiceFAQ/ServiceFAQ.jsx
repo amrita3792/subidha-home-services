@@ -9,15 +9,15 @@ const ServiceFAQ = ({ faq }) => {
 
   return (
     <div className="mt-8">
-      <h2 name="faq" className="text-2xl font-semibold">FAQ</h2>
+      <h2 name="faq" className="text-3xl font-semibold">FAQ</h2>
       {faq.map((item, idx) => (
         <div key={idx} className="collapse collapse-plus bg-base-200">
           <input onChange={() => handleInputChange(idx)} type="radio" name="my-accordion-3" checked={index === idx ? true : false} />
-          <div className="collapse-title font-semibold">
+          <div className="collapse-title font-semibold text-lg">
             {item.question}
           </div>
           <div className="collapse-content">
-            <p className="text-sm">{item.answer}</p>
+            <p className="text-base">{item.answer}</p>
           </div>
         </div>
       ))}

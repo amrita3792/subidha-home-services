@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NumberVerificatonModal from "../NumberVerificationModal/NumberVerificationModal";
 import { AuthContext } from "../../contexts/AuthProvider";
-import { DeviceContext } from "../../App";
 import { toast } from "react-toastify";
 import { sendEmailVerification, updateProfile } from "firebase/auth";
 import newMessage from "../../assets/images/new-messages.png";
@@ -11,7 +10,6 @@ import { getDate, getTime } from "../../utilities/date";
 const Signup = () => {
   const { googleSignIn, setLoading, loading, createUser, logout } =
     useContext(AuthContext);
-  const { device } = useContext(DeviceContext);
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
   const [error, setError] = useState(null);
@@ -19,16 +17,6 @@ const Signup = () => {
   const [email, setEmail] = useState("");
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // Set the desired scroll position when the component is mounted
-    if (device.isSmallDevice || device.isMediumDevice) {
-      window.scrollTo({
-        top: 574,
-        behavior: "smooth",
-      });
-    }
-  }, []);
 
   const [showModal, setShowModal] = useState(false);
   let from = location.state?.from?.pathname || "/";
@@ -40,7 +28,6 @@ const Signup = () => {
   const handleGooleSignIn = () => {
     googleSignIn()
       .then((result) => {
-
         const user = result.user;
 
         const { createdAt, lastLoginAt, lastSignInTime, creationTime } =
@@ -113,21 +100,20 @@ const Signup = () => {
 
       createUser(email, password)
         .then((result) => {
-
           const user = result.user;
 
           const { createdAt, lastLoginAt, lastSignInTime, creationTime } =
             user.metadata;
-  
+
           const creationDate = getDate(creationTime);
           const lastSignInDate = getDate(lastSignInTime);
-  
+
           const fCreationTime = getTime(createdAt);
           const lastLoginTime = getTime(lastLoginAt);
-  
+
           const formattedLastSignInWithTime = `${lastSignInDate} | ${lastLoginTime}`;
           const formattedCreationTimeWithTime = `${creationDate} | ${fCreationTime}`;
-  
+
           const currentUser = {
             uid: user.uid,
             userName: user.displayName,
@@ -138,27 +124,28 @@ const Signup = () => {
               : "https://i.ibb.co/M1qvZxP/user.png",
             signupDate: formattedCreationTimeWithTime,
             lastLogin: formattedLastSignInWithTime,
-            status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
+            status:
+              user.emailVerified || user.phoneNumber ? "Active" : "Pending",
           };
 
-        fetch("http://localhost:5000/users", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(currentUser),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.acknowledged) {
-              form.reset();
-              setLoading(false);
-            }
+          fetch("http://localhost:5000/users", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(currentUser),
           })
-          .catch((error) => {
-            console.log(error);
-            setLoading(false);
-          });
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.acknowledged) {
+                form.reset();
+                setLoading(false);
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+              setLoading(false);
+            });
           updateName(user, name);
           setIsReceive(false);
           emailVerify(user);
@@ -343,7 +330,7 @@ const Signup = () => {
       )}
       <p className="font-semibold mt-3 text-sm text-center">
         Already have an account?{" "}
-        <Link to="/login" className="text-blue-500 hover:underline">
+        <Link to="/login" className="text-[#FF6600] hover:underline">
           Log In
         </Link>
       </p>

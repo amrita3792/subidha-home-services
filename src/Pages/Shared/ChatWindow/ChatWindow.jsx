@@ -91,7 +91,7 @@ const ChatWindow = ({
         <div className="flex items-center gap-3">
           <div className="avatar">
             <div className="w-16 rounded-full">
-              <img src={user.photoURL} />
+              <img src={receiver.photo} />
             </div>
           </div>
           <div className="text-white leading-none">
@@ -104,7 +104,7 @@ const ChatWindow = ({
       </div>
       <div
         ref={scrollableElementRef}
-        className="h-[55vh] overflow-y-scroll box-border bg-white p-5"
+        className="h-[55vh] overflow-y-scroll custom-chat-scrollbar box-border bg-white p-5"
       >
         {messages}
         {isTyping && (
@@ -113,12 +113,12 @@ const ChatWindow = ({
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS chat bubble component"
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  src={receiver.photo}
                 />
               </div>
             </div>
-            <div className="chat-bubble flex">
-              <span className="loading loading-dots loading-sm"></span>
+            <div className="chat-bubble flex bg-gray-200">
+              <span className="loading loading-dots loading-sm text-black"></span>
             </div>
           </div>
         )}
@@ -131,7 +131,7 @@ const ChatWindow = ({
         <input
           onFocus={handleOnFocus}
           onBlur={handleOnBlur}
-          className="focus:outline-none grow px-2"
+          className="focus:outline-none grow px-2 bg-white"
           type="text"
           name="message"
           placeholder="Type a message..."

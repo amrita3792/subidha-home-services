@@ -1,30 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { useLoaderData } from "react-router-dom";
 import ServiceFAQ from "./ServiceFAQ/ServiceFAQ";
 import ServiceOverview from "./ServiceOverview/ServiceOverview";
 import Details from "./Details/Details";
 import { Link } from "react-scroll";
-import { DeviceContext } from "../../App";
 
 const ServiceDetails = () => {
-  const { device } = useContext(DeviceContext);
   const { subCategory, serviceOverview, faq } = useLoaderData();
   console.log(serviceOverview);
   console.log(subCategory.details);
-
-  useEffect(() => {
-    if (device.isSmallDevice || device.isMediumDevice) {
-      window.scrollTo({
-        top: 574,
-        behavior: "smooth",
-      });
-    } else {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    }
-  }, []); // The empty dependency array ensures that this effect runs only once after the initial render
 
   return (
     <section className="xl:max-w-screen-xl mx-auto flex my-16 px-5">

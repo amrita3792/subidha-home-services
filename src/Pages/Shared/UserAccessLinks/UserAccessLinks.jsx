@@ -6,7 +6,7 @@ import { ThemeContext } from "../../../App";
 import { toast } from "react-toastify";
 
 const UserAccessLinks = ({ isOpen, setIsOpen }) => {
-  const { user, logout, auth } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
 
   const profileLinks = [
@@ -78,7 +78,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
           }}
           className={`absolute -right-3 top-12 border  ${
             theme === "dark"
-              ? "bg-[#1D232A] border-gray-700"
+              ? "bg-[#1D232A] border-slate-600"
               : "bg-white border-gray-300"
           }  py-4 px-5 rounded-xl w-[270px] z-[30001]`}
         >
@@ -90,9 +90,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
                 alt=""
               />
             ) : (
-              <div className="bg-[#FF6600] text-white p-3 rounded-full relative">
-                <UserIcon className="w-8 h-8" />
-              </div>
+              <img className="h-12 w-12" src="https://i.ibb.co/M1qvZxP/user.png" alt="" srcset="" />
             )}
             <div>
               <p className="font-semibold line-clamp-0">
@@ -121,7 +119,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
             ))}
             <li
               onClick={(e) => {
-                e.stopPropagation();
+                // e.stopPropagation();
                 handleLogout();
                 setIsOpen(false);
               }}

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NumberVerificatonModal from "../NumberVerificationModal/NumberVerificationModal";
 import { AuthContext } from "../../contexts/AuthProvider";
-import { DeviceContext, PromoBarContext, ThemeContext } from "../../App";
+import { ModalContext } from "../../App";
 import { toast } from "react-toastify";
 import ForgotPasswordModal from "./FogotPasswordModal/ForgotPasswordModal";
 import ResendEmailVerifyModal from "./ResendEmailVerifyModal/ResendEmailVerifyModal";
@@ -15,31 +15,11 @@ const Login = () => {
   const [verifyEmail, setVerifyEmail] = useState(false);
   const [email, setEmail] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
-  const { device } = useContext(DeviceContext);
   const navigate = useNavigate();
 
   let from = location.state?.from?.pathname || "/";
 
-  console.log(device);
-
-  const { theme } = useContext(ThemeContext);
-  const {isVisible, setIsVisible} = useContext(PromoBarContext);
-  const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    // Set the desired scroll position when the component is mounted
-    if (device.isSmallDevice && isVisible || device.isMediumDevice && isVisible) {
-      window.scrollTo({
-        top: 340,
-        behavior: "smooth",
-      });
-    } else {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    }
-  }, []); // The empty dependency array ensures that this effect runs only once after the initial render
+  const {showModal, setShowModal} = useContext(ModalContext);
 
   useEffect(() => {
     if (verifyEmail) {
@@ -195,7 +175,7 @@ const Login = () => {
             await setResetPassword(true);
             document.getElementById("my_modal_3").showModal();
           }}
-          className="text-blue-600 font-semibold text-sm block my-7 mt-1 text-center hover:underline"
+          className="text-[#FF6600] font-semibold text-sm block my-7 mt-1 text-center hover:underline"
         >
           Forgot your password?
         </Link>
@@ -232,7 +212,7 @@ const Login = () => {
         Don't have an account?{" "}
         <Link
           to="/signup"
-          className="text-blue-500 hover:underline font-semibold"
+          className="text-[#FF6600] hover:underline font-semibold"
         >
           Sign Up
         </Link>
