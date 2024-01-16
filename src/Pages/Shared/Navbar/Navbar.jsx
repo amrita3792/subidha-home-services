@@ -101,7 +101,9 @@ const Navbar = ({ isMounted }) => {
                 </div>
                 <div
                   className={`chat-bubble overflow-hidden ${
-                    message.senderId === user.uid ? "bg-[#FF6600] text-white" : "bg-gray-200 text-black"
+                    message.senderId === user.uid
+                      ? "bg-[#FF6600] text-white"
+                      : "bg-gray-200 text-black"
                   } `}
                 >
                   {message.message}
@@ -254,7 +256,7 @@ const Navbar = ({ isMounted }) => {
           ))}
         </ul>
 
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-4">
           {isMounted && (
             <label
               htmlFor="my-drawer-2"
@@ -276,7 +278,11 @@ const Navbar = ({ isMounted }) => {
               </svg>
             </label>
           )}
-          <button className="text-blac cursor-pointer text-white tooltip" data-tip="Change Theme">
+
+          <button
+            className="cursor-pointer text-white tooltip"
+            data-tip="Change Theme"
+          >
             <label className="swap swap-rotate">
               {/* this hidden checkbox controls the state */}
               <input
@@ -322,7 +328,11 @@ const Navbar = ({ isMounted }) => {
           </button>
           {user?.uid && (
             <div className="text-white relative">
-              <button className="lg:tooltip" data-tip="Messages" onClick={() => setOpenChatPopup(true)}>
+              <button
+                className="lg:tooltip"
+                data-tip="Messages"
+                onClick={() => setOpenChatPopup(true)}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -350,10 +360,12 @@ const Navbar = ({ isMounted }) => {
             user?.photoURL ? (
               <div
                 onClick={() => setIsOpen((prev) => !prev)}
-                className="relative tooltip" data-tip="Account"
+                className="relative tooltip"
+                data-tip="Account"
               >
                 <img
-                  className="w-10 h-10 rounded-full cursor-pointer lg:tooltip" data-tip="Account"
+                  className="w-10 h-10 rounded-full cursor-pointer lg:tooltip"
+                  data-tip="Account"
                   src={user.photoURL}
                   alt=""
                 />
@@ -362,21 +374,22 @@ const Navbar = ({ isMounted }) => {
                 )}
               </div>
             ) : (
-              <button
+              <div
                 onClick={() => setIsOpen((prev) => !prev)}
                 className="relative"
               >
                 <div className="text-white flex items-center gap-3">
                   <img
-                    className="w-10 h-10 cursor-pointer lg:tooltip" data-tip="Account"
+                    className="w-10 h-10 cursor-pointer lg:tooltip"
+                    data-tip="Account"
                     src="https://i.ibb.co/M1qvZxP/user.png"
-                    alt=""
+                    alt="user-logo"
                   />
                 </div>
                 {isOpen && (
                   <UserAccessLinks isOpen={isOpen} setIsOpen={setIsOpen} />
                 )}
-              </button>
+              </div>
             )
           ) : (
             <button>

@@ -115,6 +115,7 @@ export const NumberVerificatonModal = ({
             if (data.acknowledged) {
               navigate(from, { replace: true });
               toast.success("Your verification is successful.", {
+                hideProgressBar: true,
                 theme: "colored",
               });
               handleChangeModalState();

@@ -21,8 +21,8 @@ export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
   const [updateProfilePicture, setUpdateProfilePicture] = useState(false);
   const [updateProfileName, setUpdateProfileName] = useState(false);
   const recaptchaVerifierRef = useRef(null);

@@ -49,3 +49,13 @@ body {
   background-color: lightgray; /* Set the color of the thumb */
   border-radius: 20px; /* Set the border radius of the thumb */
 }
+
+.custom-provider-scrollbar::-webkit-scrollbar {
+  width: 5px; /* You can adjust the width as needed */
+}
+
+.custom-provider-scrollbar::-webkit-scrollbar-thumb {
+background-color: lightgray;
+border-radius: 20px;
+
+}

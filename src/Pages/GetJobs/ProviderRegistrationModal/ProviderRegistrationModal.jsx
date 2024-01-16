@@ -3,11 +3,18 @@ import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { Upload } from "keep-react";
 import { ThemeContext } from "../../../App";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { AuthContext } from "../../../contexts/AuthProvider";
+import { toast } from "react-toastify";
 
 const ProviderRegistrationModal = () => {
   const { theme } = useContext(ThemeContext);
+  const { user, loading, setLoading } = useContext(AuthContext);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedNIDCard, setSelectedNIDCard] = useState(null);
+  const [selectedFileURL, setSelectedFileURL] = useState("");
+  const [selectedNIDCardURL, setSelectedNIDCardURL] = useState("");
   const [isDraggingPhoto, setIsDraggingPhoto] = useState(false);
   const [isDraggingNIDCard, setIsDraggingPNIDCard] = useState(false);
   const [divisions, setDivisions] = useState([]);
@@ -15,7 +22,45 @@ const ProviderRegistrationModal = () => {
   const [upazillas, setUpazillas] = useState([]);
   const [formData, setFormData] = useState({});
 
-  console.log(formData);
+  useEffect(() => {
+    fetch("https://bdapis.com/api/v1.1/divisions")
+      .then((res) => res.json())
+      .then((data) => {
+        const divisions = data.data;
+        setDivisions(divisions);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (formData.division) {
+      fetch(`https://bdapis.com/api/v1.1/division/${formData.division}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setDistricts(data.data);
+        });
+    }
+  }, [formData.division]);
+
+  useEffect(() => {
+    const getUserLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            formData.latitude = latitude;
+            formData.longitude = longitude;
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+      } else {
+        // setError('Geolocation is not supported by your browser.');
+      }
+    };
+
+    getUserLocation();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -31,34 +76,26 @@ const ProviderRegistrationModal = () => {
     return allowedExtensions.includes(extension);
   };
 
-  useEffect(() => {
-    fetch("https://bdapis.com/api/v1.1/divisions")
-      .then((res) => res.json())
-      .then((data) => {
-        const divisions = data.data;
-        console.log(divisions);
-        setDivisions(divisions);
-      });
-  }, []);
+  const { data: allServiceCategories = [] } = useQuery({
+    queryKey: ["allServiceCategory"],
+    queryFn: () =>
+      fetch("http://localhost:5000/allServiceCategories").then((res) =>
+        res.json()
+      ),
+  });
 
-  useEffect(() => {
-    if (formData.division) {
-      fetch(`https://bdapis.com/api/v1.1/division/${formData.division}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setDistricts(data.data);
-        });
-    }
-  }, [formData.division]);
-
-  const handleDrop = (e, setImageFunction, setDraggingFunction) => {
-    console.log(setImageFunction);
-    console.log(e);
+  const handleDrop = (
+    e,
+    setImageFunction,
+    setDraggingFunction,
+    setImageURL
+  ) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (file && isFileValid(file)) {
       setImageFunction(file);
       setDraggingFunction(false);
+      uploadImage(file, setImageURL);
     }
   };
 
@@ -71,10 +108,33 @@ const ProviderRegistrationModal = () => {
     setDraggingFunction(false);
   };
 
-  const handleFileChange = (e, setImageFunction) => {
+  const handleFileChange = (e, setImageFunction, setImageURL) => {
     const file = e.target.files[0];
+    console.log(file);
     if (file && isFileValid(file)) {
       setImageFunction(file);
+      uploadImage(file, setImageURL);
+    }
+  };
+
+  const uploadImage = async (file, setImageURL) => {
+    try {
+      const formData = new FormData();
+      formData.append("key", import.meta.env.VITE_IMGBB_KEY); // Replace with your ImageBB API key
+      formData.append("image", file);
+
+      const response = await axios.post(
+        "https://api.imgbb.com/1/upload",
+        formData
+      );
+
+      if (response.data && response.data.data && response.data.data.url) {
+        setImageURL(response.data.data.url);
+      } else {
+        console.error("Image upload failed");
+      }
+    } catch (error) {
+      console.error("Error uploading image", error);
     }
   };
 
@@ -85,9 +145,39 @@ const ProviderRegistrationModal = () => {
     setUpazillas(districtInfo[0].upazilla);
   };
 
+  const handleSubmit = async (e) => {
+    const form = e.target;
+    setLoading(true);
+    e.preventDefault();
+    formData.photoURL = selectedFileURL;
+    formData.NIDCardURL = selectedNIDCardURL;
+    formData.uid = user.uid;
+    try {
+      const res = await fetch("http://localhost:5000/providers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.acknowledged) {
+        toast.success("Provider registration successful!", {
+          hideProgressBar: true,
+          theme: "colored",
+        });
+        form.reset();
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
+
   return (
     <dialog id="my_modal_4" className="modal">
-      <div className="modal-box w-11/12 max-w-5xl custom-scrollbar rounded-2xl">
+      <div className="modal-box w-11/12 max-w-5xl rounded-2xl custom-scrollbar">
         <button className="btn btn-circle absolute right-4 top-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +196,7 @@ const ProviderRegistrationModal = () => {
         </button>
         <h2 className="text-3xl font-semibold mb-16 ">Provider Registration</h2>
         <div className="modal-action block">
-          <form className="">
+          <form onSubmit={handleSubmit}>
             <h2 className="text-2xl text-center font-semibold mb-10">
               Personal Information
             </h2>
@@ -136,6 +226,8 @@ const ProviderRegistrationModal = () => {
                   className="input input-bordered input-md w-full font-semibold focus:outline-none"
                   name="email"
                   required
+                  value={user?.email && user.email}
+                  disabled={user?.email}
                 />
               </div>
 
@@ -150,6 +242,8 @@ const ProviderRegistrationModal = () => {
                   className="input input-bordered input-md w-full font-semibold focus:outline-none"
                   name="phone"
                   required
+                  value={user?.phoneNumber && user.phoneNumber}
+                  disabled={user?.phoneNumber}
                 />
               </div>
 
@@ -168,7 +262,12 @@ const ProviderRegistrationModal = () => {
                         }`
                   }`}
                   onDrop={(e) =>
-                    handleDrop(e, setSelectedFile, setIsDraggingPhoto)
+                    handleDrop(
+                      e,
+                      setSelectedFile,
+                      setIsDraggingPhoto,
+                      setSelectedFileURL
+                    )
                   }
                   onDragOver={(e) => handleDragOver(e, setIsDraggingPhoto)}
                   onDragLeave={() => handleDragLeave(setIsDraggingPhoto)}
@@ -219,7 +318,9 @@ const ProviderRegistrationModal = () => {
                   <input
                     type="file"
                     id="photoInput"
-                    onChange={(e) => handleFileChange(e, setSelectedFile)}
+                    onChange={(e) =>
+                      handleFileChange(e, setSelectedFile, setSelectedFileURL)
+                    }
                     className="hidden"
                     accept=".jpg, .jpeg, .png"
                     required
@@ -235,7 +336,7 @@ const ProviderRegistrationModal = () => {
                   required
                   onChange={handleChange}
                   type="text"
-                  placeholder="Phone"
+                  placeholder="NID Number"
                   className="input input-bordered input-md w-full font-semibold focus:outline-none"
                   name="nidNumber"
                 />
@@ -256,7 +357,12 @@ const ProviderRegistrationModal = () => {
                         }`
                   }`}
                   onDrop={(e) =>
-                    handleDrop(e, setSelectedNIDCard, setIsDraggingPNIDCard)
+                    handleDrop(
+                      e,
+                      setSelectedNIDCard,
+                      setIsDraggingPNIDCard,
+                      setSelectedNIDCardURL
+                    )
                   }
                   onDragOver={(e) => handleDragOver(e, setIsDraggingPNIDCard)}
                   onDragLeave={() => handleDragLeave(setIsDraggingPNIDCard)}
@@ -307,10 +413,17 @@ const ProviderRegistrationModal = () => {
                   <input
                     type="file"
                     id="NIDInput"
-                    onChange={(e) => handleFileChange(e, setSelectedNIDCard)}
+                    onChange={(e) =>
+                      handleFileChange(
+                        e,
+                        setSelectedNIDCard,
+                        setSelectedNIDCardURL
+                      )
+                    }
                     className="hidden"
                     accept=".jpg, .jpeg, .png"
                     required
+                    name=""
                   />
                 </div>
               </div>
@@ -320,56 +433,104 @@ const ProviderRegistrationModal = () => {
               Professional Information
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <input
-                type="text"
-                placeholder="Business Name"
-                className="input input-bordered input-md w-full"
-              />
-              <input
-                type="text"
-                placeholder="Registration Number"
-                className="input input-bordered input-md w-full"
-              />
-              <input
-                type="number"
-                placeholder="Years of Experience"
-                className="input input-bordered input-md w-full"
-              />
-              <input
-                type="text"
-                placeholder="Certifications or Licenses"
-                className="input input-bordered input-md w-full"
-              />
+              <div>
+                <label className="font-semibold block mb-1 " htmlFor="name">
+                  Business Name<span className="text-red-500">*</span>
+                </label>
+                <input
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Business Name"
+                  className="input input-bordered input-md w-full focus:outline-none"
+                  name="businessName"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="font-semibold block mb-1 " htmlFor="name">
+                  Reg. Number<span className="text-red-500">*</span>
+                </label>
+                <input
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Registration Number"
+                  className="input input-bordered input-md w-full focus:outline-none"
+                  name="registrationNumber"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="font-semibold block mb-1 " htmlFor="name">
+                  Years of Experience<span className="text-red-500">*</span>
+                </label>
+                <select
+                  defaultValue=""
+                  onChange={handleChange}
+                  className="select select-bordered w-full focus:border-none"
+                  name="yearsOfExperience"
+                >
+                  <option value="" selected disabled>
+                    Select Years of Experience
+                  </option>
+                  <option value="1">1 year</option>
+                  <option value="2">2 years</option>
+                  <option value="3">3 years</option>
+                  <option value="4">4 years</option>
+                  <option value="5">5 years above</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="font-semibold block mb-1 " htmlFor="name">
+                  License No.<span className="text-red-500">*</span>
+                </label>
+                <input
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="License No."
+                  className="input input-bordered input-md w-full focus:outline-none"
+                  name="licenseNo"
+                  required
+                />
+              </div>
             </div>
 
-            {/* <h2 className="text-2xl text-center font-semibold mb-5 mt-10 mb-5 ">
+            <h2 className="text-2xl text-center font-semibold mt-10 mb-5 ">
               Service Details
             </h2>
-            <div className="grid grid-cols-3 gap-8">
-              <input
-                type="text"
-                placeholder="Business Name"
-                className="input input-bordered input-md w-full"
-              />
-              <input
-                type="text"
-                placeholder="Registration Number"
-                className="input input-bordered input-md w-full"
-              />
-              <input
-                type="number"
-                placeholder="Years of Experience"
-                className="input input-bordered input-md w-full"
-              />
-              <input
-                type="text"
-                placeholder="Certifications or Licenses"
-                className="input input-bordered input-md w-full"
-              />
-            </div> */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div>
+                <label className="font-semibold block mb-1 " htmlFor="name">
+                  Service Type<span className="text-red-500">*</span>
+                </label>
+                <select
+                  required
+                  selected
+                  onChange={handleChange}
+                  defaultValue=""
+                  className="select select-bordered w-full focus:outline-none font-semibold"
+                  name="serviceCategory"
+                >
+                  <option className="font-semibold" value="" selected disabled>
+                    ---------------Select Service Type---------------
+                  </option>
+                  {allServiceCategories.map((serviceCategory) => (
+                    <option
+                      className="font-semibold"
+                      value={serviceCategory.serviceName}
+                      key={serviceCategory._id}
+                    >
+                      {serviceCategory.serviceName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
 
-            <h2 className="text-2xl text-center font-semibold mb-5 mt-10 mb-5 ">
-              Location Information
+            <h2 className="text-2xl text-center font-semibold mt-10 mb-5 ">
+              Service Location
             </h2>
             <div className="grid lg:grid-cols-3 gap-8">
               <div>
@@ -380,15 +541,19 @@ const ProviderRegistrationModal = () => {
                   required
                   selected
                   onChange={handleChange}
-                  defaultValue="---Select Your Divison---"
+                  defaultValue=""
                   className="select select-bordered w-full focus:outline-none font-semibold"
                   name="division"
                 >
-                  <option className="font-semibold" value="" disabled selected>
+                  <option className="font-semibold" value="" selected disabled>
                     ---------------Select Your Divison---------------
                   </option>
                   {divisions.map((division) => (
-                    <option className="font-semibold" key={division.division}>
+                    <option
+                      className="font-semibold"
+                      value={division.division}
+                      key={division.division}
+                    >
                       {division.division}
                     </option>
                   ))}
@@ -400,12 +565,12 @@ const ProviderRegistrationModal = () => {
                   District<span className="text-red-500">*</span>
                 </label>
                 <select
+                  defaultValue=""
                   disabled={!formData.division ? true : false}
                   onChange={(e) => {
                     handleChange(e);
                     handleChangeDistrict(e);
                   }}
-                  defaultValue="---Select Your Divison---"
                   className="font-semibold border select select-bordered w-full focus:outline-none"
                   name="district"
                 >
@@ -413,7 +578,11 @@ const ProviderRegistrationModal = () => {
                     ---------------Select Your District---------------
                   </option>
                   {districts.map((district) => (
-                    <option className="font-semibold" key={district._id}>
+                    <option
+                      className="font-semibold"
+                      value={district.district}
+                      key={district._id}
+                    >
                       {district.district}
                     </option>
                   ))}
@@ -425,11 +594,11 @@ const ProviderRegistrationModal = () => {
                   Upazila
                 </label>
                 <select
+                  defaultValue=""
                   disabled={!formData.district ? true : false}
                   onChange={(e) => {
                     handleChange(e);
                   }}
-                  defaultValue="---Select Your Divison---"
                   className="font-semibold border select select-bordered w-full focus:outline-none"
                   name="upazila"
                 >
@@ -437,13 +606,23 @@ const ProviderRegistrationModal = () => {
                     ---------------Select Your Upazila---------------
                   </option>
                   {upazillas?.map((upazilla) => (
-                    <option className="font-semibold" key={upazilla}>
+                    <option
+                      className="font-semibold"
+                      value={upazilla}
+                      key={upazilla}
+                    >
                       {upazilla}
                     </option>
                   ))}
                 </select>
               </div>
             </div>
+            <button className="btn btn-neutral mt-10 mx-auto flex">
+              {loading && (
+                <span className="loading loading-spinner loading-md"></span>
+              )}
+              Register
+            </button>
           </form>
         </div>
       </div>

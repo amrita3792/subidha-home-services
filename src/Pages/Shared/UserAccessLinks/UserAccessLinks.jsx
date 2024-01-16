@@ -60,7 +60,9 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
       .then((data) => {
         if (data.acknowledged) {
           logout()
-            .then(() => {})
+            .then(() => {
+              setIsOpen(false);
+            })
             .catch((error) => {
               console.error(`Error: ${error}`);
             });
@@ -90,10 +92,15 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
                 alt=""
               />
             ) : (
-              <img className="h-12 w-12" src="https://i.ibb.co/M1qvZxP/user.png" alt="" srcset="" />
+              <img
+                className="h-12 w-12"
+                src="https://i.ibb.co/M1qvZxP/user.png"
+                alt=""
+                srcset=""
+              />
             )}
             <div>
-              <p className="font-semibold line-clamp-0">
+              <p className="font-semibold line-clamp-0 text-start">
                 {user?.displayName ? user.displayName : "N/A"}
               </p>
               <p className="text-sm text-start">User</p>
@@ -121,7 +128,6 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
               onClick={(e) => {
                 // e.stopPropagation();
                 handleLogout();
-                setIsOpen(false);
               }}
               className="btn flex items-center justify-center gap-1 cursor-pointer bg-[#FF6600] hover:bg-[#1D2736]  px-3 py-2 rounded-lg"
             >

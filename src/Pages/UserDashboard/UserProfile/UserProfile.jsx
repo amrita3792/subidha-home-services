@@ -5,7 +5,7 @@ import { Tooltip } from "keep-react";
 import { toast } from "react-toastify";
 import { ThemeContext } from "../../../App";
 
-const MyHub = () => {
+const UserProfile = () => {
   const {
     user,
     updateUserProfile,
@@ -15,7 +15,7 @@ const MyHub = () => {
     setLoading,
     updateUserEmail,
   } = useContext(AuthContext);
-  const {theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   const fileInputRef = useRef(null);
   const imageHostKey = import.meta.env.VITE_IMGBB_KEY;
@@ -44,15 +44,15 @@ const MyHub = () => {
               setLoading(false);
               toast.success("Your profile picture has been updated! ", {
                 icon: <CheckIcon className="w-5 h-5 text-white" />,
-                theme: "colored"
+                theme: "colored",
               });
               setSelectedImage(null);
             })
             .catch((error) => {
               toast.error(error.message, {
                 hideProgressBar: true,
-                theme: "colored"
-              })
+                theme: "colored",
+              });
               setLoading(false);
               setUpdateProfilePicture(false);
             });
@@ -84,7 +84,7 @@ const MyHub = () => {
         toast.success("Name updated successfully", {
           icon: <CheckIcon className="w-5 h-5 text-white" />,
           hideProgressBar: true,
-          theme: "colored"
+          theme: "colored",
         });
       })
       .catch((error) => {
@@ -92,8 +92,8 @@ const MyHub = () => {
         setLoading(false);
         toast.error(error.message, {
           hideProgressBar: true,
-          theme: "colored"
-        })
+          theme: "colored",
+        });
       });
   };
 
@@ -104,7 +104,7 @@ const MyHub = () => {
   return (
     <div className="p-5">
       <div className="relative overflow-x-auto flex flex-col justify-center items-center gap-10 md:p-14 lg:p-0 md:max-w-screen-sm lg:w-3/6 mx-auto">
-        <h2 className="text-5xl">WELCOME BACK!</h2>
+        <h2 className="text-3xl font-semibold">Welcome Back!</h2>
         <input
           type="file"
           ref={fileInputRef}
@@ -134,9 +134,12 @@ const MyHub = () => {
             </Tooltip>
           </div>
         ) : (
-          <div className="bg-gradient-to-r from-indigo-400 to-cyan-400 text-white p-8 rounded-full relative">
-            <UserIcon className="w-16 h-16" />
-            {/* Edit User Profile Picture */}
+          <div className="relative">
+            <img
+              className="w-24 h-24"
+              src="https://i.ibb.co/M1qvZxP/user.png"
+              alt=""
+            />
             <Tooltip
               content="Change Profile Picture"
               trigger="hover"
@@ -157,7 +160,13 @@ const MyHub = () => {
 
         <table className="w-full  text-left  text-gray-500">
           <tbody>
-            <tr className={`border-b ${theme === "light" ? "dark:border-gray-300" : "dark:border-gray-600"}`}>
+            <tr
+              className={`border-b ${
+                theme === "light"
+                  ? "dark:border-gray-300"
+                  : "dark:border-gray-600"
+              }`}
+            >
               <th
                 scope="row"
                 className="px-6 py-4 font-semibold whitespace-nowrap"
@@ -186,13 +195,13 @@ const MyHub = () => {
                   <div className="flex items-center gap-3">
                     <button
                       onClick={handleUpdateUserName}
-                      className="text-emerald-500 font-semibold hover:underline text-sm"
+                      className="text-blue-500 font-semibold hover:underline text-sm"
                     >
                       Update
                     </button>
                     <button
                       onClick={() => setIsUpdateName(false)}
-                      className="text-pink-600 font-semibold hover:underline text-sm"
+                      className="text-red-600 font-semibold hover:underline text-sm"
                     >
                       Cancel
                     </button>
@@ -202,23 +211,37 @@ const MyHub = () => {
                     onClick={() => {
                       setIsUpdateName(true);
                     }}
-                    className="text-emerald-500 font-semibold hover:underline text-sm"
+                    className="text-blue-500 font-semibold hover:underline text-sm"
                   >
                     Edit
                   </button>
                 )}
               </td>
             </tr>
-            <tr className={`border-b ${theme === "light" ? "dark:border-gray-300" : "dark:border-gray-600"}`}>
+            <tr
+              className={`border-b ${
+                theme === "light"
+                  ? "dark:border-gray-300"
+                  : "dark:border-gray-600"
+              }`}
+            >
               <th
                 scope="row"
                 className="px-6 py-4 font-semibold whitespace-nowrap"
               >
                 Phone
               </th>
-              <td className="px-6 py-4">{user?.phoneNumber ? user.phoneNumber: "N/A"}</td>
+              <td className="px-6 py-4">
+                {user?.phoneNumber ? user.phoneNumber : "N/A"}
+              </td>
             </tr>
-            <tr className={`border-b ${theme === "light" ? "dark:border-gray-300" : "dark:border-gray-600"}`}>
+            <tr
+              className={`border-b ${
+                theme === "light"
+                  ? "dark:border-gray-300"
+                  : "dark:border-gray-600"
+              }`}
+            >
               <th
                 scope="row"
                 className="px-6 py-4 font-semibold whitespace-nowrap"
@@ -234,4 +257,4 @@ const MyHub = () => {
   );
 };
 
-export default MyHub;
+export default UserProfile;
