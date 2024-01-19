@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
-import { CheckIcon, PencilIcon, UserIcon } from "@heroicons/react/24/solid";
+import { CheckIcon, PencilIcon } from "@heroicons/react/24/solid";
 import { Tooltip } from "keep-react";
 import { toast } from "react-toastify";
 import { ThemeContext } from "../../../App";
+import { useQuery } from "@tanstack/react-query";
 
 const UserProfile = () => {
   const {
@@ -11,8 +12,6 @@ const UserProfile = () => {
     updateUserProfile,
     setUpdateProfilePicture,
     setUpdateProfileName,
-    loading,
-    setLoading,
     updateUserEmail,
   } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
@@ -23,6 +22,7 @@ const UserProfile = () => {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [isUpdateName, setIsUpdateName] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (selectedImage) {
@@ -40,13 +40,25 @@ const UserProfile = () => {
           console.log(photoURL);
           updateUserProfile(user?.displayName, photoURL)
             .then(() => {
-              setUpdateProfilePicture(true);
-              setLoading(false);
-              toast.success("Your profile picture has been updated! ", {
-                icon: <CheckIcon className="w-5 h-5 text-white" />,
-                theme: "colored",
-              });
-              setSelectedImage(null);
+              fetch(`http://localhost:5000/users/${user.uid}`, {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({ photo: photoURL }),
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  if (data.acknowledged) {
+                    setUpdateProfilePicture(true);
+                    setLoading(false);
+                    toast.success("Your profile picture has been updated! ", {
+                      hideProgressBar: true,
+                    });
+                    setSelectedImage(null);
+                    refetch();
+                  }
+                });
             })
             .catch((error) => {
               toast.error(error.message, {
@@ -60,9 +72,22 @@ const UserProfile = () => {
     }
   }, [selectedImage]);
 
+  const {
+    data: userData = {},
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["user"],
+    queryFn: () =>
+      fetch(`http://localhost:5000/users/${user?.uid}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }).then((res) => res.json()),
+  });
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-
     if (file) {
       setSelectedImage(file);
       console.log(file);
@@ -76,25 +101,39 @@ const UserProfile = () => {
   };
 
   const handleUpdateUserName = () => {
-    updateUserProfile(inputName.current, user?.photoURL)
-      .then(() => {
-        setUpdateProfileName(true);
-        setIsUpdateName(false);
-        setLoading(false);
-        toast.success("Name updated successfully", {
-          icon: <CheckIcon className="w-5 h-5 text-white" />,
-          hideProgressBar: true,
-          theme: "colored",
+    if (inputName.current) {
+      setLoading(true);
+      updateUserProfile(inputName.current, user?.photoURL)
+        .then(() => {
+          fetch(`http://localhost:5000/users/${user.uid}`, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify({ userName: inputName.current }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.acknowledged) {
+                setUpdateProfileName(true);
+                setIsUpdateName(false);
+                setLoading(false);
+                refetch();
+                toast.success("Name updated successfully", {
+                  hideProgressBar: true,
+                });
+              }
+            });
+        })
+        .catch((error) => {
+          setUpdateProfilePicture(false);
+          setLoading(false);
+          toast.error(error.message, {
+            hideProgressBar: true,
+            theme: "colored",
+          });
         });
-      })
-      .catch((error) => {
-        setUpdateProfilePicture(false);
-        setLoading(false);
-        toast.error(error.message, {
-          hideProgressBar: true,
-          theme: "colored",
-        });
-      });
+    }
   };
 
   const handleChangeName = (e) => {
@@ -102,8 +141,12 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="p-5">
-      <div className="relative overflow-x-auto flex flex-col justify-center items-center gap-10 md:p-14 lg:p-0 md:max-w-screen-sm lg:w-3/6 mx-auto">
+    <div className="md:p-5">
+      <div
+        className={`relative flex flex-col justify-center items-center gap-10 md:p-14 lg:p-0  w-full lg:w-4/5  mx-auto ${
+          theme === "light" && "text-stone-600"
+        }`}
+      >
         <h2 className="text-3xl font-semibold">Welcome Back!</h2>
         <input
           type="file"
@@ -111,11 +154,11 @@ const UserProfile = () => {
           style={{ display: "none" }}
           onChange={handleImageChange}
         />
-        {user?.photoURL ? (
+        {userData?.photo ? (
           <div className="relative">
             <img
               className="w-24 h-24 rounded-full"
-              src={user?.photoURL}
+              src={userData?.photo}
               alt=""
             />
             <Tooltip
@@ -158,39 +201,60 @@ const UserProfile = () => {
         )}
         {loading && <span className="loading loading-bars loading-md"></span>}
 
-        <table className="w-full  text-left  text-gray-500">
+        <table className="overflow-x-scroll  text-left">
           <tbody>
-            <tr
-              className={`border-b ${
-                theme === "light"
-                  ? "dark:border-gray-300"
-                  : "dark:border-gray-600"
-              }`}
-            >
+            <tr>
               <th
                 scope="row"
                 className="px-6 py-4 font-semibold whitespace-nowrap"
               >
                 Name
               </th>
-              <td className="px-6 py-4">
+              <td className="px-6 py-4 font-semibold text-sm flex flex-col items-start gap-2">
                 {isUpdateName ? (
                   <input
                     onChange={handleChangeName}
-                    className="w-full"
+                    className="w-full input input-bordered input-sm focus:outline-none max-w-xs"
                     type="text"
                     name="name"
                     id=""
-                    defaultValue={user?.displayName}
+                    defaultValue={userData?.userName}
                     autoFocus
                   />
-                ) : user?.displayName ? (
-                  user.displayName
+                ) : userData?.userName ? (
+                  userData?.userName
                 ) : (
                   "N/A"
                 )}
+                <span className="md:hidden">
+                  {isUpdateName ? (
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={handleUpdateUserName}
+                        className="text-blue-500 font-semibold hover:underline text-sm"
+                      >
+                        Update
+                      </button>
+                      <button
+                        onClick={() => setIsUpdateName(false)}
+                        className="text-red-600 font-semibold hover:underline text-sm"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setIsUpdateName(true);
+                      }}
+                      className="text-blue-500 font-semibold hover:underline text-sm"
+                    >
+                      Edit
+                    </button>
+                  )}
+                </span>
               </td>
-              <td className="px-6 py-4">
+              <td className="px-6 py-4 hidden md:table-cell">
                 {isUpdateName ? (
                   <div className="flex items-center gap-3">
                     <button
@@ -218,37 +282,52 @@ const UserProfile = () => {
                 )}
               </td>
             </tr>
-            <tr
-              className={`border-b ${
-                theme === "light"
-                  ? "dark:border-gray-300"
-                  : "dark:border-gray-600"
-              }`}
-            >
+
+            <tr>
               <th
                 scope="row"
                 className="px-6 py-4 font-semibold whitespace-nowrap"
               >
                 Phone
               </th>
-              <td className="px-6 py-4">
-                {user?.phoneNumber ? user.phoneNumber : "N/A"}
+              <td className="px-6 py-4 font-semibold text-sm">
+                {userData?.phone ? userData.phone : "N/A"}
               </td>
             </tr>
-            <tr
-              className={`border-b ${
-                theme === "light"
-                  ? "dark:border-gray-300"
-                  : "dark:border-gray-600"
-              }`}
-            >
+
+            <tr>
               <th
                 scope="row"
                 className="px-6 py-4 font-semibold whitespace-nowrap"
               >
                 Email
               </th>
-              <td className="px-6 py-4">{user?.email ? user.email : "N/A"}</td>
+              <td className="px-6 py-4 text-sm font-semibold">
+                {userData?.email ? userData?.email : "N/A"}
+              </td>
+            </tr>
+
+            <tr>
+              <th
+                scope="row"
+                className="px-6 py-4 font-semibold whitespace-nowrap"
+              >
+                Sign-up Date
+              </th>
+              <td className="px-6 py-4 text-sm font-semibold">
+                {userData?.signupDate}
+              </td>
+            </tr>
+            <tr>
+              <th
+                scope="row"
+                className="px-6 py-4 font-semibold whitespace-nowrap"
+              >
+                Last Login Date
+              </th>
+              <td className="px-6 py-4 text-sm font-semibold">
+                {userData?.lastLogin}
+              </td>
             </tr>
           </tbody>
         </table>

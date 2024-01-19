@@ -3,7 +3,6 @@ import logo from "../../../assets/logo/subidha-logo.png";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../../App";
 
-
 const PromoBar = () => {
   const { theme } = useContext(ThemeContext);
   const [isVisible, setIsVisible] = useState(true);
@@ -31,11 +30,7 @@ const PromoBar = () => {
               <img className="h-24" src={logo} alt="" />
             </Link>
             <div className="flex flex-col lg:flex-row gap-10 md:gap-20">
-              <div
-                className={`flex md:block flex-col ${
-                  theme === "light" && "text-stone-600"
-                } items-center`}
-              >
+              <div className="flex md:block flex-col  items-center`">
                 <div className="flex items-center gap-8 flex-wrap justify-between">
                   <div className="flex items-start gap-2">
                     <svg

@@ -43,11 +43,6 @@ const router = createBrowserRouter([
             path: "/user-dashboard",
             element: (
               <div className="flex flex-col items-center">
-                <img
-                  className="w-64"
-                  src="https://i.ibb.co/jJ20DzF/wear-mask-and-gloves-always-for-stop-corona-virus-transmission.png"
-                  alt=""
-                />
                 <div role="alert" className="alert bg-inherit flex flex-col max-w-[500px] text-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

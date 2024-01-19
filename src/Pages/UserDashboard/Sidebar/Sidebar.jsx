@@ -168,7 +168,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className={`w-full md:w-[300px] ${theme === "light" && "text-stone-600"}`}>
+    <aside className="w-full lg:w-[300px]">
       <section>
         <h2 className="text-2xl font-semibold">Dashboard</h2>
         <div className="flex items-center gap-3 p-4">
@@ -189,9 +189,7 @@ const Sidebar = () => {
                     color: isActive && "white",
                   };
                 }}
-                className={`px-3 py-2 font-semibold w-full flex items-center justify-start gap-3 btn bg-inherit rounded-none border-none ${
-                  theme === "light" && "text-stone-600"
-                }`}
+                className="px-3 py-2 font-semibold w-full flex items-center justify-start gap-3 btn bg-inherit  border-none"
                 to={userAccessLink.path}
               >
                 {userAccessLink.icon}

@@ -96,7 +96,6 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
                 className="h-12 w-12"
                 src="https://i.ibb.co/M1qvZxP/user.png"
                 alt=""
-                srcset=""
               />
             )}
             <div>

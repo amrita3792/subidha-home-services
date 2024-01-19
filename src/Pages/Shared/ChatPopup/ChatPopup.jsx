@@ -14,6 +14,8 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
     return;
   }
 
+  console.log(users);
+
   return (
     <div className={`relative z-[45000] ${theme === "light" && "text-black"}`}>
       <div className={`p-2 ${theme === "dark" ? "bg-[#1D232A] border border-slate-600" : "bg-white"} fixed md:absolute top-0 left-0 md:left-auto md:top-2 md:-right-28 lg:right-0 z-[50000] md:rounded-xl md:shadow-2xl`}>
@@ -42,7 +44,7 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
         <div className="overflow-x-auto w-screen h-screen md:h-[60vh] md:w-[400px] my-5">
           <table className="table mb-5">
             <tbody>
-              {users?.users.map((user) => (
+              {users?.users?.map((user) => (
                 <tr
                   onClick={(e) => {
                     setReceiver(user);
