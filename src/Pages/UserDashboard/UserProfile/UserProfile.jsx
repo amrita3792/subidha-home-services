@@ -30,8 +30,6 @@ const UserProfile = () => {
   const [districts, setDistricts] = useState([]);
   const [upazillas, setUpazillas] = useState([]);
 
-  console.log(formData);
-
   useEffect(() => {
     if (selectedImage) {
       setLoading(true);
@@ -48,7 +46,7 @@ const UserProfile = () => {
           console.log(photoURL);
           updateUserProfile(user?.displayName, photoURL)
             .then(() => {
-              fetch(`http://localhost:5000/users/${user.uid}`, {
+              fetch(`https://subidha-home-services-server2.glitch.me/users/${user.uid}`, {
                 headers: {
                   "Content-Type": "application/json",
                 },
@@ -110,7 +108,7 @@ const UserProfile = () => {
   });
 
   const fetchUserData = async () => {
-    const response = await fetch(`http://localhost:5000/users/${user?.uid}`, {
+    const response = await fetch(`https://subidha-home-services-server2.glitch.me/users/${user?.uid}`, {
       // headers: {
       //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       // },
@@ -133,7 +131,11 @@ const UserProfile = () => {
   }
 
   if (isLoading) {
-    return <span className="loading loading-spinner text-primary"></span>;
+    return (
+      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
+        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+      </div>
+    );
   }
 
   const handleImageChange = (e) => {
@@ -156,7 +158,7 @@ const UserProfile = () => {
     e.preventDefault();
     formData.uid = user.uid;
     try {
-      const res = await fetch("http://localhost:5000/users", {
+      const res = await fetch("https://subidha-home-services-server2.glitch.me/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -216,7 +218,12 @@ const UserProfile = () => {
 
   return (
     <div className="md:p-5">
-      <h2 className="text-xl font-semibold text-center mb-5">My Profile</h2>
+      <h2
+        name="/user-dashboard/dashboard"
+        className="text-2xl font-semibold text-center mb-5"
+      >
+        My Profile
+      </h2>
       <div className="relative flex flex-col justify-center items-center gap-10 md:p-14 lg:p-0 w-full  mx-auto">
         <input
           type="file"
@@ -359,7 +366,7 @@ const UserProfile = () => {
                 <option defaultValue="">
                   {userData.division
                     ? `Current Division: ${userData.division}`
-                    : "---------------Select Your Division---------------"}
+                    : "Select Your Division"}
                 </option>
                 {divisions.map((division) => (
                   <option
@@ -388,10 +395,10 @@ const UserProfile = () => {
                 className="font-semibold border select select-bordered w-full focus:outline-none"
                 name="district"
               >
-               <option defaultValue="" >
+                <option defaultValue="">
                   {userData.district
-                    ? `Current Upazila: ${userData.district}`
-                    : "---------------Select Your Upazila---------------"}
+                    ? `Current District: ${userData.district}`
+                    : "Select Your District"}
                 </option>
                 {districts.map((district) => (
                   <option
@@ -422,7 +429,7 @@ const UserProfile = () => {
                 <option defaultValue="">
                   {userData.upazila
                     ? `Current Upazila: ${userData.upazila}`
-                    : "---------------Select Your Upazila---------------"}
+                    : "Select Your Upazila"}
                 </option>
                 {upazillas.map((upazilla) => (
                   <option

@@ -9,7 +9,7 @@ const AllServiceCategories = () => {
   const { data: allServiceCategories = [], isLoading } = useQuery({
     queryKey: ["allServiceCategory"],
     queryFn: () =>
-      fetch("http://localhost:5000/allServiceCategories").then((res) =>
+      fetch("https://subidha-home-services-server2.glitch.me/allServiceCategories").then((res) =>
         res.json()
       ),
   });

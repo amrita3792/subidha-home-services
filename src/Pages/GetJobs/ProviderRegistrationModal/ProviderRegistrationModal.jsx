@@ -79,7 +79,7 @@ const ProviderRegistrationModal = () => {
   const { data: allServiceCategories = [] } = useQuery({
     queryKey: ["allServiceCategory"],
     queryFn: () =>
-      fetch("http://localhost:5000/allServiceCategories").then((res) =>
+      fetch("https://subidha-home-services-server2.glitch.me/allServiceCategories").then((res) =>
         res.json()
       ),
   });
@@ -153,7 +153,7 @@ const ProviderRegistrationModal = () => {
     formData.NIDCardURL = selectedNIDCardURL;
     formData.uid = user.uid;
     try {
-      const res = await fetch("http://localhost:5000/providers", {
+      const res = await fetch("https://subidha-home-services-server2.glitch.me/providers", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -546,7 +546,7 @@ const ProviderRegistrationModal = () => {
                   name="division"
                 >
                   <option className="font-semibold" defaultValue="" selected disabled>
-                    ---------------Select Your Divison---------------
+                    Select Your Divison
                   </option>
                   {divisions.map((division) => (
                     <option
@@ -575,7 +575,7 @@ const ProviderRegistrationModal = () => {
                   name="district"
                 >
                   <option className="font-semibold" defaultValue="" disabled selected>
-                    ---------------Select Your District---------------
+                    Select Your District
                   </option>
                   {districts.map((district) => (
                     <option
@@ -603,7 +603,7 @@ const ProviderRegistrationModal = () => {
                   name="upazila"
                 >
                   <option className="font-semibold" defaultValue="" disabled selected>
-                    ---------------Select Your Upazila---------------
+                   Select Your Upazila
                   </option>
                   {upazillas?.map((upazilla) => (
                     <option

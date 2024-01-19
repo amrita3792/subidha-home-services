@@ -61,7 +61,7 @@ const Login = () => {
           status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
         };
 
-        fetch("http://localhost:5000/users", {
+        fetch("https://subidha-home-services-server2.glitch.me/users", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -106,7 +106,7 @@ const Login = () => {
         const status = "active";
 
         if (user.emailVerified) {
-          fetch(`http://localhost:5000/update-status/${user.uid}`, {
+          fetch(`https://subidha-home-services-server2.glitch.me/update-status/${user.uid}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -148,8 +148,8 @@ const Login = () => {
   };
 
   return (
-    <div className="max-w-[400px] mx-auto my-12 px-5">
-      <h2 className="text-4xl font-semibold text-center mb-6">Log In</h2>
+    <div className="max-w-[400px] mx-auto my-12 px-2">
+      <h2 className="text-3xl font-semibold text-center mb-6">Log In</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-control flex flex-row items-center my-5">
           <input

@@ -13,7 +13,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
     {
       id: 1,
       name: "Dashboard",
-      path: "/user-dashboard",
+      path: "/user-dashboard/dashboard",
     },
     {
       id: 2,
@@ -23,7 +23,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
     {
       id: 3,
       name: "Profile Settings",
-      path: "/user-settings",
+      path: "/user-dashboard/user-settings",
     },
     {
       id: 4,
@@ -49,7 +49,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
 
   const handleLogout = () => {
     const status = "Offline";
-    fetch(`http://localhost:5000/update-status/${user.uid}`, {
+    fetch(`https://subidha-home-services-server2.glitch.me/update-status/${user.uid}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

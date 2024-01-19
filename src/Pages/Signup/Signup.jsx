@@ -55,7 +55,7 @@ const Signup = () => {
           status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
         };
 
-        fetch("http://localhost:5000/users", {
+        fetch("https://subidha-home-services-server2.glitch.me/users", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -128,7 +128,7 @@ const Signup = () => {
               user.emailVerified || user.phoneNumber ? "Active" : "Pending",
           };
 
-          fetch("http://localhost:5000/users", {
+          fetch("https://subidha-home-services-server2.glitch.me/users", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -225,8 +225,8 @@ const Signup = () => {
       {/* You can customize the message further based on your application's specific requirements. */}
     </div>
   ) : (
-    <div className="max-w-[400px] mx-auto my-12 px-5">
-      <h2 className="text-4xl text-center mb-6 font-semibold">Sign Up</h2>
+    <div className="max-w-[400px] mx-auto my-12 px-2">
+      <h2 className="text-3xl text-center mb-6 font-semibold">Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-control flex flex-row items-center my-5 focus:outline-none">
           <input

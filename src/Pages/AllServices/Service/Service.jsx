@@ -4,7 +4,7 @@ import ServiceCard from "./ServiceCard/ServiceCard";
 const Service = ({ service, handleDetailsButtonClick }) => {
   return (
     <div>
-      <h2 className="text-4xl font-bold">{service?.serviceName}</h2>
+      <h2 className="text-2xl md:text-3xl font-bold">{service?.serviceName}</h2>
       <h4 className="font-bold">
         {service?.subCategories?.length} Related Services
       </h4>

@@ -4,7 +4,6 @@ import { MountContext } from "../../../Layout/Main/Main";
 
 const AllServices = ({ setIsMounted }) => {
   const status = useContext(MountContext);
-  //   console.log(value);
 
   useEffect(() => {
     status.setIsMounted(true);

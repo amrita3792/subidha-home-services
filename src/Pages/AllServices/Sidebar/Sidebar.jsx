@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Service from "../Service/Service";
 import { ThemeContext } from "../../../App";
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
   const { theme } = useContext(ThemeContext);
@@ -13,7 +14,7 @@ const Sidebar = () => {
   useEffect(() => {
     if (serviceCategories[0]?._id) {
       fetch(
-        `http://localhost:5000/allServiceCategories/${
+        `https://subidha-home-services-server2.glitch.me/allServiceCategories/${
           serviceId ? serviceId : serviceCategories[0]._id
         }`
       )
@@ -22,13 +23,38 @@ const Sidebar = () => {
     }
   }, [serviceId]);
 
-  const { data: serviceCategories = [], isLoading } = useQuery({
-    queryKey: ["allServiceCategory"],
-    queryFn: () =>
-      fetch("http://localhost:5000/allServiceCategories").then((res) =>
-        res.json()
-      ),
+  const {
+    data: serviceCategories = [],
+    isLoading,
+    refetch,
+    error,
+  } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => fetchUserData(),
   });
+
+  const fetchUserData = async () => {
+    const response = await fetch("https://subidha-home-services-server2.glitch.me/allServiceCategories", {
+      // headers: {
+      //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      // },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    return response.json();
+  };
+
+  if (error) {
+    toast.error("There was an error fetching services data.", {
+      hideProgressBar: true,
+      autoClose: false,
+      theme: "colored",
+    });
+    return;
+  }
 
   if (!serviceId && serviceCategories[0]?._id) {
     setServiceId(serviceCategories[0]?._id);
@@ -41,7 +67,7 @@ const Sidebar = () => {
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content py-10 px-4 lg:px-8">
+      <div className="drawer-content py-5 md:py-10 px-4 lg:px-8">
         {isLoading && (
           <div className="grid md:grid-cols-2 gap-8">
             {[...Array(3).keys()].map((idx) => (
@@ -79,7 +105,7 @@ const Sidebar = () => {
               : "bg-bage-200 border-slate-600 relative z-[30005]"
           } text-base-content gap-2  border-e`}
         >
-          <li className="text-3xl font-semibold px-4 pt-10 pb-5">
+          <li className="text-2xl md:text-3xl font-semibold px-4 md:mt-8">
             All Services
           </li>
           <div className="flex flex-col gap-5">

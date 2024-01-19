@@ -37,7 +37,7 @@ const Navbar = ({ isMounted }) => {
 
   useEffect(() => {
     // Connect to the Socket.io server
-    const newSocket = io("http://localhost:5000");
+    const newSocket = io("https://subidha-home-services-server2.glitch.me/");
 
     // Join the room based on user UID
     if (user && receiver) {
@@ -71,7 +71,7 @@ const Navbar = ({ isMounted }) => {
   useEffect(() => {
     if (roomId)
       [
-        fetch(`http://localhost:5000/chats/${roomId}`)
+        fetch(`https://subidha-home-services-server2.glitch.me/chats/${roomId}`)
           .then((res) => res.json())
           .then((data) => {
             const previousMessages = data.messages.map((message, idx) => (
@@ -211,8 +211,8 @@ const Navbar = ({ isMounted }) => {
 
   return (
     <nav className="bg-[#345DA7] h-[70px] relative w-full">
-      <div className="xl:max-w-screen-xl mx-auto flex items-center justify-between h-full px-4">
-        <Link to="/" className="text-2xl md:text-3xl text-white font-semibold">
+      <div className="xl:max-w-screen-xl mx-auto flex items-center md:justify-between justify-end h-full px-4">
+        <Link to="/" className="text-2xl md:text-3xl text-white font-semibold hidden md:block">
           SUBIDHA
         </Link>
         <ul

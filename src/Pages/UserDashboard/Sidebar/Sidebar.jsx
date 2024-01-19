@@ -170,7 +170,6 @@ const Sidebar = () => {
   return (
     <aside className="w-full lg:w-[300px]">
       <section>
-        <h2 className="text-2xl font-semibold">Dashboard</h2>
         <div className="flex items-center gap-3 p-4">
           <img
             className="w-14 h-14 rounded-full"

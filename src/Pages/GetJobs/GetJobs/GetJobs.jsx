@@ -5,7 +5,7 @@ import ProviderRegistrationModal from "../ProviderRegistrationModal/ProviderRegi
 
 const GetJobs = () => {
   return (
-    <div className="max-w-screen-xl mx-auto my-10 px-5">
+    <div className="max-w-screen-xl mx-auto my-10 px-4">
      <button className="btn" onClick={()=>document.getElementById('my_modal_4').showModal()}>Apply Now</button>
      <ProviderRegistrationModal />
     </div>
