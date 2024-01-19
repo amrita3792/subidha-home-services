@@ -12,7 +12,6 @@ const UserProfile = () => {
     updateUserProfile,
     setUpdateProfilePicture,
     setUpdateProfileName,
-    updateUserEmail,
   } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
 
@@ -24,7 +23,6 @@ const UserProfile = () => {
   const [formData, setFormData] = useState({
     userName: user.displayName,
   });
-  const [isUpdateName, setIsUpdateName] = useState(false);
   const [loading, setLoading] = useState(false);
   const [divisions, setDivisions] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -46,13 +44,16 @@ const UserProfile = () => {
           console.log(photoURL);
           updateUserProfile(user?.displayName, photoURL)
             .then(() => {
-              fetch(`https://subidha-home-services-server2.glitch.me/users/${user.uid}`, {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                method: "POST",
-                body: JSON.stringify({ photo: photoURL }),
-              })
+              fetch(
+                `https://subidha-home-services-server2.glitch.me/users/${user.uid}`,
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  method: "POST",
+                  body: JSON.stringify({ photo: photoURL }),
+                }
+              )
                 .then((res) => res.json())
                 .then((data) => {
                   if (data.acknowledged) {
@@ -108,11 +109,14 @@ const UserProfile = () => {
   });
 
   const fetchUserData = async () => {
-    const response = await fetch(`https://subidha-home-services-server2.glitch.me/users/${user?.uid}`, {
-      // headers: {
-      //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      // },
-    });
+    const response = await fetch(
+      `https://subidha-home-services-server2.glitch.me/users/${user?.uid}`,
+      {
+        // headers: {
+        //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        // },
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -158,13 +162,16 @@ const UserProfile = () => {
     e.preventDefault();
     formData.uid = user.uid;
     try {
-      const res = await fetch("https://subidha-home-services-server2.glitch.me/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://subidha-home-services-server2.glitch.me/users",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       if (data.acknowledged) {
         updateUserProfile(
@@ -276,9 +283,7 @@ const UserProfile = () => {
             </Tooltip>
           </div>
         )}
-        {loading && (
-          <span className="loading loading-bars loading-md hidden md:block"></span>
-        )}
+        {loading && <span className="loading loading-bars loading-md"></span>}
         <form onSubmit={handleSubmit} className="w-full">
           <div className="w-full grid md:grid-cols-2 gap-5">
             <div>
@@ -449,7 +454,7 @@ const UserProfile = () => {
               <>
                 {" "}
                 <span className="loading loading-spinner loading-md md:hidden"></span>{" "}
-                Updating
+                Updating...
               </>
             ) : (
               "Update"

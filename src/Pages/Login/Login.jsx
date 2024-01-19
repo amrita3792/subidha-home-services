@@ -148,7 +148,7 @@ const Login = () => {
   };
 
   return (
-    <div className="max-w-[400px] mx-auto my-12 px-2">
+    <div className="max-w-[400px] mx-auto my-12 px-3">
       <h2 className="text-3xl font-semibold text-center mb-6">Log In</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-control flex flex-row items-center my-5">

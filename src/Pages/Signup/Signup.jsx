@@ -225,7 +225,7 @@ const Signup = () => {
       {/* You can customize the message further based on your application's specific requirements. */}
     </div>
   ) : (
-    <div className="max-w-[400px] mx-auto my-12 px-2">
+    <div className="max-w-[400px] mx-auto my-12 px-3">
       <h2 className="text-3xl text-center mb-6 font-semibold">Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-control flex flex-row items-center my-5 focus:outline-none">

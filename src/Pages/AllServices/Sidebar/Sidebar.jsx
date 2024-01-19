@@ -9,17 +9,30 @@ const Sidebar = () => {
   const { theme } = useContext(ThemeContext);
   const [service, setService] = useState(null);
   const [serviceId, setServiceId] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  console.log(loading);
 
   useEffect(() => {
     if (serviceCategories[0]?._id) {
+      setLoading(true);
       fetch(
         `https://subidha-home-services-server2.glitch.me/allServiceCategories/${
           serviceId ? serviceId : serviceCategories[0]._id
         }`
       )
         .then((res) => res.json())
-        .then((data) => setService(data));
+        .then((data) => {
+          setLoading(false);
+          setService(data);
+        })
+        .catch((error) => {
+          toast.error(error.message, {
+            hideProgressBar: true,
+            theme: "colored",
+          });
+        });
     }
   }, [serviceId]);
 
@@ -29,16 +42,19 @@ const Sidebar = () => {
     refetch,
     error,
   } = useQuery({
-    queryKey: ["user"],
+    queryKey: ["allServices"],
     queryFn: () => fetchUserData(),
   });
 
   const fetchUserData = async () => {
-    const response = await fetch("https://subidha-home-services-server2.glitch.me/allServiceCategories", {
-      // headers: {
-      //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      // },
-    });
+    const response = await fetch(
+      "https://subidha-home-services-server2.glitch.me/allServiceCategories",
+      {
+        // headers: {
+        //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        // },
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -68,7 +84,7 @@ const Sidebar = () => {
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content py-5 md:py-10 px-4 lg:px-8">
-        {isLoading && (
+        {(loading || isLoading) && (
           <div className="grid md:grid-cols-2 gap-8">
             {[...Array(3).keys()].map((idx) => (
               <div key={idx} className="flex flex-col gap-4">
@@ -85,7 +101,7 @@ const Sidebar = () => {
             ))}
           </div>
         )}
-        {serviceId && (
+        {!loading && serviceId && (
           <Service
             handleDetailsButtonClick={handleDetailsButtonClick}
             service={service}
@@ -105,19 +121,25 @@ const Sidebar = () => {
               : "bg-bage-200 border-slate-600 relative z-[30005]"
           } text-base-content gap-2  border-e`}
         >
-          <li className="text-2xl md:text-3xl font-semibold px-4 md:mt-8">
-            All Services
-          </li>
-          <div className="flex flex-col gap-5">
-            {isLoading &&
-              [...Array(12).keys()].map((idx) => (
+          {isLoading && (
+            <div className="flex flex-col gap-5 mt-5">
+              {[...Array(12).keys()].map((idx) => (
                 <div key={idx} className="skeleton h-4 w-[90%]"></div>
               ))}
-          </div>
+            </div>
+          )}
+          {!isLoading && (
+            <li className="text-2xl md:text-3xl font-semibold px-4 md:mt-8">
+              All Services
+            </li>
+          )}
           {/* Sidebar content here */}
           {serviceCategories.map((serviceCategory) => (
             <li
-              onClick={() => setServiceId(serviceCategory._id)}
+              onClick={() => {
+                setServiceId(serviceCategory._id);
+                setLoading(true);
+              }}
               className="font-semibold text-base"
               key={serviceCategory._id}
             >
