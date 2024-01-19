@@ -8,7 +8,7 @@ const UserDashboard = () => {
         navigate('/user-dashboard/dashboard')
     }, []);
     return (
-        <div className="max-w-screen-xl mx-auto px-5 my-14 flex gap-10 flex-wrap lg:flex-nowrap">
+        <div className="max-w-screen-xl mx-auto px-4 my-14 flex gap-10 flex-wrap lg:flex-nowrap">
             <Sidebar />
             <div className="grow">
                 <Outlet />

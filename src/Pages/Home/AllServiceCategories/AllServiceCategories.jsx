@@ -15,7 +15,7 @@ const AllServiceCategories = () => {
   });
 
   if(isLoading) {
-    return <div className="xl:max-w-screen-xl mx-auto -mt-[63px] relative z-50">
+    return <div className="xl:max-w-screen-xl mx-auto lg:-mt-[63px] relative z-50">
       <div className="skeleton h-32"></div>
     </div>
   }
@@ -38,20 +38,12 @@ const AllServiceCategories = () => {
     },
   };
 
-  // allServiceCategories.push({
-  //   id: "658853432456dsdfde3d98449a637",
-  //   serviceName: "All Services",
-  //   icon: "https://i.ibb.co/z7WhDpg/widget.png",
-  // })
-
   return (
     <div className={`xl:max-w-screen-xl mx-auto lg:-mt-[75px] ${theme === "light"? "bg-white border" : "bg-[#1D232A]"}  rounded-xl relative z-50 shadow-lg multicarousel mb-20`}>
       <Carousel
         swipeable={true}
         draggable={false}
         responsive={responsive}
-        // autoPlay={true}
-        // infinit={true}
         autoPlaySpeed={3000}
         keyBoardControl={true}
         customTransition="all 1s"
@@ -59,8 +51,6 @@ const AllServiceCategories = () => {
         containerClass="carousel-container"
         removeArrowOnDeviceType={["tablet", "mobile"]}
         itemClass="carousel-item-padding-40-px"
-        // renderArrowsWhenDisabled={true}
-        // showDots={true}
       >
         {allServiceCategories.map((serviceCategory) => (
           <div className="px-3" key={serviceCategory._id}>

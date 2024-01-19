@@ -211,7 +211,7 @@ const Navbar = ({ isMounted }) => {
 
   return (
     <nav className="bg-[#345DA7] h-[70px] relative w-full">
-      <div className="xl:max-w-screen-xl mx-auto flex items-center justify-between h-full px-5">
+      <div className="xl:max-w-screen-xl mx-auto flex items-center justify-between h-full px-4">
         <Link to="/" className="text-2xl md:text-3xl text-white font-semibold">
           SUBIDHA
         </Link>

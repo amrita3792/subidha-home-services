@@ -30,10 +30,6 @@ const Sidebar = () => {
       ),
   });
 
-  if (isLoading) {
-    return;
-  }
-
   if (!serviceId && serviceCategories[0]?._id) {
     setServiceId(serviceCategories[0]?._id);
   }
@@ -45,7 +41,24 @@ const Sidebar = () => {
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content py-10 px-8">
+      <div className="drawer-content py-10 px-4 lg:px-8">
+        {isLoading && (
+          <div className="grid md:grid-cols-2 gap-8">
+            {[...Array(3).keys()].map((idx) => (
+              <div key={idx} className="flex flex-col gap-4">
+                <div className="skeleton h-60 w-full"></div>
+                <div className="p-8 flex flex-col gap-3 items-center">
+                  <div className="skeleton h-8 w-60 mb-3"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                  <div className="skeleton h-4 w-full"></div>
+                  <div className="skeleton h-10 rounded-none w-28 mt-5"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
         {serviceId && (
           <Service
             handleDetailsButtonClick={handleDetailsButtonClick}
@@ -61,12 +74,20 @@ const Sidebar = () => {
         ></label>
         <ul
           className={`menu p-4 w-80 min-h-full ${
-            theme === "light" ? "bg-white" : "bg-bage-200 border-slate-600 relative z-[30005]"
+            theme === "light"
+              ? "bg-white"
+              : "bg-bage-200 border-slate-600 relative z-[30005]"
           } text-base-content gap-2  border-e`}
         >
           <li className="text-3xl font-semibold px-4 pt-10 pb-5">
             All Services
           </li>
+          <div className="flex flex-col gap-5">
+            {isLoading &&
+              [...Array(12).keys()].map((idx) => (
+                <div key={idx} className="skeleton h-4 w-[90%]"></div>
+              ))}
+          </div>
           {/* Sidebar content here */}
           {serviceCategories.map((serviceCategory) => (
             <li

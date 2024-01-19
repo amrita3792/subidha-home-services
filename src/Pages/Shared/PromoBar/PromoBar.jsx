@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../../assets/logo/subidha-logo.png";
 import { Link } from "react-router-dom";
-import { ThemeContext } from "../../../App";
 
 const PromoBar = () => {
-  const { theme } = useContext(ThemeContext);
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {

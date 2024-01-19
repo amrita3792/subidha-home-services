@@ -11,7 +11,7 @@ import Users from "../../Pages/AdminDashboard/Users/Users/users";
 import GetJobs from "../../Pages/GetJobs/GetJobs/GetJobs";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import UserDashboard from "../../Pages/UserDashboard/UserDashboard/UserDashboard";
-import UDashboard from "../../Pages/UserDashboard/UDashboard/UDashboard";
+import UserDashboardStatus from "../../Pages/UserDashboard/UserDashboardStatus/UserDashboardStatus";
 import UserProfile from "../../Pages/UserDashboard/UserProfile/UserProfile";
 
 const router = createBrowserRouter([
@@ -37,39 +37,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/user-dashboard",
-        element: <PrivateRoute><UserDashboard /></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <UserDashboard />
+          </PrivateRoute>
+        ),
         children: [
           {
-            path: "/user-dashboard",
-            element: (
-              <div className="flex flex-col items-center">
-                <div role="alert" className="alert bg-inherit flex flex-col max-w-[500px] text-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    className="stroke-info shrink-0 w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    ></path>
-                  </svg>
-                  <div>
-                    <h3 className="font-bold">
-                      "Welcome! To access all the features of your home
-                      dashboard, click on the menu icon in the left side."
-                    </h3>
-                  </div>
-                </div>
-              </div>
-            ),
-          },
-          {
             path: "/user-dashboard/dashboard",
-            element: <UDashboard />,
+            element: <UserDashboardStatus />,
           },
           {
             path: "/user-dashboard/user-settings",

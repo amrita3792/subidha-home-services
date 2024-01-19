@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "../../../App";
 
-const UDashboard = () => {
+const UserDashboardStatus = () => {
   const { theme } = useContext(ThemeContext);
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div
         className={`card ${
-          theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-700"
+          theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-600"
         } shadow-md border rounded-lg`}
       >
         <div className="card-body p-6 flex-row justify-between">
@@ -38,7 +38,7 @@ const UDashboard = () => {
       </div>
       <div
         className={`card ${
-          theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-700"
+          theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-600"
         } shadow-md border rounded-lg`}
       >
         <div className="card-body p-6 flex-row justify-between">
@@ -69,7 +69,7 @@ const UDashboard = () => {
       </div>
       <div
         className={`card ${
-          theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-700"
+          theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-600"
         } shadow-md border rounded-lg`}
       >
         <div className="card-body p-6 flex-row justify-between">
@@ -102,4 +102,4 @@ const UDashboard = () => {
   );
 };
 
-export default UDashboard;
+export default UserDashboardStatus;

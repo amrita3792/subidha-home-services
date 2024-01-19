@@ -3,22 +3,20 @@ import React, { useContext } from "react";
 import { ThemeContext } from "../../../App";
 
 const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
-  const {theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const { data: users = [], isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: () =>
       fetch(`http://localhost:5000/users`).then((res) => res.json()),
   });
 
-  if (isLoading) {
-    return;
-  }
-
-  console.log(users);
-
   return (
     <div className={`relative z-[45000] ${theme === "light" && "text-black"}`}>
-      <div className={`p-2 ${theme === "dark" ? "bg-[#1D232A] border border-slate-600" : "bg-white"} fixed md:absolute top-0 left-0 md:left-auto md:top-2 md:-right-28 lg:right-0 z-[50000] md:rounded-xl md:shadow-2xl`}>
+      <div
+        className={`p-2 ${
+          theme === "dark" ? "bg-[#1D232A] border border-slate-600" : "bg-white"
+        } fixed md:absolute top-0 left-0 md:left-auto md:top-2 md:-right-28 lg:right-0 z-[50000] md:rounded-xl md:shadow-2xl`}
+      >
         <div className="flex items-center justify-between px-4 my-3">
           <h2 className="text-2xl font-semibold">Chats</h2>
           <button
@@ -42,6 +40,21 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
           </button>
         </div>
         <div className="overflow-x-auto w-screen h-screen md:h-[60vh] md:w-[400px] my-5">
+          {isLoading && (
+            <div className="flex flex-col gap-4">
+              {[...Array(5).keys()].map((idx) => (
+                <div key={idx} className="flex flex-col gap-4 px-4">
+                  <div className="flex gap-4 items-center">
+                    <div className="skeleton w-16 h-16 rounded-full shrink-0"></div>
+                    <div className="flex flex-col gap-4">
+                      <div className="skeleton h-4 w-[45%]"></div>
+                      <div className="skeleton h-4 w-52"></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
           <table className="table mb-5">
             <tbody>
               {users?.users?.map((user) => (
@@ -52,7 +65,11 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
                     e.stopPropagation();
                   }}
                   key={user?.uid}
-                  className={`card flex-row items-center gap-3 ${theme === "light" ? "hover:bg-gray-200" : "hover:bg-gray-700"} cursor-pointer border-none`}
+                  className={`card flex-row items-center gap-3 ${
+                    theme === "light"
+                      ? "hover:bg-gray-200"
+                      : "hover:bg-gray-700"
+                  } cursor-pointer border-none`}
                 >
                   <td>
                     <div className="flex items-center gap-3">
@@ -76,7 +93,6 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
                   </td>
                 </tr>
               ))}
-              
             </tbody>
           </table>
         </div>

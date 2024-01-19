@@ -172,9 +172,19 @@ const Sidebar = () => {
       <section>
         <h2 className="text-2xl font-semibold">Dashboard</h2>
         <div className="flex items-center gap-3 p-4">
-          <img className="w-14 h-14 rounded-full" src={user?.photoURL ? user.photoURL : "https://i.ibb.co/M1qvZxP/user.png"} alt="" />
+          <img
+            className="w-14 h-14 rounded-full"
+            src={
+              user?.photoURL
+                ? user.photoURL
+                : "https://i.ibb.co/M1qvZxP/user.png"
+            }
+            alt=""
+          />
           <div>
-            <p className="font-semibold">{user?.displayName? user.displayName: "N/A"}</p>
+            <p className="font-semibold">
+              {user?.displayName ? user.displayName : "N/A"}
+            </p>
             <p className="text-sm font-semibold">Member Since {creationDate}</p>
           </div>
         </div>

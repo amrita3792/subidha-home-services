@@ -226,7 +226,7 @@ const ProviderRegistrationModal = () => {
                   className="input input-bordered input-md w-full font-semibold focus:outline-none"
                   name="email"
                   required
-                  value={user?.email && user.email}
+                  defaultValue={user?.email && user.email}
                   disabled={user?.email}
                 />
               </div>
@@ -242,7 +242,7 @@ const ProviderRegistrationModal = () => {
                   className="input input-bordered input-md w-full font-semibold focus:outline-none"
                   name="phone"
                   required
-                  value={user?.phoneNumber && user.phoneNumber}
+                  defaultValue={user?.phoneNumber && user.phoneNumber}
                   disabled={user?.phoneNumber}
                 />
               </div>
@@ -471,14 +471,14 @@ const ProviderRegistrationModal = () => {
                   className="select select-bordered w-full focus:border-none"
                   name="yearsOfExperience"
                 >
-                  <option value="" selected disabled>
+                  <option defaultValue="" selected disabled>
                     Select Years of Experience
                   </option>
-                  <option value="1">1 year</option>
-                  <option value="2">2 years</option>
-                  <option value="3">3 years</option>
-                  <option value="4">4 years</option>
-                  <option value="5">5 years above</option>
+                  <option defaultValue="1">1 year</option>
+                  <option defaultValue="2">2 years</option>
+                  <option defaultValue="3">3 years</option>
+                  <option defaultValue="4">4 years</option>
+                  <option defaultValue="5">5 years above</option>
                 </select>
               </div>
 
@@ -513,13 +513,13 @@ const ProviderRegistrationModal = () => {
                   className="select select-bordered w-full focus:outline-none font-semibold"
                   name="serviceCategory"
                 >
-                  <option className="font-semibold" value="" selected disabled>
+                  <option className="font-semibold" defaultValue="" selected disabled>
                     ---------------Select Service Type---------------
                   </option>
                   {allServiceCategories.map((serviceCategory) => (
                     <option
                       className="font-semibold"
-                      value={serviceCategory.serviceName}
+                      defaultValue={serviceCategory.serviceName}
                       key={serviceCategory._id}
                     >
                       {serviceCategory.serviceName}
@@ -545,13 +545,13 @@ const ProviderRegistrationModal = () => {
                   className="select select-bordered w-full focus:outline-none font-semibold"
                   name="division"
                 >
-                  <option className="font-semibold" value="" selected disabled>
+                  <option className="font-semibold" defaultValue="" selected disabled>
                     ---------------Select Your Divison---------------
                   </option>
                   {divisions.map((division) => (
                     <option
                       className="font-semibold"
-                      value={division.division}
+                      defaultValue={division.division}
                       key={division.division}
                     >
                       {division.division}
@@ -574,13 +574,13 @@ const ProviderRegistrationModal = () => {
                   className="font-semibold border select select-bordered w-full focus:outline-none"
                   name="district"
                 >
-                  <option className="font-semibold" value="" disabled selected>
+                  <option className="font-semibold" defaultValue="" disabled selected>
                     ---------------Select Your District---------------
                   </option>
                   {districts.map((district) => (
                     <option
                       className="font-semibold"
-                      value={district.district}
+                      defaultValue={district.district}
                       key={district._id}
                     >
                       {district.district}
@@ -602,13 +602,13 @@ const ProviderRegistrationModal = () => {
                   className="font-semibold border select select-bordered w-full focus:outline-none"
                   name="upazila"
                 >
-                  <option className="font-semibold" value="" disabled selected>
+                  <option className="font-semibold" defaultValue="" disabled selected>
                     ---------------Select Your Upazila---------------
                   </option>
                   {upazillas?.map((upazilla) => (
                     <option
                       className="font-semibold"
-                      value={upazilla}
+                      defaultValue={upazilla}
                       key={upazilla}
                     >
                       {upazilla}
