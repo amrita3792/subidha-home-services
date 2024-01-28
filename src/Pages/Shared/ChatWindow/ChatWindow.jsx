@@ -9,10 +9,14 @@ const ChatWindow = ({
   socket,
   receiver,
   roomId,
+  loadingMessage
 }) => {
   const scrollableElementRef = useRef(null);
   const { user } = useContext(AuthContext);
   const [isTyping, setIsTyping] = useState(false);
+
+  console.log(messages)
+
 
   useEffect(() => {
     if (scrollableElementRef.current) {
@@ -106,7 +110,7 @@ const ChatWindow = ({
         ref={scrollableElementRef}
         className="h-[55vh] overflow-y-scroll custom-chat-scrollbar box-border bg-white p-5"
       >
-        {messages}
+        { loadingMessage ? <div className="flex justify-center h-full w-full items-center"><span className="loading loading-spinner loading-md"></span></div> : messages}
         {isTyping && (
           <div className="chat chat-start">
             <div className="chat-image avatar">

@@ -21,7 +21,7 @@ const Navbar = ({ isMounted }) => {
   const [socket, setSocket] = useState(null);
   const [openChatWindow, setOpenChatWindow] = useState(false);
   const [messages, setMessages] = useState([]);
-
+  const [loadingMessage, setLoadingMessage] = useState(true);
   const [roomId, setRoomId] = useState("");
   const [totalUnseenMessage, setTotalUnseenMessage] = useState(0);
 
@@ -37,10 +37,7 @@ const Navbar = ({ isMounted }) => {
   };
 
   useEffect(() => {
-    // Connect to the Socket.io server
-    const newSocket = io("http://localhost:5000/");
-
-    // Join the room based on user UID
+    const newSocket = io("https://subidha-home-services-server2.glitch.me/");
     if (user && receiver) {
       setMessages([]);
       setTotalUnseenMessage(0);
@@ -70,51 +67,57 @@ const Navbar = ({ isMounted }) => {
   }, [user, receiver]);
 
   useEffect(() => {
-    if (roomId)
-      [
-        fetch(`http://localhost:5000/chats/${roomId}`)
-          .then((res) => res.json())
-          .then((data) => {
-            const previousMessages = data.messages.map((message, idx) => (
-              <div
-                key={idx}
-                className={
-                  message.senderId === user?.uid
-                    ? "chat chat-end"
-                    : "chat chat-start"
-                }
-              >
-                <div className="chat-image avatar">
-                  <div className="w-10 rounded-full">
-                    <img
-                      alt="Tailwind CSS chat bubble component"
-                      src={
-                        message.senderId === user?.uid
-                          ? user?.photoURL
-                            ? user.photoURL
-                            : "https://i.ibb.co/M1qvZxP/user.png"
-                          : receiver.photoURL
-                          ? receiver.photoURL
+    if (roomId) {
+      setLoadingMessage(true)
+      fetch(`https://subidha-home-services-server2.glitch.me/chats/${roomId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          const previousMessages = data.messages.map((message, idx) => (
+            <div
+              key={idx}
+              className={
+                message.senderId === user?.uid
+                  ? "chat chat-end"
+                  : "chat chat-start"
+              }
+            >
+              <div className="chat-image avatar">
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS chat bubble component"
+                    src={
+                      message.senderId === user?.uid
+                        ? user?.photoURL
+                          ? user.photoURL
                           : "https://i.ibb.co/M1qvZxP/user.png"
-                      }
-                    />
-                  </div>
-                </div>
-                <div
-                  className={`chat-bubble overflow-hidden ${
-                    message.senderId === user.uid
-                      ? "bg-[#FF6600] text-white"
-                      : "bg-gray-200 text-black"
-                  } `}
-                >
-                  {message.message}
+                        : receiver.photoURL
+                        ? receiver.photoURL
+                        : "https://i.ibb.co/M1qvZxP/user.png"
+                    }
+                  />
                 </div>
               </div>
-            ));
-            setMessages(previousMessages);
-          }),
-      ];
+              <div
+                className={`chat-bubble overflow-hidden ${
+                  message.senderId === user.uid
+                    ? "bg-[#FF6600] text-white"
+                    : "bg-gray-200 text-black"
+                } `}
+              >
+                {message.message}
+              </div>
+            </div>
+          ));
+          setMessages(previousMessages);
+          setLoadingMessage(false)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   }, [roomId, receiver]);
+  
 
   useEffect(() => {
     if (socket && user) {
@@ -178,7 +181,7 @@ const Navbar = ({ isMounted }) => {
   useEffect(() => {
     if (openChatWindow && totalUnseenMessage > 0) {
       setTotalUnseenMessage(0);
-    } 
+    }
   }, [openChatWindow]);
 
   const handleNewUserMessage = (newMessage) => {
@@ -467,6 +470,7 @@ const Navbar = ({ isMounted }) => {
           </button>
           {openChatWindow && (
             <ChatWindow
+              loadingMessage={loadingMessage}
               socket={socket}
               receiver={receiver}
               messages={messages}

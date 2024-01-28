@@ -16,7 +16,7 @@ const Sidebar = () => {
     if (serviceCategories[0]?._id) {
       setLoading(true);
       fetch(
-        `http://localhost:5000/allServiceCategories/${
+        `https://subidha-home-services-server2.glitch.me/allServiceCategories/${
           serviceId ? serviceId : serviceCategories[0]._id
         }`
       )
@@ -26,7 +26,7 @@ const Sidebar = () => {
           setService(data);
         })
         .catch((error) => {
-          setLoading(false)
+          setLoading(false);
           toast.error(error.message, {
             hideProgressBar: true,
             theme: "colored",
@@ -47,7 +47,7 @@ const Sidebar = () => {
 
   const fetchUserData = async () => {
     const response = await fetch(
-      "http://localhost:5000/allServiceCategories",
+      "https://subidha-home-services-server2.glitch.me/allServiceCategories",
       {
         // headers: {
         //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -137,7 +137,6 @@ const Sidebar = () => {
             <li
               onClick={() => {
                 setServiceId(serviceCategory._id);
-                setLoading(true);
               }}
               className="font-semibold text-base"
               key={serviceCategory._id}
