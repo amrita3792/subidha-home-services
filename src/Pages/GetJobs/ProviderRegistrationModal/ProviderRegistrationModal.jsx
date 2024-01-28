@@ -10,17 +10,21 @@ import { toast } from "react-toastify";
 
 const ProviderRegistrationModal = () => {
   const { theme } = useContext(ThemeContext);
-  const { user, loading, setLoading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedNIDCard, setSelectedNIDCard] = useState(null);
   const [selectedFileURL, setSelectedFileURL] = useState("");
   const [selectedNIDCardURL, setSelectedNIDCardURL] = useState("");
   const [isDraggingPhoto, setIsDraggingPhoto] = useState(false);
   const [isDraggingNIDCard, setIsDraggingPNIDCard] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [divisions, setDivisions] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [upazillas, setUpazillas] = useState([]);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    email: user.email,
+    phone: user.phoneNumber,
+  });
 
   useEffect(() => {
     fetch("https://bdapis.com/api/v1.1/divisions")
@@ -79,9 +83,9 @@ const ProviderRegistrationModal = () => {
   const { data: allServiceCategories = [] } = useQuery({
     queryKey: ["allServiceCategory"],
     queryFn: () =>
-      fetch("https://subidha-home-services-server2.glitch.me/allServiceCategories").then((res) =>
-        res.json()
-      ),
+      fetch(
+        "http://localhost:5000/allServiceCategories"
+      ).then((res) => res.json()),
   });
 
   const handleDrop = (
@@ -153,13 +157,16 @@ const ProviderRegistrationModal = () => {
     formData.NIDCardURL = selectedNIDCardURL;
     formData.uid = user.uid;
     try {
-      const res = await fetch("https://subidha-home-services-server2.glitch.me/providers", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "http://localhost:5000/providers",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       if (data.acknowledged) {
         toast.success("Provider registration successful!", {
@@ -513,7 +520,12 @@ const ProviderRegistrationModal = () => {
                   className="select select-bordered w-full focus:outline-none font-semibold"
                   name="serviceCategory"
                 >
-                  <option className="font-semibold" defaultValue="" selected disabled>
+                  <option
+                    className="font-semibold"
+                    defaultValue=""
+                    selected
+                    disabled
+                  >
                     ---------------Select Service Type---------------
                   </option>
                   {allServiceCategories.map((serviceCategory) => (
@@ -545,7 +557,12 @@ const ProviderRegistrationModal = () => {
                   className="select select-bordered w-full focus:outline-none font-semibold"
                   name="division"
                 >
-                  <option className="font-semibold" defaultValue="" selected disabled>
+                  <option
+                    className="font-semibold"
+                    defaultValue=""
+                    selected
+                    disabled
+                  >
                     Select Your Divison
                   </option>
                   {divisions.map((division) => (
@@ -574,7 +591,12 @@ const ProviderRegistrationModal = () => {
                   className="font-semibold border select select-bordered w-full focus:outline-none"
                   name="district"
                 >
-                  <option className="font-semibold" defaultValue="" disabled selected>
+                  <option
+                    className="font-semibold"
+                    defaultValue=""
+                    disabled
+                    selected
+                  >
                     Select Your District
                   </option>
                   {districts.map((district) => (
@@ -602,8 +624,13 @@ const ProviderRegistrationModal = () => {
                   className="font-semibold border select select-bordered w-full focus:outline-none"
                   name="upazila"
                 >
-                  <option className="font-semibold" defaultValue="" disabled selected>
-                   Select Your Upazila
+                  <option
+                    className="font-semibold"
+                    defaultValue=""
+                    disabled
+                    selected
+                  >
+                    Select Your Upazila
                   </option>
                   {upazillas?.map((upazilla) => (
                     <option

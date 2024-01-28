@@ -1,14 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { ThemeContext } from "../../../App";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
   const { theme } = useContext(ThemeContext);
-  const { data: users = [], isLoading } = useQuery({
-    queryKey: ["users"],
+  const {user} = useContext(AuthContext);
+  const { data: chatHistroy = [], isLoading } = useQuery({
+    queryKey: ["messages"],
     queryFn: () =>
-      fetch(`https://subidha-home-services-server2.glitch.me/users`).then((res) => res.json()),
+      fetch(`http://localhost:5000/messages/${user.uid}`).then(
+        (res) => res.json()
+      ),
   });
+
+  console.log(chatHistroy);
 
   return (
     <div className={`relative z-[45000] ${theme === "light" && "text-black"}`}>
@@ -57,7 +63,7 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
           )}
           <table className="table mb-5">
             <tbody>
-              {users?.users?.map((user) => (
+              {chatHistroy.map((user) => (
                 <tr
                   onClick={(e) => {
                     setReceiver(user);
@@ -76,7 +82,7 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
                           <img
-                            src={user.photo}
+                            src={user.photoURL}
                             alt="Avatar Tailwind CSS Component"
                           />
                         </div>
@@ -86,7 +92,7 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
                           {user.userName ? user.userName : "N/A"}
                         </div>
                         <div className="text-sm font-bold opacity-50">
-                          {user.email}
+                          {user.lastMessage}
                         </div>
                       </div>
                     </div>

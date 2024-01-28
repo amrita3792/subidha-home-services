@@ -91,7 +91,7 @@ const ChatWindow = ({
         <div className="flex items-center gap-3">
           <div className="avatar">
             <div className="w-16 rounded-full">
-              <img src={receiver.photo} />
+              <img src={receiver.photoURL} />
             </div>
           </div>
           <div className="text-white leading-none">
@@ -113,7 +113,7 @@ const ChatWindow = ({
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS chat bubble component"
-                  src={receiver.photo}
+                  src={receiver.photoURL}
                 />
               </div>
             </div>

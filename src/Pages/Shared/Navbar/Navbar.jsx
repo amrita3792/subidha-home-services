@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { List, MagnifyingGlass, X } from "@phosphor-icons/react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { ChevronDoubleDownIcon, UserIcon } from "@heroicons/react/24/solid";
-import { ThemeContext } from "../../../App";
+import { ChatContext, ThemeContext } from "../../../App";
 import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
 import ChatPopup from "../ChatPopup/ChatPopup";
 import io from "socket.io-client";
@@ -13,6 +13,7 @@ import logo from "../../../assets/logo/subidha-logo.png";
 const Navbar = ({ isMounted }) => {
   const { user } = useContext(AuthContext);
   const { theme, handleToggle } = useContext(ThemeContext);
+  const { receiver, setReceiver } = useContext(ChatContext);
 
   const [openSidebar, setOpenSidebar] = useState(false);
   const [openChatPopup, setOpenChatPopup] = useState(false);
@@ -20,7 +21,7 @@ const Navbar = ({ isMounted }) => {
   const [socket, setSocket] = useState(null);
   const [openChatWindow, setOpenChatWindow] = useState(false);
   const [messages, setMessages] = useState([]);
-  const [receiver, setReceiver] = useState(null);
+
   const [roomId, setRoomId] = useState("");
   const [totalUnseenMessage, setTotalUnseenMessage] = useState(0);
 
@@ -37,7 +38,7 @@ const Navbar = ({ isMounted }) => {
 
   useEffect(() => {
     // Connect to the Socket.io server
-    const newSocket = io("https://subidha-home-services-server2.glitch.me/");
+    const newSocket = io("http://localhost:5000/");
 
     // Join the room based on user UID
     if (user && receiver) {
@@ -71,7 +72,7 @@ const Navbar = ({ isMounted }) => {
   useEffect(() => {
     if (roomId)
       [
-        fetch(`https://subidha-home-services-server2.glitch.me/chats/${roomId}`)
+        fetch(`http://localhost:5000/chats/${roomId}`)
           .then((res) => res.json())
           .then((data) => {
             const previousMessages = data.messages.map((message, idx) => (
@@ -92,8 +93,8 @@ const Navbar = ({ isMounted }) => {
                           ? user?.photoURL
                             ? user.photoURL
                             : "https://i.ibb.co/M1qvZxP/user.png"
-                          : receiver.photo
-                          ? receiver.photo
+                          : receiver.photoURL
+                          ? receiver.photoURL
                           : "https://i.ibb.co/M1qvZxP/user.png"
                       }
                     />
@@ -113,7 +114,7 @@ const Navbar = ({ isMounted }) => {
             setMessages(previousMessages);
           }),
       ];
-  }, [roomId, user]);
+  }, [roomId, receiver]);
 
   useEffect(() => {
     if (socket && user) {
@@ -129,8 +130,8 @@ const Navbar = ({ isMounted }) => {
                 <img
                   alt="Tailwind CSS chat bubble component"
                   src={
-                    receiver?.photo
-                      ? receiver?.photo
+                    receiver?.photoURL
+                      ? receiver?.photoURL
                       : "https://i.ibb.co/M1qvZxP/user.png"
                   }
                 />
@@ -177,7 +178,7 @@ const Navbar = ({ isMounted }) => {
   useEffect(() => {
     if (openChatWindow && totalUnseenMessage > 0) {
       setTotalUnseenMessage(0);
-    }
+    } 
   }, [openChatWindow]);
 
   const handleNewUserMessage = (newMessage) => {
@@ -212,7 +213,10 @@ const Navbar = ({ isMounted }) => {
   return (
     <nav className="bg-[#345DA7] h-[70px] relative w-full">
       <div className="xl:max-w-screen-xl mx-auto flex items-center md:justify-between justify-end h-full px-4">
-        <Link to="/" className="text-2xl md:text-3xl text-white font-semibold hidden md:block">
+        <Link
+          to="/"
+          className="text-2xl md:text-3xl text-white font-semibold hidden md:block"
+        >
           SUBIDHA
         </Link>
         <ul

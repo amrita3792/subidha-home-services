@@ -9,7 +9,7 @@ const ServiceFAQ = ({ faq }) => {
 
   return (
     <div className="mt-8">
-      <h2 name="faq" className="text-3xl font-semibold">
+      <h2 name="faq" className="text-2xl font-semibold">
         FAQ
       </h2>
       {faq.map((item, idx) => (
@@ -20,11 +20,11 @@ const ServiceFAQ = ({ faq }) => {
             name="my-accordion-3"
             checked={index === idx ? true : false}
           />
-          <div className="collapse-title font-semibold text-lg">
+          <div className="collapse-title font-semibold">
             {item.question}
           </div>
           <div className="collapse-content">
-            <p className="text-base">{item.answer}</p>
+            <p>{item.answer}</p>
           </div>
         </div>
       ))}

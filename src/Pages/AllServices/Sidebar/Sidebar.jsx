@@ -12,13 +12,11 @@ const Sidebar = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  console.log(loading);
-
   useEffect(() => {
     if (serviceCategories[0]?._id) {
       setLoading(true);
       fetch(
-        `https://subidha-home-services-server2.glitch.me/allServiceCategories/${
+        `http://localhost:5000/allServiceCategories/${
           serviceId ? serviceId : serviceCategories[0]._id
         }`
       )
@@ -28,6 +26,7 @@ const Sidebar = () => {
           setService(data);
         })
         .catch((error) => {
+          setLoading(false)
           toast.error(error.message, {
             hideProgressBar: true,
             theme: "colored",
@@ -48,7 +47,7 @@ const Sidebar = () => {
 
   const fetchUserData = async () => {
     const response = await fetch(
-      "https://subidha-home-services-server2.glitch.me/allServiceCategories",
+      "http://localhost:5000/allServiceCategories",
       {
         // headers: {
         //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,

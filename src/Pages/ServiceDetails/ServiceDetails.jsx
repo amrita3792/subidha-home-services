@@ -1,20 +1,92 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import ServiceFAQ from "./ServiceFAQ/ServiceFAQ";
 import ServiceOverview from "./ServiceOverview/ServiceOverview";
 import Details from "./Details/Details";
 import { Link } from "react-scroll";
 import { ThemeContext } from "../../App";
+import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
+import { AuthContext } from "../../contexts/AuthProvider";
+import ServiceProvider from "./ServiceProvider/ServiceProvider";
 
 const ServiceDetails = () => {
+  const { user } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
   const { subCategory, serviceOverview, faq } = useLoaderData();
+  const [providers, setProviders] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const {
+    data: userData = {},
+    isLoading,
+    refetch,
+    error,
+  } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => fetchUserData(),
+  });
+
+  const fetchUserData = async () => {
+    const response = await fetch(
+      `http://localhost:5000/users/${user?.uid}`,
+      {
+        // headers: {
+        //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        // },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const userData = await response.json();
+
+    // Check if required conditions are met to load provider data
+    if (userData.division && userData.district && userData.upazila) {
+      // If conditions are met, fetch provider data
+      const providerData = await fetchProviderData(userData);
+
+      if (providerData) {
+        setProviders(providerData);
+        setLoading(false);
+      }
+      // You can do something with providerData, like updating state or rendering
+      // ...
+    }
+
+    return userData;
+  };
+
+  const fetchProviderData = async (userData) => {
+    setLoading(true);
+    // Modify the URL or add headers if needed
+    const response = await fetch(
+      `http://localhost:5000/providers?division=${userData.division}&district=${userData.district}&upazila=${userData.upazila}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    return response.json();
+  };
+
+  if (error) {
+    toast.error("There was an error fetching user data.", {
+      hideProgressBar: true,
+      autoClose: false,
+      theme: "colored",
+    });
+    return;
+  }
 
   return (
-    <section className="xl:max-w-screen-xl mx-auto flex flex-wrap my-16 px-5 gap-6">
-      <div className={`card card-compact bg-base-100 min-w-[100%] lg:min-w-0 lg:max-w-[62%] border-r ${theme === "dark" && "border-slate-600"} pr-5 rounded-none`}>
-        <div className="flex items-center justify-between flex-wrap">
-          <h2 className="text-3xl font-semibold text-[#FF6600]">
+    <section className="xl:max-w-screen-xl mx-auto flex flex-wrap lg:flex-nowrap my-5 md:my-10 px-4 gap-5">
+      <div className="card card-compact bg-base-100 min-w-[100%] lg:min-w-0 lg:max-w-[62%]">
+        <div className="flex items-center justify-between gap-3 flex-wrap mb-8">
+          <h2 className="text-2xl font-semibold text-[#FF6600]">
             {subCategory.serviceName}
           </h2>
           <ul className="menu bg-base-200 menu-horizontal rounded-box h-fit text-sm font-semibold w-fit shadow-none">
@@ -77,136 +149,55 @@ const ServiceDetails = () => {
             </li>
           </ul>
         </div>
-        <p className="my-8 font-semibold">{subCategory.description}</p>
+
         <img
           className="rounded-3xl w-full"
           src={subCategory.image}
           alt="Shoes"
         />
-        <div className="card-body">
+        <p className="mt-5 mb-4 font-semibold text-sm">
+          {subCategory.description}
+        </p>
+        <>
           <ServiceOverview serviceOverview={serviceOverview} />
           <ServiceFAQ faq={faq} />
           <Details details={subCategory.details} />
-        </div>
+        </>
       </div>
-      <div className="lg:h-[60vh] overflow-auto custom-provider-scrollbar lg:px-3 sticky top-10 flex flex-col gap-10 grow">
-        <div
-          className={`border ${
-            theme === "dark" && "border-slate-600"
-          } p-5 rounded-xl`}
-        >
-          <h2 className="text-xl font-semibold mb-4 text-center">
-            Service Provider
-          </h2>
-          <div className="flex items-center gap-5">
-            <img
-              className="w-24 h-24 rounded-full"
-              src="https://i.ibb.co/cbBQMxz/1-g-D-D3r-KYnki9ksz-T8-K3z3-A.jpg"
-              alt="Shoes"
-            />
+      <div className="lg:h-[60Fh] overflow-auto custom-provider-scrollbar lg:px-3 sticky top-10 flex flex-col gap-10 grow">
+        {providers.length > 0 ? (
+          providers.map((provider) => (
+            <ServiceProvider key={provider._id} provider={provider} />
+          ))
+        ) : (
+          <div className="flex flex-col items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-16 h-16"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+              />
+            </svg>
+            <h3 className="text-2xl font-semibold">Provider Not Found!</h3>
+            <p className="text-center">
+              Hi {user?.displayName}, we're so sorry, but we couldn't find any
+              [service providers] available in your area right now.{" "}
+            </p>
+          </div>
+        )}
 
-            <div>
-              <h2 className="card-title text-base">Amrita Dey</h2>
-              <p>
-                <span className="font-semibold">Email:</span>{" "}
-                amritadey701@gmail.com
-              </p>
-              <p>
-                <span className="font-semibold">Phone:</span> 01943104565
-              </p>
-              <div className="card-actions justify-end"></div>
-            </div>
+        {(isLoading || loading) && (
+          <div className="flex justify-center items-center ">
+            <span className="loading loading-ring loading-lg"></span>
           </div>
-          <div className="card-actions gap-3 justify-end font-semibold mt-3">
-            <button className="flex gap-1 rounded-3xl text-sm items-center underline hover:no-underline text-[#FF6600]">
-              Profile
-            </button>
-            <button className="flex gap-1 rounded-3xl text-sm items-center underline hover:no-underline">
-              Chat
-            </button>
-          </div>
-          <button className="w-full mt-5 btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-4 rounded-none h-fit">
-            Book Appointment
-          </button>
-        </div>
-        <div
-          className={`border ${
-            theme === "dark" && "border-slate-600"
-          } p-5 rounded-xl`}
-        >
-          <h2 className="text-xl font-semibold mb-4 text-center">
-            Service Provider
-          </h2>
-          <div className="flex items-center gap-5">
-            <img
-              className="w-24 h-24 rounded-full"
-              src="https://i.ibb.co/cbBQMxz/1-g-D-D3r-KYnki9ksz-T8-K3z3-A.jpg"
-              alt="Shoes"
-            />
-
-            <div>
-              <h2 className="card-title text-base">Amrita Dey</h2>
-              <p>
-                <span className="font-semibold">Email:</span>{" "}
-                amritadey701@gmail.com
-              </p>
-              <p>
-                <span className="font-semibold">Phone:</span> 01943104565
-              </p>
-              <div className="card-actions justify-end"></div>
-            </div>
-          </div>
-          <div className="card-actions gap-3 justify-end font-semibold mt-3">
-            <button className="flex gap-1 rounded-3xl text-sm items-center underline hover:no-underline text-[#FF6600]">
-              Profile
-            </button>
-            <button className="flex gap-1 rounded-3xl text-sm items-center underline hover:no-underline">
-              Chat
-            </button>
-          </div>
-          <button className="w-full mt-5 btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-4 rounded-none h-fit">
-            Book Appointment
-          </button>
-        </div>
-        <div
-          className={`border ${
-            theme === "dark" && "border-slate-600"
-          } p-5 rounded-xl`}
-        >
-          <h2 className="text-xl font-semibold mb-4 text-center">
-            Service Provider
-          </h2>
-          <div className="flex items-center gap-5">
-            <img
-              className="w-24 h-24 rounded-full"
-              src="https://i.ibb.co/cbBQMxz/1-g-D-D3r-KYnki9ksz-T8-K3z3-A.jpg"
-              alt="Shoes"
-            />
-
-            <div>
-              <h2 className="card-title text-base">Amrita Dey</h2>
-              <p>
-                <span className="font-semibold">Email:</span>{" "}
-                amritadey701@gmail.com
-              </p>
-              <p>
-                <span className="font-semibold">Phone:</span> 01943104565
-              </p>
-              <div className="card-actions justify-end"></div>
-            </div>
-          </div>
-          <div className="card-actions gap-3 justify-end font-semibold mt-3">
-            <button className="flex gap-1 rounded-3xl text-sm items-center underline hover:no-underline text-[#FF6600]">
-              Profile
-            </button>
-            <button className="flex gap-1 rounded-3xl text-sm items-center underline hover:no-underline">
-              Chat
-            </button>
-          </div>
-          <button className="w-full mt-5 btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-4 rounded-none h-fit">
-            Book Appointment
-          </button>
-        </div>
+        )}
       </div>
     </section>
   );

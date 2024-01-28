@@ -7,6 +7,7 @@ import { useMediaQuery } from "react-responsive";
 
 export const ThemeContext = createContext();
 export const ModalContext = createContext();
+export const ChatContext = createContext();
 
 function App() {
   const [theme, setTheme] = useState(
@@ -14,6 +15,7 @@ function App() {
   );
 
   const [showModal, setShowModal] = useState(false);
+  const [receiver, setReceiver] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
@@ -31,19 +33,21 @@ function App() {
 
   return (
     <div className={`${showModal && "max-h-screen overflow-hidden"}`}>
-      <ModalContext.Provider value={{ showModal, setShowModal }}>
-        <ThemeContext.Provider value={{ theme, handleToggle }}>
-          <RouterProvider router={router} />
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            theme="light"
-          />
-        </ThemeContext.Provider>
-      </ModalContext.Provider>
+      <ChatContext.Provider value={{receiver, setReceiver}}>
+        <ModalContext.Provider value={{ showModal, setShowModal }}>
+          <ThemeContext.Provider value={{ theme, handleToggle }}>
+            <RouterProvider router={router} />
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              theme="light"
+            />
+          </ThemeContext.Provider>
+        </ModalContext.Provider>
+      </ChatContext.Provider>
     </div>
   );
 }

@@ -94,7 +94,7 @@ export const NumberVerificatonModal = ({
           userName: user.displayName,
           email: user.email,
           phone: user.phoneNumber,
-          photo: user?.photoURL
+          photoURL: user?.photoURL
             ? user.photoURL
             : "https://i.ibb.co/M1qvZxP/user.png",
           signupDate: formattedCreationTimeWithTime,
@@ -102,7 +102,7 @@ export const NumberVerificatonModal = ({
           status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
         };
 
-        fetch("https://subidha-home-services-server2.glitch.me/users", {
+        fetch("http://localhost:5000/users", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

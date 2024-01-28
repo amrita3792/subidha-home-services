@@ -13,7 +13,6 @@ const UserProfile = () => {
     setUpdateProfilePicture,
     setUpdateProfileName,
   } = useContext(AuthContext);
-  const { theme } = useContext(ThemeContext);
 
   const fileInputRef = useRef(null);
   const imageHostKey = import.meta.env.VITE_IMGBB_KEY;
@@ -45,13 +44,13 @@ const UserProfile = () => {
           updateUserProfile(user?.displayName, photoURL)
             .then(() => {
               fetch(
-                `https://subidha-home-services-server2.glitch.me/users/${user.uid}`,
+                `http://localhost:5000/users/${user.uid}`,
                 {
                   headers: {
                     "Content-Type": "application/json",
                   },
                   method: "POST",
-                  body: JSON.stringify({ photo: photoURL }),
+                  body: JSON.stringify({ photoURL: photoURL }),
                 }
               )
                 .then((res) => res.json())
@@ -61,6 +60,7 @@ const UserProfile = () => {
                     setLoading(false);
                     toast.success("Your profile picture has been updated! ", {
                       hideProgressBar: true,
+                      theme: "colored"
                     });
                     setSelectedImage(null);
                     refetch();
@@ -110,7 +110,7 @@ const UserProfile = () => {
 
   const fetchUserData = async () => {
     const response = await fetch(
-      `https://subidha-home-services-server2.glitch.me/users/${user?.uid}`,
+      `http://localhost:5000/users/${user?.uid}`,
       {
         // headers: {
         //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -163,7 +163,7 @@ const UserProfile = () => {
     formData.uid = user.uid;
     try {
       const res = await fetch(
-        "https://subidha-home-services-server2.glitch.me/users",
+        "http://localhost:5000/users",
         {
           method: "POST",
           headers: {
@@ -229,7 +229,7 @@ const UserProfile = () => {
         name="/user-dashboard/dashboard"
         className="text-2xl font-semibold text-center mb-5"
       >
-        My Profile
+        WELCOME BACK
       </h2>
       <div className="relative flex flex-col justify-center items-center gap-10 md:p-14 lg:p-0 w-full  mx-auto">
         <input
@@ -238,11 +238,11 @@ const UserProfile = () => {
           style={{ display: "none" }}
           onChange={handleImageChange}
         />
-        {userData?.photo ? (
+        {userData?.photoURL ? (
           <div className="relative">
             <img
               className="w-24 h-24 rounded-full"
-              src={userData?.photo}
+              src={userData?.photoURL}
               alt=""
             />
             <Tooltip
