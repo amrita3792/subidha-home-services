@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { ThemeContext } from "../../../App";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
-const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
+const ChatPopup = ({ setOpenChatPopup, setReceiver}) => {
   const { theme } = useContext(ThemeContext);
   const {user} = useContext(AuthContext);
   const { data: chatHistroy = [], isLoading } = useQuery({

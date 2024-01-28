@@ -21,7 +21,7 @@ const Navbar = ({ isMounted }) => {
   const [socket, setSocket] = useState(null);
   const [openChatWindow, setOpenChatWindow] = useState(false);
   const [messages, setMessages] = useState([]);
-  const [loadingMessage, setLoadingMessage] = useState(true);
+  const [loadingMessage, setLoadingMessage] = useState(false);
   const [roomId, setRoomId] = useState("");
   const [totalUnseenMessage, setTotalUnseenMessage] = useState(0);
 
@@ -37,6 +37,7 @@ const Navbar = ({ isMounted }) => {
   };
 
   useEffect(() => {
+    setLoadingMessage(true)
     const newSocket = io("https://subidha-home-services-server2.glitch.me/");
     if (user && receiver) {
       setMessages([]);
@@ -68,7 +69,6 @@ const Navbar = ({ isMounted }) => {
 
   useEffect(() => {
     if (roomId) {
-      setLoadingMessage(true)
       fetch(`https://subidha-home-services-server2.glitch.me/chats/${roomId}`)
         .then((res) => res.json())
         .then((data) => {
@@ -116,7 +116,7 @@ const Navbar = ({ isMounted }) => {
           console.log(error)
         })
     }
-  }, [roomId, receiver]);
+  }, [roomId]);
   
 
   useEffect(() => {
