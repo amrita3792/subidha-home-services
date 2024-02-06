@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ChatContext, ThemeContext } from '../../../App';
 
-const ServiceProvider = ({provider, handleChangeModalState}) => {
+const ServiceProvider = ({provider, handleChangeModalState, setServiceMan}) => {
     const {theme} = useContext(ThemeContext);
     const {receiver, setReceiver} = useContext(ChatContext);
 
@@ -47,7 +47,11 @@ const ServiceProvider = ({provider, handleChangeModalState}) => {
               Chat
             </button>
           </div>
-          <button onClick={handleChangeModalState} className="w-full mt-3 btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-4 rounded-none h-fit">
+          <button onClick={() => {
+            handleChangeModalState();
+            setServiceMan(provider);
+
+          }} className="w-full mt-3 btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-4 rounded-none h-fit">
             Book Appointment
           </button>
         </div>

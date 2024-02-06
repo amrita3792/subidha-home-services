@@ -20,6 +20,7 @@ const ServiceDetails = () => {
   const [providers, setProviders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [serviceMan, setServiceMan] = useState({});
 
   const {
     data: userData = {},
@@ -184,7 +185,7 @@ const ServiceDetails = () => {
       </div>
       <div className="lg:h-[60Fh] overflow-auto custom-provider-scrollbar lg:px-3 sticky top-10 flex flex-col gap-10 grow">
         {providers.map((provider) => (
-          <ServiceProvider handleChangeModalState={handleChangeModalState}  key={provider._id} provider={provider} />
+          <ServiceProvider handleChangeModalState={handleChangeModalState}  key={provider._id} provider={provider} setServiceMan={setServiceMan} />
         ))}
 
         {(isLoading || loading) && (
@@ -194,7 +195,7 @@ const ServiceDetails = () => {
         )}
       </div>
       {
-        modalOpen && <BookingModal />
+        modalOpen && <BookingModal handleChangeModalState={handleChangeModalState} userData={userData} subCategory={subCategory} serviceMan={serviceMan} />
       }
     </section>
   );
