@@ -11,15 +11,17 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { toast } from "react-toastify";
 import { ThemeContext } from "../../App";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getDate, getTime } from "../../utilities/date";
 
 export const NumberVerificatonModal = ({
   showModal,
   handleChangeModalState,
 }) => {
-  let from = location.state?.from?.pathname || "/";
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
+  
   const {
     sendOTP,
     verifyOTP,
@@ -68,14 +70,6 @@ export const NumberVerificatonModal = ({
       .then((result) => {
         // User signed in successfully.
         const user = result.user;
-        // updateUserProfile(user.displayName, user.photoURL ? user.photoURL : "https://i.ibb.co/M1qvZxP/user.png")
-        // .then(() => {
-        //   // Profile updated!
-        //   // ...
-        // }).catch((error) => {
-        //   // An error occurred
-        //   // ...
-        // });
 
         const { createdAt, lastLoginAt, lastSignInTime, creationTime } =
           user.metadata;
@@ -102,7 +96,7 @@ export const NumberVerificatonModal = ({
           status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
         };
 
-        fetch("https://subidha-home-services-server2.glitch.me/users", {
+        fetch("http://localhost:5000/users", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

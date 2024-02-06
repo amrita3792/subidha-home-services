@@ -84,7 +84,7 @@ const ProviderRegistrationModal = () => {
     queryKey: ["allServiceCategory"],
     queryFn: () =>
       fetch(
-        "https://subidha-home-services-server2.glitch.me/allServiceCategories"
+        "http://localhost:5000/allServiceCategories"
       ).then((res) => res.json()),
   });
 
@@ -158,7 +158,7 @@ const ProviderRegistrationModal = () => {
     formData.uid = user.uid;
     try {
       const res = await fetch(
-        "https://subidha-home-services-server2.glitch.me/providers",
+        "http://localhost:5000/providers",
         {
           method: "POST",
           headers: {

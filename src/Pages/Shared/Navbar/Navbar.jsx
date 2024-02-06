@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { List, MagnifyingGlass, X } from "@phosphor-icons/react";
 import { AuthContext } from "../../../contexts/AuthProvider";
-import { ChevronDoubleDownIcon, UserIcon } from "@heroicons/react/24/solid";
 import { ChatContext, ThemeContext } from "../../../App";
 import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
 import ChatPopup from "../ChatPopup/ChatPopup";
@@ -38,7 +37,7 @@ const Navbar = ({ isMounted }) => {
 
   useEffect(() => {
     setLoadingMessage(true)
-    const newSocket = io("https://subidha-home-services-server2.glitch.me/");
+    const newSocket = io("http://localhost:5000/");
     if (user && receiver) {
       setMessages([]);
       setTotalUnseenMessage(0);
@@ -69,7 +68,7 @@ const Navbar = ({ isMounted }) => {
 
   useEffect(() => {
     if (roomId) {
-      fetch(`https://subidha-home-services-server2.glitch.me/chats/${roomId}`)
+      fetch(`http://localhost:5000/chats/${roomId}`)
         .then((res) => res.json())
         .then((data) => {
           console.log(data)

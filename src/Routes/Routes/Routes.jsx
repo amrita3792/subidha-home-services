@@ -55,12 +55,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/service-details/:categoryId/:subCategoryId",
-        element: <ServiceDetails />,
+        element: (
+          <PrivateRoute>
+            <ServiceDetails />
+          </PrivateRoute>
+        ),
         loader: async ({ params }) => {
           const categoryId = params.categoryId;
           const subCategoryId = params.subCategoryId;
           return fetch(
-            `https://subidha-home-services-server2.glitch.me/subcategory/${categoryId}/${subCategoryId}`
+            `http://localhost:5000/subcategory/${categoryId}/${subCategoryId}`
           );
         },
       },

@@ -9,27 +9,36 @@ import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../contexts/AuthProvider";
 import ServiceProvider from "./ServiceProvider/ServiceProvider";
+import BookingModal from "./BookingModal/BookingModal";
 
 const ServiceDetails = () => {
   const { user } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
-  const { subCategory, serviceOverview, faq } = useLoaderData();
+  const { serviceCategory, subCategory, serviceOverview, faq } = useLoaderData();
+  const encodedServiceCategory = encodeURIComponent(serviceCategory);
+  console.log(serviceCategory);
   const [providers, setProviders] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const {
     data: userData = {},
     isLoading,
-    refetch,
     error,
   } = useQuery({
     queryKey: ["user"],
     queryFn: () => fetchUserData(),
   });
 
+  const handleChangeModalState = async() => {
+    await setModalOpen((prev) => !prev);
+    document.getElementById('booking_modal').showModal()
+  }
+
   const fetchUserData = async () => {
     const response = await fetch(
-      `https://subidha-home-services-server2.glitch.me/users/${user?.uid}`,
+      `
+    https://subidha-home-services-server2.glitch.me/users/${user?.uid}`,
       {
         // headers: {
         //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -47,9 +56,19 @@ const ServiceDetails = () => {
     if (userData.division && userData.district && userData.upazila) {
       // If conditions are met, fetch provider data
       const providerData = await fetchProviderData(userData);
-
-      if (providerData) {
+      if (providerData.length > 0) {
         setProviders(providerData);
+        setLoading(false);
+      } else {
+        toast.info(
+          `Hi ${user?.displayName}! we're so sorry, we couldn't find any
+        service providers available in your area right now.`,
+          {
+            hideProgressBar: true,
+            theme: "colored",
+            autoClose: false,
+          }
+        );
         setLoading(false);
       }
       // You can do something with providerData, like updating state or rendering
@@ -61,9 +80,8 @@ const ServiceDetails = () => {
 
   const fetchProviderData = async (userData) => {
     setLoading(true);
-    // Modify the URL or add headers if needed
     const response = await fetch(
-      `https://subidha-home-services-server2.glitch.me/providers?division=${userData.division}&district=${userData.district}&upazila=${userData.upazila}`
+      `http://localhost:5000/providers?division=${userData.division}&district=${userData.district}&upazila=${userData.upazila}&serviceCategory=${encodedServiceCategory}`
     );
 
     if (!response.ok) {
@@ -165,42 +183,45 @@ const ServiceDetails = () => {
         </>
       </div>
       <div className="lg:h-[60Fh] overflow-auto custom-provider-scrollbar lg:px-3 sticky top-10 flex flex-col gap-10 grow">
-        {providers.length > 0 ? (
-          providers.map((provider) => (
-            <ServiceProvider key={provider._id} provider={provider} />
-          ))
-        ) : (
-          <div className="flex flex-col items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-16 h-16"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
-              />
-            </svg>
-            <h3 className="text-2xl font-semibold">Provider Not Found!</h3>
-            <p className="text-center">
-              Hi {user?.displayName}, we're so sorry, but we couldn't find any
-              [service providers] available in your area right now.{" "}
-            </p>
-          </div>
-        )}
+        {providers.map((provider) => (
+          <ServiceProvider handleChangeModalState={handleChangeModalState}  key={provider._id} provider={provider} />
+        ))}
 
         {(isLoading || loading) && (
           <div className="flex justify-center items-center ">
-            <span className="loading loading-ring loading-lg"></span>
+            <span className="loading loading-spinner loading-md"></span>
           </div>
         )}
       </div>
+      {
+        modalOpen && <BookingModal />
+      }
     </section>
   );
 };
 
 export default ServiceDetails;
+
+{
+  /* <div className="flex flex-col items-center gap-2">
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  viewBox="0 0 24 24"
+  strokeWidth={1.5}
+  stroke="currentColor"
+  className="w-16 h-16"
+>
+  <path
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+  />
+</svg>
+<h3 className="text-2xl font-semibold">Provider Not Found!</h3>
+<p className="text-center">
+  Hi {user?.displayName}, we're so sorry, but we couldn't find any
+  [service providers] available in your area right now.{" "}
+</p>
+</div>  */
+}

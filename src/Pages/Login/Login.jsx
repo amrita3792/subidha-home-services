@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import NumberVerificatonModal from "../NumberVerificationModal/NumberVerificationModal";
 import { AuthContext } from "../../contexts/AuthProvider";
 import { ModalContext } from "../../App";
@@ -16,10 +16,10 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
-  let from = location.state?.from?.pathname || "/";
-
-  const {showModal, setShowModal} = useContext(ModalContext);
+  const { showModal, setShowModal } = useContext(ModalContext);
 
   useEffect(() => {
     if (verifyEmail) {
@@ -61,7 +61,7 @@ const Login = () => {
           status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
         };
 
-        fetch("https://subidha-home-services-server2.glitch.me/users", {
+        fetch("http://localhost:5000/users", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -106,7 +106,7 @@ const Login = () => {
         const status = "active";
 
         if (user.emailVerified) {
-          fetch(`https://subidha-home-services-server2.glitch.me/update-status/${user.uid}`, {
+          fetch(`http://localhost:5000/update-status/${user.uid}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
