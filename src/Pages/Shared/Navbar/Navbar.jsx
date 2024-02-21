@@ -39,6 +39,7 @@ const Navbar = ({ isMounted }) => {
     const newSocket = io("https://subidha-home-services-server2.glitch.me/");
     if (user && receiver) {
       setMessages([]);
+      setLoadingMessage(true);
       setTotalUnseenMessage(0);
       newSocket.emit("joinRoom", { uid1: user?.uid, uid2: receiver?.uid });
     }
@@ -62,7 +63,6 @@ const Navbar = ({ isMounted }) => {
 
   useEffect(() => {
     if (roomId) {
-      setLoadingMessage(true);
       fetch(`https://subidha-home-services-server2.glitch.me/chats/${roomId}`)
         .then((res) => res.json())
         .then((data) => {
