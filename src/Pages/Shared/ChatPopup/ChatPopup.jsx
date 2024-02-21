@@ -9,7 +9,7 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver}) => {
   const { data: chatHistroy = [], isLoading } = useQuery({
     queryKey: ["messages"],
     queryFn: () =>
-      fetch(`http://localhost:5000/messages/${user.uid}`).then(
+      fetch(`https://subidha-home-services-server2.glitch.me/messages/${user.uid}`).then(
         (res) => res.json()
       ),
   });

@@ -44,7 +44,7 @@ const UserProfile = () => {
           updateUserProfile(user?.displayName, photoURL)
             .then(() => {
               fetch(
-                `http://localhost:5000/users/${user.uid}`,
+                `https://subidha-home-services-server2.glitch.me/users/${user.uid}`,
                 {
                   headers: {
                     "Content-Type": "application/json",
@@ -110,7 +110,7 @@ const UserProfile = () => {
 
   const fetchUserData = async () => {
     const response = await fetch(
-      `http://localhost:5000/users/${user?.uid}`,
+      `https://subidha-home-services-server2.glitch.me/users/${user?.uid}`,
       {
         // headers: {
         //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -163,7 +163,7 @@ const UserProfile = () => {
     formData.uid = user.uid;
     try {
       const res = await fetch(
-        "http://localhost:5000/users",
+        "https://subidha-home-services-server2.glitch.me/users",
         {
           method: "POST",
           headers: {

@@ -36,8 +36,7 @@ const Navbar = ({ isMounted }) => {
   };
 
   useEffect(() => {
-    setLoadingMessage(true)
-    const newSocket = io("http://localhost:5000/");
+    const newSocket = io("https://subidha-home-services-server2.glitch.me/");
     if (user && receiver) {
       setMessages([]);
       setTotalUnseenMessage(0);
@@ -53,25 +52,20 @@ const Navbar = ({ isMounted }) => {
       }
     });
 
-    // newSocket.on('previousMessages', (previousMessages) => {
-    //   // Update UI to display previous messages
-    //   setMessages(previousMessages);
-    // });
-
     setSocket(newSocket);
 
     return () => {
       // Disconnect the socket on component unmount
       newSocket.disconnect();
     };
-  }, [user, receiver]);
+  }, [user, roomId, receiver?.uid]);
 
   useEffect(() => {
     if (roomId) {
-      fetch(`http://localhost:5000/chats/${roomId}`)
+      setLoadingMessage(true);
+      fetch(`https://subidha-home-services-server2.glitch.me/chats/${roomId}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
           const previousMessages = data.messages.map((message, idx) => (
             <div
               key={idx}
@@ -109,14 +103,13 @@ const Navbar = ({ isMounted }) => {
             </div>
           ));
           setMessages(previousMessages);
-          setLoadingMessage(false)
+          setLoadingMessage(false);
         })
-        .catch(error => {
-          console.log(error)
-        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [roomId]);
-  
 
   useEffect(() => {
     if (socket && user) {

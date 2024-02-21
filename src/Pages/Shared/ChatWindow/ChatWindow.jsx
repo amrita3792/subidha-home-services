@@ -15,9 +15,6 @@ const ChatWindow = ({
   const { user } = useContext(AuthContext);
   const [isTyping, setIsTyping] = useState(false);
 
-  console.log(messages)
-
-
   useEffect(() => {
     if (scrollableElementRef.current) {
       scrollableElementRef.current.scrollTo({

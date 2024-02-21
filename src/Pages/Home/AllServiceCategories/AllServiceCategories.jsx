@@ -20,7 +20,7 @@ const AllServiceCategories = () => {
 
   const fetchUserData = async () => {
     const response = await fetch(
-      "http://localhost:5000/allServiceCategories",
+      "https://subidha-home-services-server2.glitch.me/allServiceCategories",
       {
         // headers: {
         //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,

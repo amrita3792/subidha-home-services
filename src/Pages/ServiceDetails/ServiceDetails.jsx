@@ -14,9 +14,9 @@ import BookingModal from "./BookingModal/BookingModal";
 const ServiceDetails = () => {
   const { user } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
-  const { serviceCategory, subCategory, serviceOverview, faq } = useLoaderData();
+  const { serviceCategory, subCategory, serviceOverview, faq } =
+    useLoaderData();
   const encodedServiceCategory = encodeURIComponent(serviceCategory);
-  console.log(serviceCategory);
   const [providers, setProviders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -31,10 +31,10 @@ const ServiceDetails = () => {
     queryFn: () => fetchUserData(),
   });
 
-  const handleChangeModalState = async() => {
+  const handleChangeModalState = async () => {
     await setModalOpen((prev) => !prev);
-    document.getElementById('booking_modal').showModal()
-  }
+    document.getElementById("booking_modal").showModal();
+  };
 
   const fetchUserData = async () => {
     const response = await fetch(
@@ -82,7 +82,7 @@ const ServiceDetails = () => {
   const fetchProviderData = async (userData) => {
     setLoading(true);
     const response = await fetch(
-      `http://localhost:5000/providers?division=${userData.division}&district=${userData.district}&upazila=${userData.upazila}&serviceCategory=${encodedServiceCategory}`
+      `https://subidha-home-services-server2.glitch.me/providers?division=${userData.division}&district=${userData.district}&upazila=${userData.upazila}&serviceCategory=${encodedServiceCategory}`
     );
 
     if (!response.ok) {
@@ -183,46 +183,43 @@ const ServiceDetails = () => {
           <Details details={subCategory.details} />
         </>
       </div>
+
       <div className="lg:h-[60Fh] overflow-auto custom-provider-scrollbar lg:px-3 sticky top-10 flex flex-col gap-10 grow">
         {providers.map((provider) => (
-          <ServiceProvider handleChangeModalState={handleChangeModalState}  key={provider._id} provider={provider} setServiceMan={setServiceMan} />
+          <ServiceProvider
+            handleChangeModalState={handleChangeModalState}
+            key={provider._id}
+            provider={provider}
+            setServiceMan={setServiceMan}
+          />
         ))}
 
         {(isLoading || loading) && (
-          <div className="flex justify-center items-center ">
-            <span className="loading loading-spinner loading-md"></span>
+          <div className="flex flex-col gap-4 px-4">
+            <div className="flex gap-4">
+              <div className="skeleton w-16 h-16 rounded-full shrink-0"></div>
+              <div className="flex flex-col gap-2">
+                <div className="skeleton h-4 w-52"></div>
+                <div className="skeleton h-4 w-52"></div>
+                <div className="skeleton h-4 w-52"></div>
+                <div className="skeleton h-4 w-52"></div>
+              </div>
+            </div>
+            <div className="skeleton h-10 w-full rounded-none mt-5"></div>
           </div>
         )}
       </div>
-      {
-        modalOpen && <BookingModal handleChangeModalState={handleChangeModalState} userData={userData} subCategory={subCategory} serviceMan={serviceMan} />
-      }
+
+      {modalOpen && (
+        <BookingModal
+          handleChangeModalState={handleChangeModalState}
+          userData={userData}
+          subCategory={subCategory}
+          serviceMan={serviceMan}
+        />
+      )}
     </section>
   );
 };
 
 export default ServiceDetails;
-
-{
-  /* <div className="flex flex-col items-center gap-2">
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  fill="none"
-  viewBox="0 0 24 24"
-  strokeWidth={1.5}
-  stroke="currentColor"
-  className="w-16 h-16"
->
-  <path
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
-  />
-</svg>
-<h3 className="text-2xl font-semibold">Provider Not Found!</h3>
-<p className="text-center">
-  Hi {user?.displayName}, we're so sorry, but we couldn't find any
-  [service providers] available in your area right now.{" "}
-</p>
-</div>  */
-}

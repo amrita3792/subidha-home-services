@@ -6,7 +6,7 @@ const ServiceProvider = ({provider, handleChangeModalState, setServiceMan}) => {
     const {receiver, setReceiver} = useContext(ChatContext);
 
     const {name, phone, email, photoURL, yearsOfExperience, uid} = provider;
-
+  console.log(provider)
 
     return (
         <div
@@ -43,7 +43,9 @@ const ServiceProvider = ({provider, handleChangeModalState, setServiceMan}) => {
             <button className="flex gap-1 rounded-3xl text-sm items-center underline hover:no-underline text-[#FF6600]">
               Profile
             </button>
-            <button onClick={() => setReceiver(provider)} className="flex gap-1 rounded-3xl text-sm items-center underline hover:no-underline">
+            <button onClick={() => {
+              setReceiver(provider);
+            }} className="flex gap-1 rounded-3xl text-sm items-center underline hover:no-underline">
               Chat
             </button>
           </div>
@@ -51,7 +53,7 @@ const ServiceProvider = ({provider, handleChangeModalState, setServiceMan}) => {
             handleChangeModalState();
             setServiceMan(provider);
 
-          }} className="w-full mt-3 btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-4 rounded-none h-fit">
+          }} className="w-full mt-3 bg-[#FF6600] hover:bg-[#1D2736] text-white py-3 rounded-none h-fit text-sm font-semibold">
             Book Appointment
           </button>
         </div>

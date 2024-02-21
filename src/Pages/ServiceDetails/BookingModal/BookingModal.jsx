@@ -1,22 +1,28 @@
 import React, { useState } from "react";
 
-const BookingModal = ({ handleChangeModalState, userData, subCategory, serviceMan }) => {
-    console.log(serviceMan)
+const BookingModal = ({
+  handleChangeModalState,
+  userData,
+  subCategory,
+  serviceMan,
+}) => {
+  console.log(serviceMan);
   const [quantity, setQuantity] = useState(1);
 
   const handleIncrease = (e) => {
     e.preventDefault();
     setQuantity((prevQuantity) => prevQuantity + 1);
-    onChange(quantity + 1);
+    // onChange(quantity + 1);
   };
 
   const handleDecrease = (e) => {
     e.preventDefault();
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
-      onChange(quantity - 1);
+      // onChange(quantity - 1);
     }
   };
+
   return (
     <dialog id="booking_modal" className="modal">
       <div className="modal-box w-11/12 max-w-5xl custom-scrollbar rounded-lg">
@@ -41,7 +47,7 @@ const BookingModal = ({ handleChangeModalState, userData, subCategory, serviceMa
         </button>
         <h3 className="font-bold text-2xl text-center mb-14">Booking Form</h3>
         <div className="modal-action justify-start">
-          <form className="w-full flex flex-col gap-8" action="">
+          <form className="w-full flex flex-col gap-8">
             <div className="flex flex-col md:flex-row gap-5">
               <div>
                 <img
@@ -51,21 +57,23 @@ const BookingModal = ({ handleChangeModalState, userData, subCategory, serviceMa
                 />
               </div>
               <div className="grow">
-                <h3 className="text-xl font-semibold">Contact Person</h3>
-                <p>Expert will contact with the follwing person</p>
+                <h3 className="text-lg font-semibold">Contact Person</h3>
+                <p className="font-semibold text-sm">
+                  Expert will contact with the follwing person
+                </p>
                 <div className="grid md:grid-cols-2 gap-5 mt-5">
                   <input
                     name="name"
                     type="text"
                     placeholder="Type the name of the contact person"
-                    className="input input-bordered w-full min-w-xs focus:outline-none"
+                    className="input input-bordered w-full min-w-xs focus:outline-none font-semibold text-sm"
                     defaultValue={userData.userName}
                   />
                   <input
                     name="phone"
                     type="text"
                     placeholder="Type the phone number of the contact person"
-                    className="input input-bordered w-full min-w-xs focus:outline-none"
+                    className="input input-bordered w-full min-w-xs focus:outline-none font-semibold text-sm"
                     defaultValue={userData.phoneNumber}
                   />
                 </div>
@@ -81,14 +89,16 @@ const BookingModal = ({ handleChangeModalState, userData, subCategory, serviceMa
                 />
               </div>
               <div className="grow">
-                <h3 className="text-xl font-semibold">Address</h3>
-                <p>Expert will arrive at the address given below</p>
+                <h3 className="text-lg font-semibold">Address</h3>
+                <p className="font-semibold text-sm">
+                  Expert will arrive at the address given below
+                </p>
                 <div className="grid md:grid-cols-2 gap-5 mt-5">
                   <input
                     name="division"
                     type="text"
                     placeholder="Type the name of the contact person"
-                    className="input input-bordered w-full min-w-xs focus:outline-none"
+                    className="input input-bordered w-full min-w-xs focus:outline-none font-semibold text-sm"
                     defaultValue={userData.division}
                     disabled={userData.division}
                   />
@@ -96,7 +106,7 @@ const BookingModal = ({ handleChangeModalState, userData, subCategory, serviceMa
                     name="district"
                     type="text"
                     placeholder="Type the phone number of the contact person"
-                    className="input input-bordered w-full min-w-xs focus:outline-none"
+                    className="input input-bordered w-full min-w-xs focus:outline-none font-semibold text-sm"
                     defaultValue={userData.district}
                     disabled={userData.district}
                   />
@@ -104,13 +114,13 @@ const BookingModal = ({ handleChangeModalState, userData, subCategory, serviceMa
                     name="upazila"
                     type="text"
                     placeholder="Type the phone number of the contact person"
-                    className="input input-bordered w-full min-w-xs focus:outline-none border"
+                    className="input input-bordered w-full min-w-xs focus:outline-none border font-semibold text-sm"
                     defaultValue={userData.upazila}
                     disabled={userData.upazila}
                   />
                   <textarea
                     name="fullAddress"
-                    className="textarea textarea-bordered md:col-span-2 h-40 focus:outline-none"
+                    className="textarea textarea-bordered md:col-span-2 h-40 focus:outline-none font-semibold text-sm"
                     placeholder="Full address"
                   ></textarea>
                 </div>
@@ -126,31 +136,39 @@ const BookingModal = ({ handleChangeModalState, userData, subCategory, serviceMa
                 />
               </div>
               <div className="grow">
-                <h3 className="text-xl font-semibold">Service Detail</h3>
-                <p>
+                <h3 className="text-lg font-semibold">Service Detail</h3>
+                <p className="text-sm font-semibold">
                   Our service provider will contact you to confirm the following
                   service
                 </p>
                 <div className="flex flex-col gap-3 mt-5">
-                  <h3 className="font-semibold">{subCategory.serviceName}</h3>
-                  <img className="w-48 rounded-xl" src={subCategory.image} alt="" />
-                  <div className="flex items-center">
-                    <button
-                      onClick={handleDecrease}
-                      className="px-4 py-2 bg-[#FF6600] text-white font-semibold rounded-l border-2 border-[#FF6600]"
-                    >
-                      -
-                    </button>
-                    <span className="px-4 py-2 text-gray-700 border-2 border-[#FF6600] font-bold">
-                      {quantity} piece
-                    </span>
-                    <button
-                      onClick={handleIncrease}
-                      className="px-4 py-2 rounded-r border-2 bg-[#FF6600] border-[#FF6600] font-semibold text-white"
-                    >
-                      +
-                    </button>
+                  <div className="flex flex-col gap-5 md:flex-row md:items-center justify-between">
+                    <h3 className="font-semibold text-2xl">
+                      {subCategory.serviceName}
+                    </h3>
+                    <div className="flex items-center">
+                      <button
+                        onClick={handleDecrease}
+                        className="px-3 py-1 bg-[#FF6600] text-white font-semibold rounded-l border-[#FF6600] "
+                      >
+                        -
+                      </button>
+                      <span className="px-3 py-2 text-gray-700  border-[#FF6600] text-sm font-bold">
+                        {quantity} Unit
+                      </span>
+                      <button
+                        onClick={handleIncrease}
+                        className="px-3 py-1 rounded-r bg-[#FF6600] border-[#FF6600] font-semibold text-white"
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
+                  <img
+                    className="w-full md:w-96 rounded-xl"
+                    src={subCategory.image}
+                    alt=""
+                  />
                 </div>
               </div>
             </div>
@@ -164,9 +182,20 @@ const BookingModal = ({ handleChangeModalState, userData, subCategory, serviceMa
                 />
               </div>
               <div>
-                <h3 className="text-xl font-semibold">Service Provider</h3>
-                <h3 className="font-semibold mt-5 mb-3">Service Provider Name: {serviceMan.name} (Provider)</h3>
-                <img className="w-48 rounded-xl" src={serviceMan.photoURL} alt="" />
+                <h3 className="text-lg font-semibold">Service Provider</h3>
+                <p className="text-sm font-semibold mb-5">
+                  Our service provider will contact you to confirm the following
+                  service
+                </p>
+
+                <img
+                  className="w-24 h-24 rounded-full"
+                  src={serviceMan.photoURL}
+                  alt=""
+                />
+                <h3 className="font-semibold mb-3">
+                  {serviceMan.name} (Provider)
+                </h3>
               </div>
             </div>
 
@@ -179,21 +208,23 @@ const BookingModal = ({ handleChangeModalState, userData, subCategory, serviceMa
                 />
               </div>
               <div className="grow">
-                <h3 className="text-xl font-semibold">Order Summary</h3>
-                <p>
+                <h3 className="text-lg font-semibold">Order Summary</h3>
+                <p className="font-semibold text-sm">
                   Thank you for booking with us. Below is a summary of your
                   order:
                 </p>
                 <div className="flex flex-col gap-3 mt-5">
-                  <h3 className="font-semibold">{subCategory.serviceName}</h3>
+                  <h3 className="font-semibold text-center">
+                    {subCategory.serviceName}
+                  </h3>
                   <hr />
-                  <div className="overflow-x-auto flex gap-5 justify-between">
-                    <div className="font-semibold text-sm">
+                  <div className="overflow-x-auto flex gap-5 justify-between text-sm font-semibold">
+                    <div>
                       <p>Subtotal</p>
                       <p>Delivery Charge</p>
                       <p>Discount</p>
                     </div>
-                    <div className="text-sm flex flex-col items-end">
+                    <div className="flex flex-col items-end">
                       <p>৳ 1,199</p>
                       <p>0</p>
                       <p>0</p>
@@ -201,17 +232,17 @@ const BookingModal = ({ handleChangeModalState, userData, subCategory, serviceMa
                   </div>
                   <hr />
                 </div>
-                <div className="flex justify-between gap-3 text-sm">
+                <div className="flex justify-between gap-3 text-sm font-semibold">
                   <p className="font-semibold">Amount to be paid</p>
                   <p className="flex justify-end">৳ 1,199</p>
                 </div>
               </div>
             </div>
 
-            <div className="flex justify-center w-full">
+            <div className="flex justify-end w-full">
               <button
                 onClick={handleChangeModalState}
-                className="mt-3 btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-4 h-fit text-xl rounded-lg"
+                className="mt-3 btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-4 h-fit rounded-lg"
               >
                 PLACE ORDER
               </button>
