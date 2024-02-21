@@ -3,18 +3,16 @@ import React, { useContext } from "react";
 import { ThemeContext } from "../../../App";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
-const ChatPopup = ({ setOpenChatPopup, setReceiver}) => {
+const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
   const { theme } = useContext(ThemeContext);
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { data: chatHistroy = [], isLoading } = useQuery({
     queryKey: ["messages"],
     queryFn: () =>
-      fetch(`https://subidha-home-services-server2.glitch.me/messages/${user.uid}`).then(
-        (res) => res.json()
-      ),
+      fetch(
+        `https://subidha-home-services-server2.glitch.me/messages/${user.uid}`
+      ).then((res) => res.json()),
   });
-
-  console.log(chatHistroy);
 
   return (
     <div className={`relative z-[45000] ${theme === "light" && "text-black"}`}>
@@ -99,6 +97,13 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver}) => {
                   </td>
                 </tr>
               ))}
+              {!isLoading && chatHistroy.length === 0 && (
+                <img
+                  className="w-full"
+                  src="https://i.ibb.co/WzN5KJD/c92268d92cf2dbf96e3195683d9e14fb-removebg-preview-removebg-preview.png"
+                  alt=""
+                />
+              )}
             </tbody>
           </table>
         </div>
