@@ -8,7 +8,7 @@ const users = () => {
   const [size, setSize] = useState(30);
 
   useEffect(() => {
-    fetch(`https://subidha-home-services-server2.glitch.me/users?page=${page}&size=${size}`)
+    fetch(`http://localhost:5000/users?page=${page}&size=${size}`)
       .then((res) => res.json())
       .then((data) => {
         setUsers(data.users);
@@ -22,7 +22,7 @@ const users = () => {
 
   const handleOnChnage = (e) => {
     const searchText = e.target.value;
-    fetch(`https://subidha-home-services-server2.glitch.me/users?searchText=${searchText}`)
+    fetch(`http://localhost:5000/users?searchText=${searchText}`)
       .then((res) => res.json())
       .then((data) => {
         setUsers(data.users);

@@ -64,7 +64,7 @@ const router = createBrowserRouter([
           const categoryId = params.categoryId;
           const subCategoryId = params.subCategoryId;
           return fetch(
-            `https://subidha-home-services-server2.glitch.me/subcategory/${categoryId}/${subCategoryId}`
+            `http://localhost:5000/subcategory/${categoryId}/${subCategoryId}`
           );
         },
       },

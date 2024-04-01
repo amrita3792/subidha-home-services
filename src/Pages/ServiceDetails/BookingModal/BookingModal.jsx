@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
+import { format } from "date-fns";
+import { getCurrentDateTime, getDate, getTime } from "../../../utilities/date";
+import { toast } from "react-toastify";
 
 const BookingModal = ({
   handleChangeModalState,
@@ -6,21 +11,87 @@ const BookingModal = ({
   subCategory,
   serviceMan,
 }) => {
-  console.log(serviceMan);
+
   const [quantity, setQuantity] = useState(1);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [isLoading, setIsLoading] = useState(false);
+
+  let footer = <p>Please pick a day.</p>;
+  if (selectedDate) {
+    footer = <p className="font-semibold">You picked {format(selectedDate, "PP")}.</p>;
+  }
 
   const handleIncrease = (e) => {
     e.preventDefault();
     setQuantity((prevQuantity) => prevQuantity + 1);
-    // onChange(quantity + 1);
+
   };
 
   const handleDecrease = (e) => {
     e.preventDefault();
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
-      // onChange(quantity - 1);
     }
+  };
+
+  const handleSubmitBookingInfo = (e) => {
+    console.log(e);
+    e.preventDefault();
+    setIsLoading(true);
+    // Gather form data
+    const formData = new FormData(e.target);
+    const bookingInfo = {
+      userUID: userData.uid,
+      userName: formData.get("userName"),
+      userPhotoURL: userData.photoURL,
+      userPhone: formData.get("userPhone"),
+      division: formData.get("division"),
+      district: formData.get("district"),
+      upazila: formData.get("upazila"),
+      fullAddress: formData.get("fullAddress"),
+      serviceID: subCategory._id,
+      service: subCategory.serviceName,
+      servicePhotoURL: subCategory.image,
+      selectedDate: format(selectedDate, 'PP'),
+      amount: 5000,
+      updated: getCurrentDateTime(),
+      serviceQuantity: quantity,
+      serviceManUID: serviceMan.uid,
+      providerName: serviceMan.name,
+      providerPhotoURL: serviceMan.photoURL,
+      bookingStatus: "Order Placed",
+    };
+
+    console.log(bookingInfo);
+
+    // Perform any necessary actions, such as sending the data to a server
+    // For example, you can use fetch API to send a POST request to a server endpoint
+    fetch('http://localhost:5000/booking', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bookingInfo),
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.acknowledged) {
+        toast.success("Booking Created Successfully", {
+          hideProgressBar: true,
+          theme: "colored",
+        });
+        setIsLoading(false);
+        handleChangeModalState();
+
+      }
+    })
+    .catch(error => {
+    // Handle error
+      console.error('Error:', error);
+    // Optionally, show an error message to the user
+      alert('Failed to submit booking. Please try again later.');
+      setIsLoading(false);
+    });
   };
 
   return (
@@ -46,8 +117,34 @@ const BookingModal = ({
           </svg>
         </button>
         <h3 className="font-bold text-2xl text-center mb-14">Booking Form</h3>
+        <div className="flex flex-col md:flex-row gap-5">
+          <div>
+            <img
+              className="w-16"
+              src="https://i.ibb.co/mHG6XyC/schedule.png"
+              alt=""
+            />
+          </div>
+          <div className="grow">
+            <h3 className="text-lg font-semibold">Schedule</h3>
+            <p className="font-semibold text-sm">
+              Date and time selectors for scheduling appointments
+            </p>
+            <div className="grid md:grid-cols-2 gap-5 mt-5">
+              <DayPicker
+                mode="single"
+                selected={selectedDate}
+                onSelect={setSelectedDate}
+                footer={footer}
+              />
+            </div>
+          </div>
+        </div>
         <div className="modal-action justify-start">
-          <form className="w-full flex flex-col gap-8">
+          <form
+            onSubmit={handleSubmitBookingInfo}
+            className="w-full flex flex-col gap-8"
+          >
             <div className="flex flex-col md:flex-row gap-5">
               <div>
                 <img
@@ -63,14 +160,14 @@ const BookingModal = ({
                 </p>
                 <div className="grid md:grid-cols-2 gap-5 mt-5">
                   <input
-                    name="name"
+                    name="userName"
                     type="text"
                     placeholder="Type the name of the contact person"
                     className="input input-bordered w-full min-w-xs focus:outline-none font-semibold text-sm"
                     defaultValue={userData.userName}
                   />
                   <input
-                    name="phone"
+                    name="userPhone"
                     type="text"
                     placeholder="Type the phone number of the contact person"
                     className="input input-bordered w-full min-w-xs focus:outline-none font-semibold text-sm"
@@ -95,28 +192,31 @@ const BookingModal = ({
                 </p>
                 <div className="grid md:grid-cols-2 gap-5 mt-5">
                   <input
+                    required
                     name="division"
                     type="text"
                     placeholder="Type the name of the contact person"
                     className="input input-bordered w-full min-w-xs focus:outline-none font-semibold text-sm"
                     defaultValue={userData.division}
-                    disabled={userData.division}
+                    // disabled={userData.division}
                   />
                   <input
+                    required
                     name="district"
                     type="text"
                     placeholder="Type the phone number of the contact person"
                     className="input input-bordered w-full min-w-xs focus:outline-none font-semibold text-sm"
                     defaultValue={userData.district}
-                    disabled={userData.district}
+                    // disabled={userData.district}
                   />
                   <input
+                    required
                     name="upazila"
                     type="text"
                     placeholder="Type the phone number of the contact person"
                     className="input input-bordered w-full min-w-xs focus:outline-none border font-semibold text-sm"
                     defaultValue={userData.upazila}
-                    disabled={userData.upazila}
+                    // disabled={userData.upazila}
                   />
                   <textarea
                     name="fullAddress"
@@ -189,11 +289,11 @@ const BookingModal = ({
                 </p>
 
                 <img
-                  className="w-24 h-24 rounded-full"
+                  className="w-full md:w-96 rounded-xl"
                   src={serviceMan.photoURL}
                   alt=""
                 />
-                <h3 className="font-semibold mb-3">
+                <h3 className="font-semibold my-3">
                   {serviceMan.name} (Provider)
                 </h3>
               </div>
@@ -240,10 +340,7 @@ const BookingModal = ({
             </div>
 
             <div className="flex justify-end w-full">
-              <button
-                onClick={handleChangeModalState}
-                className="mt-3 btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-4 h-fit rounded-lg"
-              >
+              <button className="mt-3 btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-4 h-fit rounded-lg">
                 PLACE ORDER
               </button>
             </div>

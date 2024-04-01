@@ -6,7 +6,6 @@ const ServiceProvider = ({provider, handleChangeModalState, setServiceMan}) => {
     const {receiver, setReceiver} = useContext(ChatContext);
 
     const {name, phone, email, photoURL, yearsOfExperience, uid} = provider;
-  console.log(provider)
 
     return (
         <div

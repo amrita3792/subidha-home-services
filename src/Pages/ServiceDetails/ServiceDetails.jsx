@@ -33,13 +33,13 @@ const ServiceDetails = () => {
 
   const handleChangeModalState = async () => {
     await setModalOpen((prev) => !prev);
-    document.getElementById("booking_modal").showModal();
+    document.getElementById("booking_modal")?.showModal();
   };
 
   const fetchUserData = async () => {
     const response = await fetch(
       `
-    https://subidha-home-services-server2.glitch.me/users/${user?.uid}`,
+    http://localhost:5000/users/${user?.uid}`,
       {
         // headers: {
         //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -82,7 +82,7 @@ const ServiceDetails = () => {
   const fetchProviderData = async (userData) => {
     setLoading(true);
     const response = await fetch(
-      `https://subidha-home-services-server2.glitch.me/providers?division=${userData.division}&district=${userData.district}&upazila=${userData.upazila}&serviceCategory=${encodedServiceCategory}`
+      `http://localhost:5000/providers?division=${userData.division}&district=${userData.district}&upazila=${userData.upazila}&serviceCategory=${encodedServiceCategory}`
     );
 
     if (!response.ok) {

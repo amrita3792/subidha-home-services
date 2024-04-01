@@ -32,19 +32,19 @@ const UserProfile = () => {
       setLoading(true);
       const formData = new FormData();
       formData.append("image", selectedImage);
-      const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostKey}`;
+      const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
       fetch(url, {
         method: "POST",
         body: formData,
       })
         .then((res) => res.json())
         .then((data) => {
-          const photoURL = data.data.url;
+          const photoURL = data.data?.url;
           console.log(photoURL);
           updateUserProfile(user?.displayName, photoURL)
             .then(() => {
               fetch(
-                `https://subidha-home-services-server2.glitch.me/users/${user.uid}`,
+                `http://localhost:5000/users/${user.uid}`,
                 {
                   headers: {
                     "Content-Type": "application/json",
@@ -110,7 +110,7 @@ const UserProfile = () => {
 
   const fetchUserData = async () => {
     const response = await fetch(
-      `https://subidha-home-services-server2.glitch.me/users/${user?.uid}`,
+      `http://localhost:5000/users/${user?.uid}`,
       {
         // headers: {
         //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -163,7 +163,7 @@ const UserProfile = () => {
     formData.uid = user.uid;
     try {
       const res = await fetch(
-        "https://subidha-home-services-server2.glitch.me/users",
+        "http://localhost:5000/users",
         {
           method: "POST",
           headers: {

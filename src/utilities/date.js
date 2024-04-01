@@ -27,3 +27,29 @@ export function getTime(timeString) {
   
   return formattedTime;
 }
+
+export function getCurrentDateTime() {
+  const date = new Date();
+  
+  // Get day, month, year
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(date);
+  const year = date.getFullYear();
+  
+  // Get time
+  const hour = String(date.getHours()).padStart(2, '0');
+  const minute = String(date.getMinutes()).padStart(2, '0');
+  
+  // Determine AM/PM
+  const meridiem = hour >= 12 ? 'PM' : 'AM';
+  
+  // Convert hour to 12-hour format
+  const formattedHour = hour % 12 || 12;
+  
+  // Construct the formatted date and time string
+  const formattedDateTime = `${day}-${month}-${year} ${formattedHour}:${minute} ${meridiem}`;
+
+  return formattedDateTime;
+}
+
+

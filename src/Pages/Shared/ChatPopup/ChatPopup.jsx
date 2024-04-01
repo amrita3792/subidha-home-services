@@ -10,7 +10,7 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
     queryKey: ["messages"],
     queryFn: () =>
       fetch(
-        `https://subidha-home-services-server2.glitch.me/messages/${user.uid}`
+        `http://localhost:5000/messages/${user.uid}`
       ).then((res) => res.json()),
   });
 
@@ -97,15 +97,17 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
                   </td>
                 </tr>
               ))}
-              {!isLoading && chatHistroy.length === 0 && (
+            </tbody>
+          </table>
+          <div>
+          {!isLoading && chatHistroy.length === 0 && (
                 <img
                   className="w-full"
                   src="https://i.ibb.co/WzN5KJD/c92268d92cf2dbf96e3195683d9e14fb-removebg-preview-removebg-preview.png"
                   alt=""
                 />
               )}
-            </tbody>
-          </table>
+          </div>
         </div>
       </div>
       <div

@@ -36,7 +36,7 @@ const Navbar = ({ isMounted }) => {
   };
 
   useEffect(() => {
-    const newSocket = io("https://subidha-home-services-server2.glitch.me/");
+    const newSocket = io("http://localhost:5000/");
     if (user && receiver) {
       setMessages([]);
       setLoadingMessage(true);
@@ -63,7 +63,7 @@ const Navbar = ({ isMounted }) => {
 
   useEffect(() => {
     if (roomId) {
-      fetch(`https://subidha-home-services-server2.glitch.me/chats/${roomId}`)
+      fetch(`http://localhost:5000/chats/${roomId}`)
         .then((res) => res.json())
         .then((data) => {
           const previousMessages = data.messages.map((message, idx) => (

@@ -8,11 +8,11 @@ export default defineConfig({
   server: {
     proxy: {
       '/socket.io': {
-        target: 'https://subidha-home-services-server2.glitch.me/',
+        target: 'http://localhost:5000/',
         ws: true,
       },
       '/api': {
-        target: 'https://subidha-home-services-server2.glitch.me/',
+        target: 'http://localhost:5000/',
       },
     },
   },
