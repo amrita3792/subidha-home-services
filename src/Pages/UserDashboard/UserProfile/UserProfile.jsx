@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
-import { CheckIcon, PencilIcon } from "@heroicons/react/24/solid";
+import { PencilIcon } from "@heroicons/react/24/solid";
 import { Tooltip } from "keep-react";
 import { toast } from "react-toastify";
-import { ThemeContext } from "../../../App";
 import { useQuery } from "@tanstack/react-query";
 
 const UserProfile = () => {
@@ -40,19 +39,31 @@ const UserProfile = () => {
         .then((res) => res.json())
         .then((data) => {
           const photoURL = data.data?.url;
-          console.log(photoURL);
+
+
+          fetch(`http://localhost:5000/user/update-image/${user?.uid}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ photoURL: photoURL }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if(data.modifiedCount > 0) {
+                console.log("Your profile picture has been updated!");
+              }
+            });
+
           updateUserProfile(user?.displayName, photoURL)
             .then(() => {
-              fetch(
-                `http://localhost:5000/users/${user.uid}`,
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  method: "POST",
-                  body: JSON.stringify({ photoURL: photoURL }),
-                }
-              )
+              fetch(`http://localhost:5000/users/${user.uid}`, {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({ photoURL: photoURL }),
+              })
                 .then((res) => res.json())
                 .then((data) => {
                   if (data.acknowledged) {
@@ -60,7 +71,7 @@ const UserProfile = () => {
                     setLoading(false);
                     toast.success("Your profile picture has been updated! ", {
                       hideProgressBar: true,
-                      theme: "colored"
+                      theme: "colored",
                     });
                     setSelectedImage(null);
                     refetch();
@@ -75,7 +86,11 @@ const UserProfile = () => {
               setLoading(false);
               setUpdateProfilePicture(false);
             });
-        });
+
+
+        })
+        .then((res) => res?.json())
+        .then((data) => console.log(data));
     }
   }, [selectedImage]);
 
@@ -109,14 +124,11 @@ const UserProfile = () => {
   });
 
   const fetchUserData = async () => {
-    const response = await fetch(
-      `http://localhost:5000/users/${user?.uid}`,
-      {
-        // headers: {
-        //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        // },
-      }
-    );
+    const response = await fetch(`http://localhost:5000/users/${user?.uid}`, {
+      // headers: {
+      //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      // },
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -162,16 +174,13 @@ const UserProfile = () => {
     e.preventDefault();
     formData.uid = user.uid;
     try {
-      const res = await fetch(
-        "http://localhost:5000/users",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const res = await fetch("http://localhost:5000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
       const data = await res.json();
       if (data.acknowledged) {
         updateUserProfile(

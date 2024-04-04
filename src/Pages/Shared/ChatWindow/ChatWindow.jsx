@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import send from "../../../assets/icons/send.png";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
@@ -9,7 +9,7 @@ const ChatWindow = ({
   socket,
   receiver,
   roomId,
-  loadingMessage
+  loadingMessage,
 }) => {
   const scrollableElementRef = useRef(null);
   const { user } = useContext(AuthContext);
@@ -38,10 +38,10 @@ const ChatWindow = ({
 
   useEffect(() => {
     // Event listener for tab/window closing
-    window.addEventListener('beforeunload', handleOnBlur);
-  
+    window.addEventListener("beforeunload", handleOnBlur);
+
     return () => {
-      window.removeEventListener('beforeunload', handleOnBlur);
+      window.removeEventListener("beforeunload", handleOnBlur);
     };
   }, []);
 
@@ -96,7 +96,7 @@ const ChatWindow = ({
             </div>
           </div>
           <div className="text-white leading-none">
-            <h2 className="text-xl">Amrita Dey</h2>
+            <h2 className="text-xl">{receiver.userName}</h2>
             <small>
               Hi! I'm Amrita Dey. Facing an issue or have questions?
             </small>
@@ -107,7 +107,13 @@ const ChatWindow = ({
         ref={scrollableElementRef}
         className="h-[55vh] overflow-y-scroll custom-chat-scrollbar box-border bg-white p-5"
       >
-        { loadingMessage ? <div className="flex justify-center h-full w-full items-center"><span className="loading loading-spinner loading-md"></span></div> : messages}
+        {loadingMessage ? (
+          <div className="flex justify-center h-full w-full items-center">
+            <span className="loading loading-spinner loading-md"></span>
+          </div>
+        ) : (
+          messages
+        )}
         {isTyping && (
           <div className="chat chat-start">
             <div className="chat-image avatar">

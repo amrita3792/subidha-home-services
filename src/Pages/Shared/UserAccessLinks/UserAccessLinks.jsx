@@ -18,7 +18,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
     {
       id: 2,
       name: "My Bookings",
-      path: "user-bookings",
+      path: "user-dashboard/booking-list",
     },
     {
       id: 3,

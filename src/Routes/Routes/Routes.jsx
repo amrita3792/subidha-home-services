@@ -13,6 +13,8 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import UserDashboard from "../../Pages/UserDashboard/UserDashboard/UserDashboard";
 import UserDashboardStatus from "../../Pages/UserDashboard/UserDashboardStatus/UserDashboardStatus";
 import UserProfile from "../../Pages/UserDashboard/UserProfile/UserProfile";
+import UserBookings from "../../Pages/UserDashboard/UserBookings/UserBookings";
+import BookingDetails from "../../Pages/UserDashboard/BookingDetails/BookingDetails";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +53,15 @@ const router = createBrowserRouter([
             path: "/user-dashboard/user-settings",
             element: <UserProfile />,
           },
+          {
+            path: "/user-dashboard/booking-list",
+            element: <UserBookings />
+          },
+          {
+            path: "/user-dashboard/booking-list/:id",
+            element: <BookingDetails />,
+            loader: ({params}) => fetch(`http://localhost:5000/booking-details/${params.id}`),
+          }
         ],
       },
       {

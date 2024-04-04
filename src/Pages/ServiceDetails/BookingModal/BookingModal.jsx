@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { format } from "date-fns";
-import { getCurrentDateTime, getDate, getTime } from "../../../utilities/date";
+import { getCurrentDateTime } from "../../../utilities/date";
 import { toast } from "react-toastify";
 
 const BookingModal = ({
@@ -18,13 +18,14 @@ const BookingModal = ({
 
   let footer = <p>Please pick a day.</p>;
   if (selectedDate) {
-    footer = <p className="font-semibold">You picked {format(selectedDate, "PP")}.</p>;
+    footer = (
+      <p className="font-semibold">You picked {format(selectedDate, "PP")}.</p>
+    );
   }
 
   const handleIncrease = (e) => {
     e.preventDefault();
     setQuantity((prevQuantity) => prevQuantity + 1);
-
   };
 
   const handleDecrease = (e) => {
@@ -35,10 +36,9 @@ const BookingModal = ({
   };
 
   const handleSubmitBookingInfo = (e) => {
-    console.log(e);
     e.preventDefault();
     setIsLoading(true);
-    // Gather form data
+
     const formData = new FormData(e.target);
     const bookingInfo = {
       userUID: userData.uid,
@@ -52,46 +52,43 @@ const BookingModal = ({
       serviceID: subCategory._id,
       service: subCategory.serviceName,
       servicePhotoURL: subCategory.image,
-      selectedDate: format(selectedDate, 'PP'),
+      selectedDate: format(selectedDate, "PP"),
       amount: 5000,
       updated: getCurrentDateTime(),
       serviceQuantity: quantity,
       serviceManUID: serviceMan.uid,
       providerName: serviceMan.name,
+      providerPhone: serviceMan.phone,
       providerPhotoURL: serviceMan.photoURL,
       bookingStatus: "Order Placed",
     };
-
-    console.log(bookingInfo);
-
     // Perform any necessary actions, such as sending the data to a server
     // For example, you can use fetch API to send a POST request to a server endpoint
-    fetch('http://localhost:5000/booking', {
-      method: 'POST',
+    fetch("https://subidha-home-services-server2.glitch.me/booking", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(bookingInfo),
     })
-    .then(res => res.json())
-    .then(data => {
-      if(data.acknowledged) {
-        toast.success("Booking Created Successfully", {
-          hideProgressBar: true,
-          theme: "colored",
-        });
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("Booking Created Successfully", {
+            hideProgressBar: true,
+            theme: "colored",
+          });
+          setIsLoading(false);
+          handleChangeModalState();
+        }
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error:", error);
+        // Optionally, show an error message to the user
+        alert("Failed to submit booking. Please try again later.");
         setIsLoading(false);
-        handleChangeModalState();
-
-      }
-    })
-    .catch(error => {
-    // Handle error
-      console.error('Error:', error);
-    // Optionally, show an error message to the user
-      alert('Failed to submit booking. Please try again later.');
-      setIsLoading(false);
-    });
+      });
   };
 
   return (
@@ -160,6 +157,7 @@ const BookingModal = ({
                 </p>
                 <div className="grid md:grid-cols-2 gap-5 mt-5">
                   <input
+                    required
                     name="userName"
                     type="text"
                     placeholder="Type the name of the contact person"
@@ -167,6 +165,7 @@ const BookingModal = ({
                     defaultValue={userData.userName}
                   />
                   <input
+                    required
                     name="userPhone"
                     type="text"
                     placeholder="Type the phone number of the contact person"
@@ -341,6 +340,9 @@ const BookingModal = ({
 
             <div className="flex justify-end w-full">
               <button className="mt-3 btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-4 h-fit rounded-lg">
+                {isLoading && (
+                  <span className="loading loading-spinner loading-md"></span>
+                )}
                 PLACE ORDER
               </button>
             </div>
