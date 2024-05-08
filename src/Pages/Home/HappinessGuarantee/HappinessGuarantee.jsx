@@ -27,10 +27,11 @@ const HappinessGuarantee = () => {
         </div>
       </div>
       <img
-        className="absolute right-0 top-0 h-full hidden lg:block"
+        className="absolute right-0 top-0 h-full  lg:block"
         src="https://i.ibb.co/GxJJndm/smiling-parents-holding-baby.jpg"
         alt=""
       />
+      <div className="bg-black h-full w-full absolute top-0 left-0 opacity-50 block lg:hidden"></div>
     </div>
   );
 };

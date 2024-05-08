@@ -1,10 +1,10 @@
-import React from "react";
+
 import { Link } from "react-router-dom";
 
 const TopRatedProSection = () => {
   return (
-    <div className="xl:max-w-screen-xl lg:max-w-screen-lg  mx-auto flex items-center gap-36 my-20">
-      <div className="basis-[40%]">
+    <div className="xl:max-w-screen-xl lg:max-w-screen-lg  mx-auto flex flex-col-reverse md:flex-row items-center gap-10 md:gap-10 lg:gap-36 my-20 px-4">
+      <div className="md:basis-[50%] lg:basis-[40%]">
         <p className="font-semibold text-[#FF6600]">Subidha Home Service</p>
         <h2 className="text-4xl font-semibold my-3">
           Join the Elite: Become a Top-Rated Pro with Subidha
@@ -19,7 +19,7 @@ const TopRatedProSection = () => {
           </button>
         </Link>
       </div>
-      <div className="basis-[60%]">
+      <div className="md:basis-[50%] lg:basis-[60%]">
         <img
           className="w-full"
           src="https://i.ibb.co/pdgYmns/male-female-workers-wearing-work-clothes-removebg-preview-1.png"

@@ -5,6 +5,7 @@ import ServicesSection from '../OurServicesSection/ServicesSection';
 import HomeServiceSection from '../HomeServiceSection/HomeServiceSection';
 import HappinessGuarantee from '../HappinessGuarantee/HappinessGuarantee';
 import TopRatedProSection from '../TopRatedProSection/TopRatedProSection';
+import SubidhaHelpLine from '../SubidhaHelpLine/SubidhaHelpLine';
 
 const Home = () => {
     useEffect(() => {
@@ -23,6 +24,7 @@ const Home = () => {
             <ServicesSection />
             <HappinessGuarantee />
             <TopRatedProSection />
+            <SubidhaHelpLine />
         </div>
     );
 };
