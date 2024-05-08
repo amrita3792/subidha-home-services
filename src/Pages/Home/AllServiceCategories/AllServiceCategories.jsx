@@ -4,9 +4,11 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { ThemeContext } from "../../../App";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AllServiceCategories = () => {
-  const {theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
+  const navigate = useNavigate();
 
   const {
     data: allServiceCategories = [],
@@ -19,14 +21,11 @@ const AllServiceCategories = () => {
   });
 
   const fetchUserData = async () => {
-    const response = await fetch(
-      "http://localhost:5000/allServiceCategories",
-      {
-        // headers: {
-        //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        // },
-      }
-    );
+    const response = await fetch("http://localhost:5000/allServiceCategories", {
+      // headers: {
+      //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      // },
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -35,10 +34,12 @@ const AllServiceCategories = () => {
     return response.json();
   };
 
-  if(isLoading) {
-    return <div className="xl:max-w-screen-xl mx-auto lg:-mt-[63px] relative z-50">
-      <div className="skeleton h-32"></div>
-    </div>
+  if (isLoading) {
+    return (
+      <div className="xl:max-w-screen-xl mx-auto lg:-mt-[63px] relative z-50">
+        <div className="skeleton h-32"></div>
+      </div>
+    );
   }
 
   if (error) {
@@ -50,7 +51,10 @@ const AllServiceCategories = () => {
     return;
   }
 
-  
+  const handleClick = (serviceCategory) => {
+    navigate("/all-services");
+  };
+
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -70,7 +74,11 @@ const AllServiceCategories = () => {
   };
 
   return (
-    <div className={`xl:max-w-screen-xl mx-auto lg:-mt-[75px] ${theme === "light"? "bg-white border" : "bg-[#1D232A]"}  rounded-xl relative z-50 shadow-lg multicarousel mb-20`}>
+    <div
+      className={`xl:max-w-screen-xl mx-auto lg:-mt-[75px] ${
+        theme === "light" ? "bg-white border" : "bg-[#1D232A]"
+      }  rounded-xl relative z-50 shadow-lg multicarousel`}
+    >
       <Carousel
         swipeable={true}
         draggable={false}
@@ -85,20 +93,24 @@ const AllServiceCategories = () => {
       >
         {allServiceCategories.map((serviceCategory) => (
           <div className="px-3" key={serviceCategory._id}>
-            <div className="flex flex-col items-center  rounded-xl p-6 cursor-pointer">
+            <div
+              onClick={() => handleClick(serviceCategory)}
+              className="flex flex-col items-center  rounded-xl p-6 cursor-pointer"
+            >
               <img className="w-11" src={serviceCategory.icon} alt="" />
               <h4 className="font-semibold mt-2">
                 {serviceCategory.serviceName}
               </h4>
-              {
-                serviceCategory?.totalService && <p>
-                <small className="font-semibold">{serviceCategory?.totalService} Services</small>
-              </p>
-              }
+              {serviceCategory?.totalService && (
+                <p>
+                  <small className="font-semibold">
+                    {serviceCategory?.totalService} Services
+                  </small>
+                </p>
+              )}
             </div>
           </div>
         ))}
-       
       </Carousel>
     </div>
   );
