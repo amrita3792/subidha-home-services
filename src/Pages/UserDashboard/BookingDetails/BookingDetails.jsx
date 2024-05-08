@@ -25,21 +25,27 @@ const BookingDetails = () => {
         <li className="step font-semibold">Order Processing</li>
         <li className="step font-semibold">Order Completed</li>
       </ul>
-      <div className="mt-16 flex gap-4">
+      <div className="mt-16 flex gap-12">
         <div>
           <img className="w-52 rounded-md" src={servicePhotoURL} alt="" />
           <p className="mt-4 text-xs">{_id}</p>
-          <p className="font-bold text-xl my-1">{service}</p>
-          <p className="font-bold text-xl">৳{amount}</p>
+          <p className="font-bold text-lg my-1">{service}</p>
+          <p className="font-bold text-lg">৳{amount}</p>
         </div>
         <div>
-          <h3 className="font-semibold text-lg">Schedule</h3>
-          <p className="text-lg">Date: {selectedDate}</p>
-          <h3 className="font-semibold text-lg mt-8">Ordered for</h3>
-          <p className="text-lg">{userName}</p>
-          <p>{userPhone}</p>
+          <h3 className="font-semibold text-lg mb-3">Schedule</h3>
+          <p className="text-lg">
+            <span className="font-semibold">Date:</span> {selectedDate}
+          </p>
+          <h3 className="font-semibold text-lg mt-8 mb-3">Ordered for</h3>
+          <p>
+            <span className="font-semibold">Name:</span> {userName}
+          </p>
+          <p>
+            <span className="font-semibold">Phone:</span> {userPhone}
+          </p>
           <p className="white">
-            {fullAddress}
+            <span className="font-semibold">Location:</span> {fullAddress}
             {upazila}, {district}, {division}
           </p>
         </div>
@@ -67,9 +73,12 @@ const BookingDetails = () => {
           </div>
         </div>
       </div>
-      <button className="btn btn-active btn-accent mt-8">
-        Download Invoice
-      </button>
+      <div className="flex items-center justify-end gap-3 mt-5">
+        <button className="btn btn-active btn-accent text-white">
+          Download Invoice
+        </button>
+        <button className="btn btn-error text-white">Cancel</button>
+      </div>
     </div>
   );
 };

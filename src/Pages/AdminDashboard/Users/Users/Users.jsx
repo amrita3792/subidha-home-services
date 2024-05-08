@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import img from "../../../../assets/images/Setting Research (1).gif";
 
 const users = () => {
@@ -62,7 +62,7 @@ const users = () => {
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
                         <img
-                          src={user.photo}
+                          src={user.photoURL}
                           alt="Avatar Tailwind CSS Component"
                         />
                       </div>

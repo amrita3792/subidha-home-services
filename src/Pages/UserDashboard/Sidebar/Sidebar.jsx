@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { getDate } from "../../../utilities/date";
-import { ThemeContext } from "../../../App";
 
 const Sidebar = () => {
   const { user } = useContext(AuthContext);
-  const { theme } = useContext(ThemeContext);
   const [creationDate, setCreationDate] = useState("");
 
   useEffect(() => {
@@ -189,7 +187,10 @@ const Sidebar = () => {
         </div>
         <ul>
           {userAccessLinks.map((userAccessLink) => (
-            <li className="flex items-center" key={userAccessLink.id}>
+            <li
+              className="flex items-center min-w-[300px]"
+              key={userAccessLink.id}
+            >
               <NavLink
                 style={({ isActive }) => {
                   return {

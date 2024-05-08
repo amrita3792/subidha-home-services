@@ -23,7 +23,6 @@ const UserBookings = () => {
           {/* head */}
           <thead>
             <tr className="text-base">
-              <th>Booking ID</th>
               <th>Booking Details</th>
               <th>Service Provider</th>
               <th></th>
@@ -32,7 +31,6 @@ const UserBookings = () => {
           <tbody>
             {bookings.map((booking) => (
               <tr key={booking._id}>
-                <td className="font-semibold">{booking._id}</td>
                 <td>
                   <div className="flex gap-3">
                     <div className="avatar">
@@ -103,7 +101,10 @@ const UserBookings = () => {
                   </button>
                 </th>
                 <th>
-                  <Link to={`/user-dashboard/booking-list/${booking._id}`} className="btn btn-ghost btn-xs bg-primary text-white hover:text-black">
+                  <Link
+                    to={`/user-dashboard/booking-list/${booking._id}`}
+                    className="btn btn-ghost btn-xs bg-primary text-white hover:text-black"
+                  >
                     details
                   </Link>
                 </th>
