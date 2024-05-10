@@ -1,10 +1,10 @@
 "use client";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
 import OTPInput, { ResendOTP } from "otp-input-react";
-import telephone from "../../assets/icons/send-otp.png";
+// import telephone from "../../assets/icons/send-otp.png";
 import "./NumberVerificationModal.css";
-import sendOtp from "../../assets/icons/otp-code.png";
+// import sendOtp from "../../assets/icons/otp-code.png";
 import { Modal } from "keep-react";
 import { CloudArrowUp } from "@phosphor-icons/react";
 import PhoneInput from "react-phone-input-2";
@@ -13,6 +13,9 @@ import { toast } from "react-toastify";
 import { ThemeContext } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getDate, getTime } from "../../utilities/date";
+// import { getUserToken } from "../../utilities/getToken";
+import useToken from "../../hooks/useToken";
+
 
 export const NumberVerificatonModal = ({
   showModal,
@@ -21,7 +24,7 @@ export const NumberVerificatonModal = ({
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
-  
+
   const {
     sendOTP,
     verifyOTP,
@@ -30,12 +33,21 @@ export const NumberVerificatonModal = ({
     setVisibleRecaptcha,
   } = useContext(AuthContext);
 
-  const { theme, updateUserProfile } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   const [OTP, setOTP] = useState("");
   const [phone, setPhone] = useState("");
   const [showOTP, setShowOTP] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [uid, setUid] = useState("");
+  const [token] = useToken(uid);
+
+  if (token) {
+    navigate(from, { replace: true });
+    // navigate(from, { replace: true });
+    handleChangeModalState();
+    
+  }
 
   const handleSendOTP = async () => {
     setLoading(true);
@@ -107,12 +119,11 @@ export const NumberVerificatonModal = ({
           .then((data) => {
             console.log(data);
             if (data.acknowledged) {
-              navigate(from, { replace: true });
+              setUid(currentUser.uid);
               toast.success("Your verification is successful.", {
                 hideProgressBar: true,
                 theme: "colored",
               });
-              handleChangeModalState();
               setLoading(false);
             }
           })
@@ -123,7 +134,7 @@ export const NumberVerificatonModal = ({
         // ...
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         alert("User couldn't sign in (bad verification code?)");
         setLoading(false);
       });

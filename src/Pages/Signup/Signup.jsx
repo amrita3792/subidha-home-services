@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NumberVerificatonModal from "../NumberVerificationModal/NumberVerificationModal";
 import { AuthContext } from "../../contexts/AuthProvider";
@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { sendEmailVerification, updateProfile } from "firebase/auth";
 import newMessage from "../../assets/images/new-messages.png";
 import { getDate, getTime } from "../../utilities/date";
+// import { getUserToken } from "../../utilities/getToken";
+import useToken from "../../hooks/useToken";
 
 const Signup = () => {
   const { googleSignIn, setLoading, loading, createUser, logout } =
@@ -14,12 +16,18 @@ const Signup = () => {
   const [passwordError, setPasswordError] = useState(null);
   const [error, setError] = useState(null);
   const [isReceive, setIsReceive] = useState(false);
+  const [uid, setUid] = useState("");
   const [email, setEmail] = useState("");
+  const [token] = useToken(uid);
 
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
   let from = location.state?.from?.pathname || "/";
+
+  if (token) {
+    navigate(from, { replace: true });
+  }
 
   const handleChangeModalState = () => {
     setShowModal(!showModal);
@@ -65,7 +73,8 @@ const Signup = () => {
           .then((res) => res.json())
           .then((data) => {
             if (data.acknowledged) {
-              navigate(from, { replace: true });
+              // getUserToken(currentUser.uid);
+              setUid(currentUser.uid)
               setLoading(false);
             }
           })
@@ -138,6 +147,8 @@ const Signup = () => {
             .then((res) => res.json())
             .then((data) => {
               if (data.acknowledged) {
+                setUid(currentUser.uid);
+                // getUserToken(currentUser.uid);
                 form.reset();
                 setLoading(false);
               }

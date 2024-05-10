@@ -4,15 +4,14 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
 import { ThemeContext } from "../../../App";
 
-
 const UserAccessLinks = ({ isOpen, setIsOpen }) => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, loading, setLoading } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
 
   const profileLinks = [
     {
       id: 1,
-      name: "Dashboard",
+      name: "User Dashboard",
       path: "/user-dashboard/dashboard",
     },
     {
@@ -48,19 +47,24 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
   ];
 
   const handleLogout = () => {
+    setLoading(true);
     const status = "Offline";
-    fetch(`https://subidha-home-services-server2.glitch.me/update-status/${user.uid}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ status }),
-    })
+    fetch(
+      `https://subidha-home-services-server2.glitch.me/update-status/${user.uid}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
           logout()
             .then(() => {
+              setLoading(false);
               setIsOpen(false);
             })
             .catch((error) => {
@@ -82,7 +86,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
             theme === "dark"
               ? "bg-[#1D232A] border-slate-600"
               : "bg-white border-gray-300"
-          }  py-4 px-5 rounded-xl w-[270px] z-[30001]`}
+          }  py-4 px-5 rounded-xl w-[300px] z-[30001]`}
         >
           <div className="flex items-center gap-3 mb-3">
             {user?.photoURL ? (
@@ -107,6 +111,32 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
           </div>
 
           <ul className="flex flex-col items-start gap-3 w-[150px]">
+            <li
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOpen(false);
+              }}
+            >
+              <Link
+                to="/admin-dashboard"
+                className="text-sm font-semibold hover:underline text-start"
+              >
+                Admin Dashboard
+              </Link>
+            </li>
+            <li
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOpen(false);
+              }}
+            >
+              <Link
+                to="/provider-dashboard/dashboard"
+                className="text-sm font-semibold hover:underline text-start"
+              >
+                Provider Dashboard
+              </Link>
+            </li>
             {profileLinks.map((profileLink) => (
               <li
                 onClick={(e) => {
@@ -130,6 +160,9 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
               }}
               className="btn flex items-center justify-center gap-1 cursor-pointer bg-[#FF6600] hover:bg-[#1D2736]  px-3 py-2 rounded-lg"
             >
+              {loading && (
+                <span className="loading loading-spinner loading-sm text-white"></span>
+              )}
               <span className="text-white">Logout</span>
               <span>
                 <ArrowDownTrayIcon className="w-6 h-6 rotate-90 text-white" />

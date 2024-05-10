@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const SubidhaHelpLine = () => {
   return (
-    <div className="bg-[#345DA7] relative px-5 py-48 ">
+    <div className="bg-[#345DA7] relative px-4 py-48 ">
       <div className="xl:max-w-screen-xl relative z-[1000] mx-auto text-white flex">
         <div className="lg:basis-[50%]">
           <h2 className="text-4xl font-semibold mt-3 mb-5">

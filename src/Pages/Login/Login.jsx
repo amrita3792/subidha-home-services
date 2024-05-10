@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import NumberVerificatonModal from "../NumberVerificationModal/NumberVerificationModal";
 import { AuthContext } from "../../contexts/AuthProvider";
@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import ForgotPasswordModal from "./FogotPasswordModal/ForgotPasswordModal";
 import ResendEmailVerifyModal from "./ResendEmailVerifyModal/ResendEmailVerifyModal";
 import { getDate, getTime } from "../../utilities/date";
+// import { getUserToken } from "../../utilities/getToken";
+import useToken from "../../hooks/useToken";
 
 const Login = () => {
   const { googleSignIn, setLoading, signIn, loading } = useContext(AuthContext);
@@ -15,11 +17,17 @@ const Login = () => {
   const [verifyEmail, setVerifyEmail] = useState(false);
   const [email, setEmail] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
+  const [uid, setUid] = useState("");
+  const [token] = useToken(uid);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
   const { showModal, setShowModal } = useContext(ModalContext);
+
+  if (token) {
+    navigate(from, { replace: true });
+  }
 
   useEffect(() => {
     if (verifyEmail) {
@@ -71,7 +79,7 @@ const Login = () => {
           .then((res) => res.json())
           .then((data) => {
             if (data.acknowledged) {
-              navigate(from, { replace: true });
+              setUid(currentUser.uid);
               setLoading(false);
             }
           })

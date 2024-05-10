@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import img from "../../../../assets/images/Setting Research (1).gif";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../../../contexts/AuthProvider";
 
 const users = () => {
   const [users, setUsers] = useState([]);
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(30);
+  const { user: loginUser } = useContext(AuthContext);
 
   useEffect(() => {
     fetch(`http://localhost:5000/users?page=${page}&size=${size}`)
@@ -26,6 +29,32 @@ const users = () => {
       .then((res) => res.json())
       .then((data) => {
         setUsers(data.users);
+      });
+  };
+
+  const handleUpdateUser = (e, user) => {
+    fetch(
+      `http://localhost:5000/users/admin/${user.uid}?userId=${loginUser.uid}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify({ role: e.target.value }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success(
+            `Successfully assigned ${e.target.value} role to ${user.userName}!`,
+            {
+              hideProgressBar: true,
+              theme: "colored",
+            }
+          );
+        }
       });
   };
 
@@ -82,7 +111,8 @@ const users = () => {
                 <td>{user.role ? user.role : "Member"}</td>
                 <td className="relative z-50">
                   <select
-                    defaultValue="Change user role"
+                    defaultValue={user?.role}
+                    onChange={(e) => handleUpdateUser(e, user)}
                     className="select select-ghost w-full font-semibold focus:border-none focus:outline-none"
                   >
                     <option disabled selected>

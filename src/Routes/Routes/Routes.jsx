@@ -15,6 +15,8 @@ import UserDashboardStatus from "../../Pages/UserDashboard/UserDashboardStatus/U
 import UserProfile from "../../Pages/UserDashboard/UserProfile/UserProfile";
 import UserBookings from "../../Pages/UserDashboard/UserBookings/UserBookings";
 import BookingDetails from "../../Pages/UserDashboard/BookingDetails/BookingDetails";
+import ProviderDashboard from "../../Pages/ProviderDashboard/ProviderDashboard/ProviderDashboard";
+import ProviderDashboardStatus from "../../Pages/ProviderDashboard/ProviderDashboardStatus/ProviderDashboardStatus";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +65,16 @@ const router = createBrowserRouter([
             loader: ({params}) => fetch(`http://localhost:5000/booking-details/${params.id}`),
           }
         ],
+      },
+      {
+        path: "/provider-dashboard",
+        element: <ProviderDashboard />,
+        children: [
+          {
+            path: "/provider-dashboard/dashboard",
+            element: <ProviderDashboardStatus />
+          }
+        ]
       },
       {
         path: "/service-details/:categoryId/:subCategoryId",

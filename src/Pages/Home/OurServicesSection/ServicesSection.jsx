@@ -33,7 +33,7 @@ const ServicesSection = () => {
     <div className="xl:max-w-screen-xl lg:max-w-screen-lg  mx-auto flex items-center flex-col lg:flex-row gap-10 px-4 my-20">
       <div className="basis-[55%] flex flex-col items-start gap-5">
         <p className="font-semibold text-[#ff6600]">Subidha Home Service</p>
-        <h2 className="text-5xl font-semibold">Our Services</h2>
+        <h2 className="text-4xl font-semibold">Our Services</h2>
         <p>
           Sed ut perspiciatis unde omnis iste natus error sit voluptatem
           accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae

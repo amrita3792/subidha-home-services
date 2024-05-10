@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const HappinessGuarantee = () => {
   return (
-    <div className="bg-[#345DA7] relative px-5">
+    <div className="bg-[#345DA7] relative px-4">
       <div className="xl:max-w-screen-xl relative z-[1000] mx-auto text-white flex py-36">
         <div className="lg:basis-[50%]">
           <img

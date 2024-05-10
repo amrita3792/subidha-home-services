@@ -3,10 +3,10 @@ import React from "react";
 const HomeServiceSection = () => {
   return (
     <>
-      <div className="bg-[#345DA7] lg:-mt-20 py-40 px-5">
+      <div className="bg-[#345DA7] lg:-mt-20 py-40 px-4">
         <div className="xl:max-w-screen-xl lg:max-w-screen-lg  mx-auto text-center text-white">
           <p className="font-semibold">Subidha Home Service</p>
-          <h1 className="text-6xl font-semibold mt-4 mb-8">
+          <h1 className="text-5xl font-semibold mt-4 mb-8">
             Trusted Service Provider For Repair, Cleaning, And Health In Your
             Home
           </h1>
@@ -22,7 +22,7 @@ const HomeServiceSection = () => {
       </div>
       <div className="bg-[#1F1F1F]">
         <div className="xl:max-w-screen-xl lg:max-w-screen-lg mx-auto text-white flex flex-col md:flex-row justify-between py-8">
-            <div className="py-10 px-5 grow"> 
+            <div className="py-10 px-4 grow"> 
                 <p>Customer</p>
                 <h2 className="text-5xl font-semibold mt-2">1500+</h2>
             </div>
