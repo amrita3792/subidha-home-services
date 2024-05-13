@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import { sendEmailVerification } from "firebase/auth";
 
 const ResendEmailVerifyModal = ({ email, currentUser, setVerifyEmail }) => {
-
   const handleResendEmail = () => {
     sendEmailVerification(currentUser).then(() => {
       setVerifyEmail(false);
@@ -13,11 +12,14 @@ const ResendEmailVerifyModal = ({ email, currentUser, setVerifyEmail }) => {
       });
     });
   };
-  
+
   return (
     <dialog id="resend_email" className="modal">
       <div className="modal-box">
-        <button onClick={() => setVerifyEmail(false)} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        <button
+          onClick={() => setVerifyEmail(false)}
+          className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+        >
           ✕
         </button>
         <h3 className="font-bold text-2xl">Please verify your email</h3>

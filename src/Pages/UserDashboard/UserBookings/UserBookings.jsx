@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { ChatContext } from "../../../App";
 import { Link } from "react-router-dom";
+import ReviewModal from "../../../Components/ReviewModal/ReviewModal";
 
 const UserBookings = () => {
   const { user } = useContext(AuthContext);
@@ -9,16 +10,25 @@ const UserBookings = () => {
   console.log(receiver);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [serviceManUID, setServiceManUID] = useState("");
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://subidha-home-services-server3792.glitch.me/booking/${user.uid}`)
+    fetch(
+      `https://subidha-home-services-server3792.glitch.me/booking/${user.uid}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setBookings(data);
         setLoading(false);
       });
   }, []);
+
+  const handleChangeModalState = async () => {
+    await setIsModalOpen((prev) => !prev);
+    document.getElementById("review-modal").showModal();
+  };
 
   // console.log(loading);
 
@@ -56,7 +66,10 @@ const UserBookings = () => {
                         </div>
                         <div>
                           <div className="font-bold text-lg">
-                            {booking.service} <span className="text-sm bg-green-700 text-white">{booking.bookingStatus}</span>
+                            {booking.service} <br />
+                            <span className="text-sm bg-green-700 text-white">
+                              {booking.bookingStatus}
+                            </span>
                           </div>
                           <div className="text-sm">
                             <span className="font-bold">Booking Date:</span>{" "}
@@ -123,12 +136,32 @@ const UserBookings = () => {
                         details
                       </Link>
                     </th>
+                    {booking.bookingStatus === "Order Completed" && (
+                      <th>
+                        <button
+                          onClick={() => {
+                            setServiceManUID(booking.serviceManUID);
+                            handleChangeModalState()
+                          }}
+                          className="btn btn-ghost btn-xs bg-neutral text-white hover:text-black"
+                        >
+                          Review
+                        </button>
+                      </th>
+                    )}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         </div>
+      )}
+      {isModalOpen && (
+        <ReviewModal
+        serviceManUID={serviceManUID}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
       )}
     </div>
   );

@@ -8,11 +8,10 @@ const ProviderBookings = () => {
   const { user } = useContext(AuthContext);
   const { receiver, setReceiver } = useContext(ChatContext);
   //   console.log(receiver);
-//   const [bookings, setBookings] = useState([]);
+  //   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
 
-
-const {
+  const {
     data: bookings = [],
     isLoading,
     refetch,
@@ -23,11 +22,14 @@ const {
   });
 
   const fetchBookingData = async () => {
-    const response = await fetch(`http://localhost:5000/provider-bookings/${user.uid}`, {
-      // headers: {
-      //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      // },
-    });
+    const response = await fetch(
+      `http://localhost:5000/provider-bookings/${user.uid}`,
+      {
+        // headers: {
+        //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        // },
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -38,24 +40,27 @@ const {
 
   const [status, setStatus] = useState("Order Placed");
 
-  const handleStatusChange = (event) => {
+  const handleStatusChange = (event, bookingId) => {
     setStatus(event.target.value);
-    
-    fetch("http://localhost:5000/booking-status", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({status}),
+    console.log(event.target.value);
+
+    fetch(`http://localhost:5000/booking-status/${bookingId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: event.target.value }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount) {
+          refetch();
+        }
       })
-        .then((res) => res.json())
-        .then((data) => {
-            refetch()
-        })
-        .catch((error) => {
-          console.error(error);
+      .catch((error) => {
+        console.error(error);
         //   setLoading(false);
-        });
+      });
   };
 
   return (
@@ -93,7 +98,8 @@ const {
                         </div>
                         <div>
                           <div className="font-bold text-lg">
-                            {booking.service}{" "}
+                            {booking.service}
+                            <br />
                             <span className="text-sm bg-green-700 text-white">
                               {booking.bookingStatus}
                             </span>
@@ -143,16 +149,41 @@ const {
                     </td>
                     <td>
                       <select
-                        value={status}
-                        onChange={handleStatusChange}
+                        defaultValue={booking.bookingStatus}
+                        onChange={(e) => handleStatusChange(e, booking._id)}
                         className="select select-bordered w-full max-w-xs"
                       >
-                        <option disabled value="Order Placed">Order Placed</option>
-                        <option value="Order Confirmed">Order Confirmed</option>
-                        <option value="Order Processing">
+                        <option disabled value="">
+                          ---Booking Status---
+                        </option>
+                        <option disabled value="Order Placed">
+                          Order Placed
+                        </option>
+                        <option
+                          disabled={
+                            booking.bookingStatus === "Order Completed" ||
+                            booking.bookingStatus === "Order Confirmed" ||
+                            booking.bookingStatus === "Order Processing"
+                          }
+                          value="Order Confirmed"
+                        >
+                          Order Confirmed
+                        </option>
+                        <option
+                          disabled={
+                            booking.bookingStatus === "Order Completed" ||
+                            booking.bookingStatus === "Order Processing"
+                          }
+                          value="Order Processing"
+                        >
                           Order Processing
                         </option>
-                        <option value="Order Completed">Order Completed</option>
+                        <option
+                          disabled={booking.bookingStatus === "Order Completed"}
+                          value="Order Completed"
+                        >
+                          Order Completed
+                        </option>
                       </select>
                     </td>
                     <th>
@@ -169,14 +200,14 @@ const {
                         Chat
                       </button>
                     </th>
-                    <th>
+                    {/* <th>
                       <Link
                         to={`/user-dashboard/booking-list/${booking._id}`}
                         className="btn btn-ghost btn-xs bg-primary text-white hover:text-black"
                       >
                         details
                       </Link>
-                    </th>
+                    </th> */}
                   </tr>
                 ))}
               </tbody>

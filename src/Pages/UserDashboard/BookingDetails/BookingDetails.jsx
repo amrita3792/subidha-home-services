@@ -14,16 +14,40 @@ const BookingDetails = () => {
     district,
     division,
     fullAddress,
+    bookingStatus,
   } = booking;
-
   return (
     <div className="mb-28">
       <h2 className="text-xl font-semibold mb-8 text-center">DETAILS</h2>
       <ul className="steps steps-vertical lg:steps-horizontal w-full">
         <li className="step step-primary font-semibold">Order Placed</li>
-        <li className="step font-semibold">Order Confirmed</li>
-        <li className="step font-semibold">Order Processing</li>
-        <li className="step font-semibold">Order Completed</li>
+        <li
+          className={`${
+            (bookingStatus === "Order Confirmed" ||
+              bookingStatus === "Order Processing" ||
+              bookingStatus === "Order Processing" ||
+              bookingStatus === "Order Completed") &&
+            "step-primary"
+          } step font-semibold`}
+        >
+          Order Confirmed
+        </li>
+        <li
+          className={`${
+            (bookingStatus === "Order Processing" ||
+              bookingStatus === "Order Completed") &&
+            "step-primary"
+          } step font-semibold`}
+        >
+          Order Processing
+        </li>
+        <li
+          className={`${
+            bookingStatus === "Order Completed" && "step-primary"
+          } step font-semibold`}
+        >
+          Order Completed
+        </li>
       </ul>
       <div className="mt-16 flex gap-12">
         <div>
@@ -77,7 +101,10 @@ const BookingDetails = () => {
         <button className="btn btn-active btn-accent text-white">
           Download Invoice
         </button>
-        <button className="btn btn-error text-white">Cancel</button>
+        {(bookingStatus === "Order Placed" ||
+          bookingStatus === "Order Confirmed") && (
+          <button className="btn btn-error text-white">Cancel</button>
+        )}
       </div>
     </div>
   );
