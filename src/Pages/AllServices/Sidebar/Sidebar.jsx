@@ -16,7 +16,7 @@ const Sidebar = () => {
     if (serviceCategories[0]?._id) {
       setLoading(true);
       fetch(
-        `http://localhost:5000/allServiceCategories/${
+        `https://subidha-home-services-server3792.glitch.me/allServiceCategories/${
           serviceId ? serviceId : serviceCategories[0]._id
         }`
       )
@@ -47,7 +47,7 @@ const Sidebar = () => {
 
   const fetchUserData = async () => {
     const response = await fetch(
-      "http://localhost:5000/allServiceCategories",
+      "https://subidha-home-services-server3792.glitch.me/allServiceCategories",
       {
         // headers: {
         //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,

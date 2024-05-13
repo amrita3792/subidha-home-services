@@ -158,7 +158,7 @@ const ProviderRegistrationModal = () => {
     formData.uid = user.uid;
     try {
       const res = await fetch(
-        "http://localhost:5000/providers",
+        "https://subidha-home-services-server3792.glitch.me/providers",
         {
           method: "POST",
           headers: {

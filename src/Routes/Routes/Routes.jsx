@@ -17,6 +17,10 @@ import UserBookings from "../../Pages/UserDashboard/UserBookings/UserBookings";
 import BookingDetails from "../../Pages/UserDashboard/BookingDetails/BookingDetails";
 import ProviderDashboard from "../../Pages/ProviderDashboard/ProviderDashboard/ProviderDashboard";
 import ProviderDashboardStatus from "../../Pages/ProviderDashboard/ProviderDashboardStatus/ProviderDashboardStatus";
+import AdminRoute from "./AdminRoute/AdminRoute";
+import ServiceProviderProfile from "../../Pages/ServiceProviderProfile/ServiceProviderProfile/ServiceProviderProfile";
+import ProviderRoute from "./ProviderRoute/ProviderRoute";
+import ProviderBookings from "../../Pages/ProviderDashboard/ProviderBookings/ProviderBookings";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +42,13 @@ const router = createBrowserRouter([
       {
         path: "/all-services",
         element: <AllServices />,
+      },
+      {
+        path: "/provider-profile/:id",
+        element: <ServiceProviderProfile />,
+        loader: ({params}) => {
+          return fetch(`http://localhost:5000/provider-details/${params.id}`)
+        }
       },
       {
         path: "/user-dashboard",
@@ -62,17 +73,21 @@ const router = createBrowserRouter([
           {
             path: "/user-dashboard/booking-list/:id",
             element: <BookingDetails />,
-            loader: ({params}) => fetch(`http://localhost:5000/booking-details/${params.id}`),
+            loader: ({params}) => fetch(`https://subidha-home-services-server3792.glitch.me/booking-details/${params.id}`),
           }
         ],
       },
       {
         path: "/provider-dashboard",
-        element: <ProviderDashboard />,
+        element: <ProviderRoute><ProviderDashboard /></ProviderRoute>,
         children: [
           {
             path: "/provider-dashboard/dashboard",
             element: <ProviderDashboardStatus />
+          },
+          {
+            path: "/provider-dashboard/booking-list",
+            element: <ProviderBookings />
           }
         ]
       },
@@ -87,7 +102,7 @@ const router = createBrowserRouter([
           const categoryId = params.categoryId;
           const subCategoryId = params.subCategoryId;
           return fetch(
-            `http://localhost:5000/subcategory/${categoryId}/${subCategoryId}`
+            `https://subidha-home-services-server3792.glitch.me/subcategory/${categoryId}/${subCategoryId}`
           );
         },
       },
@@ -103,7 +118,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin-dashboard",
-    element: <AdminLayout />,
+    element: <PrivateRoute><AdminRoute><AdminLayout /></AdminRoute></PrivateRoute>,
     children: [
       {
         path: "/admin-dashboard",

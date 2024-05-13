@@ -41,7 +41,7 @@ const UserProfile = () => {
           const photoURL = data.data?.url;
 
 
-          fetch(`http://localhost:5000/user/update-image/${user?.uid}`, {
+          fetch(`https://subidha-home-services-server3792.glitch.me/user/update-image/${user?.uid}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const UserProfile = () => {
 
           updateUserProfile(user?.displayName, photoURL)
             .then(() => {
-              fetch(`http://localhost:5000/users/${user.uid}`, {
+              fetch(`https://subidha-home-services-server3792.glitch.me/users/${user.uid}`, {
                 headers: {
                   "Content-Type": "application/json",
                 },
@@ -124,7 +124,7 @@ const UserProfile = () => {
   });
 
   const fetchUserData = async () => {
-    const response = await fetch(`http://localhost:5000/users/${user?.uid}`, {
+    const response = await fetch(`https://subidha-home-services-server3792.glitch.me/users/${user?.uid}`, {
       // headers: {
       //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       // },
@@ -174,7 +174,7 @@ const UserProfile = () => {
     e.preventDefault();
     formData.uid = user.uid;
     try {
-      const res = await fetch("http://localhost:5000/users", {
+      const res = await fetch("https://subidha-home-services-server3792.glitch.me/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

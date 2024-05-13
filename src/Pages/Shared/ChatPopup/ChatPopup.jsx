@@ -10,7 +10,7 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
     queryKey: ["messages"],
     queryFn: () =>
       fetch(
-        `http://localhost:5000/messages/${user.uid}`
+        `https://subidha-home-services-server3792.glitch.me/messages/${user.uid}`
       ).then((res) => res.json()),
   });
 

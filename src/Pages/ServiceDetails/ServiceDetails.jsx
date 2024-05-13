@@ -39,7 +39,7 @@ const ServiceDetails = () => {
   const fetchUserData = async () => {
     const response = await fetch(
       `
-    http://localhost:5000/users/${user?.uid}`,
+    https://subidha-home-services-server3792.glitch.me/users/${user?.uid}`,
       {
         // headers: {
         //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -82,7 +82,7 @@ const ServiceDetails = () => {
   const fetchProviderData = async (userData) => {
     setLoading(true);
     const response = await fetch(
-      `http://localhost:5000/providers?division=${userData.division}&district=${userData.district}&upazila=${userData.upazila}&serviceCategory=${encodedServiceCategory}`
+      `https://subidha-home-services-server3792.glitch.me/providers?division=${userData.division}&district=${userData.district}&upazila=${userData.upazila}&serviceCategory=${encodedServiceCategory}`
     );
 
     if (!response.ok) {

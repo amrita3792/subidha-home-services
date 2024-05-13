@@ -2,25 +2,61 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { ChatContext } from "../../../App";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
-const UserBookings = () => {
+const ProviderBookings = () => {
   const { user } = useContext(AuthContext);
   const { receiver, setReceiver } = useContext(ChatContext);
-  console.log(receiver);
-  const [bookings, setBookings] = useState([]);
+  //   console.log(receiver);
+//   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    fetch(`https://subidha-home-services-server3792.glitch.me/booking/${user.uid}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setBookings(data);
-        setLoading(false);
-      });
-  }, []);
 
-  // console.log(loading);
+const {
+    data: bookings = [],
+    isLoading,
+    refetch,
+    error,
+  } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => fetchBookingData(),
+  });
+
+  const fetchBookingData = async () => {
+    const response = await fetch(`http://localhost:5000/provider-bookings/${user.uid}`, {
+      // headers: {
+      //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      // },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    return response.json();
+  };
+
+  const [status, setStatus] = useState("Order Placed");
+
+  const handleStatusChange = (event) => {
+    setStatus(event.target.value);
+    
+    fetch("http://localhost:5000/booking-status", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({status}),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+            refetch()
+        })
+        .catch((error) => {
+          console.error(error);
+        //   setLoading(false);
+        });
+  };
 
   return (
     <div className="h-full">
@@ -30,14 +66,15 @@ const UserBookings = () => {
         </div>
       ) : (
         <div>
-          <h2 className="text-xl font-semibold mb-8 text-center">MY BOOKINS</h2>
+          <h2 className="text-xl font-semibold mb-8 text-cente ">MY BOOKINS</h2>
           <div className="overflow-x-auto">
             <table className="table">
               {/* head */}
               <thead>
                 <tr className="text-base">
                   <th>Booking Details</th>
-                  <th>Service Provider</th>
+                  <th>User Details</th>
+                  <th>Booking Status</th>
                   <th></th>
                 </tr>
               </thead>
@@ -56,7 +93,10 @@ const UserBookings = () => {
                         </div>
                         <div>
                           <div className="font-bold text-lg">
-                            {booking.service} <span className="text-sm bg-green-700 text-white">{booking.bookingStatus}</span>
+                            {booking.service}{" "}
+                            <span className="text-sm bg-green-700 text-white">
+                              {booking.bookingStatus}
+                            </span>
                           </div>
                           <div className="text-sm">
                             <span className="font-bold">Booking Date:</span>{" "}
@@ -83,31 +123,45 @@ const UserBookings = () => {
                         <div className="avatar">
                           <div className="w-28 h-28 rounded-md">
                             <img
-                              src={booking.providerPhotoURL}
+                              src={booking.userPhotoURL}
                               alt="Avatar Tailwind CSS Component"
                             />
                           </div>
                         </div>
                         <div>
                           <div className="text-sm">
-                            <span className="font-bold">Provider Name:</span>{" "}
-                            {booking.providerName}
+                            <span className="font-bold">User Name:</span>{" "}
+                            {booking.userName}
                           </div>
 
                           <div className="text-sm">
                             <span className="font-bold">Phone:</span>{" "}
-                            {booking.providerPhone}
+                            {booking.userPhone}
                           </div>
                         </div>
                       </div>
+                    </td>
+                    <td>
+                      <select
+                        value={status}
+                        onChange={handleStatusChange}
+                        className="select select-bordered w-full max-w-xs"
+                      >
+                        <option disabled value="Order Placed">Order Placed</option>
+                        <option value="Order Confirmed">Order Confirmed</option>
+                        <option value="Order Processing">
+                          Order Processing
+                        </option>
+                        <option value="Order Completed">Order Completed</option>
+                      </select>
                     </td>
                     <th>
                       <button
                         onClick={() =>
                           setReceiver({
-                            uid: booking.serviceManUID,
-                            photoURL: booking.providerPhotoURL,
-                            userName: booking.providerName,
+                            uid: booking.userUID,
+                            photoURL: booking.userPhotoURL,
+                            userName: booking.userName,
                           })
                         }
                         className="btn btn-ghost btn-xs bg-secondary text-white hover:text-black"
@@ -134,4 +188,4 @@ const UserBookings = () => {
   );
 };
 
-export default UserBookings;
+export default ProviderBookings;

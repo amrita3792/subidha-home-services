@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { ChatContext, ThemeContext } from '../../../App';
+import { Link } from 'react-router-dom';
 
 const ServiceProvider = ({provider, handleChangeModalState, setServiceMan}) => {
     const {theme} = useContext(ThemeContext);
@@ -39,9 +40,9 @@ const ServiceProvider = ({provider, handleChangeModalState, setServiceMan}) => {
             </div>
           </div>
           <div className="card-actions gap-3 justify-end font-semibold mt-3">
-            <button className="flex gap-1 rounded-3xl text-sm items-center underline hover:no-underline text-[#FF6600]">
+            <Link to={`/provider-profile/${uid}`}><button className="flex gap-1 rounded-3xl text-sm items-center underline hover:no-underline text-[#FF6600]">
               Profile
-            </button>
+            </button></Link>
             <button onClick={() => {
               setReceiver(provider);
             }} className="flex gap-1 rounded-3xl text-sm items-center underline hover:no-underline">

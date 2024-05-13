@@ -64,7 +64,7 @@ const BookingModal = ({
     };
     // Perform any necessary actions, such as sending the data to a server
     // For example, you can use fetch API to send a POST request to a server endpoint
-    fetch("https://subidha-home-services-server2.glitch.me/booking", {
+    fetch("https://subidha-home-services-server3792.glitch.me/booking", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

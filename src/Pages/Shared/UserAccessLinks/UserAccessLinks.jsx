@@ -3,10 +3,17 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
 import { ThemeContext } from "../../../App";
+import useAdmin from "../../../hooks/useAdmin";
+import useProvider from "../../../hooks/useProvider";
 
 const UserAccessLinks = ({ isOpen, setIsOpen }) => {
   const { user, logout, loading, setLoading } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
+  const [isAdmin, isAdminLoading] = useAdmin(user.uid);
+  const [isProvider, isProviderLoading] = useProvider(user?.uid);
+  console.log("isProvider", isProvider);
+
+  // console.log(isAdmin);
 
   const profileLinks = [
     {
@@ -50,7 +57,7 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
     setLoading(true);
     const status = "Offline";
     fetch(
-      `https://subidha-home-services-server2.glitch.me/update-status/${user.uid}`,
+      `https://subidha-home-services-server3792.glitch.me/update-status/${user.uid}`,
       {
         method: "PUT",
         headers: {
@@ -111,32 +118,47 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
           </div>
 
           <ul className="flex flex-col items-start gap-3 w-[150px]">
-            <li
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsOpen(false);
-              }}
-            >
-              <Link
-                to="/admin-dashboard"
-                className="text-sm font-semibold hover:underline text-start"
+            {isAdmin && (
+              <li
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsOpen(false);
+                }}
               >
-                Admin Dashboard
-              </Link>
-            </li>
-            <li
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsOpen(false);
-              }}
-            >
-              <Link
-                to="/provider-dashboard/dashboard"
-                className="text-sm font-semibold hover:underline text-start"
+                <Link
+                  to="/admin-dashboard"
+                  className="text-sm font-semibold hover:underline text-start"
+                >
+                  Admin Dashboard
+                </Link>
+              </li>
+            )}
+
+            {isAdminLoading && (
+              <li className="flex  w-full">
+                <div className="skeleton h-4 w-28"></div>
+              </li>
+            )}
+            {isProvider && (
+              <li
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsOpen(false);
+                }}
               >
-                Provider Dashboard
-              </Link>
-            </li>
+                <Link
+                  to="/provider-dashboard/dashboard"
+                  className="text-sm font-semibold hover:underline text-start"
+                >
+                  Provider Dashboard
+                </Link>
+              </li>
+            )}
+            {isProviderLoading && (
+              <li className="flex  w-full">
+                <div className="skeleton h-4 w-28"></div>
+              </li>
+            )}
             {profileLinks.map((profileLink) => (
               <li
                 onClick={(e) => {

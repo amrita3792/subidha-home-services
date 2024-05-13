@@ -11,7 +11,7 @@ const users = () => {
   const { user: loginUser } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/users?page=${page}&size=${size}`)
+    fetch(`https://subidha-home-services-server3792.glitch.me/users?page=${page}&size=${size}`)
       .then((res) => res.json())
       .then((data) => {
         setUsers(data.users);
@@ -21,11 +21,11 @@ const users = () => {
 
   const pages = Math.ceil(count / size);
 
-  const roles = ["Admin", "Subadmin", "Super Admin"];
+  const roles = ["Admin", "Sub admin", "Super admin"];
 
   const handleOnChnage = (e) => {
     const searchText = e.target.value;
-    fetch(`http://localhost:5000/users?searchText=${searchText}`)
+    fetch(`https://subidha-home-services-server3792.glitch.me/users?searchText=${searchText}`)
       .then((res) => res.json())
       .then((data) => {
         setUsers(data.users);
@@ -34,7 +34,7 @@ const users = () => {
 
   const handleUpdateUser = (e, user) => {
     fetch(
-      `http://localhost:5000/users/admin/${user.uid}?userId=${loginUser.uid}`,
+      `https://subidha-home-services-server3792.glitch.me/users/admin/${user.uid}?userId=${loginUser.uid}`,
       {
         method: "PATCH",
         headers: {
@@ -54,7 +54,18 @@ const users = () => {
               theme: "colored",
             }
           );
+        } else {
+          toast.error(data.message, {
+            hideProgressBar: true,
+            theme: "colored",
+          });
         }
+      })
+      .catch((error) => {
+        toast.error(error.message, {
+          hideProgressBar: true,
+          theme: "colored",
+        });
       });
   };
 

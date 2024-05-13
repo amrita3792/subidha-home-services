@@ -17,11 +17,11 @@ const AllServiceCategories = () => {
     error,
   } = useQuery({
     queryKey: ["allServices"],
-    queryFn: () => fetchUserData(),
+    queryFn: () => fetchServiceCategoriesData(),
   });
 
-  const fetchUserData = async () => {
-    const response = await fetch("http://localhost:5000/allServiceCategories", {
+  const fetchServiceCategoriesData = async () => {
+    const response = await fetch("https://subidha-home-services-server3792.glitch.me/allServiceCategories", {
       // headers: {
       //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       // },

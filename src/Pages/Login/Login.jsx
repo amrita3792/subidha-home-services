@@ -9,9 +9,11 @@ import ResendEmailVerifyModal from "./ResendEmailVerifyModal/ResendEmailVerifyMo
 import { getDate, getTime } from "../../utilities/date";
 // import { getUserToken } from "../../utilities/getToken";
 import useToken from "../../hooks/useToken";
+import { Navigate } from "react-router-dom";
 
 const Login = () => {
-  const { googleSignIn, setLoading, signIn, loading } = useContext(AuthContext);
+  const { googleSignIn, setLoading, signIn, loading, user } =
+    useContext(AuthContext);
   const [error, setError] = useState(null);
   const [resetPassword, setResetPassword] = useState(false);
   const [verifyEmail, setVerifyEmail] = useState(false);
@@ -69,7 +71,7 @@ const Login = () => {
           status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
         };
 
-        fetch("http://localhost:5000/users", {
+        fetch("https://subidha-home-services-server3792.glitch.me/users", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -81,6 +83,7 @@ const Login = () => {
             if (data.acknowledged) {
               setUid(currentUser.uid);
               setLoading(false);
+              // navigate(from, { replace: true });
             }
           })
           .catch((error) => {
@@ -114,7 +117,7 @@ const Login = () => {
         const status = "active";
 
         if (user.emailVerified) {
-          fetch(`http://localhost:5000/update-status/${user.uid}`, {
+          fetch(`https://subidha-home-services-server3792.glitch.me/update-status/${user.uid}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",

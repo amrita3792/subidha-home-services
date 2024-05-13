@@ -108,7 +108,7 @@ export const NumberVerificatonModal = ({
           status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
         };
 
-        fetch("http://localhost:5000/users", {
+        fetch("https://subidha-home-services-server3792.glitch.me/users", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
