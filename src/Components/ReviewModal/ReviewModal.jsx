@@ -1,16 +1,19 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const ReviewModal = ({ isModalOpen, setIsModalOpen, serviceManUID }) => {
+const ReviewModal = ({ isModalOpen, setIsModalOpen, reviewService }) => {
   const { user } = useContext(AuthContext);
   const [selectedFileURL, setSelectedFileURL] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [rating, setRating] = useState(0);
   const [isImageLoading, setIsImageLoading] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  console.log(selectedFileURL);
+  const {serviceManUID, service, servicePhotoURL
+  } = reviewService;
 
   const isFileValid = (file) => {
     const allowedExtensions = ["jpg", "jpeg", "png"];
@@ -67,8 +70,30 @@ const ReviewModal = ({ isModalOpen, setIsModalOpen, serviceManUID }) => {
       selectedFileURL,
       comment: form.comment.value,
       date: isoDateString,
+      userName: user.displayName,
+      userPhoto: user.photoURL,
+      userUID: user.uid,
       serviceManUID,
+      service,
+      servicePhotoURL
+
     };
+
+    fetch("http://localhost:5000/review", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(review),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          setLoading(false);
+          setIsModalOpen(!isModalOpen);
+          navigate(`/provider-profile/${serviceManUID}`)
+        }
+      });
   };
 
   return (
@@ -211,6 +236,9 @@ const ReviewModal = ({ isModalOpen, setIsModalOpen, serviceManUID }) => {
 
               <div className="flex justify-end">
                 <button className="btn bg-[#FF6600] hover:bg-[#1D2736] rounded-none text-white px-7 active:scale-95">
+                  {loading && (
+                    <span className="loading loading-spinner loading-sm"></span>
+                  )}{" "}
                   POST
                 </button>
               </div>

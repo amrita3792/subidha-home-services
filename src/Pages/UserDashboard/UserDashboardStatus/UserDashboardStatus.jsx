@@ -1,8 +1,18 @@
-import React, { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../../App";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const UserDashboardStatus = () => {
   const { theme } = useContext(ThemeContext);
+  const { user } = useContext(AuthContext);
+  const [dashboardStatus, setDashboardStatus] = useState({});
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/user-bookings-reviews/${user.uid}`)
+      .then((res) => res.json())
+      .then((data) => setDashboardStatus(data));
+  }, []);
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div
@@ -31,7 +41,9 @@ const UserDashboardStatus = () => {
             </svg>
           </div>
           <div className="flex flex-col items-end">
-            <h2 className="card-title text-2xl">15</h2>
+            <h2 className="card-title text-2xl">
+              {dashboardStatus.totalBookings}
+            </h2>
             <span className="font-semibold  text-sm">Bookings</span>
           </div>
         </div>
@@ -62,7 +74,9 @@ const UserDashboardStatus = () => {
             </svg>
           </div>
           <div className="flex flex-col items-end">
-            <h2 className="card-title text-2xl">4</h2>
+            <h2 className="card-title text-2xl">
+              {dashboardStatus.totalReviews}
+            </h2>
             <span className="font-semibold  text-sm">Reviews</span>
           </div>
         </div>
@@ -93,7 +107,7 @@ const UserDashboardStatus = () => {
             </svg>
           </div>
           <div className="flex flex-col items-end">
-            <h2 className="card-title text-2xl">4</h2>
+            <h2 className="card-title text-2xl">0</h2>
             <span className="font-semibold  text-sm">Notifications</span>
           </div>
         </div>

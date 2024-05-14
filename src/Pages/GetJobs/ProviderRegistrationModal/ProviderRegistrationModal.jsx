@@ -156,6 +156,7 @@ const ProviderRegistrationModal = () => {
     formData.photoURL = selectedFileURL;
     formData.NIDCardURL = selectedNIDCardURL;
     formData.uid = user.uid;
+    formData.role = "provider";
     try {
       const res = await fetch(
         "https://subidha-home-services-server3792.glitch.me/providers",

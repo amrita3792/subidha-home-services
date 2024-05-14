@@ -62,7 +62,7 @@ const ProviderDashboardStatus = () => {
             </svg>
           </div>
           <div className="flex flex-col items-end">
-            <h2 className="card-title text-2xl">40</h2>
+            <h2 className="card-title text-2xl">0</h2>
             <span className="font-semibold  text-sm">Services</span>
           </div>
         </div>
@@ -93,7 +93,7 @@ const ProviderDashboardStatus = () => {
             </svg>
           </div>
           <div className="flex flex-col items-end">
-            <h2 className="card-title text-2xl">4</h2>
+            <h2 className="card-title text-2xl">0</h2>
             <span className="font-semibold  text-sm">Notifications</span>
           </div>
         </div>

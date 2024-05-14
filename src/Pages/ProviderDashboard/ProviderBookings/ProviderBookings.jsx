@@ -10,6 +10,7 @@ const ProviderBookings = () => {
   //   console.log(receiver);
   //   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("Order Placed");
 
   const {
     data: bookings = [],
@@ -17,7 +18,7 @@ const ProviderBookings = () => {
     refetch,
     error,
   } = useQuery({
-    queryKey: ["user"],
+    queryKey: ["provider-bookings"],
     queryFn: () => fetchBookingData(),
   });
 
@@ -37,8 +38,6 @@ const ProviderBookings = () => {
 
     return response.json();
   };
-
-  const [status, setStatus] = useState("Order Placed");
 
   const handleStatusChange = (event, bookingId) => {
     setStatus(event.target.value);
@@ -71,7 +70,7 @@ const ProviderBookings = () => {
         </div>
       ) : (
         <div>
-          <h2 className="text-xl font-semibold mb-8 text-cente ">MY BOOKINS</h2>
+          <h2 className="text-xl font-semibold mb-8 text-cente ">BOOKING LIST</h2>
           <div className="overflow-x-auto">
             <table className="table">
               {/* head */}

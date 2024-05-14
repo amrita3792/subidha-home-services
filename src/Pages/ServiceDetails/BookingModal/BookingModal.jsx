@@ -4,6 +4,7 @@ import "react-day-picker/dist/style.css";
 import { format } from "date-fns";
 import { getCurrentDateTime } from "../../../utilities/date";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const BookingModal = ({
   handleChangeModalState,
@@ -11,10 +12,10 @@ const BookingModal = ({
   subCategory,
   serviceMan,
 }) => {
-
   const [quantity, setQuantity] = useState(1);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   let footer = <p>Please pick a day.</p>;
   if (selectedDate) {
@@ -80,6 +81,7 @@ const BookingModal = ({
           });
           setIsLoading(false);
           handleChangeModalState();
+          navigate("/user-dashboard/booking-list");
         }
       })
       .catch((error) => {

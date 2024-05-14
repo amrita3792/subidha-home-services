@@ -7,7 +7,8 @@ import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
 import ChatPopup from "../ChatPopup/ChatPopup";
 import io from "socket.io-client";
 import ChatWindow from "../ChatWindow/ChatWindow";
-import logo from "../../../assets/logo/subidha-logo.png";
+import SearchModal from "../../../Components/SearchModal/SearchModal";
+// import logo from "../../../assets/logo/subidha-logo.png";
 
 const Navbar = ({ isMounted }) => {
   const { user } = useContext(AuthContext);
@@ -23,6 +24,7 @@ const Navbar = ({ isMounted }) => {
   const [loadingMessage, setLoadingMessage] = useState(false);
   const [roomId, setRoomId] = useState("");
   const [totalUnseenMessage, setTotalUnseenMessage] = useState(0);
+  const [openSearchBar, setOpenSearchBar] = useState(false);
 
   function beep() {
     var snd = new Audio(
@@ -309,7 +311,7 @@ const Navbar = ({ isMounted }) => {
               </svg>
             </label>
           </button>
-          <button className="text-white lg:tooltip" data-tip="Search">
+          <button onClick={() => setOpenSearchBar((prev) => !prev)} className="text-white lg:tooltip block relative" data-tip="Search">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -324,6 +326,7 @@ const Navbar = ({ isMounted }) => {
                 d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
               />
             </svg>
+            <SearchModal openSearchBar={openSearchBar} setOpenSearchBar={setOpenSearchBar} />
           </button>
           {user?.uid && (
             <div className="text-white relative">

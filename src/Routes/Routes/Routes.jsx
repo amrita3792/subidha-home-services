@@ -21,6 +21,7 @@ import AdminRoute from "./AdminRoute/AdminRoute";
 import ServiceProviderProfile from "../../Pages/ServiceProviderProfile/ServiceProviderProfile/ServiceProviderProfile";
 import ProviderRoute from "./ProviderRoute/ProviderRoute";
 import ProviderBookings from "../../Pages/ProviderDashboard/ProviderBookings/ProviderBookings";
+import UserReviews from "../../Pages/UserDashboard/UserReviews/UserReviews";
 
 const router = createBrowserRouter([
   {
@@ -46,9 +47,9 @@ const router = createBrowserRouter([
       {
         path: "/provider-profile/:id",
         element: <ServiceProviderProfile />,
-        loader: ({params}) => {
-          return fetch(`http://localhost:5000/provider-details/${params.id}`)
-        }
+        loader: ({ params }) => {
+          return fetch(`http://localhost:5000/provider-details/${params.id}`);
+        },
       },
       {
         path: "/user-dashboard",
@@ -68,28 +69,44 @@ const router = createBrowserRouter([
           },
           {
             path: "/user-dashboard/booking-list",
-            element: <UserBookings />
+            element: <UserBookings />,
           },
           {
             path: "/user-dashboard/booking-list/:id",
             element: <BookingDetails />,
-            loader: ({params}) => fetch(`https://subidha-home-services-server3792.glitch.me/booking-details/${params.id}`),
+            loader: ({ params }) =>
+              fetch(
+                `https://subidha-home-services-server3792.glitch.me/booking-details/${params.id}`
+              ),
+          },
+          {
+            path: "/user-dashboard/user-reviews",
+            element: <UserReviews />
           }
         ],
       },
       {
         path: "/provider-dashboard",
-        element: <ProviderRoute><ProviderDashboard /></ProviderRoute>,
+        element: (
+          <ProviderRoute>
+            <ProviderDashboard />
+          </ProviderRoute>
+        ),
         children: [
           {
             path: "/provider-dashboard/dashboard",
-            element: <ProviderDashboardStatus />
+            element: <ProviderDashboardStatus />,
           },
           {
             path: "/provider-dashboard/booking-list",
-            element: <ProviderBookings />
-          }
-        ]
+            element: <ProviderBookings />,
+          },
+          {
+            path: "/provider-dashboard/profile-settings",
+            element: <UserProfile />,
+          },
+          
+        ],
       },
       {
         path: "/service-details/:categoryId/:subCategoryId",
@@ -118,7 +135,13 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin-dashboard",
-    element: <PrivateRoute><AdminRoute><AdminLayout /></AdminRoute></PrivateRoute>,
+    element: (
+      <PrivateRoute>
+        <AdminRoute>
+          <AdminLayout />
+        </AdminRoute>
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/admin-dashboard",

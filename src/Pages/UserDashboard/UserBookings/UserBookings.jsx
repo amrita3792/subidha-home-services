@@ -7,11 +7,11 @@ import ReviewModal from "../../../Components/ReviewModal/ReviewModal";
 const UserBookings = () => {
   const { user } = useContext(AuthContext);
   const { receiver, setReceiver } = useContext(ChatContext);
-  console.log(receiver);
+  // console.log(receiver);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [serviceManUID, setServiceManUID] = useState("");
+  const [reviewService, setReviewService] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -140,8 +140,8 @@ const UserBookings = () => {
                       <th>
                         <button
                           onClick={() => {
-                            setServiceManUID(booking.serviceManUID);
-                            handleChangeModalState()
+                            setReviewService(booking);
+                            handleChangeModalState();
                           }}
                           className="btn btn-ghost btn-xs bg-neutral text-white hover:text-black"
                         >
@@ -158,7 +158,7 @@ const UserBookings = () => {
       )}
       {isModalOpen && (
         <ReviewModal
-        serviceManUID={serviceManUID}
+          reviewService={reviewService}
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
         />
