@@ -24,7 +24,8 @@ const ProviderBookings = () => {
 
   const fetchBookingData = async () => {
     const response = await fetch(
-      `http://localhost:5000/provider-bookings/${user.uid}`,
+      `
+https://subidha-home-services-server3792.glitch.me/provider-bookings/${user.uid}`,
       {
         // headers: {
         //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -41,15 +42,19 @@ const ProviderBookings = () => {
 
   const handleStatusChange = (event, bookingId) => {
     setStatus(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
 
-    fetch(`http://localhost:5000/booking-status/${bookingId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ status: event.target.value }),
-    })
+    fetch(
+      `
+https://subidha-home-services-server3792.glitch.me/booking-status/${bookingId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: event.target.value }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount) {
@@ -70,7 +75,9 @@ const ProviderBookings = () => {
         </div>
       ) : (
         <div>
-          <h2 className="text-xl font-semibold mb-8 text-cente ">BOOKING LIST</h2>
+          <h2 className="text-xl font-semibold mb-8 text-cente ">
+            BOOKING LIST
+          </h2>
           <div className="overflow-x-auto">
             <table className="table">
               {/* head */}
@@ -194,7 +201,7 @@ const ProviderBookings = () => {
                             userName: booking.userName,
                           })
                         }
-                        className="btn btn-ghost btn-xs bg-secondary text-white hover:text-black"
+                        className="btn btn-ghost btn-xs bg-[#345DA7] text-white hover:text-black"
                       >
                         Chat
                       </button>

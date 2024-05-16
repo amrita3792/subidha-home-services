@@ -156,7 +156,7 @@ const Signup = () => {
               }
             })
             .catch((error) => {
-              console.log(error);
+              // console.log(error);
               setLoading(false);
             });
           updateName(user, name);
@@ -174,7 +174,7 @@ const Signup = () => {
           }
           setError(errorMessage);
           setLoading(false);
-          console.log(`Error: ${errorMessage}`);
+          // console.log(`Error: ${errorMessage}`);
         });
     }
   };
@@ -216,7 +216,7 @@ const Signup = () => {
         "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
       );
     } else {
-      console.log();
+      // console.log();
     }
   };
 

@@ -12,8 +12,7 @@ const ReviewModal = ({ isModalOpen, setIsModalOpen, reviewService }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const {serviceManUID, service, servicePhotoURL
-  } = reviewService;
+  const { serviceManUID, service, servicePhotoURL } = reviewService;
 
   const isFileValid = (file) => {
     const allowedExtensions = ["jpg", "jpeg", "png"];
@@ -75,11 +74,10 @@ const ReviewModal = ({ isModalOpen, setIsModalOpen, reviewService }) => {
       userUID: user.uid,
       serviceManUID,
       service,
-      servicePhotoURL
-
+      servicePhotoURL,
     };
 
-    fetch("http://localhost:5000/review", {
+    fetch("https://subidha-home-services-server3792.glitch.me/review", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -91,7 +89,7 @@ const ReviewModal = ({ isModalOpen, setIsModalOpen, reviewService }) => {
         if (data.acknowledged) {
           setLoading(false);
           setIsModalOpen(!isModalOpen);
-          navigate(`/provider-profile/${serviceManUID}`)
+          navigate(`/provider-profile/${serviceManUID}`);
         }
       });
   };

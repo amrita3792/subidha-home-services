@@ -10,7 +10,7 @@ const UserReviews = () => {
         queryKey: ["user-reviews"],
         queryFn: () =>
           fetch(
-            `http://localhost:5000/user-reviews/${user.uid}`
+            `https://subidha-home-services-server3792.glitch.me/user-reviews/${user.uid}`
           ).then((res) => res.json()),
       });
 

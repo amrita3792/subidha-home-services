@@ -22,6 +22,7 @@ import ServiceProviderProfile from "../../Pages/ServiceProviderProfile/ServicePr
 import ProviderRoute from "./ProviderRoute/ProviderRoute";
 import ProviderBookings from "../../Pages/ProviderDashboard/ProviderBookings/ProviderBookings";
 import UserReviews from "../../Pages/UserDashboard/UserReviews/UserReviews";
+import ProviderServices from "../../Pages/ProviderDashboard/ProviderServices/ProviderServices/ProviderServices";
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,8 @@ const router = createBrowserRouter([
         path: "/provider-profile/:id",
         element: <ServiceProviderProfile />,
         loader: ({ params }) => {
-          return fetch(`http://localhost:5000/provider-details/${params.id}`);
+          return fetch(`
+https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}`);
         },
       },
       {
@@ -100,6 +102,10 @@ const router = createBrowserRouter([
           {
             path: "/provider-dashboard/booking-list",
             element: <ProviderBookings />,
+          },
+          {
+            path: "/provider-dashboard/my-services",
+            element: <ProviderServices />
           },
           {
             path: "/provider-dashboard/profile-settings",

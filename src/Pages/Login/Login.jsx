@@ -87,7 +87,7 @@ const Login = () => {
             }
           })
           .catch((error) => {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
           });
       })
@@ -148,7 +148,7 @@ const Login = () => {
           setLoading(false);
           return;
         }
-        console.log(error.message);
+        // console.log(error.message);
         console.error(`Error: ${error}`);
         toast.error(error.message, {
           hideProgressBar: true,

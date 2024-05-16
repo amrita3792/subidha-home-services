@@ -18,7 +18,8 @@ const ServiceProviderProfile = () => {
   });
 
   const fetchReviewsData = async () => {
-    const response = await fetch(`http://localhost:5000/reviews/${uid}`, {
+    const response = await fetch(`
+https://subidha-home-services-server3792.glitch.me/reviews/${uid}`, {
       // headers: {
       //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       // },
@@ -31,7 +32,7 @@ const ServiceProviderProfile = () => {
     return response.json();
   };
 
-  console.log(reviews);
+  // console.log(reviews);
 
   return (
     <div className="xl:max-w-screen-xl lg:max-w-screen-lg  mx-auto">

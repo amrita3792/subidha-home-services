@@ -55,7 +55,7 @@ export const NumberVerificatonModal = ({
     sendOTP(phone)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
-        console.log(confirmationResult);
+        // console.log(confirmationResult);
         toast.success("We successfully sent an OTP to your phone number", {
           hideProgressBar: true,
           theme: "colored",
@@ -65,7 +65,7 @@ export const NumberVerificatonModal = ({
         setVisibleRecaptcha(false);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         setShowOTP(false);
         setLoading(false);
         setVisibleRecaptcha(false);
@@ -117,7 +117,7 @@ export const NumberVerificatonModal = ({
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             if (data.acknowledged) {
               setUid(currentUser.uid);
               toast.success("Your verification is successful.", {
@@ -128,13 +128,13 @@ export const NumberVerificatonModal = ({
             }
           })
           .catch((error) => {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
           });
         // ...
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         alert("User couldn't sign in (bad verification code?)");
         setLoading(false);
       });

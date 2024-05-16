@@ -15,7 +15,7 @@ const ForgotPasswordModal = ({ setResetPassword }) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
-    console.log(email);
+    // console.log(email);
     setError(null);
     resetPassword(email)
       .then(() => {

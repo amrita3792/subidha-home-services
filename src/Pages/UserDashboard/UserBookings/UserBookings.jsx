@@ -123,7 +123,7 @@ const UserBookings = () => {
                             userName: booking.providerName,
                           })
                         }
-                        className="btn btn-ghost btn-xs bg-secondary text-white hover:text-black"
+                        className="btn btn-ghost btn-xs bg-[#345DA7] text-white hover:text-black"
                       >
                         Chat
                       </button>
@@ -131,7 +131,7 @@ const UserBookings = () => {
                     <th>
                       <Link
                         to={`/user-dashboard/booking-list/${booking._id}`}
-                        className="btn btn-ghost btn-xs bg-primary text-white hover:text-black"
+                        className="btn btn-ghost btn-xs bg-[#FF6600] text-white hover:text-black"
                       >
                         details
                       </Link>

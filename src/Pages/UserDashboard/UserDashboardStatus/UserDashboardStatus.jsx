@@ -8,7 +8,8 @@ const UserDashboardStatus = () => {
   const [dashboardStatus, setDashboardStatus] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user-bookings-reviews/${user.uid}`)
+    fetch(`
+https://subidha-home-services-server3792.glitch.me/user-bookings-reviews/${user.uid}`)
       .then((res) => res.json())
       .then((data) => setDashboardStatus(data));
   }, []);

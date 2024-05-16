@@ -158,7 +158,7 @@ const UserProfile = () => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage(file);
-      console.log(file);
+      // console.log(file);
     }
   };
 

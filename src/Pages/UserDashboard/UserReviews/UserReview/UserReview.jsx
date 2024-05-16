@@ -1,5 +1,5 @@
 const UserReview = ({ review }) => {
-  console.log(review);
+  // console.log(review);
   const {
     servicePhotoURL,
     service,
@@ -64,7 +64,7 @@ const UserReview = ({ review }) => {
           <div className="flex items-start gap-3 mt-3">
             <img className="w-16 h-16 rounded-full" src={userPhoto} alt="" />
             <div>
-              <p className="">{userName}</p>
+              <p className="font-semibold">{userName}</p>
               <p className="flex gap-4 items-center">
                 <span className="flex">{ratings}</span>{" "}
                 <span className="font-semibold">{timeStr}</span>
