@@ -1,5 +1,4 @@
 const UserReview = ({ review }) => {
-  // console.log(review);
   const {
     servicePhotoURL,
     service,

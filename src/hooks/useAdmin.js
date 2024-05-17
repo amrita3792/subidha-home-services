@@ -8,7 +8,7 @@ const useAdmin = uid => {
             fetch(`https://subidha-home-services-server3792.glitch.me/users/admin/${uid}`)
             .then(res => res.json())
             .then(data => {
-                // console.log(data.isAdmin);
+     
                 setIsAdmin(data.isAdmin);
                 setIsAdminLoading(false);
             })

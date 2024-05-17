@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../../contexts/AuthProvider";
 import { toast } from "react-toastify";
+import { faPray } from "@fortawesome/free-solid-svg-icons";
 
 const EditService = ({
   editService,
@@ -10,15 +11,14 @@ const EditService = ({
   serviceCategory,
   handleChangeModalState,
   setRefetch,
-  
+  updateService,
 }) => {
   const { user } = useContext(AuthContext);
   const [selectedFileURL, setSelectedFileURL] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [isImageLoading, setIsImageLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { serviceName } = service;
-
-
 
   const isFileValid = (file) => {
     const allowedExtensions = ["jpg", "jpeg", "png"];
@@ -29,7 +29,7 @@ const EditService = ({
   const handleFileChange = (e, setImageFunction, setImageURL) => {
     const file = e.target.files[0];
     setIsImageLoading(true);
-    // console.log(file);
+
     if (file && isFileValid(file)) {
       setImageFunction(file);
       uploadImage(file, setImageURL);
@@ -59,18 +59,21 @@ const EditService = ({
   };
 
   const handleEditService = (e) => {
-    
+    setLoading(true);
     e.preventDefault();
     const form = e.target;
     const editService = {
       serviceName,
       serviceCategory,
       amount: form.amount.value,
+      title: form.title.value,
       details: form.details.value,
       selectedFileURL,
     };
 
-    fetch(`http://localhost:5000/edit-provider-service/${user.uid}`, {
+    console.log(editService);
+
+    fetch(`https://subidha-home-services-server3792.glitch.me/edit-provider-service/${user.uid}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,6 +88,7 @@ const EditService = ({
         });
         setRefetch((prev) => !prev);
         form.reset();
+        setLoading(false);
         handleChangeModalState();
       })
       .catch((error) => {
@@ -121,32 +125,63 @@ const EditService = ({
         <h3 className="font-bold text-lg">Edit Service</h3>
         <form onSubmit={handleEditService} className="my-8">
           <div className="grid grid-cols-2 gap-5">
-            <input
-              type="text"
-              placeholder="Service Name..."
-              defaultValue={serviceName}
-              disabled
-              className="input input-bordered input-error w-full"
-            />
-            <input
-              defaultValue={serviceCategory}
-              disabled
-              type="text"
-              placeholder="Service Category..."
-              className="input input-bordered input-error w-full"
-            />
-            <input
-              required
-              name="amount"
-              type="number"
-              placeholder="Service Amount..."
-              className="input input-bordered input-error w-full"
-            />
-            <textarea
-              name="details"
-              className="textarea textarea-error col-span-2 h-56"
-              placeholder="Details Information..."
-            ></textarea>
+            <div>
+              <p className="mb-2 font-semibold">Service Name</p>
+              <input
+                type="text"
+                placeholder="Service Name..."
+                defaultValue={serviceName}
+                disabled
+                className="input input-bordered input-error w-full"
+              />
+            </div>
+            <div>
+              <p className="mb-2 font-semibold">Service Category</p>
+              <input
+                defaultValue={serviceCategory}
+                disabled
+                type="text"
+                placeholder="Service Category..."
+                className="input input-bordered input-error w-full"
+              />
+            </div>
+            <div>
+              <p className="mb-2 font-semibold">
+                Service Amount <span className="text-red-500">*</span>
+              </p>
+              <input
+                required
+                defaultValue={updateService.amount}
+                name="amount"
+                type="number"
+                placeholder="Service Amount..."
+                className="input input-bordered input-error w-full"
+              />
+            </div>
+            <div>
+              <p className="mb-2 font-semibold">
+                Add Title <span className="text-red-500">*</span>
+              </p>
+              <input
+                required
+                defaultValue={updateService.title}
+                name="title"
+                type="text"
+                placeholder="Add Title..."
+                className="input input-bordered input-error w-full"
+              />
+            </div>
+            <div className="col-span-2">
+              <p className="mb-2 font-semibold">
+                Add Description <span className="text-red-500">*</span>
+              </p>
+              <textarea
+                name="details"
+                defaultValue={updateService.details}
+                className="textarea textarea-error h-56 w-full"
+                placeholder="Details Information..."
+              ></textarea>
+            </div>
             {selectedFileURL ? (
               <div className="rounded-md border bg-gray-50 w-36 mt-2">
                 <img
@@ -203,7 +238,7 @@ const EditService = ({
             )}
           </div>
           <div className="mt-5 flex justify-end">
-            <button className="btn bg-[#345DA7] text-white">Submit</button>
+            <button className="btn bg-[#345DA7] hover:bg-[#345DA7] text-white">{loading && <span className="loading loading-spinner loading-sm"></span>}Submit</button>
           </div>
         </form>
       </div>

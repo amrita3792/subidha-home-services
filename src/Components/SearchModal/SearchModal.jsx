@@ -7,7 +7,7 @@ const SearchModal = ({ openSearchBar, setOpenSearchBar }) => {
 
   const handleChangeInput = (e) => {
     const searchText = e.target.value;
-    // console.log(searchValue);
+
     fetch(`
 https://subidha-home-services-server3792.glitch.me/find-services?searchText=${searchText}`)
       .then((res) => res.json())
@@ -15,7 +15,7 @@ https://subidha-home-services-server3792.glitch.me/find-services?searchText=${se
   };
 
   const handleNavigate = (service) => {
-    // console.log(service);
+
     setOpenSearchBar(!openSearchBar);
     navigate(`/service-details/${service.categoryId}/${service.subCategoryId}`);
   };

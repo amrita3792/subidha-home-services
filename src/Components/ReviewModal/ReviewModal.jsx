@@ -23,7 +23,7 @@ const ReviewModal = ({ isModalOpen, setIsModalOpen, reviewService }) => {
   const handleFileChange = (e, setImageFunction, setImageURL) => {
     const file = e.target.files[0];
     setIsImageLoading(true);
-    console.log(file);
+
     if (file && isFileValid(file)) {
       setImageFunction(file);
       uploadImage(file, setImageURL);

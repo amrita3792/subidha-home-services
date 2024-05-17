@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { ChatContext } from "../../../App";
-import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import ConfirmationModal from "../../../Components/ConfirmationModal/ConfirmationModal";
+import { toast } from "react-toastify";
 
 const ProviderBookings = () => {
   const { user } = useContext(AuthContext);
   const { receiver, setReceiver } = useContext(ChatContext);
-  //   console.log(receiver);
+
   //   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("Order Placed");
@@ -24,8 +25,7 @@ const ProviderBookings = () => {
 
   const fetchBookingData = async () => {
     const response = await fetch(
-      `
-https://subidha-home-services-server3792.glitch.me/provider-bookings/${user.uid}`,
+      `https://subidha-home-services-server3792.glitch.me/provider-bookings/${user.uid}`,
       {
         // headers: {
         //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -42,29 +42,35 @@ https://subidha-home-services-server3792.glitch.me/provider-bookings/${user.uid}
 
   const handleStatusChange = (event, bookingId) => {
     setStatus(event.target.value);
-    // console.log(event.target.value);
-
-    fetch(
-      `
-https://subidha-home-services-server3792.glitch.me/booking-status/${bookingId}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: event.target.value }),
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.modifiedCount) {
-          refetch();
+    if (confirm("Are you sure want to update status?") == true) {
+      fetch(
+        `https://subidha-home-services-server3792.glitch.me/booking-status/${bookingId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status: event.target.value }),
         }
-      })
-      .catch((error) => {
-        console.error(error);
-        //   setLoading(false);
-      });
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.modifiedCount) {
+            toast.success(
+              `The booking has been ${event.target.value.split(" ")[1]}.`,
+              {
+                hideProgressBar: true,
+                theme: "colored",
+              }
+            );
+            refetch();
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          //   setLoading(false);
+        });
+    } 
   };
 
   return (
@@ -177,6 +183,7 @@ https://subidha-home-services-server3792.glitch.me/booking-status/${bookingId}`,
                         </option>
                         <option
                           disabled={
+                            booking.bookingStatus === "Order Placed" ||
                             booking.bookingStatus === "Order Completed" ||
                             booking.bookingStatus === "Order Processing"
                           }
@@ -185,7 +192,11 @@ https://subidha-home-services-server3792.glitch.me/booking-status/${bookingId}`,
                           Order Processing
                         </option>
                         <option
-                          disabled={booking.bookingStatus === "Order Completed"}
+                          disabled={
+                            booking.bookingStatus === "Order Completed" ||
+                            booking.bookingStatus === "Order Placed" ||
+                            booking.bookingStatus === "Order Confirmed"
+                          }
                           value="Order Completed"
                         >
                           Order Completed
@@ -221,6 +232,7 @@ https://subidha-home-services-server3792.glitch.me/booking-status/${bookingId}`,
           </div>
         </div>
       )}
+      <ConfirmationModal />
     </div>
   );
 };

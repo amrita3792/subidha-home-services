@@ -21,8 +21,8 @@ const TopRatedProSection = () => {
       </div>
       <div className="md:basis-[50%] lg:basis-[60%]">
         <img
-          className="w-full"
-          src="https://i.ibb.co/pdgYmns/male-female-workers-wearing-work-clothes-removebg-preview-1.png"
+          className="w-full rounded-xl"
+          src="https://i.ibb.co/mbG84q3/builder-man-wearing-construction-uniform-standing-with-arms-crossed-with-confident-smile-isolated-or.jpg"
           alt=""
         />
       </div>

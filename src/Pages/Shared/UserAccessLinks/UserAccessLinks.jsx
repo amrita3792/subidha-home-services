@@ -11,9 +11,6 @@ const UserAccessLinks = ({ isOpen, setIsOpen }) => {
   const { theme } = useContext(ThemeContext);
   const [isAdmin, isAdminLoading] = useAdmin(user.uid);
   const [isProvider, isProviderLoading] = useProvider(user?.uid);
-  console.log("isProvider", isProvider);
-
-  // console.log(isAdmin);
 
   const profileLinks = [
     {

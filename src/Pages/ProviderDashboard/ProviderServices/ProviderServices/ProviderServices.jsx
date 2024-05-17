@@ -8,30 +8,37 @@ const ProviderServices = () => {
   const [serviceCategory, setServiceCategory] = useState("");
   const [subCategories, setSubCategories] = useState([]);
   const [refetch, setRefetch] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/providers/${user.uid}`)
+    setIsLoading(true);
+    fetch(`https://subidha-home-services-server3792.glitch.me/providers/${user.uid}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setServiceCategory(data.serviceCategory);
       });
   }, []);
-  
 
   useEffect(() => {
     if (serviceCategory) {
       fetch(
-        `http://localhost:5000/service-categories?serviceName=${serviceCategory}`
+        `https://subidha-home-services-server3792.glitch.me/service-categories?serviceName=${serviceCategory}`
       )
         .then((res) => res.json())
         .then((data) => {
+          setIsLoading(false);
           setSubCategories(data.subCategories);
         });
     }
   }, [serviceCategory, refetch]);
 
-  // console.log(refetch);
+  if (isLoading) {
+    return (
+      <div className="flex justify-center h-full">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -45,7 +52,13 @@ const ProviderServices = () => {
       </div>
       <div className="grid grid-cols-2 gap-8 my-8">
         {subCategories.map((service) => (
-          <ServiceCard key={service.id} service={service} serviceCategory={serviceCategory} setRefetch={setRefetch} refetch={refetch}/>
+          <ServiceCard
+            key={service.id}
+            service={service}
+            serviceCategory={serviceCategory}
+            setRefetch={setRefetch}
+            refetch={refetch}
+          />
         ))}
       </div>
     </div>

@@ -23,11 +23,14 @@ import ProviderRoute from "./ProviderRoute/ProviderRoute";
 import ProviderBookings from "../../Pages/ProviderDashboard/ProviderBookings/ProviderBookings";
 import UserReviews from "../../Pages/UserDashboard/UserReviews/UserReviews";
 import ProviderServices from "../../Pages/ProviderDashboard/ProviderServices/ProviderServices/ProviderServices";
+import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
+import PaymentSuccess from "../../Pages/Payment/PaymentSuccess/PaymentSuccess";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    errorElement: <DisplayError />,
     children: [
       {
         path: "/",
@@ -60,6 +63,7 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
             <UserDashboard />
           </PrivateRoute>
         ),
+        errorElement: <DisplayError />,
         children: [
           {
             path: "/user-dashboard/dashboard",
@@ -83,8 +87,8 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
           },
           {
             path: "/user-dashboard/user-reviews",
-            element: <UserReviews />
-          }
+            element: <UserReviews />,
+          },
         ],
       },
       {
@@ -94,6 +98,7 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
             <ProviderDashboard />
           </ProviderRoute>
         ),
+        errorElement: <DisplayError />,
         children: [
           {
             path: "/provider-dashboard/dashboard",
@@ -105,13 +110,12 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
           },
           {
             path: "/provider-dashboard/my-services",
-            element: <ProviderServices />
+            element: <ProviderServices />,
           },
           {
             path: "/provider-dashboard/profile-settings",
             element: <UserProfile />,
           },
-          
         ],
       },
       {
@@ -148,6 +152,7 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
         </AdminRoute>
       </PrivateRoute>
     ),
+    errorElement: <DisplayError />,
     children: [
       {
         path: "/admin-dashboard",
@@ -158,6 +163,10 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
         element: <Users />,
       },
     ],
+  },
+  {
+    path: "/payment/success/:tran",
+    element: <PaymentSuccess />
   },
 ]);
 

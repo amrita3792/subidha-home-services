@@ -1,18 +1,40 @@
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../../App";
 import { AuthContext } from "../../../contexts/AuthProvider";
+import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
 const UserDashboardStatus = () => {
   const { theme } = useContext(ThemeContext);
   const { user } = useContext(AuthContext);
-  const [dashboardStatus, setDashboardStatus] = useState({});
 
-  useEffect(() => {
-    fetch(`
-https://subidha-home-services-server3792.glitch.me/user-bookings-reviews/${user.uid}`)
-      .then((res) => res.json())
-      .then((data) => setDashboardStatus(data));
-  }, []);
+  const {
+    data: dashboardStatus = {},
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["user-bookings-reviews"],
+    queryFn: () =>
+      fetch(
+        `https://subidha-home-services-server3792.glitch.me/user-bookings-reviews/${user.uid}`
+      ).then((res) => res.json()),
+  });
+
+  if(isError) {
+    toast.error(error.message, {
+      hideProgressBar: true,
+      theme: "colored",
+    });
+  }
+
+  if (isLoading) {
+    return (
+      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
+        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

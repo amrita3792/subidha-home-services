@@ -21,7 +21,7 @@ const SubidhaHelpLine = () => {
         src="https://i.ibb.co/ncw5pPM/image-removebg-preview-1.png"
         alt=""
       />
-      <div className="bg-black h-full w-full absolute top-0 left-0 opacity-20"></div>
+      <div className="bg-black h-full w-full absolute top-0 left-0 opacity-10"></div>
     </div>
   );
 };

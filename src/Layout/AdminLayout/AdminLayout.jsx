@@ -6,7 +6,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 const AdminLayout = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin] = useAdmin(user?.uid);
-  // console.log(isAdmin);
+
   return <> <AdminDashboard /></>;
 };
 

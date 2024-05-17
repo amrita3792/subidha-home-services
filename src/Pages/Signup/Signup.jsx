@@ -156,7 +156,7 @@ const Signup = () => {
               }
             })
             .catch((error) => {
-              // console.log(error);
+
               setLoading(false);
             });
           updateName(user, name);
@@ -174,7 +174,7 @@ const Signup = () => {
           }
           setError(errorMessage);
           setLoading(false);
-          // console.log(`Error: ${errorMessage}`);
+          
         });
     }
   };

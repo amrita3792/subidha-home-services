@@ -40,30 +40,35 @@ const UserProfile = () => {
         .then((data) => {
           const photoURL = data.data?.url;
 
-
-          fetch(`https://subidha-home-services-server3792.glitch.me/user/update-image/${user?.uid}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ photoURL: photoURL }),
-          })
+          fetch(
+            `https://subidha-home-services-server3792.glitch.me/user/update-image/${user?.uid}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ photoURL: photoURL }),
+            }
+          )
             .then((res) => res.json())
             .then((data) => {
-              if(data.modifiedCount > 0) {
+              if (data.modifiedCount > 0) {
                 console.log("Your profile picture has been updated!");
               }
             });
 
           updateUserProfile(user?.displayName, photoURL)
             .then(() => {
-              fetch(`https://subidha-home-services-server3792.glitch.me/users/${user.uid}`, {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                method: "POST",
-                body: JSON.stringify({ photoURL: photoURL }),
-              })
+              fetch(
+                `https://subidha-home-services-server3792.glitch.me/users/${user.uid}`,
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  method: "POST",
+                  body: JSON.stringify({ photoURL: photoURL }),
+                }
+              )
                 .then((res) => res.json())
                 .then((data) => {
                   if (data.acknowledged) {
@@ -86,8 +91,6 @@ const UserProfile = () => {
               setLoading(false);
               setUpdateProfilePicture(false);
             });
-
-
         })
         .then((res) => res?.json())
         .then((data) => console.log(data));
@@ -124,11 +127,14 @@ const UserProfile = () => {
   });
 
   const fetchUserData = async () => {
-    const response = await fetch(`https://subidha-home-services-server3792.glitch.me/users/${user?.uid}`, {
-      // headers: {
-      //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      // },
-    });
+    const response = await fetch(
+      `https://subidha-home-services-server3792.glitch.me/users/${user?.uid}`,
+      {
+        // headers: {
+        //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        // },
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -158,7 +164,6 @@ const UserProfile = () => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage(file);
-      // console.log(file);
     }
   };
 
@@ -174,13 +179,16 @@ const UserProfile = () => {
     e.preventDefault();
     formData.uid = user.uid;
     try {
-      const res = await fetch("https://subidha-home-services-server3792.glitch.me/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://subidha-home-services-server3792.glitch.me/users",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       if (data.acknowledged) {
         updateUserProfile(
@@ -238,7 +246,7 @@ const UserProfile = () => {
         name="/user-dashboard/dashboard"
         className="text-2xl font-semibold text-center mb-5"
       >
-        WELCOME BACK
+        MY PROFILE
       </h2>
       <div className="relative flex flex-col justify-center items-center gap-10 md:p-14 lg:p-0 w-full  mx-auto">
         <input

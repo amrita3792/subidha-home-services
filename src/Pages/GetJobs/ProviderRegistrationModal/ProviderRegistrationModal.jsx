@@ -84,7 +84,7 @@ const ProviderRegistrationModal = () => {
     queryKey: ["allServiceCategory"],
     queryFn: () =>
       fetch(
-        "http://localhost:5000/allServiceCategories"
+        "https://subidha-home-services-server3792.glitch.me/allServiceCategories"
       ).then((res) => res.json()),
   });
 
@@ -114,7 +114,7 @@ const ProviderRegistrationModal = () => {
 
   const handleFileChange = (e, setImageFunction, setImageURL) => {
     const file = e.target.files[0];
-    // console.log(file);
+
     if (file && isFileValid(file)) {
       setImageFunction(file);
       uploadImage(file, setImageURL);

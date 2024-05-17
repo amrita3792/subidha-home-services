@@ -11,6 +11,7 @@ const BookingModal = ({
   userData,
   subCategory,
   serviceMan,
+  amount
 }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -54,7 +55,7 @@ const BookingModal = ({
       service: subCategory.serviceName,
       servicePhotoURL: subCategory.image,
       selectedDate: format(selectedDate, "PP"),
-      amount: 5000,
+      totalAmount: amount * quantity,
       updated: getCurrentDateTime(),
       serviceQuantity: quantity,
       serviceManUID: serviceMan.uid,
@@ -326,7 +327,7 @@ const BookingModal = ({
                       <p>Discount</p>
                     </div>
                     <div className="flex flex-col items-end">
-                      <p>৳ 1,199</p>
+                      <p>৳ {amount * quantity}</p>
                       <p>0</p>
                       <p>0</p>
                     </div>
@@ -335,7 +336,7 @@ const BookingModal = ({
                 </div>
                 <div className="flex justify-between gap-3 text-sm font-semibold">
                   <p className="font-semibold">Amount to be paid</p>
-                  <p className="flex justify-end">৳ 1,199</p>
+                  <p className="flex justify-end">৳ {amount * quantity}</p>
                 </div>
               </div>
             </div>

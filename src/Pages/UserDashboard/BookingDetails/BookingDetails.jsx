@@ -1,11 +1,15 @@
-import { useLoaderData } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 const BookingDetails = () => {
+  const navigate = useNavigate();
   const booking = useLoaderData();
+  const [loading, setLoading] = useState(false);
   const {
     servicePhotoURL,
     _id,
-    amount,
+    totalAmount,
     service,
     selectedDate,
     userName,
@@ -15,10 +19,31 @@ const BookingDetails = () => {
     division,
     fullAddress,
     bookingStatus,
+    paidStatus,
   } = booking;
+
+  const handleMakePayment = () => {
+    setLoading(true);
+    fetch("https://subidha-home-services-server3792.glitch.me/make-payment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data?.url) {
+          setLoading(false);
+          window.location.replace(data.url);
+        }
+      });
+  };
+
   return (
     <div className="mb-28">
-      <h2 className="text-xl font-semibold mb-8 text-center">DETAILS</h2>
+      <h2 className="text-xl font-semibold mb-8 text-center">BOOKING DETAILS</h2>
       <ul className="steps steps-vertical lg:steps-horizontal w-full">
         <li className="step step-primary font-semibold">Order Placed</li>
         <li
@@ -49,19 +74,19 @@ const BookingDetails = () => {
           Order Completed
         </li>
       </ul>
-      <div className="mt-16 flex gap-12">
+      <div className="mt-16 flex gap-8">
         <div>
           <img className="w-52 rounded-md" src={servicePhotoURL} alt="" />
           <p className="mt-4 text-xs">{_id}</p>
-          <p className="font-bold text-lg my-1">{service}</p>
-          <p className="font-bold text-lg">৳{amount}</p>
+          <p className="font-bold text-nowrap my-1">{service}</p>
+          <p className="font-bold text-lg">৳{totalAmount}</p>
         </div>
         <div>
-          <h3 className="font-semibold text-lg mb-3">Schedule</h3>
+          <h3 className="font-semibold text-lg mb-1">Schedule</h3>
           <p className="text-lg">
             <span className="font-semibold">Date:</span> {selectedDate}
           </p>
-          <h3 className="font-semibold text-lg mt-8 mb-3">Ordered for</h3>
+          <h3 className="font-semibold text-lg mt-5 mb-1">Ordered for</h3>
           <p>
             <span className="font-semibold">Name:</span> {userName}
           </p>
@@ -98,12 +123,23 @@ const BookingDetails = () => {
         </div>
       </div>
       <div className="flex items-center justify-end gap-3 mt-5">
-        <button className="btn btn-active btn-accent text-white">
+        {bookingStatus === "Order Completed" && (
+          <button disabled={paidStatus}
+            onClick={handleMakePayment}
+            className="btn btn-active btn-accent text-white bg-[#FF6600] hover:bg-orange-600 border-none  hover:btn-"
+          >
+            {loading && (
+              <span className="loading loading-spinner loading-sm"></span>
+            )}{" "}
+            {paidStatus ? "Payment Successfull" : "Make Payment"}
+          </button>
+        )}
+        <button className="btn btn-active btn-accent text-white bg-[#345DA7] hover:bg-stone-400 border-none  hover:btn-">
           Download Invoice
         </button>
         {(bookingStatus === "Order Placed" ||
           bookingStatus === "Order Confirmed") && (
-          <button className="btn btn-error text-white">Cancel</button>
+          <button className="btn bg-red-500 text-white">Cancel</button>
         )}
       </div>
     </div>
@@ -111,3 +147,4 @@ const BookingDetails = () => {
 };
 
 export default BookingDetails;
+// github.com/srtipu5/bkash-Payment-Gateway

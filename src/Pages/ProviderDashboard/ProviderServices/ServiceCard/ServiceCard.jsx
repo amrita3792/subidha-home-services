@@ -7,6 +7,7 @@ const CategoryCard = ({ service, serviceCategory, setRefetch, refetch}) => {
   const { serviceName, image } = service;
   const [editService, setEditService] = useState(false);
   const [myService, setMyService] = useState("");
+  const [updateService, setUpdateService] = useState({});
 
   const handleChangeModalState = async () => {
     await setEditService((prev) => !prev);
@@ -15,7 +16,7 @@ const CategoryCard = ({ service, serviceCategory, setRefetch, refetch}) => {
 
   useEffect(() => {
     
-    fetch(`http://localhost:5000/provider-service/${user.uid}`, {
+    fetch(`https://subidha-home-services-server3792.glitch.me/provider-service/${user.uid}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +25,7 @@ const CategoryCard = ({ service, serviceCategory, setRefetch, refetch}) => {
     })
       .then(res => res.json())
       .then(data => {
-        // console.log(data)
+
         if(data) {
         
           setMyService(data)
@@ -32,7 +33,7 @@ const CategoryCard = ({ service, serviceCategory, setRefetch, refetch}) => {
       })
   }, [refetch]);
 
-  // console.log("hello");
+
 
   return (
     <div className="card card-compact  bg-base-100 shadow-xl">
@@ -45,6 +46,7 @@ const CategoryCard = ({ service, serviceCategory, setRefetch, refetch}) => {
         <div className="flex items-center justify-between text-green-600">
           <div
             onClick={async () => {
+              setUpdateService(myService);
               await setEditService((prev) => !prev);
               document.getElementById("edit_service").showModal();
             }}
@@ -107,6 +109,7 @@ const CategoryCard = ({ service, serviceCategory, setRefetch, refetch}) => {
           serviceCategory={serviceCategory}
           handleChangeModalState={handleChangeModalState}
           setRefetch={setRefetch}
+          updateService={updateService}
           
         />
       )}

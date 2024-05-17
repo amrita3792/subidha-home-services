@@ -3,40 +3,57 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import { ChatContext } from "../../../App";
 import { Link } from "react-router-dom";
 import ReviewModal from "../../../Components/ReviewModal/ReviewModal";
+import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
 const UserBookings = () => {
   const { user } = useContext(AuthContext);
   const { receiver, setReceiver } = useContext(ChatContext);
-  // console.log(receiver);
-  const [bookings, setBookings] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [bookings, setBookings] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [reviewService, setReviewService] = useState("");
 
-  useEffect(() => {
-    setLoading(true);
-    fetch(
-      `https://subidha-home-services-server3792.glitch.me/booking/${user.uid}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setBookings(data);
-        setLoading(false);
-      });
-  }, []);
+  const {
+    data: bookings = [],
+    isLoading,
+    error,
+    isError,
+  } = useQuery({
+    queryKey: ["booking"],
+    queryFn: () =>
+      fetch(
+        `https://subidha-home-services-server3792.glitch.me/booking/${user.uid}`
+      ).then((res) => res.json()),
+  });
 
   const handleChangeModalState = async () => {
     await setIsModalOpen((prev) => !prev);
     document.getElementById("review-modal").showModal();
   };
 
-  // console.log(loading);
+  if (isError) {
+    toast.error(error.message, {
+      hideProgressBar: true,
+      theme: "colored",
+    });
+  }
+
+  if (!isLoading && !bookings.length) {
+    return (
+      <div className="flex flex-col justify-center items-center relative">
+        <img src="https://i.ibb.co/gMRWPqK/Ufo-3.gif" alt="Girl in a jacket" />
+        <h2 className="absolute bottom-24 text-xl font-semibold">
+          NO BOOKINGS FOUND !
+        </h2>
+      </div>
+    );
+  }
 
   return (
     <div className="h-full">
-      {loading ? (
+      {isLoading ? (
         <div className="flex justify-center items-center h-full">
-          <span className="loading loading-spinner loading-lg"></span>
+          <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
         </div>
       ) : (
         <div>
@@ -77,7 +94,7 @@ const UserBookings = () => {
                           </div>
                           <div className="text-sm">
                             <span className="font-bold">Amount:</span>{" "}
-                            {booking.amount} Taka
+                            {booking.totalAmount} Taka
                           </div>
                           <div className="text-sm">
                             <span className="font-bold">Quantity:</span>{" "}

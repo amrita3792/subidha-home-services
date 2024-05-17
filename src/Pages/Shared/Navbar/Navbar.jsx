@@ -108,7 +108,7 @@ const Navbar = ({ isMounted }) => {
           setLoadingMessage(false);
         })
         .catch((error) => {
-          // console.log(error);
+
         });
     }
   }, [roomId]);

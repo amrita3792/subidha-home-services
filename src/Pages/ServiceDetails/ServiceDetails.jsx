@@ -21,6 +21,7 @@ const ServiceDetails = () => {
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [serviceMan, setServiceMan] = useState({});
+  const [amount, setAmount] = useState(0);
 
   const {
     data: userData = {},
@@ -191,6 +192,8 @@ const ServiceDetails = () => {
             key={provider._id}
             provider={provider}
             setServiceMan={setServiceMan}
+            serviceName={subCategory.serviceName}
+            setAmount={setAmount}
           />
         ))}
 
@@ -216,6 +219,7 @@ const ServiceDetails = () => {
           userData={userData}
           subCategory={subCategory}
           serviceMan={serviceMan}
+          amount={amount}
         />
       )}
     </section>
