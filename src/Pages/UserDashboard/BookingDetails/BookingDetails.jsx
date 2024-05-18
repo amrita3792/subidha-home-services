@@ -20,6 +20,10 @@ const BookingDetails = () => {
     fullAddress,
     bookingStatus,
     paidStatus,
+    invoiceNumber,
+    serviceQuantity,
+    unitCost,
+    invoiceDate,
   } = booking;
 
   const handleMakePayment = () => {
@@ -41,9 +45,17 @@ const BookingDetails = () => {
       });
   };
 
+  const handleDownloadInvoice = () => {
+    window.location.replace(
+      `https://anyapi.io/api/v1/invoice/generate?apiKey=9cmbqv1tfaou1l8c2eepi8fi39f3s1sbfja2jo3gvg86j424q9l71g&number=${invoiceNumber}&logo=https://i.ibb.co/rkX7v3H/subidha-logo.png&amount_paid=${totalAmount}&items[0][quantity]=${serviceQuantity}&items[0][unit_cost]=${unitCost}&currency=BDT&items[0][name]=${service}&date=${invoiceDate}`
+    );
+  };
+
   return (
     <div className="mb-28">
-      <h2 className="text-xl font-semibold mb-8 text-center">BOOKING DETAILS</h2>
+      <h2 className="text-xl font-semibold mb-8 text-center">
+        BOOKING DETAILS
+      </h2>
       <ul className="steps steps-vertical lg:steps-horizontal w-full">
         <li className="step step-primary font-semibold">Order Placed</li>
         <li
@@ -124,7 +136,8 @@ const BookingDetails = () => {
       </div>
       <div className="flex items-center justify-end gap-3 mt-5">
         {bookingStatus === "Order Completed" && (
-          <button disabled={paidStatus}
+          <button
+            disabled={paidStatus}
             onClick={handleMakePayment}
             className="btn btn-active btn-accent text-white bg-[#FF6600] hover:bg-orange-600 border-none  hover:btn-"
           >
@@ -134,9 +147,14 @@ const BookingDetails = () => {
             {paidStatus ? "Payment Successfull" : "Make Payment"}
           </button>
         )}
-        <button className="btn btn-active btn-accent text-white bg-[#345DA7] hover:bg-stone-400 border-none  hover:btn-">
-          Download Invoice
-        </button>
+        {paidStatus && (
+          <button
+            onClick={handleDownloadInvoice}
+            className="btn btn-active btn-accent text-white bg-[#345DA7] hover:bg-stone-400 border-none  hover:btn-"
+          >
+            Download Invoice
+          </button>
+        )}
         {(bookingStatus === "Order Placed" ||
           bookingStatus === "Order Confirmed") && (
           <button className="btn bg-red-500 text-white">Cancel</button>
