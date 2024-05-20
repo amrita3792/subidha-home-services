@@ -166,7 +166,7 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
   },
   {
     path: "/payment/success/:tran",
-    element: <PaymentSuccess />
+    element: <PaymentSuccess />,
   },
 ]);
 

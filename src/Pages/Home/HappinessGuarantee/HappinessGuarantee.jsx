@@ -8,7 +8,7 @@ const HappinessGuarantee = () => {
         <div className="lg:basis-[50%]">
           <img
             className="h-44"
-            src="https://i.ibb.co/9wCJ2Tm/image-removebg-preview.png"
+            src="https://i.postimg.cc/mktrp55F/image-removebg-preview.png"
             alt=""
           />
           <h2 className="text-4xl font-semibold mt-3 mb-5">
@@ -28,7 +28,7 @@ const HappinessGuarantee = () => {
       </div>
       <img
         className="absolute right-0 top-0 h-full  lg:block"
-        src="https://i.ibb.co/GxJJndm/smiling-parents-holding-baby.jpg"
+        src="https://i.postimg.cc/nzQFvDjv/smiling-parents-holding-baby.jpg"
         alt=""
       />
       <div className="bg-black h-full w-full absolute top-0 left-0 opacity-50 block lg:hidden"></div>

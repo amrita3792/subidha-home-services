@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 
 const TopRatedProSection = () => {
@@ -22,7 +21,7 @@ const TopRatedProSection = () => {
       <div className="md:basis-[50%] lg:basis-[60%]">
         <img
           className="w-full rounded-xl"
-          src="https://i.ibb.co/mbG84q3/builder-man-wearing-construction-uniform-standing-with-arms-crossed-with-confident-smile-isolated-or.jpg"
+          src="https://i.postimg.cc/pXkH5ZGw/builder-man-wearing-construction-uniform-standing-with-arms-crossed-with-confident-smile-isolated-or.jpg"
           alt=""
         />
       </div>

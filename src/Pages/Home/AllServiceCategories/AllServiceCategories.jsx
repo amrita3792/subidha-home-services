@@ -1,19 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { ThemeContext } from "../../../App";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const AllServiceCategories = () => {
   const { theme } = useContext(ThemeContext);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const {
     data: allServiceCategories = [],
     isLoading,
-    refetch,
+    // refetch,
     error,
   } = useQuery({
     queryKey: ["allServices"],
@@ -50,10 +50,6 @@ const AllServiceCategories = () => {
     });
     return;
   }
-
-  const handleClick = (serviceCategory) => {
-    navigate("/all-services");
-  };
 
   const responsive = {
     desktop: {
@@ -94,8 +90,7 @@ const AllServiceCategories = () => {
         {allServiceCategories.map((serviceCategory) => (
           <div className="px-3" key={serviceCategory._id}>
             <div
-              onClick={() => handleClick(serviceCategory)}
-              className="flex flex-col items-center  rounded-xl p-6 cursor-pointer"
+              className="flex flex-col items-center  rounded-xl p-6"
             >
               <img className="w-11" src={serviceCategory.icon} alt="" />
               <h4 className="font-semibold mt-2">

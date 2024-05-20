@@ -11,21 +11,21 @@ const ServicesSection = () => {
       title: "Appliance Rx: Quick & Reliable Repairs",
       description:
         "Swift, reliable fixes for household appliances. Get them back in shape hassle-free.",
-      icon: "https://i.ibb.co/nsHY1kh/washing-machine-1.png",
+      icon: "https://i.postimg.cc/1RwRXDZS/washing-machine-1.png",
     },
     {
       id: 2,
       title: "Gentlemen's Den: Premier Men's Grooming",
       description:
         "Tailored grooming for the modern man. Leave feeling refreshed and refined.",
-      icon: "https://i.ibb.co/NmQ3rx5/shaver.png",
+      icon: "https://i.postimg.cc/QxqXkstn/shaver.png",
     },
     {
       id: 3,
       title: "Crystal Care: Superior Home Cleaning",
       description:
         "Meticulous cleaning for a pristine living space. Experience unparalleled cleanliness.",
-      icon: "https://i.ibb.co/sCJDR4y/christmas.png",
+      icon: "https://i.postimg.cc/kXCJbDnb/christmas.png",
     },
   ];
 

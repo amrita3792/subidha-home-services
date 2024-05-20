@@ -13,6 +13,8 @@ const BookingModal = ({
   serviceMan,
   amount
 }) => {
+
+  console.log(serviceMan);
   const [quantity, setQuantity] = useState(1);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +47,7 @@ const BookingModal = ({
     const bookingInfo = {
       userUID: userData.uid,
       userName: formData.get("userName"),
+      userEmail: formData.get("userEmail"),
       userPhotoURL: userData.photoURL,
       userPhone: formData.get("userPhone"),
       division: formData.get("division"),
@@ -60,6 +63,7 @@ const BookingModal = ({
       serviceQuantity: quantity,
       serviceManUID: serviceMan.uid,
       providerName: serviceMan.name,
+      providerEmail: serviceMan.email,
       providerPhone: serviceMan.phone,
       providerPhotoURL: serviceMan.photoURL,
       unitCost: parseInt(amount),
@@ -177,6 +181,14 @@ const BookingModal = ({
                     placeholder="Type the phone number of the contact person"
                     className="input input-bordered w-full min-w-xs focus:outline-none font-semibold text-sm"
                     defaultValue={userData.phoneNumber}
+                  />
+                  <input
+                    required
+                    name="userEmail"
+                    type="text"
+                    placeholder="Email"
+                    className="input input-bordered w-full min-w-xs focus:outline-none font-semibold text-sm"
+                    defaultValue={userData.email}
                   />
                 </div>
               </div>
