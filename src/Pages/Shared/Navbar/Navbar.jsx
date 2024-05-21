@@ -38,13 +38,15 @@ const Navbar = ({ isMounted }) => {
   };
 
   useEffect(() => {
+
+    if(!user || !receiver) return;
     const newSocket = io("https://subidha-home-services-server3792.glitch.me/");
-    if (user && receiver) {
+
       setMessages([]);
       setLoadingMessage(true);
       setTotalUnseenMessage(0);
       newSocket.emit("joinRoom", { uid1: user?.uid, uid2: receiver?.uid });
-    }
+    
 
     newSocket.on("roomJoined", ({ success, roomId }) => {
       if (success) {
@@ -61,7 +63,7 @@ const Navbar = ({ isMounted }) => {
       // Disconnect the socket on component unmount
       newSocket.disconnect();
     };
-  }, [user, roomId, receiver?.uid]);
+  }, [user, receiver, roomId, receiver?.uid]);
 
   useEffect(() => {
     if (roomId) {
@@ -96,7 +98,7 @@ const Navbar = ({ isMounted }) => {
               <div
                 className={`chat-bubble overflow-hidden ${
                   message.senderId === user.uid
-                    ? "bg-[#FF6600] text-white"
+                    ? "bg-[#345DA7] text-white"
                     : "bg-gray-200 text-black"
                 } `}
               >
@@ -157,7 +159,7 @@ const Navbar = ({ isMounted }) => {
                 />
               </div>
             </div>
-            <div className="chat-bubble overflow-hidden bg-[#FF6600] text-white">
+            <div className="chat-bubble overflow-hidden bg-[#345DA7] text-white">
               {message}
             </div>
           </div>,
@@ -311,7 +313,7 @@ const Navbar = ({ isMounted }) => {
               </svg>
             </label>
           </button>
-          <button onClick={() => setOpenSearchBar((prev) => !prev)} className="text-white lg:tooltip block relative" data-tip="Search">
+          <div onClick={() => setOpenSearchBar((prev) => !prev)} className="text-white lg:tooltip block relative" data-tip="Search">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -327,7 +329,7 @@ const Navbar = ({ isMounted }) => {
               />
             </svg>
             <SearchModal openSearchBar={openSearchBar} setOpenSearchBar={setOpenSearchBar} />
-          </button>
+          </div>
           {user?.uid && (
             <div className="text-white relative">
               <button

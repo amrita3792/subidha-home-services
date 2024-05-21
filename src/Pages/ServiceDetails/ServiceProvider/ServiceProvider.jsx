@@ -15,6 +15,8 @@ const ServiceProvider = ({
   const { name, phone, email, photoURL, yearsOfExperience, uid, myServices } =
     provider;
 
+    // console.log(provider)
+
   const matchedService = myServices.find(
     (service) => service.serviceName === serviceName
   );

@@ -7,15 +7,20 @@ const SearchModal = ({ openSearchBar, setOpenSearchBar }) => {
 
   const handleChangeInput = (e) => {
     const searchText = e.target.value;
+    // console.log(searchText);
 
-    fetch(`
-https://subidha-home-services-server3792.glitch.me/find-services?searchText=${searchText}`)
-      .then((res) => res.json())
-      .then((data) => setServices(data));
+    if (searchText) {
+      fetch(
+        `https://subidha-home-services-server3792.glitch.me/find-services?searchText=${searchText}`
+      )
+        .then((res) => res.json())
+        .then((data) => setServices(data));
+    } else {
+      setServices([]);
+    }
   };
 
   const handleNavigate = (service) => {
-
     setOpenSearchBar(!openSearchBar);
     navigate(`/service-details/${service.categoryId}/${service.subCategoryId}`);
   };
@@ -47,11 +52,11 @@ https://subidha-home-services-server3792.glitch.me/find-services?searchText=${se
       </svg>
       {services.length > 0 && (
         <div className="absolute left-0 top-14 text-black bg-white text-start p-5 rounded-xl w-full">
-          {services.map((service) => (
+          {services.map((service, idx) => (
             <button
               onClick={() => handleNavigate(service)}
               className="btn hover:bg-[#2B3440] border-none hover:text-white "
-              key={service}
+              key={idx}
             >
               {service.serviceName}
             </button>

@@ -14,8 +14,6 @@ function App() {
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
 
-
-
   const [showModal, setShowModal] = useState(false);
   const [receiver, setReceiver] = useState(null);
 

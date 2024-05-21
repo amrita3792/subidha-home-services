@@ -14,7 +14,7 @@ const BookingModal = ({
   amount
 }) => {
 
-  console.log(serviceMan);
+  // console.log(serviceMan);
   const [quantity, setQuantity] = useState(1);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);

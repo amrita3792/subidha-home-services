@@ -50,7 +50,7 @@ const PromoBar = () => {
                       <h6 className="text-start font-semibold">
                         Please Make a call
                       </h6>
-                      <p className="text-sm font-semibold">+8801943-104565</p>
+                      <p className="text-sm font-semibold">16516</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-2">
@@ -70,7 +70,7 @@ const PromoBar = () => {
                     </svg>
                     <div>
                       <h6 className="text-start font-semibold">
-                        subidhaservice@gmail.com
+                        subidhahomeservice@gmail.com
                       </h6>
                       <p className="text-sm font-semibold">
                         Hour: 09:00am - 4:00pm

@@ -7,7 +7,7 @@ const PaymentSuccess = () => {
 
   useEffect(() => {
     if(transactionId) {
-      fetch(`https://subidha-home-services-server2.glitch.mepayment/${transactionId}`)
+      fetch(`https://subidha-home-services-server3792.glitch.me/payment/${transactionId}`)
       .then(res => res.json())
       .then((data) => {
         console.log(data)
@@ -22,7 +22,7 @@ const PaymentSuccess = () => {
       const {date} = payment;
       const {userEmail, totalAmount, serviceQuantity, userName, unitCost, service} = payment.bookingDetails;
       console.log(userEmail);
-      fetch("https://subidha-home-services-server2.glitch.mesend-email", {
+      fetch("https://subidha-home-services-server3792.glitch.me/send-email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

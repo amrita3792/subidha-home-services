@@ -72,7 +72,7 @@ const UserBookings = () => {
                 {bookings.map((booking) => (
                   <tr key={booking._id}>
                     <td>
-                      <div className="flex gap-3">
+                      <div className="flex flex-col gap-3">
                         <div className="avatar">
                           <div className="w-28 h-28 rounded-md">
                             <img
@@ -109,7 +109,7 @@ const UserBookings = () => {
                       </div>
                     </td>
                     <td>
-                      <div className="flex gap-3">
+                      <div className="flex flex-col gap-3">
                         <div className="avatar">
                           <div className="w-28 h-28 rounded-md">
                             <img
@@ -127,6 +127,10 @@ const UserBookings = () => {
                           <div className="text-sm">
                             <span className="font-bold">Phone:</span>{" "}
                             {booking.providerPhone}
+                          </div>
+                          <div className="text-sm">
+                            <span className="font-bold">Phone:</span>{" "}
+                            {booking.providerEmail}
                           </div>
                         </div>
                       </div>

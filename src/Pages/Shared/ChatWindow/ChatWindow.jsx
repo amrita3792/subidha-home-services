@@ -85,10 +85,10 @@ const ChatWindow = ({
         setOpenChatWindow(true);
         e.stopPropagation();
       }}
-      className="absolute w-[calc(100vw-40px)] md:w-96 bottom-[70px] right-0 rounded-xl shadow-2xl text-black
+      className="absolute w-[calc(100vw-40px)] md:w-96 bottom-[70px] right-0 rounded-xl shadow-2xLarge border text-black
       "
     >
-      <div className="h-28 bg-[#FF6600] flex items-center gap-4 p-4 relative rounded-t-xl">
+      <div className="h-28 bg-[#345DA7] flex items-center gap-4 p-4 relative rounded-t-xl">
         <div className="flex items-center gap-3">
           <div className="avatar">
             <div className="w-16 rounded-full">
@@ -96,7 +96,7 @@ const ChatWindow = ({
             </div>
           </div>
           <div className="text-white leading-none">
-            <h2 className="text-xl">{receiver.userName}</h2>
+            <h2 className="text-xl">{receiver.userName || receiver.name}</h2>
             <small>
               Hi! I'm Amrita Dey. Facing an issue or have questions?
             </small>
@@ -145,7 +145,7 @@ const ChatWindow = ({
           autoComplete="off"
         />
         <button>
-          <img src={send} alt="" />
+          <img className="h-8" src="https://i.postimg.cc/KY2pS3rf/send.png" alt="" />
         </button>
       </form>
     </div>
