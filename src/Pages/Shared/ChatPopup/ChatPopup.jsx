@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "../../../App";
 import { AuthContext } from "../../../contexts/AuthProvider";
+import noDataFound from '../../../assets/images/no-data-found.png';
 
 const ChatPopup = ({ setOpenChatPopup, setReceiver, receiver }) => {
   const { theme } = useContext(ThemeContext);
@@ -105,7 +106,7 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver, receiver }) => {
           {!isLoading && chatHistroy.length === 0 && (
                 <img
                   className="w-full"
-                  src="https://i.ibb.co/WzN5KJD/c92268d92cf2dbf96e3195683d9e14fb-removebg-preview-removebg-preview.png"
+                  src={noDataFound}
                   alt=""
                 />
               )}

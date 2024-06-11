@@ -6,30 +6,21 @@ import { toast } from "react-toastify";
 import { sendEmailVerification, updateProfile } from "firebase/auth";
 import newMessage from "../../assets/images/new-messages.png";
 import { getDate, getTime } from "../../utilities/date";
-import { Navigate } from "react-router-dom";
-// import { getUserToken } from "../../utilities/getToken";
-import useToken from "../../hooks/useToken";
+import { getUserToken } from "../../utilities/getToken";
 
 const Signup = () => {
-  const { googleSignIn, setLoading, loading, createUser, logout, user } =
+  const { googleSignIn, setLoading, loading, createUser, logout } =
     useContext(AuthContext);
 
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
   const [error, setError] = useState(null);
   const [isReceive, setIsReceive] = useState(false);
-  const [uid, setUid] = useState("");
   const [email, setEmail] = useState("");
-  const [token] = useToken(uid);
-
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
   let from = location.state?.from?.pathname || "/";
-
-  if (token) {
-    navigate(from, { replace: true });
-  }
 
   const handleChangeModalState = () => {
     setShowModal(!showModal);
@@ -75,8 +66,8 @@ const Signup = () => {
           .then((res) => res.json())
           .then((data) => {
             if (data.acknowledged) {
-              // getUserToken(currentUser.uid);
-              setUid(currentUser.uid);
+              getUserToken(currentUser.uid);
+              navigate(from, { replace: true });
               setLoading(false);
             }
           })
@@ -149,14 +140,13 @@ const Signup = () => {
             .then((res) => res.json())
             .then((data) => {
               if (data.acknowledged) {
-                setUid(currentUser.uid);
-                // getUserToken(currentUser.uid);
+                getUserToken(currentUser.uid);
+                // navigate(from, { replace: true });
                 form.reset();
                 setLoading(false);
               }
             })
             .catch((error) => {
-
               setLoading(false);
             });
           updateName(user, name);

@@ -5,15 +5,20 @@ import { format } from "date-fns";
 import { getCurrentDateTime } from "../../../utilities/date";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import contactPerson from "../../../assets/icons/contact-person.png";
+import address from "../../../assets/icons/favorite-location.png";
+import service from '../../../assets/icons/service.png';
+import rebuildingService from '../../../assets/icons/rebuilding-service.png';
+import orderList from '../../../assets/icons/order-list.png';
+import schedule from '../../../assets/icons/schedule.png';
 
 const BookingModal = ({
   handleChangeModalState,
   userData,
   subCategory,
   serviceMan,
-  amount
+  amount,
 }) => {
-
   // console.log(serviceMan);
   const [quantity, setQuantity] = useState(1);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -70,7 +75,7 @@ const BookingModal = ({
       bookingStatus: "Order Placed",
     };
 
-    console.log(bookingInfo)
+    console.log(bookingInfo);
     // Perform any necessary actions, such as sending the data to a server
     // For example, you can use fetch API to send a POST request to a server endpoint
     fetch("https://subidha-home-services-server3792.glitch.me/booking", {
@@ -128,7 +133,7 @@ const BookingModal = ({
           <div>
             <img
               className="w-16"
-              src="https://i.ibb.co/mHG6XyC/schedule.png"
+              src={schedule}
               alt=""
             />
           </div>
@@ -154,11 +159,7 @@ const BookingModal = ({
           >
             <div className="flex flex-col md:flex-row gap-5">
               <div>
-                <img
-                  className="w-16"
-                  src="https://i.ibb.co/rkN6vW3/contact-1.png"
-                  alt=""
-                />
+                <img className="w-16" src={contactPerson} alt="" />
               </div>
               <div className="grow">
                 <h3 className="text-lg font-semibold">Contact Person</h3>
@@ -196,11 +197,7 @@ const BookingModal = ({
 
             <div className="flex flex-col md:flex-row gap-5">
               <div>
-                <img
-                  className="w-16"
-                  src="https://i.ibb.co/vXgd1cy/favorite-location.png"
-                  alt=""
-                />
+                <img className="w-16" src={address} alt="" />
               </div>
               <div className="grow">
                 <h3 className="text-lg font-semibold">Address</h3>
@@ -248,7 +245,7 @@ const BookingModal = ({
               <div>
                 <img
                   className="w-16"
-                  src="https://i.ibb.co/zVPQWW7/service.png"
+                  src={service}
                   alt=""
                 />
               </div>
@@ -294,7 +291,7 @@ const BookingModal = ({
               <div>
                 <img
                   className="w-16"
-                  src="https://i.ibb.co/4NLGRjj/rebuilding-service.png"
+                  src={rebuildingService}
                   alt=""
                 />
               </div>
@@ -320,7 +317,7 @@ const BookingModal = ({
               <div>
                 <img
                   className="w-16"
-                  src="https://i.ibb.co/0VSQksC/order-list.png"
+                  src={orderList}
                   alt=""
                 />
               </div>

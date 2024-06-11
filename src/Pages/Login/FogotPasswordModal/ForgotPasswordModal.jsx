@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import email from "../../../assets/icons/email.png";
 
 const ForgotPasswordModal = ({ setResetPassword }) => {
@@ -31,8 +31,8 @@ const ForgotPasswordModal = ({ setResetPassword }) => {
         setIsReceive(true);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
         setError(error.message);
         setLoading(false);
         // ..

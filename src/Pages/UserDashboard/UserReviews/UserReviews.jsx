@@ -4,6 +4,7 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import UserReview from "./UserReview/UserReview";
 import { toast } from "react-toastify";
 import { ThemeContext } from "../../../App";
+import noDataFound from '../../../assets/images/no-data-found.png';
 
 const UserReviews = () => {
     const {user} = useContext(AuthContext);
@@ -35,8 +36,7 @@ const UserReviews = () => {
       if (!isLoading && !reviews.length) {
         return (
           <div className="flex flex-col justify-center items-center relative">
-            <img src="https://i.ibb.co/gMRWPqK/Ufo-3.gif" alt="Girl in a jacket" />
-            <h2 className="absolute bottom-24 text-xl font-semibold">NO REVIEWS FOUND !</h2>
+            <img src={noDataFound} alt="Girl in a jacket" />
           </div>
         );
       }

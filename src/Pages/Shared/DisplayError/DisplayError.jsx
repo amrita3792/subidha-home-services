@@ -21,7 +21,7 @@ const DisplayError = () => {
           src="https://i.ibb.co/fdq1KHD/free-something-went-wrong-illustration-ujbiu-ezgif-com-crop.png"
           alt=""
         />
-        <p className="text-red-500 text-5xl font-semibold">
+        <p className="text-red-500 text-2xl font-semibold">
           {error.status || error.message}
         </p>
         <h4 className="text-xl">

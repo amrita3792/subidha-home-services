@@ -1,6 +1,9 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../../App";
+import washingMachine from '../../../assets/icons/washing-machine.png';
+import shaver from '../../../assets/icons/shaver.png';
+import christmas from '../../../assets/icons/christmas.png';
 
 const ServicesSection = () => {
   const { theme } = useContext(ThemeContext);
@@ -11,21 +14,21 @@ const ServicesSection = () => {
       title: "Appliance Rx: Quick & Reliable Repairs",
       description:
         "Swift, reliable fixes for household appliances. Get them back in shape hassle-free.",
-      icon: "https://i.postimg.cc/1RwRXDZS/washing-machine-1.png",
+      icon: washingMachine
     },
     {
       id: 2,
       title: "Gentlemen's Den: Premier Men's Grooming",
       description:
         "Tailored grooming for the modern man. Leave feeling refreshed and refined.",
-      icon: "https://i.postimg.cc/QxqXkstn/shaver.png",
+      icon: shaver,
     },
     {
       id: 3,
       title: "Crystal Care: Superior Home Cleaning",
       description:
         "Meticulous cleaning for a pristine living space. Experience unparalleled cleanliness.",
-      icon: "https://i.postimg.cc/kXCJbDnb/christmas.png",
+      icon: christmas,
     },
   ];
 

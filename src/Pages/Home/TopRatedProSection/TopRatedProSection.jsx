@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import serviceProvider from '../../../assets/images/builder-man-wearing-construction-uniform-standing-with-arms-crossed-with-confident-smile-isolated-orange-wall.jpg';
 
 const TopRatedProSection = () => {
   return (
@@ -21,7 +22,7 @@ const TopRatedProSection = () => {
       <div className="md:basis-[50%] lg:basis-[60%]">
         <img
           className="w-full rounded-xl"
-          src="https://i.postimg.cc/pXkH5ZGw/builder-man-wearing-construction-uniform-standing-with-arms-crossed-with-confident-smile-isolated-or.jpg"
+          src={serviceProvider}
           alt=""
         />
       </div>

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import ReviewModal from "../../../Components/ReviewModal/ReviewModal";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
+import noDataFound from '../../../assets/images/no-data-found.png';
 
 const UserBookings = () => {
   const { user } = useContext(AuthContext);
@@ -42,10 +43,7 @@ const UserBookings = () => {
   if (!isLoading && !bookings.length) {
     return (
       <div className="flex flex-col justify-center items-center relative">
-        <img src="https://i.ibb.co/gMRWPqK/Ufo-3.gif" alt="Girl in a jacket" />
-        <h2 className="absolute bottom-24 text-xl font-semibold">
-          NO BOOKINGS FOUND !
-        </h2>
+        <img src={noDataFound} alt="Girl in a jacket" />
       </div>
     );
   }

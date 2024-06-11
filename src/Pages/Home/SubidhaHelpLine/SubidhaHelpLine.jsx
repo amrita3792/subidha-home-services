@@ -1,5 +1,6 @@
-import React from "react";
+
 import { Link } from "react-router-dom";
+import HelpLine from '../../../assets/images/HelpLine.png';
 
 const SubidhaHelpLine = () => {
   return (
@@ -18,7 +19,7 @@ const SubidhaHelpLine = () => {
       </div>
       <img
         className="absolute bottom-0 md:top-0 right-0 h-full lg:z-50"
-        src="https://i.postimg.cc/NG6YBY1f/image-removebg-preview-1.png"
+        src={HelpLine}
         alt=""
       />
       <div className="bg-black h-full w-full absolute top-0 left-0 opacity-10"></div>

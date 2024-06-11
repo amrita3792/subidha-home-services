@@ -15,6 +15,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getDate, getTime } from "../../utilities/date";
 // import { getUserToken } from "../../utilities/getToken";
 import useToken from "../../hooks/useToken";
+import otpSecurity from '../../assets/images/otp-security.png';
 
 
 export const NumberVerificatonModal = ({
@@ -180,7 +181,7 @@ export const NumberVerificatonModal = ({
               <div className="flex justify-center my-5">
                 <img
                   className="w-32"
-                  src="https://i.ibb.co/yVH3dc3/otp-security-2.png"
+                  src={otpSecurity}
                   alt=""
                 />
               </div>
@@ -224,7 +225,7 @@ export const NumberVerificatonModal = ({
             <div>
               <img
                 className="block mx-auto w-32"
-                src="https://i.ibb.co/yVH3dc3/otp-security-2.png"
+                src={otpSecurity}
                 alt=""
               />
               <p className="text-center font-semibold mb-2">
