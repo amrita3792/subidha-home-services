@@ -18,12 +18,15 @@ const ServiceProviderProfile = () => {
   });
 
   const fetchReviewsData = async () => {
-    const response = await fetch(`
-https://subidha-home-services-server3792.glitch.me/reviews/${uid}`, {
-      // headers: {
-      //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      // },
-    });
+    const response = await fetch(
+      `
+https://subidha-home-services-server3792.glitch.me/reviews/${uid}`,
+      {
+        // headers: {
+        //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        // },
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -32,22 +35,19 @@ https://subidha-home-services-server3792.glitch.me/reviews/${uid}`, {
     return response.json();
   };
 
-
-
   return (
     <div className="xl:max-w-screen-xl lg:max-w-screen-lg  mx-auto">
-      <div className="relative">
+      <div>
         <img className="w-full mt-7 rounded-3xl" src={photoURL} alt="" />
-        <div className="absolute left-0 top-0 bg-black opacity-30 h-full w-full rounded-3xl"></div>
       </div>
-      <h2 className="text-3xl font-semibold mt-5">
-        BusinessName: {businessName}
-      </h2>
       <p className="mt-5 font-semibold ">
         Provider Name: <span className="font-normal">{name}</span>
       </p>
       <p className="font-semibold">
         Phone: <span className="font-normal">{phone}</span>
+      </p>
+      <p className="font-semibold">
+        Email: <span className="font-normal">{provider.email}</span>
       </p>
       <p className="font-semibold">
         Years of Experience:{" "}

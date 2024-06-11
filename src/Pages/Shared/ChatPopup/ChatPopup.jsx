@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { ThemeContext } from "../../../App";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
-const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
+const ChatPopup = ({ setOpenChatPopup, setReceiver, receiver }) => {
   const { theme } = useContext(ThemeContext);
   const { user } = useContext(AuthContext);
   const { data: chatHistroy = [], isLoading } = useQuery({
@@ -64,7 +64,9 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver }) => {
               {chatHistroy.map((user) => (
                 <tr
                   onClick={(e) => {
-                    setReceiver(user);
+                    if(user?.uid !== receiver?.uid) {
+                      setReceiver(user);
+                    }
                     setOpenChatPopup(false);
                     e.stopPropagation();
                   }}

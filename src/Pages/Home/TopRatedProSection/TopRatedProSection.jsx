@@ -9,7 +9,7 @@ const TopRatedProSection = () => {
           Join the Elite: Become a Top-Rated Pro with Subidha
         </h2>
         <p className="my-4">
-          Craft your success with Handy: Where top-rated pros thrive. Join today
+          Craft your success with Subidha: Where top-rated pros thrive. Join today
           for job opportunities without lead fees and flexible scheduling.
         </p>
         <Link to="/get-jobs">

@@ -246,7 +246,7 @@ const UserProfile = () => {
         name="/user-dashboard/dashboard"
         className="text-2xl font-semibold text-center mb-5"
       >
-        MY PROFILE
+        My Profile
       </h2>
       <div className="relative flex flex-col justify-center items-center gap-10 md:p-14 lg:p-0 w-full  mx-auto">
         <input

@@ -354,6 +354,7 @@ const Navbar = ({ isMounted }) => {
               </button>
               {openChatPopup && (
                 <ChatPopup
+                receiver={receiver}
                   setReceiver={setReceiver}
                   setOpenChatPopup={setOpenChatPopup}
                 />

@@ -19,7 +19,7 @@ const HappinessGuarantee = () => {
             it right. Our friendly customer service agents are available 24
             hours a day, 7 days a week. The Handy Happiness Guarantee only
             applies when you book and pay for a service directly through the
-            Handy platform.
+            Subidha platform.
           </p>
           <Link className="underline" to="">
             Learn More.

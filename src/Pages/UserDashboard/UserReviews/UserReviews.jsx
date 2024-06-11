@@ -3,9 +3,11 @@ import { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import UserReview from "./UserReview/UserReview";
 import { toast } from "react-toastify";
+import { ThemeContext } from "../../../App";
 
 const UserReviews = () => {
     const {user} = useContext(AuthContext);
+    const {theme} = useContext(ThemeContext);
 
     const { data: reviews = [], isLoading, isError, error } = useQuery ({
         queryKey: ["user-reviews"],
@@ -40,8 +42,8 @@ const UserReviews = () => {
       }
     return (
         <div>
-            <h3 className="font-semibold text-xl text-center">MY REVIEWS</h3>
-            <div className="my-12 border p-7 rounded-xl">
+            <h3 className="font-semibold text-2xl text-center">My Reviews</h3>
+            <div className={`my-12 border ${theme === "dark" && "border-slate-600"} p-7 rounded-xl`}>
             {
                 reviews.map(review => <UserReview key={review._id} review={review} />)
             }

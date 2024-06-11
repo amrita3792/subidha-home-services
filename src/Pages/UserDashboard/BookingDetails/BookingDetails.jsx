@@ -54,7 +54,7 @@ const BookingDetails = () => {
   return (
     <div className="mb-28">
       <h2 className="text-xl font-semibold mb-8 text-center">
-        BOOKING DETAILS
+        Booking Details
       </h2>
       <ul className="steps steps-vertical lg:steps-horizontal w-full">
         <li className="step step-primary font-semibold">Order Placed</li>
@@ -86,26 +86,26 @@ const BookingDetails = () => {
           Order Completed
         </li>
       </ul>
-      <div className="mt-16 flex gap-8">
+      <div className="mt-16 flex gap-5">
         <div>
-          <img className="w-52 rounded-md" src={servicePhotoURL} alt="" />
-          <p className="mt-4 text-xs">{_id}</p>
+          <img className="w-48 rounded-md" src={servicePhotoURL} alt="" />
+          <p className="mt-4 text-xs font-semibold">#{_id}</p>
           <p className="font-bold text-nowrap my-1">{service}</p>
-          <p className="font-bold text-lg">৳{totalAmount}</p>
+          <p className="font-bold">Total: ৳{totalAmount}</p>
         </div>
         <div>
-          <h3 className="font-semibold text-lg mb-1">Schedule</h3>
-          <p className="text-lg">
+          <h3 className="font-semibold mb-1">Schedule:</h3>
+          <p className="text-sm">
             <span className="font-semibold">Date:</span> {selectedDate}
           </p>
-          <h3 className="font-semibold text-lg mt-5 mb-1">Ordered for</h3>
-          <p>
+          <h3 className="font-semibold mt-5 mb-1">Ordered for:</h3>
+          <p className="text-sm">
             <span className="font-semibold">Name:</span> {userName}
           </p>
-          <p>
+          <p className="text-sm">
             <span className="font-semibold">Phone:</span> {userPhone}
           </p>
-          <p className="white">
+          <p className="text-sm">
             <span className="font-semibold">Location:</span> {fullAddress}
             {upazila}, {district}, {division}
           </p>
@@ -113,7 +113,7 @@ const BookingDetails = () => {
         <div>
           <div className="flex gap-3">
             <div className="avatar">
-              <div className="w-28 h-28 rounded-md">
+              <div className="w-20 h-20 rounded-md">
                 <img
                   src={booking.providerPhotoURL}
                   alt="Avatar Tailwind CSS Component"
@@ -121,14 +121,17 @@ const BookingDetails = () => {
               </div>
             </div>
             <div>
-              <div className="whitespace-nowrap">
+              <div className="whitespace-nowrap text-sm">
                 <span className="font-bold">Provider Name:</span>{" "}
                 {booking.providerName}
               </div>
-
-              <div>
+              <div className="text-sm">
                 <span className="font-bold">Phone:</span>{" "}
                 {booking.providerPhone}
+              </div>
+              <div className="text-sm">
+                <span className="font-bold">Email:</span>{" "}
+                {booking.providerEmail}
               </div>
             </div>
           </div>

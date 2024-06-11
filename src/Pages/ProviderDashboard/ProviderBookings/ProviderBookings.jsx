@@ -205,12 +205,17 @@ const ProviderBookings = () => {
                     </td>
                     <th>
                       <button
-                        onClick={() =>
-                          setReceiver({
-                            uid: booking.userUID,
-                            photoURL: booking.userPhotoURL,
-                            userName: booking.userName,
-                          })
+                        onClick={() => {
+                          if(receiver?.uid === booking?.userUID) {
+                            return
+                          } else {
+                            setReceiver({
+                              uid: booking.userUID,
+                              photoURL: booking.userPhotoURL,
+                              userName: booking.userName,
+                            })
+                          }
+                        }
                         }
                         className="btn btn-ghost btn-xs bg-[#345DA7] text-white hover:text-black"
                       >
