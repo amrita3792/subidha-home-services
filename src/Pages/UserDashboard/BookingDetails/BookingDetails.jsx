@@ -49,7 +49,7 @@ const BookingDetails = () => {
 
   const handleDownloadInvoice = () => {
     window.location.replace(
-      `https://anyapi.io/api/v1/invoice/generate?apiKey=9cmbqv1tfaou1l8c2eepi8fi39f3s1sbfja2jo3gvg86j424q9l71g&number=${invoiceNumber}&logo=https://i.ibb.co/rkX7v3H/subidha-logo.png&amount_paid=${totalAmount}&items[0][quantity]=${serviceQuantity}&items[0][unit_cost]=${unitCost}&currency=BDT&items[0][name]=${service}&date=${invoiceDate}`
+      `https://anyapi.io/api/v1/invoice/generate?apiKey=9cmbqv1tfaou1l8c2eepi8fi39f3s1sbfja2jo3gvg86j424q9l71g&number=${invoiceNumber}&logo=https://i.postimg.cc/CKDMny4Y/subidha-logo.png&amount_paid=${totalAmount}&items[0][quantity]=${serviceQuantity}&items[0][unit_cost]=${unitCost}&currency=BDT&items[0][name]=${service}&date=${invoiceDate}`
     );
   };
 
