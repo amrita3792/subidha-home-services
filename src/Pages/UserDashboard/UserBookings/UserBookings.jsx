@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import ReviewModal from "../../../Components/ReviewModal/ReviewModal";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
-import noDataFound from '../../../assets/images/no-data-found.png';
+import noDataFound from "../../../assets/images/no-data-found.png";
 
 const UserBookings = () => {
   const { user } = useContext(AuthContext);
@@ -101,7 +101,13 @@ const UserBookings = () => {
                         <div>
                           <div className="font-bold text-lg">
                             {booking.service} <br />
-                            <span className={`text-sm ${booking.bookingStatus === "Cancelled by User" ? "bg-red-500" : "bg-green-700"} text-white`}>
+                            <span
+                              className={`text-sm ${
+                                booking.bookingStatus === "Cancelled by User"
+                                  ? "bg-red-500"
+                                  : "bg-green-700"
+                              } text-white`}
+                            >
                               {booking.bookingStatus}
                             </span>
                           </div>
@@ -140,7 +146,6 @@ const UserBookings = () => {
                             <span className="font-bold">Provider Name:</span>{" "}
                             {booking.providerName}
                           </div>
-
                         </div>
                       </div>
                     </td>
@@ -170,7 +175,7 @@ const UserBookings = () => {
                         details
                       </Link>
                     </th>
-                    {booking.bookingStatus === "Order Completed" && (
+                    {booking?.paidStatus && (
                       <th>
                         <button
                           onClick={() => {
