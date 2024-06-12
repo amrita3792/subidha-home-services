@@ -25,6 +25,7 @@ import UserReviews from "../../Pages/UserDashboard/UserReviews/UserReviews";
 import ProviderServices from "../../Pages/ProviderDashboard/ProviderServices/ProviderServices/ProviderServices";
 import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
 import PaymentSuccess from "../../Pages/Payment/PaymentSuccess/PaymentSuccess";
+import Payment from "../../Pages/UserDashboard/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -89,6 +90,10 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
             path: "/user-dashboard/user-reviews",
             element: <UserReviews />,
           },
+          {
+            path: "/user-dashboard/user-payment",
+            element: <Payment />
+          }
         ],
       },
       {
