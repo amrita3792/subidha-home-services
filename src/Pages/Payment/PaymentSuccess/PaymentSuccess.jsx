@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import success from '../../../assets/icons/Success.gif';
 
 const PaymentSuccess = () => {
   const { tran: transactionId } = useParams();
@@ -48,7 +49,7 @@ const PaymentSuccess = () => {
 
   return (
     <div className="h-screen flex justify-center items-center flex-col">
-      <img className="w-56" src="https://i.ibb.co/qF8Q9Vq/Success.gif" alt="" />
+      <img className="w-56" src={success} alt="" />
       <h1 className="text-2xl font-semibold">Your payment is sucessfull</h1>
       <p className="mt-2 mb-5">
         Thank you for your payment An automated payment receipt will be sent to

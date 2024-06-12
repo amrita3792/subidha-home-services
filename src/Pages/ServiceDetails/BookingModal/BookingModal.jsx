@@ -90,7 +90,7 @@ const BookingModal = ({
         if (data.acknowledged) {
           toast.success("Booking Created Successfully", {
             hideProgressBar: true,
-            theme: "colored",
+            // theme: "colored",
           });
           setIsLoading(false);
           handleChangeModalState();

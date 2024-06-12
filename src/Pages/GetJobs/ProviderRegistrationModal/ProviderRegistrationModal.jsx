@@ -172,7 +172,7 @@ const ProviderRegistrationModal = () => {
       if (data.acknowledged) {
         toast.success("Provider registration successful!", {
           hideProgressBar: true,
-          theme: "colored",
+          // theme: "colored",
         });
         form.reset();
         setLoading(false);

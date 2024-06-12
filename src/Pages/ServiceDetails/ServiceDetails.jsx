@@ -67,7 +67,7 @@ const ServiceDetails = () => {
         service providers available in your area right now.`,
           {
             hideProgressBar: true,
-            theme: "colored",
+            // theme: "colored",
             autoClose: false,
           }
         );
@@ -97,7 +97,7 @@ const ServiceDetails = () => {
     toast.error("There was an error fetching user data.", {
       hideProgressBar: true,
       autoClose: false,
-      theme: "colored",
+      // theme: "colored",
     });
     return;
   }

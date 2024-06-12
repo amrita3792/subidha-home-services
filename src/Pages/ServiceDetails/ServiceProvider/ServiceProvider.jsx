@@ -32,12 +32,6 @@ const ServiceProvider = ({
         <div>
           <h2 className="card-title text-base">{name} (provider)</h2>
           <p>
-            <span className="font-semibold">Email:</span> {email}
-          </p>
-          <p>
-            <span className="font-semibold">Phone:</span> {phone}
-          </p>
-          <p>
             <span className="font-semibold">Years Of Experience:</span>{" "}
             {yearsOfExperience}
           </p>

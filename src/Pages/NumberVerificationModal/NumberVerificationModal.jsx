@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
 import OTPInput, { ResendOTP } from "otp-input-react";
 // import telephone from "../../assets/icons/send-otp.png";
@@ -43,12 +43,17 @@ export const NumberVerificatonModal = ({
   const [uid, setUid] = useState("");
   const [token] = useToken(uid);
 
-  if (token) {
-    navigate(from, { replace: true });
-    // navigate(from, { replace: true });
-    handleChangeModalState();
-    
-  }
+  useEffect(() => {
+    if (token) {
+      if (location?.state?.from?.pathname?.split("/")[1] === "admin-dashboard") {
+        navigate("/");
+      } else {
+        navigate(from, { replace: true });
+      }
+      handleChangeModalState();
+    }
+  }, [token]); // Empty dependency array ensures this effect runs only after initial render
+
 
   const handleSendOTP = async () => {
     setLoading(true);
@@ -59,7 +64,7 @@ export const NumberVerificatonModal = ({
         
         toast.success("We successfully sent an OTP to your phone number", {
           hideProgressBar: true,
-          theme: "colored",
+          // theme: "colored",
         });
         setShowOTP(true);
         setLoading(false);
@@ -72,7 +77,7 @@ export const NumberVerificatonModal = ({
         setVisibleRecaptcha(false);
         toast.error(error.message, {
           hideProgressBar: true,
-          theme: "colored",
+          // theme: "colored",
         });
       });
   };
@@ -123,7 +128,7 @@ export const NumberVerificatonModal = ({
               setUid(currentUser.uid);
               toast.success("Your verification is successful.", {
                 hideProgressBar: true,
-                theme: "colored",
+                // theme: "colored",
               });
               setLoading(false);
             }
@@ -149,7 +154,7 @@ export const NumberVerificatonModal = ({
         window.confirmationResult = confirmationResult;
         toast.success("We successfully resent an OTP to your phone number", {
           hideProgressBar: true,
-          theme: "colored",
+          // theme: "colored",
         });
         setShowOTP(true);
         setLoading(false);
@@ -158,7 +163,7 @@ export const NumberVerificatonModal = ({
       .catch((error) => {
         toast.error(error.message, {
           hideProgressBar: true,
-          theme: "colored",
+          // theme: "colored",
         });
         setLoading(false);
         setVisibleRecaptcha(true);

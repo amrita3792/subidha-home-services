@@ -27,9 +27,16 @@ const Login = () => {
 
   const { showModal, setShowModal } = useContext(ModalContext);
 
-  if (token) {
-    navigate(from, { replace: true });
-  }
+  useEffect(() => {
+    if (token) {
+      if (location?.state?.from?.pathname?.split("/")[1] === "admin-dashboard") {
+        navigate("/");
+      } else {
+        navigate(from, { replace: true });
+      }
+    }
+  }, [token]); // Empty dependency array ensures this effect runs only after initial render
+  
 
   useEffect(() => {
     if (verifyEmail) {
@@ -87,7 +94,6 @@ const Login = () => {
             }
           })
           .catch((error) => {
-
             setLoading(false);
           });
       })
@@ -96,7 +102,7 @@ const Login = () => {
 
         toast.error(errorMessage, {
           hideProgressBar: true,
-          theme: "colored",
+          // theme: "colored",
         });
 
         setLoading(false);
@@ -117,17 +123,28 @@ const Login = () => {
         const status = "active";
 
         if (user.emailVerified) {
-          fetch(`https://subidha-home-services-server3792.glitch.me/update-status/${user.uid}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ status }),
-          })
+          fetch(
+            `https://subidha-home-services-server3792.glitch.me/update-status/${user.uid}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ status }),
+            }
+          )
             .then((res) => res.json())
             .then((data) => {
               if (data.acknowledged) {
-                navigate(from, { replace: true });
+                // console.log(location?.state.from.pathname.split("/")[1]);
+                if (
+                  location?.state?.from?.pathname?.split("/")[1] ===
+                  "admin-dashboard"
+                ) {
+                  navigate("/");
+                } else {
+                  navigate(from, { replace: true });
+                }
                 setLoading(false);
               }
             })
@@ -148,11 +165,11 @@ const Login = () => {
           setLoading(false);
           return;
         }
-  
+
         console.error(`Error: ${error}`);
         toast.error(error.message, {
           hideProgressBar: true,
-          theme: "colored",
+          // theme: "colored",
         });
         setLoading(false);
       });

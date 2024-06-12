@@ -46,7 +46,7 @@ const AllServiceCategories = () => {
     toast.error("There was an error fetching services data.", {
       hideProgressBar: true,
       autoClose: false,
-      theme: "colored",
+      // theme: "colored",
     });
     return;
   }

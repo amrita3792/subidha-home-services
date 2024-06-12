@@ -1,16 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { sendEmailVerification } from "firebase/auth";
 
 const ResendEmailVerifyModal = ({ email, currentUser, setVerifyEmail }) => {
+  const [isLoading, setLoading] = useState(false);
+
   const handleResendEmail = () => {
-    sendEmailVerification(currentUser).then(() => {
-      setVerifyEmail(false);
-      toast.success("A verification link has been sent to your email account", {
-        hideProgressBar: true,
-        theme: "colored",
+    setLoading(true);
+    sendEmailVerification(currentUser)
+      .then(() => {
+        setVerifyEmail(false);
+        setLoading(false);
+        toast.success(
+          "A verification link has been sent to your email account",
+          {
+            hideProgressBar: true,
+          }
+        );
+      })
+      .catch((error) => {
+        toast.error(error.message, {
+          hideProgressBar: true
+        })
+        setVerifyEmail(false);
+        setLoading(false);
       });
-    });
   };
 
   return (
@@ -49,7 +63,9 @@ const ResendEmailVerifyModal = ({ email, currentUser, setVerifyEmail }) => {
               onClick={handleResendEmail}
               className="btn btn-sm btn-outline"
             >
-              Resend
+              {
+                isLoading ? <span className="loading loading-spinner loading-sm"></span> : "Resend"
+              }
             </button>
           </div>
         </div>

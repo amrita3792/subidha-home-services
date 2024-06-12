@@ -125,14 +125,6 @@ const BookingDetails = () => {
                 <span className="font-bold">Provider Name:</span>{" "}
                 {booking.providerName}
               </div>
-              <div className="text-sm">
-                <span className="font-bold">Phone:</span>{" "}
-                {booking.providerPhone}
-              </div>
-              <div className="text-sm">
-                <span className="font-bold">Email:</span>{" "}
-                {booking.providerEmail}
-              </div>
             </div>
           </div>
         </div>

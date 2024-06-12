@@ -51,20 +51,20 @@ const users = () => {
             `Successfully assigned ${e.target.value} role to ${user.userName}!`,
             {
               hideProgressBar: true,
-              theme: "colored",
+              // theme: "colored",
             }
           );
         } else {
           toast.error(data.message, {
             hideProgressBar: true,
-            theme: "colored",
+            // theme: "colored",
           });
         }
       })
       .catch((error) => {
         toast.error(error.message, {
           hideProgressBar: true,
-          theme: "colored",
+          // theme: "colored",
         });
       });
   };

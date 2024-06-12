@@ -60,7 +60,7 @@ const ProviderBookings = () => {
               `The booking has been ${event.target.value.split(" ")[1]}.`,
               {
                 hideProgressBar: true,
-                theme: "colored",
+                // theme: "colored",
               }
             );
             refetch();

@@ -84,7 +84,7 @@ const EditService = ({
       .then((data) => {
         toast.success("Service Updated Successfully", {
           hideProgressBar: true,
-          theme: "colored",
+          // theme: "colored",
         });
         setRefetch((prev) => !prev);
         form.reset();
@@ -94,7 +94,7 @@ const EditService = ({
       .catch((error) => {
         toast.error(error.message, {
           hideProgressBar: true,
-          theme: "colored",
+          // theme: "colored",
         });
         handleChangeModalState();
       });

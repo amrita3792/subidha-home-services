@@ -36,7 +36,7 @@ const UserBookings = () => {
   if (isError) {
     toast.error(error.message, {
       hideProgressBar: true,
-      theme: "colored",
+      // theme: "colored",
     });
   }
 
@@ -141,14 +141,6 @@ const UserBookings = () => {
                             {booking.providerName}
                           </div>
 
-                          <div className="text-sm">
-                            <span className="font-bold">Phone:</span>{" "}
-                            {booking.providerPhone}
-                          </div>
-                          <div className="text-sm">
-                            <span className="font-bold">Email:</span>{" "}
-                            {booking.providerEmail}
-                          </div>
                         </div>
                       </div>
                     </td>
