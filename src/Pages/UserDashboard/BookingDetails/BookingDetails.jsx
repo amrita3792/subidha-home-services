@@ -1,11 +1,13 @@
-import axios from "axios";
+// import axios from "axios";
 import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const BookingDetails = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const booking = useLoaderData();
   const [loading, setLoading] = useState(false);
+
   const {
     servicePhotoURL,
     _id,
@@ -51,46 +53,86 @@ const BookingDetails = () => {
     );
   };
 
+  const handleCancelBooking = (bookingId) => {
+    if (confirm("Are you sure want to Cancel booking?") == true) {
+      setLoading(true);
+      fetch(
+        `https://subidha-home-services-server3792.glitch.me/booking-status/${bookingId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status: "Cancelled by User" }),
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.modifiedCount > 0) {
+            toast.success("Your booking has been canceled.", {
+              hideProgressBar: true,
+              // theme: "colored",
+            });
+            setLoading(false);
+            location.reload();
+          }
+        });
+    }
+  };
+
   return (
     <div className="mb-28">
       <h2 className="text-xl font-semibold mb-8 text-center">
         Booking Details
       </h2>
-      <ul className="steps steps-vertical lg:steps-horizontal w-full">
-        <li className="step step-primary font-semibold">Order Placed</li>
-        <li
-          className={`${
-            (bookingStatus === "Order Confirmed" ||
-              bookingStatus === "Order Processing" ||
-              bookingStatus === "Order Processing" ||
-              bookingStatus === "Order Completed") &&
-            "step-primary"
-          } step font-semibold`}
-        >
-          Order Confirmed
-        </li>
-        <li
-          className={`${
-            (bookingStatus === "Order Processing" ||
-              bookingStatus === "Order Completed") &&
-            "step-primary"
-          } step font-semibold`}
-        >
-          Order Processing
-        </li>
-        <li
-          className={`${
-            bookingStatus === "Order Completed" && "step-primary"
-          } step font-semibold`}
-        >
-          Order Completed
-        </li>
-      </ul>
+      {!(bookingStatus === "Cancelled by User") && (
+        <ul className="steps steps-vertical lg:steps-horizontal w-full">
+          <li className="step step-primary font-semibold">Order Placed</li>
+          <li
+            className={`${
+              (bookingStatus === "Order Confirmed" ||
+                bookingStatus === "Order Processing" ||
+                bookingStatus === "Order Processing" ||
+                bookingStatus === "Order Completed") &&
+              "step-primary"
+            } step font-semibold`}
+          >
+            Order Confirmed
+          </li>
+          <li
+            className={`${
+              (bookingStatus === "Order Processing" ||
+                bookingStatus === "Order Completed") &&
+              "step-primary"
+            } step font-semibold`}
+          >
+            Order Processing
+          </li>
+          <li
+            className={`${
+              bookingStatus === "Order Completed" && "step-primary"
+            } step font-semibold`}
+          >
+            Order Completed
+          </li>
+        </ul>
+      )}
+      {bookingStatus === "Cancelled by User" && (
+        <ul className="steps w-full">
+          <li className="step step-primary font-semibold">Order Placed</li>
+          <li className="step step-primary font-semibold">Order Cancelled</li>
+        </ul>
+      )}
       <div className="mt-16 flex gap-5">
         <div>
           <img className="w-48 rounded-md" src={servicePhotoURL} alt="" />
           <p className="mt-4 text-xs font-semibold">#{_id}</p>
-          <p className="font-bold text-nowrap my-1">{service}</p>
+          <div className="font-bold text-lg">
+            {booking.service} <br />
+            <span className={`text-sm ${bookingStatus === "Cancelled by User" ? "bg-red-500" : "bg-green-700"} text-white`}>
+              {booking.bookingStatus}
+            </span>
+          </div>
           <p className="font-bold">Total: ৳{totalAmount}</p>
         </div>
         <div>
@@ -152,7 +194,12 @@ const BookingDetails = () => {
         )}
         {(bookingStatus === "Order Placed" ||
           bookingStatus === "Order Confirmed") && (
-          <button className="btn bg-red-500 text-white">Cancel</button>
+          <button
+            onClick={() => handleCancelBooking(_id)}
+            className="btn bg-red-500 text-white"
+          >
+           {loading ? <span className="loading loading-spinner loading-md"></span> : "Cancel"}
+          </button>
         )}
       </div>
     </div>

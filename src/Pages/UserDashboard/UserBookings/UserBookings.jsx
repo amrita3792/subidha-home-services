@@ -101,7 +101,7 @@ const UserBookings = () => {
                         <div>
                           <div className="font-bold text-lg">
                             {booking.service} <br />
-                            <span className="text-sm bg-green-700 text-white">
+                            <span className={`text-sm ${booking.bookingStatus === "Cancelled by User" ? "bg-red-500" : "bg-green-700"} text-white`}>
                               {booking.bookingStatus}
                             </span>
                           </div>

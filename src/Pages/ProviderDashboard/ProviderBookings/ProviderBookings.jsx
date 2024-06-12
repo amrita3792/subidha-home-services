@@ -70,7 +70,7 @@ const ProviderBookings = () => {
           console.error(error);
           //   setLoading(false);
         });
-    } 
+    }
   };
 
   return (
@@ -112,7 +112,13 @@ const ProviderBookings = () => {
                           <div className="font-bold text-lg">
                             {booking.service}
                             <br />
-                            <span className="text-sm bg-green-700 text-white">
+                            <span
+                              className={`text-sm ${
+                                booking.bookingStatus === "Cancelled by User"
+                                  ? "bg-red-500"
+                                  : "bg-green-700"
+                              } text-white`}
+                            >
                               {booking.bookingStatus}
                             </span>
                           </div>
@@ -160,68 +166,81 @@ const ProviderBookings = () => {
                       </div>
                     </td>
                     <td>
-                      <select
-                        defaultValue={booking.bookingStatus}
-                        onChange={(e) => handleStatusChange(e, booking._id)}
-                        className="select select-bordered w-full max-w-xs"
-                      >
-                        <option disabled value="">
-                          ---Booking Status---
-                        </option>
-                        <option disabled value="Order Placed">
-                          Order Placed
-                        </option>
-                        <option
-                          disabled={
-                            booking.bookingStatus === "Order Completed" ||
-                            booking.bookingStatus === "Order Confirmed" ||
-                            booking.bookingStatus === "Order Processing"
-                          }
-                          value="Order Confirmed"
+                      {!(booking.bookingStatus === "Cancelled by User" || booking.bookingStatus === "Order Completed") && (
+                        <select
+                          defaultValue={booking.bookingStatus}
+                          onChange={(e) => handleStatusChange(e, booking._id)}
+                          className="select select-bordered w-full max-w-xs"
                         >
-                          Order Confirmed
-                        </option>
-                        <option
-                          disabled={
-                            booking.bookingStatus === "Order Placed" ||
-                            booking.bookingStatus === "Order Completed" ||
-                            booking.bookingStatus === "Order Processing"
-                          }
-                          value="Order Processing"
-                        >
-                          Order Processing
-                        </option>
-                        <option
-                          disabled={
-                            booking.bookingStatus === "Order Completed" ||
-                            booking.bookingStatus === "Order Placed" ||
-                            booking.bookingStatus === "Order Confirmed"
-                          }
-                          value="Order Completed"
-                        >
-                          Order Completed
-                        </option>
-                      </select>
+                          <option disabled value="">
+                            ---Booking Status---
+                          </option>
+                          <option disabled value="Order Placed">
+                            Order Placed
+                          </option>
+                          <option
+                            disabled={
+                              booking.bookingStatus === "Order Completed" ||
+                              booking.bookingStatus === "Order Confirmed" ||
+                              booking.bookingStatus === "Order Processing"
+                            }
+                            value="Order Confirmed"
+                          >
+                            Order Confirmed
+                          </option>
+                          <option
+                            disabled={
+                              booking.bookingStatus === "Order Placed" ||
+                              booking.bookingStatus === "Order Completed" ||
+                              booking.bookingStatus === "Order Processing"
+                            }
+                            value="Order Processing"
+                          >
+                            Order Processing
+                          </option>
+                          <option
+                            disabled={
+                              booking.bookingStatus === "Order Completed" ||
+                              booking.bookingStatus === "Order Placed" ||
+                              booking.bookingStatus === "Order Confirmed"
+                            }
+                            value="Order Completed"
+                          >
+                            Order Completed
+                          </option>
+                        </select>
+                      )}
                     </td>
                     <th>
                       <button
                         onClick={() => {
-                          if(receiver?.uid === booking?.userUID) {
-                            return
+                          if (receiver?.uid === booking?.userUID) {
+                            return;
                           } else {
                             setReceiver({
                               uid: booking.userUID,
                               photoURL: booking.userPhotoURL,
                               userName: booking.userName,
-                            })
+                            });
                           }
-                        }
-                        }
+                        }}
                         className="btn btn-ghost btn-xs bg-[#345DA7] text-white hover:text-black"
                       >
                         Chat
                       </button>
                     </th>
+                    {!(
+                      booking.bookingStatus === "Cancelled by User" ||
+                      booking.bookingStatus === "Order Confirmed" ||
+                      booking.bookingStatus === "Order Processing" ||
+                      booking.bookingStatus === "Order Completed"
+                    ) && (
+                      <th>
+                        <button className="btn bg-red-500 py-3 text-white hover:text-black">
+                          Cancel Order
+                        </button>
+                      </th>
+                    )}
                     {/* <th>
                       <Link
                         to={`/user-dashboard/booking-list/${booking._id}`}
