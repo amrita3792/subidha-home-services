@@ -14,6 +14,8 @@ const ReviewModal = ({ isModalOpen, setIsModalOpen, reviewService }) => {
 
   const { serviceManUID, service, servicePhotoURL } = reviewService;
 
+  console.log(reviewService)
+
   const isFileValid = (file) => {
     const allowedExtensions = ["jpg", "jpeg", "png"];
     const extension = file.name.split(".").pop().toLowerCase();
@@ -75,6 +77,7 @@ const ReviewModal = ({ isModalOpen, setIsModalOpen, reviewService }) => {
       serviceManUID,
       service,
       servicePhotoURL,
+      bookingId: reviewService._id,
     };
 
     fetch("https://subidha-home-services-server3792.glitch.me/review", {

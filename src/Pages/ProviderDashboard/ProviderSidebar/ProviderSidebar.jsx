@@ -276,7 +276,7 @@ const ProviderSidebar = () => {
     {
       id: 13,
       name: "Payment",
-      path: "/provider-dashboard/payment",
+      path: "/provider-dashboard/provider-payment",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"

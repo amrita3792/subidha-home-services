@@ -177,14 +177,14 @@ const UserBookings = () => {
                     </th>
                     {booking?.paidStatus && (
                       <th>
-                        <button
+                        <button disabled={booking.hasWrittenReview}
                           onClick={() => {
                             setReviewService(booking);
                             handleChangeModalState();
                           }}
                           className="btn btn-ghost btn-xs bg-neutral text-white hover:text-black"
                         >
-                          Review
+                          {booking.hasWrittenReview ? "Reviewed" : "Review"}
                         </button>
                       </th>
                     )}

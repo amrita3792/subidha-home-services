@@ -4,6 +4,7 @@ const Review = ({ review }) => {
   const [timeAgo, setTimeAgo] = useState("");
   const ratings = [];
   const {
+    _id,
     rating,
     selectedFileURL,
     comment,
