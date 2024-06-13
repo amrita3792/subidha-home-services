@@ -13,7 +13,8 @@ const Payment = () => {
   } = useQuery({
     queryKey: ["user-payments"],
     queryFn: () =>
-      fetch(`http://localhost:5000/payments/${user.uid}`).then((res) =>
+      fetch(`
+https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then((res) =>
         res.json()
       ),
   });
