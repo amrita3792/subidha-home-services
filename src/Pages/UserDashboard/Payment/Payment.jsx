@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { toast } from "react-toastify";
+import noDataFound from "../../../assets/images/no-data-found.png";
+import { Link } from "react-router-dom";
 
 const Payment = () => {
   const { user } = useContext(AuthContext);
@@ -14,8 +16,8 @@ const Payment = () => {
     queryKey: ["user-payments"],
     queryFn: () =>
       fetch(`
-https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then((res) =>
-        res.json()
+https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
+        (res) => res.json()
       ),
   });
 
@@ -37,65 +39,85 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then((
   }
   return (
     <div>
+      <div className="flex justify-end">
+        <div className="text-sm breadcrumbs">
+          <ul>
+            <li>
+              <Link to="/user-dashboard/dashboard">User Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/user-dashboard/user-payment">Payments</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
       <h2 className="text-2xl font-semibold mb-8 text-center">
         Payment History
       </h2>
-      <div className="overflow-x-auto py-10">
-        <table className="table">
-          <thead>
-            <tr className="text-base">
-              <th>Provider</th>
-              <th>Service</th>
-              <th>Date</th>
-              <th>Amount</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {payments.map((payment, idx) => (
-              <tr key={idx}>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
-                        <img
-                          src={payment.providerPhotoURL}
-                          alt="Avatar Tailwind CSS Component"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-bold">{payment.providerName}</div>
-                      <div className="text-sm opacity-50">
-                        #{payment.serviceManUID}
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
-                        <img
-                          src={payment.servicePhotoURL}
-                          alt="Avatar Tailwind CSS Component"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-bold">{payment.service}</div>
-                    </div>
-                  </div>
-                </td>
-                
-                <td>{payment.invoiceDate}</td>
-                <td className="font-semibold">{payment.totalAmount} TK</td>
-                <td className="font-semibold text-green-600 p-2">Payment Completed</td>
+      {payments.length > 0 ? (
+        <div className="overflow-x-auto py-10">
+          <table className="table">
+            <thead>
+              <tr className="text-base">
+                <th>Provider</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {payments.map((payment, idx) => (
+                <tr key={idx}>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle w-12 h-12">
+                          <img
+                            src={payment.providerPhotoURL}
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">{payment.providerName}</div>
+                        <div className="text-sm opacity-50">
+                          #{payment.serviceManUID}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle w-12 h-12">
+                          <img
+                            src={payment.servicePhotoURL}
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">{payment.service}</div>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>{payment.invoiceDate}</td>
+                  <td className="font-semibold">{payment.totalAmount} TK</td>
+                  <td className="font-semibold text-green-600 p-2">
+                    Payment Completed
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center relative">
+          <img src={noDataFound} alt="Girl in a jacket" />
+        </div>
+      )}
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { AuthContext } from "../../../../contexts/AuthProvider";
 import ServiceCard from "../ServiceCard/ServiceCard";
+import { Link } from "react-router-dom";
 
 const ProviderServices = () => {
   const { user } = useContext(AuthContext);
@@ -42,6 +43,18 @@ const ProviderServices = () => {
 
   return (
     <div>
+      <div className="flex justify-end">
+        <div className="text-sm breadcrumbs">
+          <ul>
+            <li>
+              <Link to="/provider-dashboard/dashboard">Provider Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/provider-dashboard/my-services">My Services</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div className="flex items-center gap-5">
         <button className="btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-2 active:scale-95 border-none">
           Active Services

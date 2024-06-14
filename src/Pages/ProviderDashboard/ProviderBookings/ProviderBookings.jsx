@@ -4,6 +4,7 @@ import { ChatContext } from "../../../App";
 import { useQuery } from "@tanstack/react-query";
 import ConfirmationModal from "../../../Components/ConfirmationModal/ConfirmationModal";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const ProviderBookings = () => {
   const { user } = useContext(AuthContext);
@@ -89,6 +90,20 @@ const ProviderBookings = () => {
         </div>
       ) : (
         <div>
+          <div className="flex justify-end">
+            <div className="text-sm breadcrumbs">
+              <ul>
+                <li>
+                  <Link to="/provider-dashboard/dashboard">
+                    Provider Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/provider-dashboard/booking-list">Booking List</Link>
+                </li>
+              </ul>
+            </div>
+          </div>
           <h2 className="text-2xl font-semibold mb-8 text-center">
             Booking List
           </h2>
@@ -174,7 +189,10 @@ const ProviderBookings = () => {
                       </div>
                     </td>
                     <td>
-                      {!(booking.bookingStatus === "Cancelled by User" || booking.bookingStatus === "Order Completed") && (
+                      {!(
+                        booking.bookingStatus === "Cancelled by User" ||
+                        booking.bookingStatus === "Order Completed"
+                      ) && (
                         <select
                           defaultValue={booking.bookingStatus}
                           onChange={(e) => handleStatusChange(e, booking._id)}

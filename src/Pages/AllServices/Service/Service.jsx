@@ -1,7 +1,13 @@
-import React from "react";
+import { useEffect } from "react";
 import ServiceCard from "./ServiceCard/ServiceCard";
 
 const Service = ({ service, handleDetailsButtonClick }) => {
+  useEffect(() => {
+    return () => {
+      // Scroll to top smoothly when the component unmounts
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  }, []); // Empty dependency array ensures this effect runs only on unmount
   return (
     <div>
       <h2 className="text-2xl md:text-3xl font-bold">{service?.serviceName}</h2>

@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
-
+import noDataFound from "../../../assets/images/no-data-found.png";
+import { Link } from "react-router-dom";
 
 const Invoices = () => {
   const { user } = useContext(AuthContext);
@@ -15,8 +16,8 @@ const Invoices = () => {
     queryKey: ["user-invoices"],
     queryFn: () =>
       fetch(`
-https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then((res) =>
-        res.json()
+https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
+        (res) => res.json()
       ),
   });
 
@@ -43,66 +44,89 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then((
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-8 text-center">Invoices</h2>
-      <div className="overflow-x-auto py-10">
-        <table className="table">
-          <thead>
-            <tr className="text-base">
-              <th>Provider</th>
-              <th>Service</th>
-              <th>Date</th>
-              <th>Amount</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {invoices.map((invoice, idx) => (
-              <tr key={idx}>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
-                        <img
-                          src={invoice.providerPhotoURL}
-                          alt="Avatar Tailwind CSS Component"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-bold">{invoice.providerName}</div>
-                      <div className="text-sm opacity-50">
-                        #{invoice.serviceManUID}
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
-                        <img
-                          src={invoice.servicePhotoURL}
-                          alt="Avatar Tailwind CSS Component"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div className="font-bold">{invoice.service}</div>
-                    </div>
-                  </div>
-                </td>
-
-                <td>{invoice.invoiceDate}</td>
-                <td className="font-semibold">{invoice.totalAmount} TK</td>
-                <td className="font-semibold text-green-600 p-2">
-                  Payment Completed
-                </td>
-                <button onClick={() => handleDownloadInvoice(invoice)} className="btn btn-neutral">Export</button>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+       <div className="flex justify-end">
+        <div className="text-sm breadcrumbs">
+          <ul>
+            <li>
+              <Link to="/user-dashboard/dashboard">User Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/user-dashboard/user-invoices">Invoices</Link>
+            </li>
+          </ul>
+        </div>
       </div>
+      <h2 className="text-2xl font-semibold mb-8 text-center">Invoices</h2>
+      {invoices.length > 0 ? (
+        <div className="overflow-x-auto py-10">
+          <table className="table">
+            <thead>
+              <tr className="text-base">
+                <th>Provider</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {invoices.map((invoice, idx) => (
+                <tr key={idx}>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle w-12 h-12">
+                          <img
+                            src={invoice.providerPhotoURL}
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">{invoice.providerName}</div>
+                        <div className="text-sm opacity-50">
+                          #{invoice.serviceManUID}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle w-12 h-12">
+                          <img
+                            src={invoice.servicePhotoURL}
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">{invoice.service}</div>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>{invoice.invoiceDate}</td>
+                  <td className="font-semibold">{invoice.totalAmount} TK</td>
+                  <td className="font-semibold text-green-600 p-2">
+                    Payment Completed
+                  </td>
+                  <button
+                    onClick={() => handleDownloadInvoice(invoice)}
+                    className="btn btn-neutral"
+                  >
+                    Export
+                  </button>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center relative">
+          <img src={noDataFound} alt="Girl in a jacket" />
+        </div>
+      )}
     </div>
   );
 };
