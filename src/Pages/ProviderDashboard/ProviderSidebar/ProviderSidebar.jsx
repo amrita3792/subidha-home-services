@@ -234,7 +234,7 @@ const ProviderSidebar = () => {
     {
       id: 11,
       name: "Availability",
-      path: "/provider-dashboard/rewards",
+      path: "/provider-dashboard/provider-availability",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"

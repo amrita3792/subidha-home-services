@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 const ProviderPayments = () => {
   const { user } = useContext(AuthContext);
+  console.log(user);
   const {
     data: payments = [],
     isLoading,
@@ -13,8 +14,7 @@ const ProviderPayments = () => {
   } = useQuery({
     queryKey: ["provider-payments"],
     queryFn: () =>
-      fetch(`
-https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then((res) =>
+      fetch(`https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then((res) =>
         res.json()
       ),
   });

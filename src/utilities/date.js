@@ -53,3 +53,20 @@ export function getCurrentDateTime() {
 }
 
 
+export function getWeekday(dateStr) {
+  // Convert the string to a Date object
+  const dateObj = new Date(dateStr);
+
+  // Array of weekday names
+  const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  // Get the weekday number (0 is Sunday, 6 is Saturday)
+  const weekdayNum = dateObj.getDay();
+
+  // Get the weekday name from the array
+  const weekdayName = weekdays[weekdayNum];
+
+  return weekdayName;
+}
+
+

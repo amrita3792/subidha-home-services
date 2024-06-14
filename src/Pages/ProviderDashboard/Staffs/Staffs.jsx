@@ -1,21 +1,57 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AddStaffModal from "../../../Components/AddStaffModal/AddStaffModal";
+import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const Staffs = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const { user } = useContext(AuthContext);
 
-  const handleChangeModalState = async() => {
-    await setModalOpen((prev) => !prev);
-    await document.getElementById('add-staff')?.showModal();
+  const {
+    data: staffs = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["staffs"],
+    queryFn: () =>
+      fetch(`
+https://subidha-home-services-server3792.glitch.me/staff/${user.uid}`).then(
+        (res) => res.json()
+      ),
+  });
+
+  if (isError) {
+    toast.error(error.message, {
+      hideProgressBar: true,
+      // theme: "colored",
+    });
   }
 
-  console.log(modalOpen)
+  console.log(staffs);
+
+  if (isLoading) {
+    return (
+      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
+        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+      </div>
+    );
+  }
+
+  const handleChangeModalState = async () => {
+    await setModalOpen((prev) => !prev);
+    await document.getElementById("add-staff")?.showModal();
+  };
 
   return (
     <div>
       <h3 className="font-semibold text-2xl text-center">My Staffs</h3>
       <div className="flex justify-end my-8">
-        <button onClick={handleChangeModalState} className="btn btn-neutral flex items-center">
+        <button
+          onClick={handleChangeModalState}
+          className="btn btn-neutral flex items-center"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -40,136 +76,56 @@ const Staffs = () => {
           <thead>
             <tr>
               <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
-              <th></th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Date of Birth</th>
+              <th>Gender</th>
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
-            <tr>
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                      <img
-                        src="https://img.daisyui.com/tailwind-css-component-profile-2@56w.png"
-                        alt="Avatar Tailwind CSS Component"
-                      />
+         
+            {staffs?.map((staff) => (
+              <tr key={staff._id}>
+                <td>
+                  <div className="flex items-center gap-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle w-12 h-12">
+                        <img
+                          src={staff.photo}
+                          alt="Avatar Tailwind CSS Component"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-bold">{staff.name}</div>
                     </div>
                   </div>
-                  <div>
-                    <div className="font-bold">Hart Hagerty</div>
-                    <div className="text-sm opacity-50">United States</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                Zemlak, Daniel and Leannon
-                <br />
-                <span className="badge badge-ghost badge-sm">
-                  Desktop Support Technician
-                </span>
-              </td>
-              <td>Purple</td>
-              <th>
-                <button className="btn btn-ghost btn-xs">details</button>
-              </th>
-            </tr>
-            {/* row 2 */}
-            <tr>
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                      <img
-                        src="https://img.daisyui.com/tailwind-css-component-profile-3@56w.png"
-                        alt="Avatar Tailwind CSS Component"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="font-bold">Brice Swyre</div>
-                    <div className="text-sm opacity-50">China</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                Carroll Group
-                <br />
-                <span className="badge badge-ghost badge-sm">
-                  Tax Accountant
-                </span>
-              </td>
-              <td>Red</td>
-              <th>
-                <button className="btn btn-ghost btn-xs">details</button>
-              </th>
-            </tr>
-            {/* row 3 */}
-            <tr>
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                      <img
-                        src="https://img.daisyui.com/tailwind-css-component-profile-4@56w.png"
-                        alt="Avatar Tailwind CSS Component"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="font-bold">Marjy Ferencz</div>
-                    <div className="text-sm opacity-50">Russia</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                Rowe-Schoen
-                <br />
-                <span className="badge badge-ghost badge-sm">
-                  Office Assistant I
-                </span>
-              </td>
-              <td>Crimson</td>
-              <th>
-                <button className="btn btn-ghost btn-xs">details</button>
-              </th>
-            </tr>
-            {/* row 4 */}
-            <tr>
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                      <img
-                        src="https://img.daisyui.com/tailwind-css-component-profile-5@56w.png"
-                        alt="Avatar Tailwind CSS Component"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="font-bold">Yancy Tear</div>
-                    <div className="text-sm opacity-50">Brazil</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                Wyman-Ledner
-                <br />
-                <span className="badge badge-ghost badge-sm">
-                  Community Outreach Specialist
-                </span>
-              </td>
-              <td>Indigo</td>
-              <th>
-                <button className="btn btn-ghost btn-xs">details</button>
-              </th>
-            </tr>
+                </td>
+                <td>
+                  {staff.phone}
+                </td>
+                <td>
+                  {staff.email}
+                </td>
+                <td>
+                  {staff.dateOfBirth}
+                </td>
+                <td>
+                  {staff.gender}
+                </td>
+
+                <th>
+                  <button className="btn btn-ghost btn-xs">details</button>
+                </th>
+              </tr>
+            ))}
+            
           </tbody>
         </table>
       </div>
-      {modalOpen && <AddStaffModal handleChangeModalState={handleChangeModalState} />}
+      {modalOpen && (
+        <AddStaffModal handleChangeModalState={handleChangeModalState} />
+      )}
     </div>
   );
 };

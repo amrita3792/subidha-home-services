@@ -31,6 +31,7 @@ import ProviderInvoices from "../../Pages/ProviderDashboard/ProviderInvoices/Pro
 import ProviderPayments from "../../Pages/ProviderDashboard/ProviderPayments/ProviderPayments";
 import ProviderReviews from "../../Pages/ProviderDashboard/ProviderReviews/ProviderReviews";
 import Staffs from "../../Pages/ProviderDashboard/Staffs/Staffs";
+import Availability from "../../Pages/ProviderDashboard/Availability/Availability";
 
 const router = createBrowserRouter([
   {
@@ -145,6 +146,10 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
           {
             path: "/provider-dashboard/staffs",
             element: <Staffs />
+          },
+          {
+            path: "/provider-dashboard/provider-availability",
+            element: <Availability />
           }
         ],
       },

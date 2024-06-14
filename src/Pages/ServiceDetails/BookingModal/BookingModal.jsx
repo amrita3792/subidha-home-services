@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { format } from "date-fns";
-import { getCurrentDateTime } from "../../../utilities/date";
+import { getCurrentDateTime, getWeekday } from "../../../utilities/date";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import contactPerson from "../../../assets/icons/contact-person.png";
@@ -49,6 +49,9 @@ const BookingModal = ({
     setIsLoading(true);
 
     const formData = new FormData(e.target);
+
+    // const selectedWeekDay = getWeekday(format(selectedDate, "PP"));
+
     const bookingInfo = {
       userUID: userData.uid,
       userName: formData.get("userName"),
@@ -63,6 +66,7 @@ const BookingModal = ({
       service: subCategory.serviceName,
       servicePhotoURL: subCategory.image,
       selectedDate: format(selectedDate, "PP"),
+      selectedWeekDay: getWeekday(format(selectedDate, "PP")),
       totalAmount: amount * quantity,
       updated: getCurrentDateTime(),
       serviceQuantity: quantity,
