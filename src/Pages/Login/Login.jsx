@@ -29,14 +29,9 @@ const Login = () => {
 
   useEffect(() => {
     if (token) {
-      if (location?.state?.from?.pathname?.split("/")[1] === "admin-dashboard") {
-        navigate("/");
-      } else {
-        navigate(from, { replace: true });
-      }
+      navigate("/");
     }
   }, [token]); // Empty dependency array ensures this effect runs only after initial render
-  
 
   useEffect(() => {
     if (verifyEmail) {

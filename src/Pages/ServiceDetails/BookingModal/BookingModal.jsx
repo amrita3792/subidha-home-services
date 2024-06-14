@@ -20,7 +20,7 @@ const BookingModal = ({
   serviceMan,
   amount,
 }) => {
-  // console.log(serviceMan);
+
   const [quantity, setQuantity] = useState(1);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
@@ -29,8 +29,6 @@ const BookingModal = ({
   const [selectedSlot, setSelectedSlot] = useState("");
   const [remainingSlots, setRemainingSlots] = useState([]);
   const { user } = useContext(AuthContext);
-
-  console.log(timeSlots);
 
   const navigate = useNavigate();
 
@@ -84,8 +82,6 @@ const BookingModal = ({
         }
       });
 
-      console.log(selectedDate);
-
       if (datesAreEqual(selectedDate, now)) {
         const remainingSlots = timeSlots.filter(
           (slot) => !disabled.includes(slot)
@@ -106,8 +102,6 @@ const BookingModal = ({
     return () => clearInterval(interval); // Clean up interval
   }, [timeSlots]); // Empty dependency array means this effect runs only once on mount
 
-  console.log(disabledSlots);
-
   const handleIncrease = (e) => {
     e.preventDefault();
     setQuantity((prevQuantity) => prevQuantity + 1);
@@ -122,7 +116,6 @@ const BookingModal = ({
 
   const handleClickSlot = (e) => {
     setSelectedSlot(e.target.innerText);
-    console.log(e.target.innerText);
   };
 
   const handleSubmitBookingInfo = (e) => {
@@ -161,7 +154,6 @@ const BookingModal = ({
       bookingStatus: "Order Placed",
     };
 
-    console.log(bookingInfo);
     // Perform any necessary actions, such as sending the data to a server
     // For example, you can use fetch API to send a POST request to a server endpoint
     fetch("https://subidha-home-services-server3792.glitch.me/booking", {
@@ -282,7 +274,6 @@ const BookingModal = ({
                     defaultValue={userData.phoneNumber}
                   />
                   <input
-                    required
                     name="userEmail"
                     type="text"
                     placeholder="Email"

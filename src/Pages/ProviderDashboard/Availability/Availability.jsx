@@ -127,7 +127,7 @@ const Availability = () => {
       }
     });
 
-    fetch("http://localhost:5000/time-slots", {
+    fetch("https://subidha-home-services-server3792.glitch.me/time-slots", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
