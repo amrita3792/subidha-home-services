@@ -15,7 +15,7 @@ const ProviderSidebar = () => {
     }
   }, [user]);
 
-  const userAccessLinks = [
+  const providerAccessLinks = [
     {
       id: 1,
       name: "Dashboard",
@@ -359,10 +359,10 @@ const ProviderSidebar = () => {
           </div>
         </div>
         <ul>
-          {userAccessLinks.map((userAccessLink) => (
+          {providerAccessLinks.map((providerAccessLink) => (
             <li
               className="flex items-center min-w-[300px]"
-              key={userAccessLink.id}
+              key={providerAccessLink.id}
             >
               <NavLink
                 style={({ isActive }) => {
@@ -373,10 +373,10 @@ const ProviderSidebar = () => {
                   };
                 }}
                 className="px-3 py-2 font-semibold w-full flex items-center justify-start gap-3 btn bg-inherit  border-none"
-                to={userAccessLink.path}
+                to={providerAccessLink.path}
               >
-                {userAccessLink.icon}
-                {userAccessLink.name}
+                {providerAccessLink.icon}
+                {providerAccessLink.name}
               </NavLink>
             </li>
           ))}

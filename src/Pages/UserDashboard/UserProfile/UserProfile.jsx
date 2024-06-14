@@ -4,6 +4,7 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { Tooltip } from "keep-react";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 const UserProfile = () => {
   const {
@@ -242,6 +243,18 @@ const UserProfile = () => {
 
   return (
     <div className="md:p-5">
+      <div className="flex justify-end">
+        <div className="text-sm breadcrumbs">
+          <ul>
+            <li>
+              <Link to="/user-dashboard/dashboard">User Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/user-dashboard/user-settings">My Profile</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
       <h2
         name="/user-dashboard/dashboard"
         className="text-2xl font-semibold text-center mb-5"

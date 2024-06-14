@@ -40,6 +40,14 @@ const ProviderBookings = () => {
     return response.json();
   };
 
+  if (isLoading) {
+    return (
+      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
+        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+      </div>
+    );
+  }
+
   const handleStatusChange = (event, bookingId) => {
     setStatus(event.target.value);
     if (confirm("Are you sure want to update status?") == true) {
@@ -81,8 +89,8 @@ const ProviderBookings = () => {
         </div>
       ) : (
         <div>
-          <h2 className="text-xl font-semibold mb-8 text-cente ">
-            BOOKING LIST
+          <h2 className="text-2xl font-semibold mb-8 text-center">
+            Booking List
           </h2>
           <div className="overflow-x-auto">
             <table className="table">

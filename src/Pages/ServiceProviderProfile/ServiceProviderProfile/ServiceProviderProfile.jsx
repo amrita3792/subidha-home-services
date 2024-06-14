@@ -57,7 +57,7 @@ https://subidha-home-services-server3792.glitch.me/reviews/${uid}`,
     return response.json();
   };
 
-  console.log(providerDetails);
+  // console.log(providerDetails);
 
   return (
     <div className="xl:max-w-screen-xl lg:max-w-screen-lg  mx-auto">

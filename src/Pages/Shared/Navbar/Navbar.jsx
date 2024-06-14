@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { List, MagnifyingGlass, X } from "@phosphor-icons/react";
 import { AuthContext } from "../../../contexts/AuthProvider";
-import { ChatContext, ThemeContext } from "../../../App";
+import { ChatContext, ThemeContext} from "../../../App";
 import UserAccessLinks from "../UserAccessLinks/UserAccessLinks";
 import ChatPopup from "../ChatPopup/ChatPopup";
 import io from "socket.io-client";
@@ -12,7 +12,8 @@ import SearchModal from "../../../Components/SearchModal/SearchModal";
 
 const Navbar = ({ isMounted }) => {
   const { user } = useContext(AuthContext);
-  const { theme, handleToggle } = useContext(ThemeContext);
+  // const { theme, handleToggle } = useContext(ThemeContext);
+  const {theme, handleToggle} = useContext(ThemeContext);
   const { receiver, setReceiver } = useContext(ChatContext);
 
   const [openSidebar, setOpenSidebar] = useState(false);

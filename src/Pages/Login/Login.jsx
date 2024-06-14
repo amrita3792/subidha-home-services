@@ -9,7 +9,6 @@ import ResendEmailVerifyModal from "./ResendEmailVerifyModal/ResendEmailVerifyMo
 import { getDate, getTime } from "../../utilities/date";
 // import { getUserToken } from "../../utilities/getToken";
 import useToken from "../../hooks/useToken";
-import { Navigate } from "react-router-dom";
 
 const Login = () => {
   const { googleSignIn, setLoading, signIn, loading, user } =
@@ -29,9 +28,14 @@ const Login = () => {
 
   useEffect(() => {
     if (token) {
-      navigate("/");
+      if (location?.state?.from?.pathname?.split("/")[1] === "admin-dashboard") {
+        navigate("/");
+      } else {
+        navigate(from, { replace: true });
+      }
     }
   }, [token]); // Empty dependency array ensures this effect runs only after initial render
+  
 
   useEffect(() => {
     if (verifyEmail) {

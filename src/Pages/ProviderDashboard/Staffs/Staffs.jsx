@@ -3,6 +3,7 @@ import AddStaffModal from "../../../Components/AddStaffModal/AddStaffModal";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../../contexts/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Staffs = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -46,6 +47,18 @@ https://subidha-home-services-server3792.glitch.me/staff/${user.uid}`).then(
 
   return (
     <div>
+      <div className="flex justify-end">
+        <div className="text-sm breadcrumbs">
+          <ul>
+            <li>
+              <Link to="/provider-dashboard/dashboard">Provider Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/provider-dashboard/staffs">Staffs</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
       <h3 className="font-semibold text-2xl text-center">My Staffs</h3>
       <div className="flex justify-end my-8">
         <button
@@ -83,7 +96,6 @@ https://subidha-home-services-server3792.glitch.me/staff/${user.uid}`).then(
             </tr>
           </thead>
           <tbody>
-         
             {staffs?.map((staff) => (
               <tr key={staff._id}>
                 <td>
@@ -101,25 +113,16 @@ https://subidha-home-services-server3792.glitch.me/staff/${user.uid}`).then(
                     </div>
                   </div>
                 </td>
-                <td>
-                  {staff.phone}
-                </td>
-                <td>
-                  {staff.email}
-                </td>
-                <td>
-                  {staff.dateOfBirth}
-                </td>
-                <td>
-                  {staff.gender}
-                </td>
+                <td>{staff.phone}</td>
+                <td>{staff.email}</td>
+                <td>{staff.dateOfBirth}</td>
+                <td>{staff.gender}</td>
 
                 <th>
                   <button className="btn btn-ghost btn-xs">details</button>
                 </th>
               </tr>
             ))}
-            
           </tbody>
         </table>
       </div>

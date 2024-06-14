@@ -2,15 +2,16 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
-import { ThemeContext } from "../../../App";
+import { AdminContext, ProviderContext, ThemeContext } from "../../../App";
 import useAdmin from "../../../hooks/useAdmin";
 import useProvider from "../../../hooks/useProvider";
 
 const UserAccessLinks = ({ isOpen, setIsOpen }) => {
   const { user, logout, loading, setLoading } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
-  const [isAdmin, isAdminLoading] = useAdmin(user.uid);
-  const [isProvider, isProviderLoading] = useProvider(user?.uid);
+  // const [isProvider, isProviderLoading] = useProvider(user?.uid);
+  const {isProvider, isProviderLoading} = useContext(ProviderContext);
+  const {isAdmin, isAdminLoading} = useContext(AdminContext);
 
   const profileLinks = [
     {

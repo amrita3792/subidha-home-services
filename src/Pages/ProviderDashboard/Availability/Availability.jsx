@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const generateTimeOptions = () => {
   const times = [];
@@ -32,6 +33,14 @@ const Availability = () => {
     Friday: { enabled: false, from: "", to: "" },
     Saturday: { enabled: false, from: "", to: "" },
   });
+
+
+  useEffect(() => {
+    return () => {
+      // Scroll to top smoothly when the component unmounts
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  }, []); // Empty dependency array ensures this effect runs only on unmount
 
   const handleAllDaysChange = () => {
     setAllDays(!allDays);
@@ -151,6 +160,18 @@ const Availability = () => {
 
   return (
     <form onSubmit={handleSubmit} className="p-4">
+      <div className="flex justify-end">
+        <div className="text-sm breadcrumbs">
+          <ul>
+            <li>
+              <Link to="/provider-dashboard/dashboard">Provider Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/provider-dashboard/provider-availability">Availability</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
       <h2 className="text-2xl font-semibold mb-8 text-center">
         Availability
       </h2>
