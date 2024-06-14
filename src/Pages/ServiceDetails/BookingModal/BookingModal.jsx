@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { format } from "date-fns";
@@ -7,10 +7,11 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import contactPerson from "../../../assets/icons/contact-person.png";
 import address from "../../../assets/icons/favorite-location.png";
-import service from '../../../assets/icons/service.png';
-import rebuildingService from '../../../assets/icons/rebuilding-service.png';
-import orderList from '../../../assets/icons/order-list.png';
-import schedule from '../../../assets/icons/schedule.png';
+import service from "../../../assets/icons/service.png";
+import rebuildingService from "../../../assets/icons/rebuilding-service.png";
+import orderList from "../../../assets/icons/order-list.png";
+import schedule from "../../../assets/icons/schedule.png";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const BookingModal = ({
   handleChangeModalState,
@@ -23,6 +24,14 @@ const BookingModal = ({
   const [quantity, setQuantity] = useState(1);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
+  const [timeSlots, setTimeSlots] = useState([]);
+  const [disabledSlots, setDisabledSlots] = useState([]);
+  const [selectedSlot, setSelectedSlot] = useState("");
+  const [remainingSlots, setRemainingSlots] = useState([]);
+  const { user } = useContext(AuthContext);
+
+  console.log(timeSlots);
+
   const navigate = useNavigate();
 
   let footer = <p>Please pick a day.</p>;
@@ -31,6 +40,73 @@ const BookingModal = ({
       <p className="font-semibold">You picked {format(selectedDate, "PP")}.</p>
     );
   }
+
+  useEffect(() => {
+    if (selectedDate) {
+      fetch(
+        `http://localhost:5000/get-available-slots?serviceManId=${
+          serviceMan.uid
+        }&selectedDate=${format(
+          selectedDate,
+          "PP"
+        )}&selectedWeekDay=${getWeekday(format(selectedDate, "PP"))}`
+      )
+        .then((res) => res.json())
+        .then((data) => setTimeSlots(data));
+    }
+  }, [selectedDate]);
+
+  function datesAreEqual(date1, date2) {
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    );
+  }
+
+  useEffect(() => {
+    const calculateDisabledSlots = () => {
+      const now = new Date();
+      const currentHour = now.getHours();
+      const currentMinute = now.getMinutes();
+      const currentTimeIndex = Math.floor(currentHour - 9); // Assuming slots start from 9 AM
+
+      const disabled = timeSlots.filter((slot, index) => {
+        if (
+          index < currentTimeIndex ||
+          (index === currentTimeIndex && currentMinute > 0)
+        ) {
+          return slot; // Slot is in the past
+        } else if (index - currentTimeIndex > 2) {
+          return false; // Slot is more than 2 hours in the future
+        } else {
+          return slot; // Slot is valid
+        }
+      });
+
+      console.log(selectedDate);
+
+      if (datesAreEqual(selectedDate, now)) {
+        const remainingSlots = timeSlots.filter(
+          (slot) => !disabled.includes(slot)
+        );
+        setRemainingSlots(remainingSlots);
+      } else {
+        setRemainingSlots(timeSlots);
+      }
+    };
+
+    calculateDisabledSlots();
+
+    // Update disabled slots every minute
+    const interval = setInterval(() => {
+      calculateDisabledSlots();
+    }, 60000); // Update every minute
+
+    return () => clearInterval(interval); // Clean up interval
+  }, [timeSlots]); // Empty dependency array means this effect runs only once on mount
+
+  console.log(disabledSlots);
 
   const handleIncrease = (e) => {
     e.preventDefault();
@@ -42,6 +118,11 @@ const BookingModal = ({
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
+  };
+
+  const handleClickSlot = (e) => {
+    setSelectedSlot(e.target.innerText);
+    console.log(e.target.innerText);
   };
 
   const handleSubmitBookingInfo = (e) => {
@@ -67,6 +148,7 @@ const BookingModal = ({
       servicePhotoURL: subCategory.image,
       selectedDate: format(selectedDate, "PP"),
       selectedWeekDay: getWeekday(format(selectedDate, "PP")),
+      selectedSlot,
       totalAmount: amount * quantity,
       updated: getCurrentDateTime(),
       serviceQuantity: quantity,
@@ -135,11 +217,7 @@ const BookingModal = ({
         <h3 className="font-bold text-2xl text-center mb-14">Booking Form</h3>
         <div className="flex flex-col md:flex-row gap-5">
           <div>
-            <img
-              className="w-16"
-              src={schedule}
-              alt=""
-            />
+            <img className="w-16" src={schedule} alt="" />
           </div>
           <div className="grow">
             <h3 className="text-lg font-semibold">Schedule</h3>
@@ -153,6 +231,22 @@ const BookingModal = ({
                 onSelect={setSelectedDate}
                 footer={footer}
               />
+            </div>
+            <p className="text-center">
+              Select your prefer time, expert will arrive by your selected time
+            </p>
+            <div className="grid grid-cols-5 gap-5 mt-5">
+              {remainingSlots?.map((timeSlot, idx) => (
+                <button
+                  onClick={handleClickSlot}
+                  key={idx}
+                  className={`btn ${
+                    timeSlot === selectedSlot && "bg-gray-200"
+                  } btn-outline btn-info`}
+                >
+                  {timeSlot}
+                </button>
+              ))}
             </div>
           </div>
         </div>
@@ -247,11 +341,7 @@ const BookingModal = ({
 
             <div className="flex flex-col md:flex-row gap-5">
               <div>
-                <img
-                  className="w-16"
-                  src={service}
-                  alt=""
-                />
+                <img className="w-16" src={service} alt="" />
               </div>
               <div className="grow">
                 <h3 className="text-lg font-semibold">Service Detail</h3>
@@ -293,11 +383,7 @@ const BookingModal = ({
 
             <div className="flex flex-col md:flex-row gap-5">
               <div>
-                <img
-                  className="w-16"
-                  src={rebuildingService}
-                  alt=""
-                />
+                <img className="w-16" src={rebuildingService} alt="" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold">Service Provider</h3>
@@ -319,11 +405,7 @@ const BookingModal = ({
 
             <div className="flex flex-col md:flex-row gap-5 lg:w-[50%]">
               <div>
-                <img
-                  className="w-16"
-                  src={orderList}
-                  alt=""
-                />
+                <img className="w-16" src={orderList} alt="" />
               </div>
               <div className="grow">
                 <h3 className="text-lg font-semibold">Order Summary</h3>
