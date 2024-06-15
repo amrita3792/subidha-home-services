@@ -1,4 +1,6 @@
-import { useContext } from "react";
+import React, { useContext, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
@@ -7,6 +9,9 @@ import { Link } from "react-router-dom";
 
 const Invoices = () => {
   const { user } = useContext(AuthContext);
+  const [fromDate, setFromDate] = useState(null);
+  const [toDate, setToDate] = useState(null);
+
   const {
     data: invoices = [],
     isLoading,
@@ -15,16 +20,14 @@ const Invoices = () => {
   } = useQuery({
     queryKey: ["user-invoices"],
     queryFn: () =>
-      fetch(`
-https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
-        (res) => res.json()
-      ),
+      fetch(
+        `https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`
+      ).then((res) => res.json()),
   });
 
   if (isError) {
     toast.error(error.message, {
       hideProgressBar: true,
-      // theme: "colored",
     });
   }
 
@@ -42,9 +45,22 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
     );
   };
 
+  const filteredInvoices = invoices.filter((invoice) => {
+    const invoiceDate = new Date(invoice.invoiceDate);
+    return (
+      (!fromDate || invoiceDate >= new Date(fromDate)) &&
+      (!toDate || invoiceDate <= new Date(toDate))
+    );
+  });
+
+  const handleClearDate = () => {
+    setFromDate(null);
+    setToDate(null);
+  };
+
   return (
     <div>
-       <div className="flex justify-end">
+      <div className="flex justify-end">
         <div className="text-sm breadcrumbs">
           <ul>
             <li>
@@ -57,7 +73,43 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
         </div>
       </div>
       <h2 className="text-2xl font-semibold mb-8 text-center">Invoices</h2>
-      {invoices.length > 0 ? (
+
+      <div className="flex mb-4 gap-3 justify-end">
+        <div className="flex">
+          <DatePicker
+            selected={fromDate}
+            onChange={(date) => setFromDate(date)}
+            dateFormat="yyyy/MM/dd"
+            placeholderText="From Date"
+            className="input input-bordered"
+          />
+          <DatePicker
+            selected={toDate}
+            onChange={(date) => setToDate(date)}
+            dateFormat="yyyy/MM/dd"
+            placeholderText="To Date"
+            className="input input-bordered ml-2"
+          />
+        </div>
+        <button onClick={handleClearDate} className="btn btn-error">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-6 w-6 h-6 text-white"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18 18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+
+      {filteredInvoices.length > 0 ? (
         <div className="overflow-x-auto py-10">
           <table className="table">
             <thead>
@@ -70,7 +122,7 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
               </tr>
             </thead>
             <tbody>
-              {invoices.map((invoice, idx) => (
+              {filteredInvoices.map((invoice, idx) => (
                 <tr key={idx}>
                   <td>
                     <div className="flex items-center gap-3">
@@ -85,7 +137,7 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
                       <div>
                         <div className="font-bold">{invoice.providerName}</div>
                         <div className="text-sm opacity-50">
-                          #{invoice.serviceManUID}
+                          #{invoice._id}
                         </div>
                       </div>
                     </div>
@@ -105,19 +157,18 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
                       </div>
                     </div>
                   </td>
-
-                  <td>{invoice.invoiceDate}</td>
+                  <td className="font-semibold">{invoice.invoiceDate}</td>
                   <td className="font-semibold">{invoice.totalAmount} TK</td>
                   <td className="font-semibold text-green-600 p-2">
                     Payment Completed
                   </td>
                   <td>
-                  <button
-                    onClick={() => handleDownloadInvoice(invoice)}
-                    className="btn btn-neutral"
-                  >
-                    Export
-                  </button>
+                    <button
+                      onClick={() => handleDownloadInvoice(invoice)}
+                      className="btn btn-neutral"
+                    >
+                      Export
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -126,7 +177,7 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center relative">
-          <img src={noDataFound} alt="Girl in a jacket" />
+          <img src={noDataFound} alt="No data found" />
         </div>
       )}
     </div>

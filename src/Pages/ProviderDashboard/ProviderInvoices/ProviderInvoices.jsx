@@ -1,19 +1,16 @@
-import { useContext, useEffect } from "react";
+import  { useContext, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import noDataFound from "../../../assets/images/no-data-found.png";
 import { Link } from "react-router-dom";
 
-const ProviderInvoices = () => {
+const ProviderInovices = () => {
   const { user } = useContext(AuthContext);
-
-  useEffect(() => {
-    return () => {
-      // Scroll to top smoothly when the component unmounts
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    };
-  }, []); // Empty dependency array ensures this effect runs only on unmount
+  const [fromDate, setFromDate] = useState(null);
+  const [toDate, setToDate] = useState(null);
 
   const {
     data: invoices = [],
@@ -21,22 +18,18 @@ const ProviderInvoices = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: ["provider-invoices"],
+    queryKey: ["user-invoices"],
     queryFn: () =>
-      fetch(`
-https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
-        (res) => res.json()
-      ),
+      fetch(
+        `https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`
+      ).then((res) => res.json()),
   });
 
   if (isError) {
     toast.error(error.message, {
       hideProgressBar: true,
-      // theme: "colored",
     });
   }
-
-  // console.log(invoices);
 
   if (isLoading) {
     return (
@@ -52,97 +45,143 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
     );
   };
 
+  const filteredInvoices = invoices.filter((invoice) => {
+    const invoiceDate = new Date(invoice.invoiceDate);
+    return (
+      (!fromDate || invoiceDate >= new Date(fromDate)) &&
+      (!toDate || invoiceDate <= new Date(toDate))
+    );
+  });
+
+  const handleClearDate = () => {
+    setFromDate(null);
+    setToDate(null);
+  };
+
   return (
     <div>
       <div className="flex justify-end">
         <div className="text-sm breadcrumbs">
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/user-dashboard/dashboard">User Dashboard</Link>
             </li>
             <li>
-              Invoices
+              <Link to="/user-dashboard/user-invoices">Invoices</Link>
             </li>
           </ul>
         </div>
       </div>
       <h2 className="text-2xl font-semibold mb-8 text-center">Invoices</h2>
-      {invoices.length > 0 ? (
-        <div>
-          <div className="overflow-x-auto py-10">
-            <table className="table">
-              <thead>
-                <tr className="text-base">
-                  <th>User</th>
-                  <th>Service</th>
-                  <th>Date</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {invoices.map((invoice, idx) => (
-                  <tr key={idx}>
-                    <td>
-                      <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="mask mask-squircle w-12 h-12">
-                            <img
-                              src={invoice.userPhotoURL}
-                              alt="Avatar Tailwind CSS Component"
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <div className="font-bold">{invoice.userName}</div>
-                          <div className="text-sm opacity-50">
-                            #{invoice.userUID}
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="mask mask-squircle w-12 h-12">
-                            <img
-                              src={invoice.servicePhotoURL}
-                              alt="Avatar Tailwind CSS Component"
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <div className="font-bold">{invoice.service}</div>
-                        </div>
-                      </div>
-                    </td>
 
-                    <td>{invoice.invoiceDate}</td>
-                    <td className="font-semibold">{invoice.totalAmount} TK</td>
-                    <td className="font-semibold text-green-600 p-2">
-                      Payment Completed
-                    </td>
-                    <td>
-                      <button
-                        onClick={() => handleDownloadInvoice(invoice)}
-                        className="btn btn-neutral"
-                      >
-                        Export
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+      <div className="flex mb-4 gap-3 justify-end">
+        <div className="flex">
+          <DatePicker
+            selected={fromDate}
+            onChange={(date) => setFromDate(date)}
+            dateFormat="yyyy/MM/dd"
+            placeholderText="From Date"
+            className="input input-bordered"
+          />
+          <DatePicker
+            selected={toDate}
+            onChange={(date) => setToDate(date)}
+            dateFormat="yyyy/MM/dd"
+            placeholderText="To Date"
+            className="input input-bordered ml-2"
+          />
+        </div>
+        <button onClick={handleClearDate} className="btn btn-error">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-6 w-6 h-6 text-white"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18 18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+
+      {filteredInvoices.length > 0 ? (
+        <div className="overflow-x-auto py-10">
+          <table className="table">
+            <thead>
+              <tr className="text-base">
+                <th>User</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredInvoices.map((invoice, idx) => (
+                <tr key={idx}>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle w-12 h-12">
+                          <img
+                            src={invoice.userPhotoURL}
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">{invoice.providerName}</div>
+                        <div className="text-sm opacity-50">
+                          #{invoice._id}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle w-12 h-12">
+                          <img
+                            src={invoice.servicePhotoURL}
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">{invoice.service}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="font-semibold">{invoice.invoiceDate}</td>
+                  <td className="font-semibold">{invoice.totalAmount} TK</td>
+                  <td className="font-semibold text-green-600 p-2">
+                    Payment Completed
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleDownloadInvoice(invoice)}
+                      className="btn btn-neutral"
+                    >
+                      Export
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ) : (
-        <div className="flex justify-center items-center">
-          <img src={noDataFound} alt="" />
+        <div className="flex flex-col justify-center items-center relative">
+          <img src={noDataFound} alt="No data found" />
         </div>
       )}
     </div>
   );
 };
 
-export default ProviderInvoices;
+export default ProviderInovices;

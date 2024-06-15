@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useContext, useEffect } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { toast } from "react-toastify";
 import noDataFound from "../../../assets/images/no-data-found.png";
@@ -7,14 +7,18 @@ import { Link } from "react-router-dom";
 
 const ProviderPayments = () => {
   const { user } = useContext(AuthContext);
-  // console.log(user);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const {
     data: payments = [],
     isLoading,
     isError,
     error,
   } = useQuery({
-    queryKey: ["provider-payments"],
+    queryKey: ["user-payments"],
     queryFn: () =>
       fetch(
         `https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`
@@ -24,16 +28,8 @@ const ProviderPayments = () => {
   if (isError) {
     toast.error(error.message, {
       hideProgressBar: true,
-      // theme: "colored",
     });
   }
-
-  useEffect(() => {
-    return () => {
-      // Scroll to top smoothly when the component unmounts
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    };
-  }, []); // Empty dependency array ensures this effect runs only on unmount
 
   if (isLoading) {
     return (
@@ -42,16 +38,38 @@ const ProviderPayments = () => {
       </div>
     );
   }
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1); // Reset to the first page on search
+  };
+
+  const filteredPayments = payments.filter(
+    (payment) =>
+      payment.userName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      payment.service?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      payment.date?.includes(searchTerm)
+  );
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentPayments = filteredPayments.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const totalPages = Math.ceil(filteredPayments.length / itemsPerPage);
+
   return (
     <div>
       <div className="flex justify-end">
         <div className="text-sm breadcrumbs">
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/user-dashboard/dashboard">User Dashboard</Link>
             </li>
             <li>
-              Payment
+              <Link to="/user-dashboard/user-payment">Payments</Link>
             </li>
           </ul>
         </div>
@@ -59,72 +77,109 @@ const ProviderPayments = () => {
       <h2 className="text-2xl font-semibold mb-8 text-center">
         Payment History
       </h2>
-      {payments.length > 0 ? (
-        <div>
-          <div className="overflow-x-auto py-10">
-            <table className="table">
-              <thead>
-                <tr className="text-base">
-                  <th>User</th>
-                  <th>Service</th>
-                  <th>Date</th>
-                  <th>Amount</th>
-                  <th>Status</th>
+      <div className="mb-4 flex justify-between items-center">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="input input-bordered"
+        />
+        <select
+          value={itemsPerPage}
+          onChange={(e) => setItemsPerPage(Number(e.target.value))}
+          className="select select-bordered"
+        >
+          <option value={5}>5</option>
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+        </select>
+      </div>
+      {currentPayments.length > 0 ? (
+        <div className="overflow-x-auto py-10">
+          <table className="table">
+            <thead>
+              <tr className="text-base">
+                <th>User</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentPayments.map((payment, idx) => (
+                <tr key={idx}>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle w-12 h-12">
+                          <img
+                            src={payment.userPhotoURL}
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">{payment.userName}</div>
+                        <div className="text-sm opacity-50">
+                          #{payment._id}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle w-12 h-12">
+                          <img
+                            src={payment.servicePhotoURL}
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">{payment.service}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="font-semibold">{payment.invoiceDate}</td>
+                  <td className="font-semibold">{payment.totalAmount} TK</td>
+                  <td className="font-semibold text-green-600 p-2">
+                    Payment Completed
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {payments.map((payment, idx) => (
-                  <tr key={idx}>
-                    <td>
-                      <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="mask mask-squircle w-12 h-12">
-                            <img
-                              src={payment.userPhotoURL}
-                              alt="Avatar Tailwind CSS Component"
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <div className="font-bold">{payment.userName}</div>
-                          <div className="text-sm opacity-50">
-                            #{payment.userUID}
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="mask mask-squircle w-12 h-12">
-                            <img
-                              src={payment.servicePhotoURL}
-                              alt="Avatar Tailwind CSS Component"
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <div className="font-bold">{payment.service}</div>
-                        </div>
-                      </div>
-                    </td>
-
-                    <td>{payment.invoiceDate}</td>
-                    <td className="font-semibold">{payment.totalAmount} TK</td>
-                    <td className="font-semibold text-green-600 p-2">
-                      Payment Completed
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
       ) : (
-        <div className="flex justify-center items-center">
-          <img src={noDataFound} alt="" />
+        <div className="text-center py-10">
+          <img src={noDataFound} alt="No Data Found" />
+          <p className="mt-4">No payments found.</p>
         </div>
       )}
+      <div className="flex justify-center mt-4">
+        <button
+          className="btn btn-outline mr-2"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span className="flex items-center px-2">
+          {currentPage} of {totalPages}
+        </span>
+        <button
+          className="btn btn-outline ml-2"
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

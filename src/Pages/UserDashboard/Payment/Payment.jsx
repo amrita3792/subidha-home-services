@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { toast } from "react-toastify";
 import noDataFound from "../../../assets/images/no-data-found.png";
@@ -7,6 +7,11 @@ import { Link } from "react-router-dom";
 
 const Payment = () => {
   const { user } = useContext(AuthContext);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const {
     data: payments = [],
     isLoading,
@@ -15,20 +20,16 @@ const Payment = () => {
   } = useQuery({
     queryKey: ["user-payments"],
     queryFn: () =>
-      fetch(`
-https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
-        (res) => res.json()
-      ),
+      fetch(
+        `https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`
+      ).then((res) => res.json()),
   });
 
   if (isError) {
     toast.error(error.message, {
       hideProgressBar: true,
-      // theme: "colored",
     });
   }
-
-  // console.log(payments);
 
   if (isLoading) {
     return (
@@ -37,6 +38,28 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
       </div>
     );
   }
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1); // Reset to the first page on search
+  };
+
+  const filteredPayments = payments.filter(
+    (payment) =>
+      payment.providerName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      payment.service?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      payment.date?.includes(searchTerm)
+  );
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentPayments = filteredPayments.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const totalPages = Math.ceil(filteredPayments.length / itemsPerPage);
+
   return (
     <div>
       <div className="flex justify-end">
@@ -54,7 +77,25 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
       <h2 className="text-2xl font-semibold mb-8 text-center">
         Payment History
       </h2>
-      {payments.length > 0 ? (
+      <div className="mb-4 flex justify-between items-center">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="input input-bordered"
+        />
+        <select
+          value={itemsPerPage}
+          onChange={(e) => setItemsPerPage(Number(e.target.value))}
+          className="select select-bordered"
+        >
+          <option value={5}>5</option>
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+        </select>
+      </div>
+      {currentPayments.length > 0 ? (
         <div className="overflow-x-auto py-10">
           <table className="table">
             <thead>
@@ -67,7 +108,7 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
               </tr>
             </thead>
             <tbody>
-              {payments.map((payment, idx) => (
+              {currentPayments.map((payment, idx) => (
                 <tr key={idx}>
                   <td>
                     <div className="flex items-center gap-3">
@@ -82,7 +123,7 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
                       <div>
                         <div className="font-bold">{payment.providerName}</div>
                         <div className="text-sm opacity-50">
-                          #{payment.serviceManUID}
+                          #{payment._id}
                         </div>
                       </div>
                     </div>
@@ -102,8 +143,7 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
                       </div>
                     </div>
                   </td>
-
-                  <td>{payment.invoiceDate}</td>
+                  <td className="font-semibold">{payment.invoiceDate}</td>
                   <td className="font-semibold">{payment.totalAmount} TK</td>
                   <td className="font-semibold text-green-600 p-2">
                     Payment Completed
@@ -114,10 +154,32 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
           </table>
         </div>
       ) : (
-        <div className="flex flex-col justify-center items-center relative">
-          <img src={noDataFound} alt="Girl in a jacket" />
+        <div className="text-center py-10">
+          <img src={noDataFound} alt="No Data Found" />
+          <p className="mt-4">No payments found.</p>
         </div>
       )}
+      <div className="flex justify-center mt-4">
+        <button
+          className="btn btn-outline mr-2"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span className="flex items-center px-2">
+          {currentPage} of {totalPages}
+        </span>
+        <button
+          className="btn btn-outline ml-2"
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

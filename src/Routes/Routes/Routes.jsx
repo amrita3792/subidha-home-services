@@ -211,7 +211,11 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
       },
       {
         path: "/admin-dashboard/edit-category/:id",
-        element: <EditCategory />
+        element: <EditCategory />,
+        loader: async({params}) => {
+          const categoryId = params.id;
+          return fetch(`http://localhost:5000/allServiceCategories/${categoryId}`);
+        }
       }
     ],
   },
