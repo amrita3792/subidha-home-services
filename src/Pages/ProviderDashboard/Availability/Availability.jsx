@@ -23,6 +23,7 @@ const timeOptions = generateTimeOptions();
 const Availability = () => {
   const { user } = useContext(AuthContext);
   const [allDays, setAllDays] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [allDayTimeSlot, setAllDayTimeSlot] = useState({ from: "", to: "" });
   const [timeSlots, setTimeSlots] = useState({
     Sunday: { enabled: false, from: "", to: "" },
@@ -33,7 +34,6 @@ const Availability = () => {
     Friday: { enabled: false, from: "", to: "" },
     Saturday: { enabled: false, from: "", to: "" },
   });
-
 
   useEffect(() => {
     return () => {
@@ -109,6 +109,7 @@ const Availability = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsLoading(true);
     const formattedSlots = {};
 
     Object.keys(timeSlots).forEach((day) => {
@@ -145,12 +146,14 @@ const Availability = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        setIsLoading(false);
         toast.success("Time slot has been updated or inserted successfully!", {
           hideProgressBar: true,
           // theme: "colored",
         });
       })
       .catch((error) => {
+        setIsLoading(false);
         toast.error(error.message, {
           hideProgressBar: true,
           // theme: "colored",
@@ -164,17 +167,13 @@ const Availability = () => {
         <div className="text-sm breadcrumbs">
           <ul>
             <li>
-              <Link to="/provider-dashboard/dashboard">Provider Dashboard</Link>
+              <Link to="/">Home</Link>
             </li>
-            <li>
-              <Link to="/provider-dashboard/provider-availability">Availability</Link>
-            </li>
+            <li>Availability</li>
           </ul>
         </div>
       </div>
-      <h2 className="text-2xl font-semibold mb-8 text-center">
-        Availability
-      </h2>
+      <h2 className="text-2xl font-semibold mb-8 text-center">Availability</h2>
       <div className="mb-4">
         <label className="flex items-center space-x-2">
           <input
@@ -268,6 +267,9 @@ const Availability = () => {
         </div>
       ))}
       <button type="submit" className="btn bg-[#345DA7] text-white">
+        {isLoading && (
+          <span className="loading loading-spinner loading-md"></span>
+        )}{" "}
         Submit
       </button>
     </form>

@@ -36,7 +36,7 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
     });
   }
 
-  console.log(invoices);
+  // console.log(invoices);
 
   if (isLoading) {
     return (
@@ -58,10 +58,10 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
         <div className="text-sm breadcrumbs">
           <ul>
             <li>
-              <Link to="/provider-dashboard/dashboard">Provider Dashboard</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/provider-dashboard/provider-invoices">Invoices</Link>
+              Invoices
             </li>
           </ul>
         </div>
@@ -122,12 +122,14 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
                     <td className="font-semibold text-green-600 p-2">
                       Payment Completed
                     </td>
-                    <button
-                      onClick={() => handleDownloadInvoice(invoice)}
-                      className="btn btn-neutral"
-                    >
-                      Export
-                    </button>
+                    <td>
+                      <button
+                        onClick={() => handleDownloadInvoice(invoice)}
+                        className="btn btn-neutral"
+                      >
+                        Export
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

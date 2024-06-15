@@ -10,8 +10,9 @@ const ProviderDashboardStatus = () => {
         <div className="text-sm breadcrumbs">
           <ul>
             <li>
-              <Link to="/provider-dashboard/dashboard">Provider Dashboard</Link>
+              <Link to="/">Home</Link>
             </li>
+            <li>Dashboard</li>
           </ul>
         </div>
       </div>

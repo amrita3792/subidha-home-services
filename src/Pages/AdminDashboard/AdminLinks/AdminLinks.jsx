@@ -54,7 +54,7 @@ const AdminLinks = () => {
               Shop & Services
             </summary>
             <ul>
-              <li>
+              <li onClick={() => navigate("/admin-dashboard/categories")}>
                 <a to="#">Categories</a>
               </li>
               <li>

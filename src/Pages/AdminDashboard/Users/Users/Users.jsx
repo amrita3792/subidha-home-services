@@ -92,6 +92,7 @@ const users = () => {
               <th>Last Login</th>
               <th>Status</th>
               <th>Role</th>
+              <th>Change Role</th>
             </tr>
           </thead>
           <tbody>
@@ -126,11 +127,11 @@ const users = () => {
                     onChange={(e) => handleUpdateUser(e, user)}
                     className="select select-ghost w-full font-semibold focus:border-none focus:outline-none"
                   >
-                    <option disabled selected>
+                    <option>
                       Change user role
                     </option>
                     {roles.map((role, idx) => (
-                      <option value={role} key={idx}>
+                      <option defaultValue={role} key={idx}>
                         {role}
                       </option>
                     ))}
@@ -158,16 +159,16 @@ const users = () => {
               setSize(event.target.value);
               setPage(0);
             }}
-            value={size} // Use the state variable to control the selected option
+            defaultValue={size} // Use the state variable to control the selected option
             className="select select-bordered w-fit focus:border-none"
           >
-            <option value="15">15</option>
-            <option value="30">30</option>
-            <option value="45">45</option>
-            <option value="60">60</option>
-            <option value="75">75</option>
-            <option value="90">90</option>
-            <option value="105">105</option>
+            <option defaultValue="15">15</option>
+            <option defaultValue="30">30</option>
+            <option defaultValue="45">45</option>
+            <option defaultValue="60">60</option>
+            <option defaultValue="75">75</option>
+            <option defaultValue="90">90</option>
+            <option defaultValue="105">105</option>
           </select>
 
           <p className="font-semibold text-sm">Items per page</p>

@@ -51,10 +51,10 @@ https://subidha-home-services-server3792.glitch.me/staff/${user.uid}`).then(
         <div className="text-sm breadcrumbs">
           <ul>
             <li>
-              <Link to="/provider-dashboard/dashboard">Provider Dashboard</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/provider-dashboard/staffs">Staffs</Link>
+              Staffs
             </li>
           </ul>
         </div>

@@ -32,6 +32,10 @@ import ProviderPayments from "../../Pages/ProviderDashboard/ProviderPayments/Pro
 import ProviderReviews from "../../Pages/ProviderDashboard/ProviderReviews/ProviderReviews";
 import Staffs from "../../Pages/ProviderDashboard/Staffs/Staffs";
 import Availability from "../../Pages/ProviderDashboard/Availability/Availability";
+import ProviderProfile from "../../Pages/ProviderDashboard/ProviderProfile/ProviderProfile";
+import DepositHistory from "../../Pages/ProviderDashboard/DepositHistory/DepositHistory";
+import Categories from "../../Pages/AdminDashboard/Categories/Categories/Categories";
+import EditCategory from "../../Pages/AdminDashboard/Categories/EditCategory";
 
 const router = createBrowserRouter([
   {
@@ -129,7 +133,7 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
           },
           {
             path: "/provider-dashboard/profile-settings",
-            element: <UserProfile />,
+            element: <ProviderProfile />
           },
           {
             path: "/provider-dashboard/provider-invoices",
@@ -150,6 +154,10 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
           {
             path: "/provider-dashboard/provider-availability",
             element: <Availability />
+          },
+          {
+            path: "/provider-dashboard/deposit-history",
+            element: <DepositHistory />
           }
         ],
       },
@@ -197,6 +205,14 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
         path: "/admin-dashboard/users",
         element: <Users />,
       },
+      {
+        path: "/admin-dashboard/categories",
+        element: <Categories />
+      },
+      {
+        path: "/admin-dashboard/edit-category/:id",
+        element: <EditCategory />
+      }
     ],
   },
   {

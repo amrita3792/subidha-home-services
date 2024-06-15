@@ -111,12 +111,14 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
                   <td className="font-semibold text-green-600 p-2">
                     Payment Completed
                   </td>
+                  <td>
                   <button
                     onClick={() => handleDownloadInvoice(invoice)}
                     className="btn btn-neutral"
                   >
                     Export
                   </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

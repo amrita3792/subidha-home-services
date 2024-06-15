@@ -60,10 +60,10 @@ const ProviderReviews = () => {
         <div className="text-sm breadcrumbs">
           <ul>
             <li>
-              <Link to="/provider-dashboard/dashboard">Provider Dashboard</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/provider-dashboard/provider-reviews">Reviews</Link>
+              Reviews
             </li>
           </ul>
         </div>

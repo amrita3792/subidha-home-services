@@ -28,7 +28,7 @@ https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
     });
   }
 
-  console.log(payments);
+  // console.log(payments);
 
   if (isLoading) {
     return (

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const ProviderPayments = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
   const {
     data: payments = [],
     isLoading,
@@ -48,10 +48,10 @@ const ProviderPayments = () => {
         <div className="text-sm breadcrumbs">
           <ul>
             <li>
-              <Link to="/provider-dashboard/dashboard">Provider Dashboard</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/provider-dashboard/provider-payment">Payment</Link>
+              Payment
             </li>
           </ul>
         </div>

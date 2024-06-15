@@ -42,7 +42,7 @@ const Review = ({ review }) => {
 
   for (let i = 1; i <= rating; i++) {
     ratings.push(
-      <svg
+      <svg key={i}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"

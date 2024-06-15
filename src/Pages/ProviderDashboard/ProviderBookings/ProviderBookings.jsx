@@ -94,12 +94,12 @@ const ProviderBookings = () => {
             <div className="text-sm breadcrumbs">
               <ul>
                 <li>
-                  <Link to="/provider-dashboard/dashboard">
-                    Provider Dashboard
+                  <Link to="/">
+                    Home
                   </Link>
                 </li>
                 <li>
-                  <Link to="/provider-dashboard/booking-list">Booking List</Link>
+                  Booking List
                 </li>
               </ul>
             </div>
