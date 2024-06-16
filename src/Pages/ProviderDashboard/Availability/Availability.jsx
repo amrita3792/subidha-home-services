@@ -148,15 +148,15 @@ const Availability = () => {
       .then((data) => {
         setIsLoading(false);
         toast.success("Time slot has been updated or inserted successfully!", {
-          hideProgressBar: true,
-          // theme: "colored",
+          
+          theme: "colored",
         });
       })
       .catch((error) => {
         setIsLoading(false);
         toast.error(error.message, {
-          hideProgressBar: true,
-          // theme: "colored",
+          
+          theme: "colored",
         });
       });
   };

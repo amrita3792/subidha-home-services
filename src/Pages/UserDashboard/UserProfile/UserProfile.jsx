@@ -76,8 +76,8 @@ const UserProfile = () => {
                     setUpdateProfilePicture(true);
                     setLoading(false);
                     toast.success("Your profile picture has been updated! ", {
-                      hideProgressBar: true,
-                      // theme: "colored",
+                      
+                      theme: "colored",
                     });
                     setSelectedImage(null);
                     refetch();
@@ -86,8 +86,8 @@ const UserProfile = () => {
             })
             .catch((error) => {
               toast.error(error.message, {
-                hideProgressBar: true,
-                // theme: "colored",
+                
+                theme: "colored",
               });
               setLoading(false);
               setUpdateProfilePicture(false);
@@ -146,9 +146,9 @@ const UserProfile = () => {
 
   if (error) {
     toast.error("There was an error fetching user data.", {
-      hideProgressBar: true,
+      
       autoClose: false,
-      // theme: "colored",
+      theme: "colored",
     });
     return;
   }
@@ -201,8 +201,8 @@ const UserProfile = () => {
           .then(() => {
             refetch();
             toast.success("User Updated successfully!", {
-              hideProgressBar: true,
-              // theme: "colored",
+              
+              theme: "colored",
             });
             setLoading(false);
             setUpdateProfileName(false);
@@ -211,8 +211,8 @@ const UserProfile = () => {
             setUpdateProfileName(false);
             setLoading(false);
             toast.error(error.message, {
-              hideProgressBar: true,
-              // theme: "colored",
+              
+              theme: "colored",
             });
           });
       }

@@ -27,7 +27,7 @@ const ProviderPayments = () => {
 
   if (isError) {
     toast.error(error.message, {
-      hideProgressBar: true,
+      
     });
   }
 

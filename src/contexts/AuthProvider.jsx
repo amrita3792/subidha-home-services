@@ -108,8 +108,8 @@ const AuthProvider = ({ children }) => {
           setUser(user);
         } else {
           toast.warning("Your Email is not verified", {
-            hideProgressBar: true,
-            // theme: "colored",
+            
+            theme: "colored",
           });
           logout();
         }

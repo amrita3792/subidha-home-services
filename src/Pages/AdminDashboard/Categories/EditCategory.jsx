@@ -48,16 +48,16 @@ const EditCategory = () => {
       .then((data) => {
         setLoading(false);
         toast.success(`${serviceName} category updated successfully`, {
-          hideProgressBar: true,
-          // theme: "colored",
+          
+          theme: "colored",
         });
         navigate("/admin-dashboard/categories");
       })
       .catch((error) => {
         setLoading(false);
         toast.error(error.message, {
-          hideProgressBar: true,
-          // theme: "colored",
+          
+          theme: "colored",
         });
       });
   };

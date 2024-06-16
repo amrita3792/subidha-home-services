@@ -52,8 +52,7 @@ const AddStaffModal = ({ handleChangeModalState }) => {
           toast.success(
             "A new Staff added successfully",
             {
-              hideProgressBar: true,
-              // theme: "colored",
+              theme: "colored",
             }
           );
         }
@@ -63,8 +62,8 @@ const AddStaffModal = ({ handleChangeModalState }) => {
         toast.error(
             error.message,
             {
-              hideProgressBar: true,
-              // theme: "colored",
+              
+              theme: "colored",
             }
           );
       }) 

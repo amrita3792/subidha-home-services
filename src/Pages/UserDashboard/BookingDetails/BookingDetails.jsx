@@ -70,8 +70,8 @@ const BookingDetails = () => {
         .then((data) => {
           if (data.modifiedCount > 0) {
             toast.success("Your booking has been canceled.", {
-              hideProgressBar: true,
-              // theme: "colored",
+              
+              theme: "colored",
             });
             setLoading(false);
             location.reload();

@@ -1,4 +1,4 @@
-import  { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 
 const ProviderInovices = () => {
   const { user } = useContext(AuthContext);
+  // const {} = useContext(ProviderCo)
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
 
@@ -26,9 +27,7 @@ const ProviderInovices = () => {
   });
 
   if (isError) {
-    toast.error(error.message, {
-      hideProgressBar: true,
-    });
+    toast.error(error.message, {});
   }
 
   if (isLoading) {
@@ -136,9 +135,7 @@ const ProviderInovices = () => {
                       </div>
                       <div>
                         <div className="font-bold">{invoice.providerName}</div>
-                        <div className="text-sm opacity-50">
-                          #{invoice._id}
-                        </div>
+                        <div className="text-sm opacity-50">#{invoice._id}</div>
                       </div>
                     </div>
                   </td>

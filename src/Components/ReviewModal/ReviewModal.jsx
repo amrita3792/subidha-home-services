@@ -33,6 +33,7 @@ const ReviewModal = ({ isModalOpen, setIsModalOpen, reviewService }) => {
   };
 
   const uploadImage = async (file, setImageURL) => {
+    console.log(file);
     try {
       const formData = new FormData();
       formData.append("key", import.meta.env.VITE_IMGBB_KEY); // Replace with your ImageBB API key

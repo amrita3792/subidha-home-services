@@ -40,8 +40,7 @@ const Categories = () => {
 
   if (error) {
     toast.error("There was an error fetching services data.", {
-      hideProgressBar: true,
-      autoClose: false,
+      theme: "colored",
     });
     return null;
   }
@@ -59,14 +58,18 @@ const Categories = () => {
     setCurrentPage(1); // Reset to the first page whenever items per page is changed
   };
 
-  const filteredCategories = allServiceCategories.filter((category) =>
-    category.serviceName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    category._id.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCategories = allServiceCategories.filter(
+    (category) =>
+      category.serviceName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      category._id.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredCategories.length / itemsPerPage);
   const startIdx = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredCategories.slice(startIdx, startIdx + itemsPerPage);
+  const currentItems = filteredCategories.slice(
+    startIdx,
+    startIdx + itemsPerPage
+  );
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -75,8 +78,8 @@ const Categories = () => {
   };
 
   return (
-    <div className="">
-      <h2 className="text-2xl font-semibold mt-8">Categories</h2>
+    <div className="bg-white shadow-md p-10 rounded-lg">
+      <h2 className="text-2xl font-semibold">Categories</h2>
       <div className="mt-5 flex justify-between items-center">
         <input
           type="search"
@@ -111,7 +114,7 @@ const Categories = () => {
           <tbody>
             {currentItems.map((category) => (
               <tr key={category._id}>
-                <td>{category._id}</td>
+                <td className="font-semibold">{category._id}</td>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
@@ -124,7 +127,6 @@ const Categories = () => {
                     </div>
                     <div>
                       <div className="font-bold">{category.serviceName}</div>
-                      <div className="text-sm opacity-50">#{category._id}</div>
                     </div>
                   </div>
                 </td>

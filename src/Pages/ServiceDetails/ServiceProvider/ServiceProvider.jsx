@@ -17,7 +17,7 @@ const ServiceProvider = ({
 
     // console.log(provider)
 
-  const matchedService = myServices.find(
+  const matchedService = myServices?.find(
     (service) => service.serviceName === serviceName
   );
   return (

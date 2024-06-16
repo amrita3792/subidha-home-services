@@ -28,8 +28,8 @@ const Sidebar = () => {
         .catch((error) => {
           setLoading(false);
           toast.error(error.message, {
-            hideProgressBar: true,
-            // theme: "colored",
+            
+            theme: "colored",
           });
         });
     }
@@ -64,9 +64,9 @@ const Sidebar = () => {
 
   if (error) {
     toast.error("There was an error fetching services data.", {
-      hideProgressBar: true,
+      
       autoClose: false,
-      // theme: "colored",
+      theme: "colored",
     });
     return;
   }

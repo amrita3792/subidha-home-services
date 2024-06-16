@@ -7,6 +7,7 @@ import useProvider from "./hooks/useProvider";
 import { AuthContext } from "./contexts/AuthProvider";
 import useAdmin from "./hooks/useAdmin";
 import { useTheme } from "./hooks/useTheme";
+import Loader from "./Components/Loader/Loader";
 
 export const ThemeContext = createContext();
 export const ModalContext = createContext();
@@ -20,20 +21,27 @@ function App() {
   // );
 
   const { user } = useContext(AuthContext);
-
   const [showModal, setShowModal] = useState(false);
   const [receiver, setReceiver] = useState(null);
 
+  const [isThemeLoading, theme, handleToggle] = useTheme();
   const [isProvider, isProviderLoading] = useProvider(user?.uid);
   const [isAdmin, isAdmingLoading] = useAdmin(user?.uid);
-  const [theme, handleToggle] = useTheme();
 
-  // useEffect(() => {
-  //   localStorage.setItem("theme", theme);
-  //   const localTheme = localStorage.getItem("theme");
-  //   document.querySelector("html").setAttribute("data-theme", localTheme);
-  // }, [theme]);
 
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((oldProgress) => {
+        if (oldProgress === 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return Math.min(oldProgress + 10, 100);
+      });
+    }, 200);
+  }, []);
 
   return (
     <div className={`${showModal && "max-h-screen overflow-hidden"}`}>
@@ -42,7 +50,7 @@ function App() {
         <ProviderContext.Provider value={{ isProvider, isProviderLoading }}>
           <ChatContext.Provider value={{ receiver, setReceiver }}>
             <ModalContext.Provider value={{ showModal, setShowModal }}>
-              <RouterProvider router={router} />
+             {(isProviderLoading || isAdmingLoading || isThemeLoading) ? <Loader /> : <RouterProvider router={router} />}
               <ToastContainer
                 position="top-right"
                 autoClose={5000}
@@ -62,10 +70,5 @@ function App() {
 
 export default App;
 
-{
-  /* <ProviderContext.provider value={{isProvider, isProviderLoading}}></ProviderContext.provider> */
-}
 
-{
-  /* <ThemeContext.Provider value={{ theme, handleToggle }}></ThemeContext.Provider> */
-}
+

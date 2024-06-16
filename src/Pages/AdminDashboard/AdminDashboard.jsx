@@ -9,7 +9,7 @@ const AdminDashboard = () => {
       <input id="admin-dashboard" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col bg-[#F1F5F9]">
         <Header />
-        <div className="p-4 lg:mx-9">
+        <div className="p-4">
           <Outlet />
         </div>
       </div>

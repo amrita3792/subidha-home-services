@@ -36,6 +36,10 @@ import ProviderProfile from "../../Pages/ProviderDashboard/ProviderProfile/Provi
 import DepositHistory from "../../Pages/ProviderDashboard/DepositHistory/DepositHistory";
 import Categories from "../../Pages/AdminDashboard/Categories/Categories/Categories";
 import EditCategory from "../../Pages/AdminDashboard/Categories/EditCategory";
+import SubCategories from "../../Pages/AdminDashboard/SubCategories/SubCategories";
+import AddNewService from "../../Pages/AdminDashboard/AddNewService/AddNewService";
+import AdminServiceProviderManagement from "../../Pages/AdminDashboard/AdminServiceProviderManagement/AdminServiceProviderManagement";
+import RolesPermissionsForm from "../../Pages/AdminDashboard/RolesPermissionsForm/RolesPermissionsForm";
 
 const router = createBrowserRouter([
   {
@@ -216,7 +220,23 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
           const categoryId = params.id;
           return fetch(`http://localhost:5000/allServiceCategories/${categoryId}`);
         }
-      }
+      },
+      {
+        path: "/admin-dashboard/subcategories",
+        element: <SubCategories />
+      },
+      {
+        path: "/admin-dashboard/addservice",
+        element: <AddNewService />
+      },
+      {
+        path: "/admin-dashboard/service-providers",
+        element: <AdminServiceProviderManagement />
+      },
+      {
+        path: "/admin-dashboard/add-roles-permissions",
+        element: <RolesPermissionsForm />
+      },
     ],
   },
   {

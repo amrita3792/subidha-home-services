@@ -27,7 +27,7 @@ const Invoices = () => {
 
   if (isError) {
     toast.error(error.message, {
-      hideProgressBar: true,
+      
     });
   }
 

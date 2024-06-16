@@ -74,7 +74,7 @@ const UserBookings = () => {
 
   if (isError) {
     toast.error(error.message, {
-      hideProgressBar: true,
+      
     });
   }
 
@@ -85,6 +85,8 @@ const UserBookings = () => {
       </div>
     );
   }
+
+  console.log(bookings);
 
   return (
     <div className="h-full">
@@ -150,7 +152,7 @@ const UserBookings = () => {
               <tbody>
                 {currentItems.map((booking) => (
                   <tr
-                    className={`border shadow-xl ${theme === "light" ? "border" : "border-slate-600"}`}
+                    className={`border ${theme === "light" ? "border" : "border-slate-600"}`}
                     key={booking._id}
                   >
                     <td>
@@ -188,6 +190,10 @@ const UserBookings = () => {
                             <span className="font-semibold">Location:</span>{" "}
                             {booking.fullAddress}, {booking.upazila},{" "}
                             {booking.district}, {booking.division}
+                          </div>
+                          <div className="text-sm">
+                            <span className="font-bold">Time Slot:</span>{" "}
+                            {booking.selectedSlot} [{booking.selectedWeekDay}]
                           </div>
                         </div>
                       </div>

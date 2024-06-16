@@ -12,7 +12,7 @@ const ServiceFAQ = ({ faq }) => {
       <h2 name="faq" className="text-2xl font-semibold">
         FAQ
       </h2>
-      {faq.map((item, idx) => (
+      {faq?.map((item, idx) => (
         <div key={idx} className="collapse collapse-plus">
           <input
             onChange={() => handleInputChange(idx)}

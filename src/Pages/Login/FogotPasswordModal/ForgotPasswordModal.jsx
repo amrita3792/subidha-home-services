@@ -23,7 +23,7 @@ const ForgotPasswordModal = ({ setResetPassword }) => {
         // toast.success(
         //   "A password reset link has been sent to the email address.",
         //   {
-        //     hideProgressBar: true,
+        //     
         //     theme: "colored",
         //   }
         // );

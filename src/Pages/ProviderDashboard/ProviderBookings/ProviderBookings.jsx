@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { ChatContext } from "../../../App";
 import { useQuery } from "@tanstack/react-query";
@@ -10,28 +10,15 @@ const ProviderBookings = () => {
   const { user } = useContext(AuthContext);
   const { receiver, setReceiver } = useContext(ChatContext);
 
-  //   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("Order Placed");
-
-  const {
-    data: bookings = [],
-    isLoading,
-    refetch,
-    error,
-  } = useQuery({
-    queryKey: ["provider-bookings"],
-    queryFn: () => fetchBookingData(),
-  });
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const fetchBookingData = async () => {
     const response = await fetch(
-      `https://subidha-home-services-server3792.glitch.me/provider-bookings/${user.uid}`,
-      {
-        // headers: {
-        //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        // },
-      }
+      `https://subidha-home-services-server3792.glitch.me/provider-bookings/${user.uid}`
     );
 
     if (!response.ok) {
@@ -41,17 +28,19 @@ const ProviderBookings = () => {
     return response.json();
   };
 
-  if (isLoading) {
-    return (
-      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
-      </div>
-    );
-  }
+  const {
+    data: bookings = [],
+    isLoading,
+    refetch,
+    error,
+  } = useQuery({
+    queryKey: ["provider-bookings"],
+    queryFn: fetchBookingData,
+  });
 
   const handleStatusChange = (event, bookingId) => {
     setStatus(event.target.value);
-    if (confirm("Are you sure want to update status?") == true) {
+    if (confirm("Are you sure you want to update status?") === true) {
       fetch(
         `https://subidha-home-services-server3792.glitch.me/booking-status/${bookingId}`,
         {
@@ -68,8 +57,8 @@ const ProviderBookings = () => {
             toast.success(
               `The booking has been ${event.target.value.split(" ")[1]}.`,
               {
-                hideProgressBar: true,
-                // theme: "colored",
+                
+                theme: "colored",
               }
             );
             refetch();
@@ -77,10 +66,51 @@ const ProviderBookings = () => {
         })
         .catch((error) => {
           console.error(error);
-          //   setLoading(false);
         });
     }
   };
+
+  const handleSearch = (e) => setSearchTerm(e.target.value);
+  const handleItemsPerPageChange = (e) => {
+    setItemsPerPage(parseInt(e.target.value));
+    setCurrentPage(1);
+  };
+
+  const filterBookings = (booking) => {
+    const term = searchTerm.toLowerCase();
+    return (
+      booking.service.toLowerCase().includes(term) ||
+      booking.userName.toLowerCase().includes(term) ||
+      booking.bookingStatus.toLowerCase().includes(term) ||
+      booking.selectedDate.toLowerCase().includes(term) ||
+      booking.amount?.toString().includes(term) ||
+      booking.serviceQuantity?.toString().includes(term) ||
+      booking.fullAddress.toLowerCase().includes(term) ||
+      booking.upazila.toLowerCase().includes(term) ||
+      booking.district.toLowerCase().includes(term) ||
+      booking.division.toLowerCase().includes(term)
+    );
+  };
+
+  const filteredBookings = bookings.filter(filterBookings);
+
+  const totalPages = Math.ceil(filteredBookings.length / itemsPerPage);
+  const startIdx = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredBookings.slice(startIdx, startIdx + itemsPerPage);
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
+        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="h-full">
@@ -90,18 +120,35 @@ const ProviderBookings = () => {
         </div>
       ) : (
         <div>
-          <div className="flex justify-end">
+          <div className="flex justify-end mb-8">
             <div className="text-sm breadcrumbs">
               <ul>
                 <li>
-                  <Link to="/">
-                    Home
-                  </Link>
+                  <Link to="/">Home</Link>
                 </li>
-                <li>
-                  Booking List
-                </li>
+                <li>Booking List</li>
               </ul>
+            </div>
+          </div>
+          <div className="flex justify-between items-center mb-4">
+            <input
+              type="search"
+              placeholder="Search..."
+              className="input input-bordered input-info w-full max-w-xs"
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+            <div className="flex items-center gap-2">
+              <span>Items per page:</span>
+              <select
+                className="select select-bordered select-info"
+                value={itemsPerPage}
+                onChange={handleItemsPerPageChange}
+              >
+                <option value={2}>2</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+              </select>
             </div>
           </div>
           <h2 className="text-2xl font-semibold mb-8 text-center">
@@ -109,17 +156,17 @@ const ProviderBookings = () => {
           </h2>
           <div className="overflow-x-auto">
             <table className="table">
-              {/* head */}
               <thead>
                 <tr className="text-base">
                   <th>Booking Details</th>
                   <th>User Details</th>
                   <th>Booking Status</th>
-                  <th></th>
+                  <th>Chat</th>
+                  <th>Cancel</th>
                 </tr>
               </thead>
               <tbody>
-                {bookings.map((booking) => (
+                {currentItems.map((booking) => (
                   <tr key={booking._id}>
                     <td>
                       <div className="flex gap-3">
@@ -127,7 +174,7 @@ const ProviderBookings = () => {
                           <div className="w-28 h-28 rounded-md">
                             <img
                               src={booking.servicePhotoURL}
-                              alt="Avatar Tailwind CSS Component"
+                              alt="Service"
                             />
                           </div>
                         </div>
@@ -151,11 +198,15 @@ const ProviderBookings = () => {
                           </div>
                           <div className="text-sm">
                             <span className="font-bold">Amount:</span>{" "}
-                            {booking.amount} Taka
+                            {booking.totalAmount} Taka
                           </div>
                           <div className="text-sm">
                             <span className="font-bold">Quantity:</span>{" "}
                             {booking.serviceQuantity}
+                          </div>
+                          <div className="text-sm">
+                            <span className="font-bold">Time Slot:</span>{" "}
+                            {booking.selectedSlot} [{booking.selectedWeekDay}]
                           </div>
                           <div className="text-sm">
                             <span className="font-semibold">Location:</span>{" "}
@@ -171,7 +222,7 @@ const ProviderBookings = () => {
                           <div className="w-28 h-28 rounded-md">
                             <img
                               src={booking.userPhotoURL}
-                              alt="Avatar Tailwind CSS Component"
+                              alt="User"
                             />
                           </div>
                         </div>
@@ -180,7 +231,6 @@ const ProviderBookings = () => {
                             <span className="font-bold">User Name:</span>{" "}
                             {booking.userName}
                           </div>
-
                           <div className="text-sm">
                             <span className="font-bold">Phone:</span>{" "}
                             {booking.userPhone}
@@ -279,6 +329,25 @@ const ProviderBookings = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+          <div className="mt-5 flex justify-center gap-3">
+            <button
+              className="btn btn-primary"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span className="self-center">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              className="btn btn-primary"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
           </div>
         </div>
       )}

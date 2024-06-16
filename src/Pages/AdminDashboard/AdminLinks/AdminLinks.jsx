@@ -31,7 +31,6 @@ const AdminLinks = () => {
           Dashboard
         </Link>
       </li>
-
       <ul className="menu text-white p-0 orounded-box">
         <li>
           <details open>
@@ -57,11 +56,11 @@ const AdminLinks = () => {
               <li onClick={() => navigate("/admin-dashboard/categories")}>
                 <a to="#">Categories</a>
               </li>
-              <li>
+              <li onClick={() => navigate("/admin-dashboard/subcategories")}>
                 <a>Sub Categories</a>
               </li>
-              <li>
-                <a>Services</a>
+              <li onClick={() => navigate("/admin-dashboard/addservice")}>
+                <a>Add new Service</a>
               </li>
               <li>
                 <a>Offers</a>
@@ -72,9 +71,9 @@ const AdminLinks = () => {
               <li>
                 <a>Staffs</a>
               </li>
-              <li>
+              {/* <li>
                 <a>Shops</a>
-              </li>
+              </li> */}
             </ul>
           </details>
         </li>
@@ -107,7 +106,7 @@ const AdminLinks = () => {
               <li onClick={() => navigate("/admin-dashboard/users")}>
                 <a>Users</a>
               </li>
-              <li>
+              <li onClick={() => navigate('/admin-dashboard/service-providers')}>
                 <a>Service Providers</a>
               </li>
               <li>

@@ -63,8 +63,8 @@ export const NumberVerificatonModal = ({
         window.confirmationResult = confirmationResult;
         
         toast.success("We successfully sent an OTP to your phone number", {
-          hideProgressBar: true,
-          // theme: "colored",
+          
+          theme: "colored",
         });
         setShowOTP(true);
         setLoading(false);
@@ -76,8 +76,8 @@ export const NumberVerificatonModal = ({
         setLoading(false);
         setVisibleRecaptcha(false);
         toast.error(error.message, {
-          hideProgressBar: true,
-          // theme: "colored",
+          
+          theme: "colored",
         });
       });
   };
@@ -127,8 +127,8 @@ export const NumberVerificatonModal = ({
             if (data.acknowledged) {
               setUid(currentUser.uid);
               toast.success("Your verification is successful.", {
-                hideProgressBar: true,
-                // theme: "colored",
+                
+                theme: "colored",
               });
               setLoading(false);
             }
@@ -153,8 +153,8 @@ export const NumberVerificatonModal = ({
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
         toast.success("We successfully resent an OTP to your phone number", {
-          hideProgressBar: true,
-          // theme: "colored",
+          
+          theme: "colored",
         });
         setShowOTP(true);
         setLoading(false);
@@ -162,8 +162,8 @@ export const NumberVerificatonModal = ({
       })
       .catch((error) => {
         toast.error(error.message, {
-          hideProgressBar: true,
-          // theme: "colored",
+          
+          theme: "colored",
         });
         setLoading(false);
         setVisibleRecaptcha(true);

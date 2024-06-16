@@ -50,27 +50,27 @@ const users = () => {
           toast.success(
             `Successfully assigned ${e.target.value} role to ${user.userName}!`,
             {
-              hideProgressBar: true,
-              // theme: "colored",
+              
+              theme: "colored",
             }
           );
         } else {
           toast.error(data.message, {
-            hideProgressBar: true,
-            // theme: "colored",
+            
+            theme: "colored",
           });
         }
       })
       .catch((error) => {
         toast.error(error.message, {
-          hideProgressBar: true,
-          // theme: "colored",
+          
+          theme: "colored",
         });
       });
   };
 
   return (
-    <div className="mt-8">
+    <div className="p-4 bg-white shadow-md">
       <div className="flex flex-col md:flex-row justify-between items-center mb- p-5">
         <h2 className="text-2xl font-semibold mb-5">All Users</h2>
         <input
@@ -80,7 +80,7 @@ const users = () => {
           className="input input-bordered focus:border-none input-info w-full max-w-xs h-10 font-semibold"
         />
       </div>
-      <div className="overflow-auto bg-white shadow-md rounded-lg border p-4">
+      <div className="overflow-auto">
         <table className="table">
           {/* head */}
           <thead>

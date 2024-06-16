@@ -63,11 +63,10 @@ const ServiceDetails = () => {
         setLoading(false);
       } else {
         toast.info(
-          `Hi ${user?.displayName}! we're so sorry, we couldn't find any
-        service providers available in your area right now.`,
+          "No service providers available in your area right now.",
           {
-            hideProgressBar: true,
-            // theme: "colored",
+            
+            theme: "colored",
             autoClose: false,
           }
         );
@@ -95,9 +94,9 @@ const ServiceDetails = () => {
 
   if (error) {
     toast.error("There was an error fetching user data.", {
-      hideProgressBar: true,
+      
       autoClose: false,
-      // theme: "colored",
+      theme: "colored",
     });
     return;
   }

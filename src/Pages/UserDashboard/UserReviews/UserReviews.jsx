@@ -26,8 +26,8 @@ const UserReviews = () => {
 
   if (isError) {
     toast.error(error.message, {
-      hideProgressBar: true,
-      // theme: "colored",
+      
+      theme: "colored",
     });
   }
 

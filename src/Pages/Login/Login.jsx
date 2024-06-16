@@ -100,8 +100,8 @@ const Login = () => {
         const errorMessage = error.message;
 
         toast.error(errorMessage, {
-          hideProgressBar: true,
-          // theme: "colored",
+          
+          theme: "colored",
         });
 
         setLoading(false);
@@ -167,8 +167,8 @@ const Login = () => {
 
         console.error(`Error: ${error}`);
         toast.error(error.message, {
-          hideProgressBar: true,
-          // theme: "colored",
+          
+          theme: "colored",
         });
         setLoading(false);
       });

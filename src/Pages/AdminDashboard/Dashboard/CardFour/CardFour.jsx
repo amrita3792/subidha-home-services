@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "../../../../App";
 
 const CardFour = () => {
@@ -31,7 +31,7 @@ const CardFour = () => {
           </svg>
         </div>
         <div className="flex items-center justify-between">
-          <h2 className="card-title text-3xl">15K</h2>
+          <h2 className="card-title text-3xl">0 TK</h2>
           <span className="font-semibold text-indigo-400 text-sm">Total Profit</span>
         </div>
       </div>

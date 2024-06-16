@@ -25,8 +25,8 @@ https://subidha-home-services-server3792.glitch.me/staff/${user.uid}`).then(
 
   if (isError) {
     toast.error(error.message, {
-      hideProgressBar: true,
-      // theme: "colored",
+      
+      theme: "colored",
     });
   }
 
