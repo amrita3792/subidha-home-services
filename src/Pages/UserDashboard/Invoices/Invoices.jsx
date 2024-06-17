@@ -11,24 +11,19 @@ const Invoices = () => {
   const { user } = useContext(AuthContext);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  const {
-    data: invoices = [],
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
+  const { data: invoices = [], isLoading, isError, error } = useQuery({
     queryKey: ["user-invoices"],
     queryFn: () =>
-      fetch(
-        `https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`
-      ).then((res) => res.json()),
+      fetch(`https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
+        (res) => res.json()
+      ),
   });
 
   if (isError) {
-    toast.error(error.message, {
-      
-    });
+    toast.error(error.message, {});
   }
 
   if (isLoading) {
@@ -56,6 +51,32 @@ const Invoices = () => {
   const handleClearDate = () => {
     setFromDate(null);
     setToDate(null);
+  };
+
+  const totalPages = Math.ceil(filteredInvoices.length / itemsPerPage);
+  const startIdx = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredInvoices.slice(startIdx, startIdx + itemsPerPage);
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          onClick={() => handlePageChange(i)}
+          className={`btn ${currentPage === i ? "btn-primary" : "btn-ghost"}`}
+        >
+          {i}
+        </button>
+      );
+    }
+    return pageNumbers;
   };
 
   return (
@@ -119,26 +140,22 @@ const Invoices = () => {
                 <th>Date</th>
                 <th>Amount</th>
                 <th>Status</th>
+                <th>Export</th>
               </tr>
             </thead>
             <tbody>
-              {filteredInvoices.map((invoice, idx) => (
+              {currentItems.map((invoice, idx) => (
                 <tr key={idx}>
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src={invoice.providerPhotoURL}
-                            alt="Avatar Tailwind CSS Component"
-                          />
+                          <img src={invoice.providerPhotoURL} alt="Provider" />
                         </div>
                       </div>
                       <div>
                         <div className="font-bold">{invoice.providerName}</div>
-                        <div className="text-sm opacity-50">
-                          #{invoice._id}
-                        </div>
+                        <div className="text-sm opacity-50">#{invoice._id}</div>
                       </div>
                     </div>
                   </td>
@@ -146,10 +163,7 @@ const Invoices = () => {
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src={invoice.servicePhotoURL}
-                            alt="Avatar Tailwind CSS Component"
-                          />
+                          <img src={invoice.servicePhotoURL} alt="Service" />
                         </div>
                       </div>
                       <div>
@@ -159,14 +173,9 @@ const Invoices = () => {
                   </td>
                   <td className="font-semibold">{invoice.invoiceDate}</td>
                   <td className="font-semibold">{invoice.totalAmount} TK</td>
-                  <td className="font-semibold text-green-600 p-2">
-                    Payment Completed
-                  </td>
+                  <td className="font-semibold text-green-600 p-2">Payment Completed</td>
                   <td>
-                    <button
-                      onClick={() => handleDownloadInvoice(invoice)}
-                      className="btn btn-neutral"
-                    >
+                    <button onClick={() => handleDownloadInvoice(invoice)} className="btn btn-neutral">
                       Export
                     </button>
                   </td>
@@ -178,6 +187,26 @@ const Invoices = () => {
       ) : (
         <div className="flex flex-col justify-center items-center relative">
           <img src={noDataFound} alt="No data found" />
+        </div>
+      )}
+
+      {filteredInvoices.length > 0 && (
+        <div className="mt-5 flex justify-center gap-3">
+          <button
+            className="btn btn-primary"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          {renderPageNumbers()}
+          <button
+            className="btn btn-primary"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
         </div>
       )}
     </div>

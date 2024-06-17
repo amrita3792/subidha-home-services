@@ -41,6 +41,7 @@ import AddNewService from "../../Pages/AdminDashboard/AddNewService/AddNewServic
 import AdminServiceProviderManagement from "../../Pages/AdminDashboard/AdminServiceProviderManagement/AdminServiceProviderManagement";
 import RolesPermissionsForm from "../../Pages/AdminDashboard/RolesPermissionsForm/RolesPermissionsForm";
 import RolesAndPermissions from "../../Pages/AdminDashboard/RolesAndPermissions/RolesAndPermissions";
+import AdminBookingManagement from "../../Pages/AdminDashboard/AdminBookingManagement/AdminBookingManagement";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,14 @@ const router = createBrowserRouter([
       {
         path: "/all-services",
         element: <AllServices />,
+      },
+      {
+        path: "/user-dashboard/booking-list/:id",
+        element: <BookingDetails />,
+        loader: ({ params }) =>
+          fetch(
+            `https://subidha-home-services-server3792.glitch.me/booking-details/${params.id}`
+          ),
       },
       {
         path: "/provider-profile/:id",
@@ -92,14 +101,6 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
           {
             path: "/user-dashboard/booking-list",
             element: <UserBookings />,
-          },
-          {
-            path: "/user-dashboard/booking-list/:id",
-            element: <BookingDetails />,
-            loader: ({ params }) =>
-              fetch(
-                `https://subidha-home-services-server3792.glitch.me/booking-details/${params.id}`
-              ),
           },
           {
             path: "/user-dashboard/user-reviews",
@@ -241,6 +242,10 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
       {
         path: "/admin-dashboard/admin/roles",
         element: <RolesAndPermissions />
+      },
+      {
+        path: "/admin-dashboard/all-bookings",
+        element: <AdminBookingManagement />
       },
     ],
   },

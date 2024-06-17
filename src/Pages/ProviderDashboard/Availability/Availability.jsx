@@ -108,7 +108,26 @@ const Availability = () => {
   };
 
   const handleSubmit = (event) => {
+    const form = event.target;
     event.preventDefault();
+
+    // Validate time slots
+    let isValid = true;
+    Object.keys(timeSlots).forEach((day) => {
+      if (timeSlots[day].enabled) {
+        if (!timeSlots[day].from || !timeSlots[day].to) {
+          isValid = false;
+          toast.error(`Please select both "from" and "to" times for ${day}.`, {
+            theme: "colored",
+          });
+        }
+      }
+    });
+
+    if (!isValid) {
+      return;
+    }
+
     setIsLoading(true);
     const formattedSlots = {};
 
@@ -147,15 +166,14 @@ const Availability = () => {
       .then((res) => res.json())
       .then((data) => {
         setIsLoading(false);
+        form.reset();
         toast.success("Time slot has been updated or inserted successfully!", {
-          
           theme: "colored",
         });
       })
       .catch((error) => {
         setIsLoading(false);
         toast.error(error.message, {
-          
           theme: "colored",
         });
       });

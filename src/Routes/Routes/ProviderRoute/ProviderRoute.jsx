@@ -11,7 +11,7 @@ const ProviderRoute = ({ children }) => {
 
   if (loading || isAdminLoading) {
     return (
-      <div className="flex justify-center items-center mt-20">
+      <div className="flex justify-center items-center my-20">
         <img className="w-32" src={loader} alt="" />
       </div>
     );

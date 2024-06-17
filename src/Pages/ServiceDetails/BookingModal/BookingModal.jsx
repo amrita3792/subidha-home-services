@@ -20,12 +20,10 @@ const BookingModal = ({
   serviceMan,
   amount,
 }) => {
-
   const [quantity, setQuantity] = useState(1);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
   const [timeSlots, setTimeSlots] = useState([]);
-  const [disabledSlots, setDisabledSlots] = useState([]);
   const [selectedSlot, setSelectedSlot] = useState("");
   const [remainingSlots, setRemainingSlots] = useState([]);
   const { user } = useContext(AuthContext);
@@ -39,6 +37,33 @@ const BookingModal = ({
     );
   }
 
+  const isPastDate = (date) => {
+    const today = new Date();
+    return (
+      date < new Date(today.getFullYear(), today.getMonth(), today.getDate())
+    );
+  };
+
+  useEffect(() => {
+    if (isPastDate(selectedDate)) {
+      setSelectedDate(new Date());
+    }
+  }, [selectedDate]);
+
+  useEffect(() => {
+    const now = new Date();
+    const sixPM = new Date(now);
+    sixPM.setHours(18, 0, 0, 0);
+
+    if (now > sixPM) {
+      const nextDay = new Date(now);
+      nextDay.setDate(nextDay.getDate() + 1);
+      setSelectedDate(nextDay);
+    } else {
+      setSelectedDate(now);
+    }
+  }, []);
+
   useEffect(() => {
     if (selectedDate) {
       fetch(
@@ -50,9 +75,14 @@ const BookingModal = ({
         )}&selectedWeekDay=${getWeekday(format(selectedDate, "PP"))}`
       )
         .then((res) => res.json())
-        .then((data) => setTimeSlots(data));
+        .then((data) => {
+          // console.log(data)
+          setTimeSlots(data);
+        });
     }
   }, [selectedDate]);
+
+  // console.log(timeSlots)
 
   function datesAreEqual(date1, date2) {
     return (
@@ -83,7 +113,7 @@ const BookingModal = ({
       });
 
       if (datesAreEqual(selectedDate, now)) {
-        const remainingSlots = timeSlots.filter(
+        const remainingSlots = timeSlots?.filter(
           (slot) => !disabled.includes(slot)
         );
         setRemainingSlots(remainingSlots);
@@ -154,6 +184,14 @@ const BookingModal = ({
       bookingStatus: "Order Placed",
     };
 
+    if (!selectedSlot) {
+      toast.warning("Please select a time slot before submitting.", {
+        theme: "colored",
+      });
+      setIsLoading(false);
+      return;
+    }
+
     // Perform any necessary actions, such as sending the data to a server
     // For example, you can use fetch API to send a POST request to a server endpoint
     fetch("https://subidha-home-services-server3792.glitch.me/booking", {
@@ -167,7 +205,6 @@ const BookingModal = ({
       .then((data) => {
         if (data.acknowledged) {
           toast.success("Booking Created Successfully", {
-            
             theme: "colored",
           });
           setIsLoading(false);
@@ -224,9 +261,31 @@ const BookingModal = ({
                 footer={footer}
               />
             </div>
-            <p className="text-center">
+            <p className="text-center mb-4">
               Select your prefer time, expert will arrive by your selected time
             </p>
+            {remainingSlots?.length === 0 && (
+              <div role="alert" className="alert">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className="stroke-info shrink-0 w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                <span>
+                  Unfortunately, booking slots for the selected day are not
+                  available. Please try another day or contact our customer
+                  support for assistance.
+                </span>
+              </div>
+            )}
             <div className="grid grid-cols-5 gap-5 mt-5">
               {remainingSlots?.map((timeSlot, idx) => (
                 <button

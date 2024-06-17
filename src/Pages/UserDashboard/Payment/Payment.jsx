@@ -12,12 +12,7 @@ const Payment = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const {
-    data: payments = [],
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
+  const { data: payments = [], isLoading, isError, error } = useQuery({
     queryKey: ["user-payments"],
     queryFn: () =>
       fetch(
@@ -26,9 +21,7 @@ const Payment = () => {
   });
 
   if (isError) {
-    toast.error(error.message, {
-      
-    });
+    toast.error(error.message);
   }
 
   if (isLoading) {
@@ -59,6 +52,28 @@ const Payment = () => {
   );
 
   const totalPages = Math.ceil(filteredPayments.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const renderPaginationButtons = () => {
+    const pageButtons = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+      pageButtons.push(
+        <button
+          key={i}
+          onClick={() => handlePageChange(i)}
+          className={`btn btn-outline ${currentPage === i ? "btn-active" : ""}`}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    return pageButtons;
+  };
 
   return (
     <div>
@@ -116,15 +131,13 @@ const Payment = () => {
                         <div className="mask mask-squircle w-12 h-12">
                           <img
                             src={payment.providerPhotoURL}
-                            alt="Avatar Tailwind CSS Component"
+                            alt="Provider"
                           />
                         </div>
                       </div>
                       <div>
                         <div className="font-bold">{payment.providerName}</div>
-                        <div className="text-sm opacity-50">
-                          #{payment._id}
-                        </div>
+                        <div className="text-sm opacity-50">#{payment._id}</div>
                       </div>
                     </div>
                   </td>
@@ -132,10 +145,7 @@ const Payment = () => {
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src={payment.servicePhotoURL}
-                            alt="Avatar Tailwind CSS Component"
-                          />
+                          <img src={payment.servicePhotoURL} alt="Service" />
                         </div>
                       </div>
                       <div>
@@ -167,9 +177,7 @@ const Payment = () => {
         >
           Previous
         </button>
-        <span className="flex items-center px-2">
-          {currentPage} of {totalPages}
-        </span>
+        {renderPaginationButtons()}
         <button
           className="btn btn-outline ml-2"
           onClick={() =>

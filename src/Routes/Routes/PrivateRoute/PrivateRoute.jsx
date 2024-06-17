@@ -8,8 +8,8 @@ const PrivateRoute = ({ children }) => {
     const location = useLocation();
     
     if(loading) {
-         return <div className="flex justify-center items-center h-[100vh]">
-            <img src={loader} alt="" />
+         return <div className="flex justify-center items-center py-10">
+            <img className="w-32" src={loader} alt="" />
         </div>;
     }
 

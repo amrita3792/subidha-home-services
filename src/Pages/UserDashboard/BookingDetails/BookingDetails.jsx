@@ -1,6 +1,6 @@
 // import axios from "axios";
 import { useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const BookingDetails = () => {
@@ -26,6 +26,7 @@ const BookingDetails = () => {
     serviceQuantity,
     unitCost,
     invoiceDate,
+    selectedSlot,
   } = booking;
 
   const handleMakePayment = () => {
@@ -70,7 +71,6 @@ const BookingDetails = () => {
         .then((data) => {
           if (data.modifiedCount > 0) {
             toast.success("Your booking has been canceled.", {
-              
               theme: "colored",
             });
             setLoading(false);
@@ -81,78 +81,87 @@ const BookingDetails = () => {
   };
 
   return (
-    <div className="mb-28">
-      <h2 className="text-xl font-semibold mb-8 text-center">
+    <div className="my-12 xl:max-w-screen-xl mx-auto">
+      <h2 className="text-3xl font-semibold mb-8 text-center">
         Booking Details
       </h2>
-      {!(bookingStatus === "Cancelled by User") && (
-        <ul className="steps steps-vertical lg:steps-horizontal w-full">
-          <li className="step step-primary font-semibold">Order Placed</li>
-          <li
-            className={`${
-              (bookingStatus === "Order Confirmed" ||
-                bookingStatus === "Order Processing" ||
-                bookingStatus === "Order Processing" ||
-                bookingStatus === "Order Completed") &&
-              "step-primary"
-            } step font-semibold`}
-          >
-            Order Confirmed
-          </li>
-          <li
-            className={`${
-              (bookingStatus === "Order Processing" ||
-                bookingStatus === "Order Completed") &&
-              "step-primary"
-            } step font-semibold`}
-          >
-            Order Processing
-          </li>
-          <li
-            className={`${
-              bookingStatus === "Order Completed" && "step-primary"
-            } step font-semibold`}
-          >
-            Order Completed
-          </li>
-        </ul>
-      )}
-      {bookingStatus === "Cancelled by User" && (
-        <ul className="steps w-full">
-          <li className="step step-primary font-semibold">Order Placed</li>
-          <li className="step step-primary font-semibold">Order Cancelled</li>
-        </ul>
-      )}
-      <div className="mt-16 flex gap-5">
-        <div>
-          <img className="w-48 rounded-md" src={servicePhotoURL} alt="" />
-          <p className="mt-4 text-xs font-semibold">#{_id}</p>
-          <div className="font-bold text-lg">
-            {booking.service} <br />
-            <span className={`text-sm ${bookingStatus === "Cancelled by User" ? "bg-red-500" : "bg-green-700"} text-white`}>
-              {booking.bookingStatus}
-            </span>
+      <div className="shadow-lg border p-10 rounded-2xl">
+        <p className="font-semibold text-lg">TimeLine</p>
+        {!(bookingStatus === "Cancelled by User") && (
+          <ul className="steps steps-vertical lg:steps-horizontal w-full">
+            <li className="step step-primary font-semibold">Order Placed</li>
+            <li
+              className={`${
+                (bookingStatus === "Order Confirmed" ||
+                  bookingStatus === "Order Processing" ||
+                  bookingStatus === "Order Processing" ||
+                  bookingStatus === "Order Completed") &&
+                "step-primary"
+              } step font-semibold`}
+            >
+              Order Confirmed
+            </li>
+            <li
+              className={`${
+                (bookingStatus === "Order Processing" ||
+                  bookingStatus === "Order Completed") &&
+                "step-primary"
+              } step font-semibold`}
+            >
+              Order Processing
+            </li>
+            <li
+              className={`${
+                bookingStatus === "Order Completed" && "step-primary"
+              } step font-semibold`}
+            >
+              Order Completed
+            </li>
+          </ul>
+        )}
+        {bookingStatus === "Cancelled by User" && (
+          <ul className="steps w-full">
+            <li className="step step-primary font-semibold">Order Placed</li>
+            <li className="step step-primary font-semibold">Order Cancelled</li>
+          </ul>
+        )}
+      </div>
+      <div className="mt-5 grid grid-cols-4 gap-8">
+        <div className="border p-4 shadow-lg rounded-2xl">
+          <img className="w-full rounded-md" src={servicePhotoURL} alt="" />
+          <div className="flex flex-col gap-2">
+            <p className="mt-4 text-xs">B-{_id}</p>
+            <p className="font-bold text-xl">
+              {booking.service} <br />
+              <span>{booking.totalAmount}</span>
+            </p>
+            <p className="font-bold text-xl text-pink-700">৳{totalAmount}</p>
           </div>
-          <p className="font-bold">Total: ৳{totalAmount}</p>
         </div>
-        <div>
-          <h3 className="font-semibold mb-1">Schedule:</h3>
-          <p className="text-sm">
-            <span className="font-semibold">Date:</span> {selectedDate}
-          </p>
-          <h3 className="font-semibold mt-5 mb-1">Ordered for:</h3>
-          <p className="text-sm">
-            <span className="font-semibold">Name:</span> {userName}
-          </p>
-          <p className="text-sm">
-            <span className="font-semibold">Phone:</span> {userPhone}
-          </p>
-          <p className="text-sm">
-            <span className="font-semibold">Location:</span> {fullAddress}
-            {upazila}, {district}, {division}
-          </p>
+        <div className="col-span-2 flex gap-8 flex-col grow">
+          <div className="shadow-lg rounded-2xl border p-4 basis-1/2">
+            <h3 className="font-semibold text-xl mb-3">Schedule:</h3>
+            <p className="text-lg">
+              <span className="font-semibold">Date:</span> {selectedDate} <br />
+              <span className="font-semibold">Slot:</span> {selectedSlot}
+            </p>
+          </div>
+
+          <div className="basis-1/2 shadow-lg rounded-2xl border p-4">
+            <h3 className="font-semibold text-xl mb-3">Ordered for:</h3>
+            <p className="text-lg">
+              <span className="font-semibold">Name:</span> {userName}
+            </p>
+            <p className="text-lg">
+              <span className="font-semibold">Phone:</span> {userPhone}
+            </p>
+            <p className="text-lg">
+              <span className="font-semibold">Location:</span> {fullAddress}
+              {upazila}, {district}, {division}
+            </p>
+          </div>
         </div>
-        <div>
+        <div className="shadow-lg rounded-2xl border p-4">
           <div className="flex gap-3">
             <div className="avatar">
               <div className="w-20 h-20 rounded-md">
@@ -198,7 +207,11 @@ const BookingDetails = () => {
             onClick={() => handleCancelBooking(_id)}
             className="btn bg-red-500 text-white"
           >
-           {loading ? <span className="loading loading-spinner loading-md"></span> : "Cancel"}
+            {loading ? (
+              <span className="loading loading-spinner loading-md"></span>
+            ) : (
+              "Cancel"
+            )}
           </button>
         )}
       </div>
