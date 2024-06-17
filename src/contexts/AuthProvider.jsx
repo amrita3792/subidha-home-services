@@ -76,12 +76,10 @@ const AuthProvider = ({ children }) => {
   };
 
   const createUser = (email, password) => {
-    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const signIn = (email, password) => {
-    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -106,6 +104,7 @@ const AuthProvider = ({ children }) => {
       (user) => {
         if (!user || user?.emailVerified || user?.phoneNumber) {
           setUser(user);
+          setLoading(false);
         } else {
           toast.warning("Your Email is not verified", {
             
@@ -113,7 +112,6 @@ const AuthProvider = ({ children }) => {
           });
           logout();
         }
-        setLoading(false);
       },
       []
     );

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import img from "../../../../assets/images/Setting Research (1).gif";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../../contexts/AuthProvider";
+import { useQuery } from "@tanstack/react-query";
 
 const users = () => {
   const [users, setUsers] = useState([]);
@@ -19,9 +20,37 @@ const users = () => {
       });
   }, [page, size]);
 
+  const {
+    data: adminRoles = [],
+    isLoading,
+    isError,
+    error,
+    refetch, // Include refetch function for refreshing data
+  } = useQuery({
+    queryKey: ["roles"],
+    queryFn: () =>
+      fetch("http://localhost:5000/roles").then((res) => res.json()),
+  });
+
+  if (isError) {
+    toast.error(error.message, {
+      theme: "colored",
+    });
+  }
+
+  if (isLoading) {
+    return (
+      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
+        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+      </div>
+    );
+  }
+
+
   const pages = Math.ceil(count / size);
 
-  const roles = ["Admin", "Sub admin", "Super admin"];
+  const roles = adminRoles.map(role => role.roleName)
+  
 
   const handleOnChnage = (e) => {
     const searchText = e.target.value;
@@ -135,6 +164,7 @@ const users = () => {
                         {role}
                       </option>
                     ))}
+                    <option>Member</option>
                   </select>
                 </td>
               </tr>

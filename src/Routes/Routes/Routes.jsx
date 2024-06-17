@@ -40,6 +40,7 @@ import SubCategories from "../../Pages/AdminDashboard/SubCategories/SubCategorie
 import AddNewService from "../../Pages/AdminDashboard/AddNewService/AddNewService";
 import AdminServiceProviderManagement from "../../Pages/AdminDashboard/AdminServiceProviderManagement/AdminServiceProviderManagement";
 import RolesPermissionsForm from "../../Pages/AdminDashboard/RolesPermissionsForm/RolesPermissionsForm";
+import RolesAndPermissions from "../../Pages/AdminDashboard/RolesAndPermissions/RolesAndPermissions";
 
 const router = createBrowserRouter([
   {
@@ -236,6 +237,10 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
       {
         path: "/admin-dashboard/add-roles-permissions",
         element: <RolesPermissionsForm />
+      },
+      {
+        path: "/admin-dashboard/admin/roles",
+        element: <RolesAndPermissions />
       },
     ],
   },

@@ -109,7 +109,7 @@ const AdminLinks = () => {
               <li onClick={() => navigate('/admin-dashboard/service-providers')}>
                 <a>Service Providers</a>
               </li>
-              <li>
+              <li onClick={() => navigate('/admin-dashboard/admin/roles')}>
                 <a>Roles & Permissions</a>
               </li>
             </ul>

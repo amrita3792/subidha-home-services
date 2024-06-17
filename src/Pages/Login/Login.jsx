@@ -7,13 +7,12 @@ import { toast } from "react-toastify";
 import ForgotPasswordModal from "./FogotPasswordModal/ForgotPasswordModal";
 import ResendEmailVerifyModal from "./ResendEmailVerifyModal/ResendEmailVerifyModal";
 import { getDate, getTime } from "../../utilities/date";
-// import { getUserToken } from "../../utilities/getToken";
 import useToken from "../../hooks/useToken";
 
 const Login = () => {
-  const { googleSignIn, setLoading, signIn, loading, user } =
-    useContext(AuthContext);
+  const { googleSignIn, signIn } = useContext(AuthContext);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
   const [verifyEmail, setVerifyEmail] = useState(false);
   const [email, setEmail] = useState("");
@@ -23,19 +22,13 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-
   const { showModal, setShowModal } = useContext(ModalContext);
 
   useEffect(() => {
     if (token) {
-      if (location?.state?.from?.pathname?.split("/")[1] === "admin-dashboard") {
-        navigate("/");
-      } else {
-        navigate(from, { replace: true });
-      }
+      navigate(from, { replace: true });
     }
-  }, [token]); // Empty dependency array ensures this effect runs only after initial render
-  
+  }, [token, navigate, from, location, uid]);
 
   useEffect(() => {
     if (verifyEmail) {
@@ -43,135 +36,96 @@ const Login = () => {
     }
   }, [verifyEmail]);
 
-  const handleChangeModalState = () => {
-    setShowModal(!showModal);
-  };
+  const handleChangeModalState = () => setShowModal(!showModal);
 
-  const handleGooleSignIn = () => {
-    googleSignIn()
-      .then((result) => {
-        const user = result.user;
+  const handleGoogleSignIn = async () => {
+    setError(null);
+    setLoading(true);
+    try {
+      const result = await googleSignIn();
+      const user = result.user;
+      const { createdAt, lastLoginAt, lastSignInTime, creationTime } =
+        user.metadata;
+      const formattedCreationTime = `${getDate(creationTime)} | ${getTime(
+        createdAt
+      )}`;
+      const formattedLastSignInTime = `${getDate(lastSignInTime)} | ${getTime(
+        lastLoginAt
+      )}`;
 
-        const { createdAt, lastLoginAt, lastSignInTime, creationTime } =
-          user.metadata;
+      const currentUser = {
+        uid: user.uid,
+        userName: user.displayName,
+        email: user.email,
+        phone: user.phoneNumber,
+        photoURL: user.photoURL || "https://i.ibb.co/M1qvZxP/user.png",
+        signupDate: formattedCreationTime,
+        lastLogin: formattedLastSignInTime,
+        status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
+      };
 
-        const creationDate = getDate(creationTime);
-        const lastSignInDate = getDate(lastSignInTime);
-
-        const fCreationTime = getTime(createdAt);
-        const lastLoginTime = getTime(lastLoginAt);
-
-        const formattedLastSignInWithTime = `${lastSignInDate} | ${lastLoginTime}`;
-        const formattedCreationTimeWithTime = `${creationDate} | ${fCreationTime}`;
-
-        const currentUser = {
-          uid: user.uid,
-          userName: user.displayName,
-          email: user.email,
-          phone: user.phoneNumber,
-          photoURL: user?.photoURL
-            ? user.photoURL
-            : "https://i.ibb.co/M1qvZxP/user.png",
-          signupDate: formattedCreationTimeWithTime,
-          lastLogin: formattedLastSignInWithTime,
-          status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
-        };
-
-        fetch("https://subidha-home-services-server3792.glitch.me/users", {
+      const response = await fetch(
+        "https://subidha-home-services-server3792.glitch.me/users",
+        {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(currentUser),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.acknowledged) {
-              setUid(currentUser.uid);
-              setLoading(false);
-              // navigate(from, { replace: true });
-            }
-          })
-          .catch((error) => {
-            setLoading(false);
-          });
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
+        }
+      );
 
-        toast.error(errorMessage, {
-          
-          theme: "colored",
-        });
-
-        setLoading(false);
-      });
+      const data = await response.json();
+      if (data.acknowledged) {
+        console.log("hELLO");
+        setUid(currentUser.uid);
+      }
+    } catch (error) {
+      toast.error(error.message, { theme: "colored" });
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
+    setLoading(true);
+    try {
+      const form = e.target;
+      const email = form.email.value;
+      const password = form.password.value;
 
-    signIn(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+      const userCredential = await signIn(email, password);
+      const user = userCredential.user;
 
-        const status = "active";
+      if (user.emailVerified) {
+        const response = await fetch(
+          `https://subidha-home-services-server3792.glitch.me/update-status/${user.uid}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status: "active" }),
+          }
+        );
 
-        if (user.emailVerified) {
-          fetch(
-            `https://subidha-home-services-server3792.glitch.me/update-status/${user.uid}`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ status }),
-            }
-          )
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.acknowledged) {
-                // console.log(location?.state.from.pathname.split("/")[1]);
-                if (
-                  location?.state?.from?.pathname?.split("/")[1] ===
-                  "admin-dashboard"
-                ) {
-                  navigate("/");
-                } else {
-                  navigate(from, { replace: true });
-                }
-                setLoading(false);
-              }
-            })
-            .catch((error) => {
-              console.error(error);
-              setLoading(false);
-            });
-        } else {
-          setVerifyEmail(true);
-          setCurrentUser(user);
-          setEmail(user.email);
+        const data = await response.json();
+        if (data.acknowledged) {
+          navigate(from, { replace: true });
         }
-        setLoading(false);
-      })
-      .catch((error) => {
-        if (error.message === "Firebase: Error (auth/invalid-credential).") {
-          setError("The email or password you entered is incorrect.");
-          setLoading(false);
-          return;
-        }
-
-        console.error(`Error: ${error}`);
-        toast.error(error.message, {
-          
-          theme: "colored",
-        });
-        setLoading(false);
-      });
+      } else {
+        setVerifyEmail(true);
+        setCurrentUser(user);
+        setEmail(user.email);
+      }
+    } catch (error) {
+      setError(
+        error.message.includes("auth/invalid-credential")
+          ? "The email or password you entered is incorrect."
+          : error.message
+      );
+      toast.error(error.message, { theme: "colored" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -198,20 +152,21 @@ const Login = () => {
         </div>
         <Link
           to="#"
-          onClick={async () => {
-            await setResetPassword(true);
+          onClick={() => {
+            setResetPassword(true);
             document.getElementById("my_modal_3").showModal();
           }}
           className="text-[#FF6600] font-semibold text-sm block my-7 mt-1 text-center hover:underline"
         >
           Forgot your password?
         </Link>
-        <button className="text-white btn bg-[#FF6600] hover:bg-[#1D2736] px-10 py-3 w-full rounded-lg">
+        <button
+          className="text-white btn bg-[#FF6600] hover:bg-[#1D2736] px-10 py-3 w-full rounded-lg"
+          type="submit"
+          disabled={loading}
+        >
           {loading ? (
-            <>
-              <span className="loading loading-spinner loading-md"></span>
-              Logging in...
-            </>
+            <span className="loader"></span> // Use any loader/spinner component you prefer
           ) : (
             "Log In"
           )}
@@ -256,20 +211,20 @@ const Login = () => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-6 h-6"
+          className="size-6 w-6 h-6"
         >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"
+            d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"
           />
         </svg>
-        Phone Number
+        Sign in with phone number
       </button>
       <button
-        onClick={handleGooleSignIn}
+        onClick={handleGoogleSignIn}
         type="button"
-        className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 btn font-medium rounded-lg text-lg px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2 w-full"
+        className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 btn focus:outline-none font-medium rounded-lg text-lg px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2 w-full"
       >
         <svg
           className="w-4 h-4 me-2"
@@ -288,7 +243,7 @@ const Login = () => {
       </button>
       <button
         type="button"
-        className="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 btn focus:outline-none font-medium rounded-lg text-lg px-5 py-2.5 text-center  items-center dark:focus:ring-[#3b5998]/55 me-2 mb-2 w-full flex justify-center"
+        className="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 btn focus:outline-none font-medium rounded-lg text-lg px-5 py-2.5 text-center items-center dark:focus:ring-[#3b5998]/55 me-2 mb-2 w-full flex justify-center"
       >
         <svg
           className="w-4 h-4 me-2"

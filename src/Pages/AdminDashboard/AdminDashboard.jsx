@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+
 import Header from "./Header/Header";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import AdminLinks from "./AdminLinks/AdminLinks";
 
 const AdminDashboard = () => {

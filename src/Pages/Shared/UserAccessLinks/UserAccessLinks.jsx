@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
@@ -7,8 +7,9 @@ import useAdmin from "../../../hooks/useAdmin";
 import useProvider from "../../../hooks/useProvider";
 
 const UserAccessLinks = ({ isOpen, setIsOpen }) => {
-  const { user, logout, loading, setLoading } = useContext(AuthContext);
+  const { user, logout} = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
+  const [loading, setLoading] = useState(false);
   // const [isProvider, isProviderLoading] = useProvider(user?.uid);
   const {isProvider, isProviderLoading} = useContext(ProviderContext);
   const {isAdmin, isAdminLoading} = useContext(AdminContext);
