@@ -13,7 +13,7 @@ const AdminBookingManagement = () => {
 
   // Fetch bookings
   const fetchBookings = async () => {
-    const response = await fetch("http://localhost:5000/all-bookings");
+    const response = await fetch("https://subidha-home-services-server3792.glitch.me/all-bookings");
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -102,7 +102,7 @@ const AdminBookingManagement = () => {
   return (
     <div className="container mx-auto p-10 rounded-lg shadow-md bg-white">
       <ToastContainer />
-      <h1 className="text-2xl font-bold mb-4">Booking Management</h1>
+      <h1 className="text-2xl font-bold mb-4">All Bookings</h1>
 
       <div className="mb-4 flex justify-between items-center">
         <input

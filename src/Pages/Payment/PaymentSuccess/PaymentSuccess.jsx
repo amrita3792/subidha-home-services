@@ -33,7 +33,7 @@ const PaymentSuccess = () => {
         subject: `Subidha Invoice - Confirmation for Service Order ${transactionId}`,
         message: "",
         userName,
-        invoiceNo: transactionId,
+        invoiceNo: payment.invoiceNumber,
         invoiceDate: date,
         totalAmount,
         serviceQuantity,

@@ -117,7 +117,7 @@ const AdminLinks = () => {
         </li>
       </ul>
 
-      <li className="text-white border-none w-full">
+      <li onClick={() => navigate('/admin-dashboard/all-bookings')} className="text-white border-none w-full">
         <Link className="btn py-1 active:bg-none font-medium bg-inherit border-none text-white items-center justify-start w-full hover:bg-slate-700">
           <svg
             xmlns="http://www.w3.org/2000/svg"
