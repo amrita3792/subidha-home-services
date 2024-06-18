@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 const ProviderDashboardStatus = () => {
   const { theme } = useContext(ThemeContext);
   return (
-    <div>
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <div className="mt-10">
+      <div className="grid md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-4 md:gap-x-7">
         <div
           className={`card ${
             theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-600"
           } shadow-md border rounded-lg`}
         >
-          <div className="card-body p-6 flex-row justify-between">
+          <div className="card-body p-10 flex-row justify-between items-center">
             <div
               className="flex h-11 w-11 rounded-full items-center justify-center 
             bg-[#345DA7] text-white"
@@ -43,7 +43,7 @@ const ProviderDashboardStatus = () => {
             theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-600"
           } shadow-md border rounded-lg`}
         >
-          <div className="card-body p-6 flex-row justify-between">
+          <div className="card-body p-10 flex-row justify-between items-center">
             <div
               className="flex h-11 w-11 rounded-full items-center justify-center 
               bg-[#345DA7] text-white"
@@ -74,7 +74,7 @@ const ProviderDashboardStatus = () => {
             theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-600"
           } shadow-md border rounded-lg`}
         >
-          <div className="card-body p-6 flex-row justify-between">
+          <div className="card-body p-10 flex-row justify-between items-center">
             <div
               className="flex h-11 w-11 rounded-full items-center justify-center 
             bg-[#345DA7] text-white"
@@ -105,7 +105,7 @@ const ProviderDashboardStatus = () => {
             theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-600"
           } shadow-md border rounded-lg`}
         >
-          <div className="card-body p-6 flex-row justify-between">
+          <div className="card-body p-10 flex-row justify-between items-center">
             <div
               className="flex h-11 w-11 rounded-full items-center justify-center 
             bg-[#345DA7] text-white"

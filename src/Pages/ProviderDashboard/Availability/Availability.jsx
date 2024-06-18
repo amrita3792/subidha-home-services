@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 
 const generateTimeOptions = () => {
   const times = [];
@@ -113,8 +112,11 @@ const Availability = () => {
 
     // Validate time slots
     let isValid = true;
+    let isAnySlotEnabled = false;
+
     Object.keys(timeSlots).forEach((day) => {
       if (timeSlots[day].enabled) {
+        isAnySlotEnabled = true;
         if (!timeSlots[day].from || !timeSlots[day].to) {
           isValid = false;
           toast.error(`Please select both "from" and "to" times for ${day}.`, {
@@ -123,6 +125,13 @@ const Availability = () => {
         }
       }
     });
+
+    if (!isAnySlotEnabled) {
+      toast.error("Please select at least one time slot.", {
+        theme: "colored",
+      });
+      return;
+    }
 
     if (!isValid) {
       return;
@@ -166,9 +175,20 @@ const Availability = () => {
       .then((res) => res.json())
       .then((data) => {
         setIsLoading(false);
-        form.reset();
         toast.success("Time slot has been updated or inserted successfully!", {
           theme: "colored",
+        });
+        // Reset the form state
+        setAllDays(false);
+        setAllDayTimeSlot({ from: "", to: "" });
+        setTimeSlots({
+          Sunday: { enabled: false, from: "", to: "" },
+          Monday: { enabled: false, from: "", to: "" },
+          Tuesday: { enabled: false, from: "", to: "" },
+          Wednesday: { enabled: false, from: "", to: "" },
+          Thursday: { enabled: false, from: "", to: "" },
+          Friday: { enabled: false, from: "", to: "" },
+          Saturday: { enabled: false, from: "", to: "" },
         });
       })
       .catch((error) => {

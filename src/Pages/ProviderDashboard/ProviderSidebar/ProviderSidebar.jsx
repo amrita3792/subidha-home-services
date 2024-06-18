@@ -339,23 +339,23 @@ const ProviderSidebar = () => {
   ];
 
   return (
-    <aside className="w-full lg:w-[320px] bg-[#345DA7] text-white px-5 min-h-screen sticky top-0 py-4">
+    <aside className="w-full lg:w-[320px] bg-[#345DA7] text-white min-h-screen sticky top-0">
       <section>
         <ul>
           {providerAccessLinks.map((providerAccessLink) => (
             <li
-              className="flex items-center w-full"
+              className="flex items-center rounded-none w-full"
               key={providerAccessLink.id}
             >
               <NavLink
                 style={({ isActive }) => {
                   return {
                     fontWeight: isActive ? "bold" : "",
-                    backgroundColor: isActive && "#64748b",
+                    backgroundColor: isActive && "#475569",
                     color: isActive && "white",
                   };
                 }}
-                className="text-white px-3 py-2 font-semibold w-full flex items-center justify-start gap-3 btn bg-inherit  border-none"
+                className="text-white px-5 py-2 font-semibold w-full flex items-center justify-start gap-3 btn bg-inherit rounded-none hover:bg-[#475569] border-none"
                 to={providerAccessLink.path}
               >
                 {providerAccessLink.icon}
