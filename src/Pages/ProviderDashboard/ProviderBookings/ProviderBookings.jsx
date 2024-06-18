@@ -57,7 +57,6 @@ const ProviderBookings = () => {
             toast.success(
               `The booking has been ${event.target.value.split(" ")[1]}.`,
               {
-                
                 theme: "colored",
               }
             );
@@ -96,7 +95,10 @@ const ProviderBookings = () => {
 
   const totalPages = Math.ceil(filteredBookings.length / itemsPerPage);
   const startIdx = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredBookings.slice(startIdx, startIdx + itemsPerPage);
+  const currentItems = filteredBookings.slice(
+    startIdx,
+    startIdx + itemsPerPage
+  );
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -141,16 +143,14 @@ const ProviderBookings = () => {
               </select>
             </div>
           </div>
-          <h2 className="text-2xl font-semibold mb-8 text-center">
-            Booking List
-          </h2>
+          <h2 className="text-2xl font-semibold mb-8">Booking List</h2>
           <div className="overflow-x-auto">
             <table className="table">
               <thead>
                 <tr className="text-base">
                   <th>Booking Details</th>
                   <th>User Details</th>
-                  <th>Booking Status</th>
+                  <th>Update Status</th>
                   <th>Chat</th>
                   <th>Cancel</th>
                 </tr>
@@ -159,21 +159,20 @@ const ProviderBookings = () => {
                 {currentItems.map((booking) => (
                   <tr key={booking._id}>
                     <td>
-                      <div className="flex gap-3">
-                        <div className="avatar">
-                          <div className="w-28 h-28 rounded-md">
-                            <img
-                              src={booking.servicePhotoURL}
-                              alt="Service"
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <div className="font-bold text-lg">
+                      <div className="card card-side bg-base-100 justify-start">
+                        <figure className="basis-1/2">
+                          <img
+                            className="rounded-xl w-full"
+                            src={booking.servicePhotoURL}
+                            alt="Movie"
+                          />
+                        </figure>
+                        <div className="card-body">
+                          <div className="font-bold text-xl">
                             {booking.service}
                             <br />
                             <span
-                              className={`text-sm ${
+                              className={`text-sm p-1 ${
                                 booking.bookingStatus === "Cancelled by User"
                                   ? "bg-red-500"
                                   : "bg-green-700"
@@ -207,21 +206,16 @@ const ProviderBookings = () => {
                       </div>
                     </td>
                     <td>
-                      <div className="flex gap-3">
-                        <div className="avatar">
-                          <div className="w-28 h-28 rounded-md">
-                            <img
-                              src={booking.userPhotoURL}
-                              alt="User"
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <div className="text-sm">
+                      <div className="card card-compact bg-base-100">
+                        <figure className="w-28 rounded-xl">
+                          <img src={booking.userPhotoURL} alt="Shoes" />
+                        </figure>
+                        <div className="card-body">
+                          <div className="text-sm whitespace-nowrap">
                             <span className="font-bold">User Name:</span>{" "}
                             {booking.userName}
                           </div>
-                          <div className="text-sm">
+                          <div className="text-sm whitespace-nowrap">
                             <span className="font-bold">Phone:</span>{" "}
                             {booking.userPhone}
                           </div>
@@ -302,7 +296,7 @@ const ProviderBookings = () => {
                       booking.bookingStatus === "Order Completed"
                     ) && (
                       <th>
-                        <button className="btn bg-red-500 py-3 text-white hover:text-black">
+                        <button className="btn bg-red-500 py-3 text-white hover:text-black whitespace-nowrap">
                           Cancel Order
                         </button>
                       </th>
