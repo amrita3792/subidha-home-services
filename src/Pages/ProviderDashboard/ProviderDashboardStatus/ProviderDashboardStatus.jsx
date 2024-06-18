@@ -1,9 +1,35 @@
 import { useContext } from "react";
 import { ThemeContext } from "../../../App";
-import { Link } from "react-router-dom";
+import CurrentMonthBookings from "../CurrentMonthBookings/CurrentMonthBookings";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const ProviderDashboardStatus = () => {
   const { theme } = useContext(ThemeContext);
+  const {user} = useContext(AuthContext);
+
+  const {
+    data: dashboardStatus = {},
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["provider-bookings-reviews"],
+    queryFn: () =>
+      fetch(`https://subidha-home-services-server3792.glitch.me/provider-bookings-reviews/${user.uid}`).then(
+        (res) => res.json()
+      ),
+  });
+
+  if (isError) {
+    toast.error(error.message, {
+      theme: "colored",
+    });
+  }
+
+  console.log(dashboardStatus);
+
   return (
     <div className="mt-10">
       <div className="grid md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-4 md:gap-x-7">
@@ -33,7 +59,7 @@ const ProviderDashboardStatus = () => {
               </svg>
             </div>
             <div className="flex flex-col items-end">
-              <h2 className="card-title text-4xl">15</h2>
+              <h2 className="card-title text-4xl">{dashboardStatus.totalBookings}</h2>
               <span className="font-semibold  text-sm">Bookings</span>
             </div>
           </div>
@@ -64,7 +90,7 @@ const ProviderDashboardStatus = () => {
               </svg>
             </div>
             <div className="flex flex-col items-end">
-              <h2 className="card-title text-4xl">0</h2>
+              <h2 className="card-title text-4xl">{dashboardStatus.totalServices}</h2>
               <span className="font-semibold  text-sm">Services</span>
             </div>
           </div>
@@ -126,12 +152,14 @@ const ProviderDashboardStatus = () => {
               </svg>
             </div>
             <div className="flex flex-col items-end">
-              <h2 className="card-title text-4xl">0</h2>
+              <h2 className="card-title text-4xl">{dashboardStatus.totalReviews}</h2>
               <span className="font-semibold  text-sm">Reviews</span>
             </div>
           </div>
         </div>
       </div>
+
+      <CurrentMonthBookings />
     </div>
   );
 };

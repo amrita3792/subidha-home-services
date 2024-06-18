@@ -44,3 +44,13 @@ border-radius: 20px;
 .rdp-day_selected {
   background-color: #FF6600;
 }
+
+.custom-user-scrollbar::-webkit-scrollbar {
+  width: 5px; /* You can adjust the width as needed */
+  height: 8px;
+}
+
+.custom-user-scrollbar::-webkit-scrollbar-thumb {
+  background: #3457a7; /* Light gray to dark gray gradient */
+
+}

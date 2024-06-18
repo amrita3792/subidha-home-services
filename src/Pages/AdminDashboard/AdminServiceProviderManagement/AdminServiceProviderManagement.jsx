@@ -12,7 +12,7 @@ const AdminServiceProviderManagement = () => {
 
   // Fetch service providers
   const fetchServiceProviders = async () => {
-    const response = await fetch("http://localhost:5000/all-providers/");
+    const response = await fetch("https://subidha-home-services-server3792.glitch.me/all-providers/");
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -32,7 +32,7 @@ const AdminServiceProviderManagement = () => {
   const handleAcceptProvider = async (provider) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/all-providers/${provider._id}`,
+        `https://subidha-home-services-server3792.glitch.me/all-providers/${provider._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -52,7 +52,7 @@ const AdminServiceProviderManagement = () => {
   const handleDeactivateProvider = async (provider) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/all-providers/${provider._id}`,
+        `https://subidha-home-services-server3792.glitch.me/all-providers/${provider._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -81,7 +81,7 @@ const AdminServiceProviderManagement = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/all-providers/${providerId}`,
+        `https://subidha-home-services-server3792.glitch.me/all-providers/${providerId}`,
         {
           method: "DELETE",
         }

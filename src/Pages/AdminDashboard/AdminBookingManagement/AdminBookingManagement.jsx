@@ -40,7 +40,7 @@ const AdminBookingManagement = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/booking-status/${bookingId}`,
+        `https://subidha-home-services-server3792.glitch.me/booking-status/${bookingId}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -69,7 +69,7 @@ const AdminBookingManagement = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/all-bookings/${bookingId}`,
+        `https://subidha-home-services-server3792.glitch.me/all-bookings/${bookingId}`,
         {
           method: "DELETE",
         }
@@ -216,13 +216,28 @@ const AdminBookingManagement = () => {
                   <td className="whitespace-nowrap">{booking.selectedDate}</td>
                   <td className="whitespace-nowrap">{booking.selectedSlot}</td>
                   <td>{booking.selectedWeekDay}</td>
-                  <td className="whitespace-nowrap">{booking.bookingStatus}</td>
+                  <td className="py-3 px-4 whitespace-nowrap">
+                    <span
+                      className={`inline-block px-2 py-1 rounded-lg text-sm ${
+                        booking.bookingStatus === "Order Completed"
+                          ? "bg-green-500 text-white"
+                          : "bg-yellow-500 text-gray-800"
+                      }`}
+                    >
+                      {booking.bookingStatus}
+                    </span>
+                  </td>
                   <td className="whitespace-nowrap">{booking.updated}</td>
                   <td className="flex items-center gap-2">
                     <button
                       onClick={() => handleCancelBooking(booking._id)}
                       className="btn btn-warning btn-sm text-white"
-                      disabled={booking.bookingStatus === "Cancelled by Admin" || booking.bookingStatus === "Cancelled by User" || booking.bookingStatus === "Order Completed" || booking.bookingStatus === "Cancelled by Provider"}
+                      disabled={
+                        booking.bookingStatus === "Cancelled by Admin" ||
+                        booking.bookingStatus === "Cancelled by User" ||
+                        booking.bookingStatus === "Order Completed" ||
+                        booking.bookingStatus === "Cancelled by Provider"
+                      }
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

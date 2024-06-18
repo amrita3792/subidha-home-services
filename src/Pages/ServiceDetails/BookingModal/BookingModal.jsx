@@ -67,7 +67,7 @@ const BookingModal = ({
   useEffect(() => {
     if (selectedDate) {
       fetch(
-        `http://localhost:5000/get-available-slots?serviceManId=${
+        `https://subidha-home-services-server3792.glitch.me/get-available-slots?serviceManId=${
           serviceMan.uid
         }&selectedDate=${format(
           selectedDate,

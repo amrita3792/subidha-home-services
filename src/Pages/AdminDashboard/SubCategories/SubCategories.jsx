@@ -15,7 +15,7 @@ const SubCategories = () => {
   } = useQuery({
     queryKey: ["services"],
     queryFn: () =>
-      fetch("http://localhost:5000/all-services").then((res) => res.json()),
+      fetch("https://subidha-home-services-server3792.glitch.me/all-services").then((res) => res.json()),
   });
 
   if (isError) {

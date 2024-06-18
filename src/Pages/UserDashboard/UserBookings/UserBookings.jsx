@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import noDataFound from "../../../assets/images/no-data-found.png";
 import "react-toastify/dist/ReactToastify.css";
 import "daisyui/dist/full.css";
+import dayjs from 'dayjs';
 
 const UserBookings = () => {
   const { user } = useContext(AuthContext);
@@ -118,9 +119,7 @@ const UserBookings = () => {
                 <li>
                   <Link to="/user-dashboard/dashboard">User Dashboard</Link>
                 </li>
-                <li>
-                  Booking List
-                </li>
+                <li>Booking List</li>
               </ul>
             </div>
           </div>
@@ -148,94 +147,79 @@ const UserBookings = () => {
           <h2 className="text-2xl font-semibold mb-8 text-center mt-10">
             My Bookings
           </h2>
-          <div className="overflow-x-scroll">
+          <div className="overflow-x-scroll custom-user-scrollbar">
             <table
-              className={`table ${
-                theme === "light" ? "border" : "border-slate-600"
-              }`}
+              className={`table ${theme === "light" ? "border" : "border-slate-600"
+                } w-full`}
             >
-              <thead
-                className={`border ${
-                  theme === "light" ? "border" : "border-slate-600"
-                }`}
-              >
+              <thead className={`border ${theme === "light" ? "border" : "border-slate-600"
+                }`}>
                 <tr className="text-sm">
-                  <th>Booking ID</th>
-                  <th>Service</th>
-                  <th>Schedule</th>
-                  <th>Price</th>
-                  <th>Provider</th>
-                  <th>Details</th>
-                  <th>Review</th>
-                  <th>Chat</th>
+                  <th className="px-4 py-2">Booking ID</th>
+                  <th className="px-4 py-2">Service</th>
+                  <th className="px-4 py-2">Schedule</th>
+                  <th className="px-4 py-2">Price</th>
+                  <th className="px-4 py-2">Provider</th>
+                  <th className="px-4 py-2">Details</th>
+                  <th className="px-4 py-2">Review</th>
+                  <th className="px-4 py-2">Chat</th>
                 </tr>
               </thead>
               <tbody>
                 {currentItems.map((booking) => (
                   <tr
-                    className={`border ${
-                      theme === "light" ? "border" : "border-slate-600"
-                    }`}
                     key={booking._id}
+                    className={`border ${theme === "light" ? "border" : "border-slate-600"
+                      }`}
                   >
-                    <td className="flex flex-col items-start gap-1">
-                      <span className="text-lg whitespace-nowrap">B-{booking._id}</span>
-                      <span
-                        className={`text-white text-xs p-1 rounded-md font-semibold
-                           ${(booking.bookingStatus === "Cancelled by User" || booking.bookingStatus === "Cancelled by Admin" || booking.bookingStatus === "Cancelled by Provider")
-                            ? "bg-red-500"
-                            : "bg-green-700"
-                        }`}
-                      >
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      <span className={`inline-block px-2 py-1 rounded-lg text-sm ${booking.bookingStatus === "Order Completed" ? "bg-green-500 text-white" : "bg-yellow-500 text-gray-800"}`}>
                         {booking.bookingStatus}
                       </span>
                     </td>
-                    <td>
+                    <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <div className="avatar">
                           <div className="mask mask-squircle w-12 h-12">
                             <img
                               src={booking.servicePhotoURL}
-                              alt="Avatar Tailwind CSS Component"
+                              alt="Service Photo"
                             />
                           </div>
                         </div>
-                        <div>
-                          <div className="font-bold whitespace-nowrap">{booking.service}</div>
-                        </div>
+                        <div className="font-bold">{booking.service}</div>
                       </div>
                     </td>
-                    <td className="text-sm font-semibold">
-                      <span className="whitespace-nowrap">{booking.selectedDate}</span><br />
+                    <td className="px-4 py-3 text-sm font-semibold">
+                      <span className="whitespace-nowrap">{booking.selectedDate}</span>
+                      <br />
                       [{booking.selectedSlot}]
                     </td>
-                    <td className="font-semibold whitespace-nowrap">
+                    <td className="px-4 py-3 font-semibold whitespace-nowrap">
                       {booking.totalAmount} TK
                     </td>
-                    <td>
+                    <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <div className="avatar">
                           <div className="mask mask-squircle w-12 h-12">
                             <img
                               src={booking.providerPhotoURL}
-                              alt="Avatar Tailwind CSS Component"
+                              alt="Provider Photo"
                             />
                           </div>
                         </div>
-                        <div>
-                          <div className="font-bold whitespace-nowrap">{booking.providerName}</div>
-                        </div>
+                        <div className="font-bold">{booking.providerName}</div>
                       </div>
                     </td>
-                    <td>
+                    <td className="px-4 py-3">
                       <Link
                         to={`/user-dashboard/booking-list/${booking._id}`}
                         className="btn btn-ghost btn-xs bg-[#FF6600] text-white hover:text-black"
                       >
-                        details
+                        Details
                       </Link>
                     </td>
-                    <td>
+                    <td className="px-4 py-3">
                       {booking?.paidStatus && (
                         <button
                           disabled={booking.hasWrittenReview}
@@ -243,13 +227,17 @@ const UserBookings = () => {
                             setReviewService(booking);
                             handleChangeModalState();
                           }}
-                          className="btn btn-ghost btn-xs bg-neutral text-white hover:text-black"
+                          className={`btn btn-ghost btn-xs ${
+                            booking.hasWrittenReview
+                              ? "bg-neutral text-white cursor-not-allowed"
+                              : "bg-primary text-white hover:text-black"
+                            }`}
                         >
                           {booking.hasWrittenReview ? "Reviewed" : "Review"}
                         </button>
                       )}
                     </td>
-                    <td>
+                    <td className="px-4 py-3">
                       <button
                         onClick={() => {
                           if (receiver?.uid === booking?.providerID) {
@@ -274,7 +262,7 @@ const UserBookings = () => {
           </div>
           <div className="mt-5 flex justify-center gap-3">
             <button
-              className="btn btn-primary"
+              className={`btn ${currentPage === 1 ? "btn-primary cursor-not-allowed" : "btn-primary"}`}
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
@@ -282,7 +270,7 @@ const UserBookings = () => {
             </button>
             {renderPageNumbers()}
             <button
-              className="btn btn-primary"
+              className={`btn ${currentPage === totalPages ? "btn-primary cursor-not-allowed" : "btn-primary"}`}
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
             >

@@ -37,7 +37,7 @@ const EditCategory = () => {
         category.icon = response.data.data.url;
     }
 
-    fetch(`http://localhost:5000/edit-categories/${_id}`, {
+    fetch(`https://subidha-home-services-server3792.glitch.me/edit-categories/${_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

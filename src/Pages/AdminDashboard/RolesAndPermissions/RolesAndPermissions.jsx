@@ -19,7 +19,7 @@ const RolesAndPermissions = () => {
   } = useQuery({
     queryKey: ["roles"],
     queryFn: () =>
-      fetch("http://localhost:5000/roles").then((res) => res.json()),
+      fetch("https://subidha-home-services-server3792.glitch.me/roles").then((res) => res.json()),
   });
 
   if (isError) {
@@ -58,7 +58,7 @@ const RolesAndPermissions = () => {
     if (window.confirm("Are you sure you want to delete this role?")) {
       try {
         // Perform delete operation (example: send delete request to API)
-        await fetch(`http://localhost:5000/roles/${roleId}`, {
+        await fetch(`https://subidha-home-services-server3792.glitch.me/roles/${roleId}`, {
           method: "DELETE",
         });
         // Refetch roles after deletion

@@ -80,7 +80,7 @@ const router = createBrowserRouter([
         element: <ServiceProviderProfile />,
         loader: ({ params }) => {
           return fetch(`
-https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}`);
+https://subidha-home-services-server3792.glitch.me/providers/${params.id}`);
         },
       },
       {
@@ -172,7 +172,7 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
         loader: async ({ params }) => {
           const categoryId = params.id;
           return fetch(
-            `http://localhost:5000/allServiceCategories/${categoryId}`
+            `https://subidha-home-services-server3792.glitch.me/allServiceCategories/${categoryId}`
           );
         },
       },

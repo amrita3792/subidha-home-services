@@ -29,7 +29,7 @@ const users = () => {
   } = useQuery({
     queryKey: ["roles"],
     queryFn: () =>
-      fetch("http://localhost:5000/roles").then((res) => res.json()),
+      fetch("https://subidha-home-services-server3792.glitch.me/roles").then((res) => res.json()),
   });
 
   if (isError) {

@@ -124,7 +124,7 @@ const ProviderBookings = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/booking-status/${bookingId}`,
+        `https://subidha-home-services-server3792.glitch.me/booking-status/${bookingId}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

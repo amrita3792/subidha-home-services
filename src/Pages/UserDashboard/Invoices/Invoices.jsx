@@ -151,7 +151,7 @@ const Invoices = () => {
       </div>
 
       {filteredBookings.length > 0 ? (
-        <div className="overflow-x-auto py-10">
+        <div className="overflow-x-auto custom-user-scrollbar py-10">
           <table className="table">
             <thead>
               <tr className="text-base">
