@@ -1,51 +1,59 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import success from '../../../assets/icons/Success.gif';
+import success from "../../../assets/icons/Success.gif";
 
 const PaymentSuccess = () => {
   const { tran: transactionId } = useParams();
   const [payment, setPayment] = useState(null);
 
   useEffect(() => {
-    if(transactionId) {
-      fetch(`https://subidha-home-services-server3792.glitch.me/payment/${transactionId}`)
-      .then(res => res.json())
-      .then((data) => {
-        console.log(data)
-        // const {bookingDetails} = data;
-        setPayment(data);
-      });
+    if (transactionId) {
+      fetch(
+        `https://subidha-home-services-server3792.glitch.me/payment/${transactionId}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          // const {bookingDetails} = data;
+          setPayment(data);
+        });
     }
   }, [transactionId]);
 
-   useEffect(() => {
-    if(payment?.bookingDetails && payment?.bookingDetails?.userEmail) {
-      const {date} = payment;
-      const {userEmail, totalAmount, serviceQuantity, userName, unitCost, service} = payment.bookingDetails;
-      console.log(userEmail);
-      fetch("https://subidha-home-services-server3792.glitch.me/send-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: userEmail,
-        subject: `Subidha Invoice - Confirmation for Service Order ${transactionId}`,
-        message: "",
-        userName,
-        invoiceNo: payment.invoiceNumber,
-        invoiceDate: date,
+  useEffect(() => {
+    if (payment?.bookingDetails && payment?.bookingDetails?.userEmail) {
+      const { date } = payment;
+      const {
+        userEmail,
         totalAmount,
         serviceQuantity,
+        userName,
         unitCost,
-        service
-        
-      }),
-    })
-    .then(res =>res.json())
-    .then(data => console.log(data))
+        service,
+      } = payment.bookingDetails;
+      console.log(userEmail);
+      fetch("https://subidha-home-services-server3792.glitch.me/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: userEmail,
+          subject: `Subidha Invoice - Confirmation for Service Order ${transactionId}`,
+          message: "",
+          userName,
+          invoiceNo: payment.invoiceNumber,
+          invoiceDate: date,
+          totalAmount,
+          serviceQuantity,
+          unitCost,
+          service,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
     }
-   }, [payment]);
+  }, [payment]);
 
   return (
     <div className="h-screen flex justify-center items-center flex-col">

@@ -14,7 +14,7 @@ const Invoices = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  const { data: invoices = [], isLoading, isError, error } = useQuery({
+  const { data: bookings = [], isLoading, isError, error } = useQuery({
     queryKey: ["user-invoices"],
     queryFn: () =>
       fetch(`https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
@@ -28,7 +28,7 @@ const Invoices = () => {
 
   if (isLoading) {
     return (
-      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
+      <div className="w-full top-0 left-0 h-full flex justify-center items-center">
         <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
       </div>
     );
@@ -40,8 +40,8 @@ const Invoices = () => {
     );
   };
 
-  const filteredInvoices = invoices.filter((invoice) => {
-    const invoiceDate = new Date(invoice.invoiceDate);
+  const filteredBookings = bookings.filter((booking) => {
+    const invoiceDate = new Date(booking.invoiceDate);
     return (
       (!fromDate || invoiceDate >= new Date(fromDate)) &&
       (!toDate || invoiceDate <= new Date(toDate))
@@ -53,14 +53,19 @@ const Invoices = () => {
     setToDate(null);
   };
 
-  const totalPages = Math.ceil(filteredInvoices.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredBookings.length / itemsPerPage);
   const startIdx = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredInvoices.slice(startIdx, startIdx + itemsPerPage);
+  const currentItems = filteredBookings.slice(startIdx, startIdx + itemsPerPage);
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
     }
+  };
+
+  const handleItemsPerPageChange = (e) => {
+    setItemsPerPage(Number(e.target.value));
+    setCurrentPage(1); // Reset to the first page whenever items per page change
   };
 
   const renderPageNumbers = () => {
@@ -80,7 +85,7 @@ const Invoices = () => {
   };
 
   return (
-    <div>
+    <div className="px-4">
       <div className="flex justify-end">
         <div className="text-sm breadcrumbs">
           <ul>
@@ -130,11 +135,27 @@ const Invoices = () => {
         </button>
       </div>
 
-      {filteredInvoices.length > 0 ? (
+      <div className="flex justify-end mb-4">
+        <label htmlFor="itemsPerPage" className="mr-2">Items per page:</label>
+        <select
+          id="itemsPerPage"
+          value={itemsPerPage}
+          onChange={handleItemsPerPageChange}
+          className="select select-bordered"
+        >
+          <option value={5}>5</option>
+          <option value={10}>10</option>
+          <option value={15}>15</option>
+          <option value={20}>20</option>
+        </select>
+      </div>
+
+      {filteredBookings.length > 0 ? (
         <div className="overflow-x-auto py-10">
           <table className="table">
             <thead>
               <tr className="text-base">
+                <th>InvoiceNo</th>
                 <th>Provider</th>
                 <th>Service</th>
                 <th>Date</th>
@@ -144,18 +165,20 @@ const Invoices = () => {
               </tr>
             </thead>
             <tbody>
-              {currentItems.map((invoice, idx) => (
+              {currentItems.map((booking, idx) => (
                 <tr key={idx}>
+                  <td className="font-semibold whitespace-nowrap">
+                    I-{booking.invoiceNumber}
+                  </td>
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                          <img src={invoice.providerPhotoURL} alt="Provider" />
+                          <img src={booking.providerPhotoURL} alt="Provider" />
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold">{invoice.providerName}</div>
-                        <div className="text-sm opacity-50">#{invoice._id}</div>
+                        <div className="font-bold whitespace-nowrap">{booking.providerName}</div>
                       </div>
                     </div>
                   </td>
@@ -163,19 +186,19 @@ const Invoices = () => {
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                          <img src={invoice.servicePhotoURL} alt="Service" />
+                          <img src={booking.servicePhotoURL} alt="Service" />
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold">{invoice.service}</div>
+                        <div className="font-bold whitespace-nowrap">{booking.service}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="font-semibold">{invoice.invoiceDate}</td>
-                  <td className="font-semibold">{invoice.totalAmount} TK</td>
-                  <td className="font-semibold text-green-600 p-2">Payment Completed</td>
+                  <td className="font-semibold">{booking.invoiceDate}</td>
+                  <td className="font-semibold">{booking.totalAmount} TK</td>
+                  <td className="font-semibold text-green-600 p-2 whitespace-nowrap">Payment Completed</td>
                   <td>
-                    <button onClick={() => handleDownloadInvoice(invoice)} className="btn btn-neutral">
+                    <button onClick={() => handleDownloadInvoice(booking)} className="btn btn-neutral">
                       Export
                     </button>
                   </td>
@@ -190,7 +213,7 @@ const Invoices = () => {
         </div>
       )}
 
-      {filteredInvoices.length > 0 && (
+      {filteredBookings.length > 0 && (
         <div className="mt-5 flex justify-center gap-3">
           <button
             className="btn btn-primary"

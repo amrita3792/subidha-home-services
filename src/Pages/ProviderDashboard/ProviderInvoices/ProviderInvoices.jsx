@@ -32,7 +32,7 @@ const ProviderInovices = () => {
 
   if (isLoading) {
     return (
-      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
+      <div className="w-full top-0 left-0 h-full flex justify-center items-center">
         <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
       </div>
     );
@@ -58,20 +58,8 @@ const ProviderInovices = () => {
   };
 
   return (
-    <div>
-      <div className="flex justify-end">
-        <div className="text-sm breadcrumbs">
-          <ul>
-            <li>
-              <Link to="/user-dashboard/dashboard">User Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/user-dashboard/user-invoices">Invoices</Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <h2 className="text-2xl font-semibold mb-8 text-center">Invoices</h2>
+    <div className="bg-white p-10 rounded-xl shadow-md">
+      <h2 className="text-2xl font-semibold mb-8">Invoices</h2>
 
       <div className="flex mb-4 gap-3 justify-end">
         <div className="flex">
@@ -113,6 +101,7 @@ const ProviderInovices = () => {
           <table className="table">
             <thead>
               <tr className="text-base">
+                <th>InvoiceNo</th>
                 <th>User</th>
                 <th>Service</th>
                 <th>Date</th>
@@ -123,6 +112,7 @@ const ProviderInovices = () => {
             <tbody>
               {filteredInvoices.map((invoice, idx) => (
                 <tr key={idx}>
+                  <td className="font-semibold">I - {invoice.invoiceNumber}</td>
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
@@ -135,7 +125,6 @@ const ProviderInovices = () => {
                       </div>
                       <div>
                         <div className="font-bold">{invoice.providerName}</div>
-                        <div className="text-sm opacity-50">#{invoice._id}</div>
                       </div>
                     </div>
                   </td>

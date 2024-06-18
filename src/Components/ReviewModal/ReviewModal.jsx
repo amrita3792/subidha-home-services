@@ -12,7 +12,7 @@ const ReviewModal = ({ isModalOpen, setIsModalOpen, reviewService }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const { serviceManUID, service, servicePhotoURL } = reviewService;
+  const { providerID, service, servicePhotoURL } = reviewService;
 
   console.log(reviewService)
 
@@ -74,8 +74,8 @@ const ReviewModal = ({ isModalOpen, setIsModalOpen, reviewService }) => {
       date: isoDateString,
       userName: user.displayName,
       userPhoto: user.photoURL,
-      userUID: user.uid,
-      serviceManUID,
+      userID: user.uid,
+      providerID,
       service,
       servicePhotoURL,
       bookingId: reviewService._id,
@@ -93,7 +93,7 @@ const ReviewModal = ({ isModalOpen, setIsModalOpen, reviewService }) => {
         if (data.acknowledged) {
           setLoading(false);
           setIsModalOpen(!isModalOpen);
-          navigate(`/provider-profile/${serviceManUID}`);
+          navigate(`/provider-profile/${providerID}`);
         }
       });
   };

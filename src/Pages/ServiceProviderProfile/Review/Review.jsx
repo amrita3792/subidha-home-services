@@ -9,10 +9,10 @@ const Review = ({ review }) => {
     selectedFileURL,
     comment,
     date,
-    serviceManUID,
+    providerID,
     userName,
     userPhoto,
-    userUID,
+    userID,
   } = review;
 
   const commentTime = new Date(date);

@@ -33,7 +33,7 @@ const UserReviews = () => {
 
   if (isLoading) {
     return (
-      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
+      <div className="w-full top-0 left-0 h-full flex justify-center items-center">
         <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
       </div>
     );
@@ -47,7 +47,7 @@ const UserReviews = () => {
   //   );
   // }
   return (
-    <div>
+    <div className="px-4">
       <div className="flex justify-end">
         <div className="text-sm breadcrumbs">
           <ul>

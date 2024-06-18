@@ -106,30 +106,20 @@ const ProviderBookings = () => {
 
   if (isLoading) {
     return (
-      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
+      <div className="w-full top-0 left-0 h-full flex justify-center items-center">
         <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
       </div>
     );
   }
 
   return (
-    <div className="h-full">
+    <div className="h-full bg-white p-10 shadow-md rounded-xl">
       {loading ? (
         <div className="flex justify-center items-center h-full">
           <span className="loading loading-spinner loading-lg"></span>
         </div>
       ) : (
         <div>
-          <div className="flex justify-end mb-8">
-            <div className="text-sm breadcrumbs">
-              <ul>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>Booking List</li>
-              </ul>
-            </div>
-          </div>
           <div className="flex justify-between items-center mb-4">
             <input
               type="search"
@@ -290,11 +280,11 @@ const ProviderBookings = () => {
                     <th>
                       <button
                         onClick={() => {
-                          if (receiver?.uid === booking?.userUID) {
+                          if (receiver?.uid === booking?.userID) {
                             return;
                           } else {
                             setReceiver({
-                              uid: booking.userUID,
+                              uid: booking.userID,
                               photoURL: booking.userPhotoURL,
                               userName: booking.userName,
                             });

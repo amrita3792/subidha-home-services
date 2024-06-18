@@ -26,14 +26,12 @@ const ProviderPayments = () => {
   });
 
   if (isError) {
-    toast.error(error.message, {
-      
-    });
+    toast.error(error.message, {});
   }
 
   if (isLoading) {
     return (
-      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
+      <div className="w-full top-0 left-0 h-full flex justify-center items-center">
         <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
       </div>
     );
@@ -61,29 +59,15 @@ const ProviderPayments = () => {
   const totalPages = Math.ceil(filteredPayments.length / itemsPerPage);
 
   return (
-    <div>
-      <div className="flex justify-end">
-        <div className="text-sm breadcrumbs">
-          <ul>
-            <li>
-              <Link to="/user-dashboard/dashboard">User Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/user-dashboard/user-payment">Payments</Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <h2 className="text-2xl font-semibold mb-8 text-center">
-        Payment History
-      </h2>
+    <div className="bg-white p-10 rounded-xl shadow-md">
+      <h2 className="text-2xl font-semibold mb-8">Payment History</h2>
       <div className="mb-4 flex justify-between items-center">
         <input
           type="text"
           placeholder="Search..."
           value={searchTerm}
           onChange={handleSearchChange}
-          className="input input-bordered"
+          className="input input-bordered w-full max-w-sm"
         />
         <select
           value={itemsPerPage}
@@ -100,6 +84,7 @@ const ProviderPayments = () => {
           <table className="table">
             <thead>
               <tr className="text-base">
+                <th>BookingID</th>
                 <th>User</th>
                 <th>Service</th>
                 <th>Date</th>
@@ -110,6 +95,12 @@ const ProviderPayments = () => {
             <tbody>
               {currentPayments.map((payment, idx) => (
                 <tr key={idx}>
+                  <td className="font-semibold">
+                    B - 
+                    {
+                      payment._id
+                    }
+                  </td>
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
@@ -122,9 +113,6 @@ const ProviderPayments = () => {
                       </div>
                       <div>
                         <div className="font-bold">{payment.userName}</div>
-                        <div className="text-sm opacity-50">
-                          #{payment._id}
-                        </div>
                       </div>
                     </div>
                   </td>
@@ -154,9 +142,8 @@ const ProviderPayments = () => {
           </table>
         </div>
       ) : (
-        <div className="text-center py-10">
+        <div className="text-center py-10 flex justify-center">
           <img src={noDataFound} alt="No Data Found" />
-          <p className="mt-4">No payments found.</p>
         </div>
       )}
       <div className="flex justify-center mt-4">

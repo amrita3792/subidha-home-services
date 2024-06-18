@@ -6,17 +6,7 @@ const ProviderDashboardStatus = () => {
   const { theme } = useContext(ThemeContext);
   return (
     <div>
-      <div className="flex justify-end mb-5">
-        <div className="text-sm breadcrumbs">
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>Dashboard</li>
-          </ul>
-        </div>
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div
           className={`card ${
             theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-600"
@@ -43,7 +33,7 @@ const ProviderDashboardStatus = () => {
               </svg>
             </div>
             <div className="flex flex-col items-end">
-              <h2 className="card-title text-2xl">15</h2>
+              <h2 className="card-title text-4xl">15</h2>
               <span className="font-semibold  text-sm">Bookings</span>
             </div>
           </div>
@@ -74,7 +64,7 @@ const ProviderDashboardStatus = () => {
               </svg>
             </div>
             <div className="flex flex-col items-end">
-              <h2 className="card-title text-2xl">0</h2>
+              <h2 className="card-title text-4xl">0</h2>
               <span className="font-semibold  text-sm">Services</span>
             </div>
           </div>
@@ -105,8 +95,39 @@ const ProviderDashboardStatus = () => {
               </svg>
             </div>
             <div className="flex flex-col items-end">
-              <h2 className="card-title text-2xl">0</h2>
+              <h2 className="card-title text-4xl">0</h2>
               <span className="font-semibold  text-sm">Notifications</span>
+            </div>
+          </div>
+        </div>
+        <div
+          className={`card ${
+            theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-600"
+          } shadow-md border rounded-lg`}
+        >
+          <div className="card-body p-6 flex-row justify-between">
+            <div
+              className="flex h-11 w-11 rounded-full items-center justify-center 
+            bg-[#345DA7] text-white"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
+                />
+              </svg>
+            </div>
+            <div className="flex flex-col items-end">
+              <h2 className="card-title text-4xl">0</h2>
+              <span className="font-semibold  text-sm">Reviews</span>
             </div>
           </div>
         </div>

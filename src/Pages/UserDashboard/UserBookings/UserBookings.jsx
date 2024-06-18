@@ -28,7 +28,7 @@ const UserBookings = () => {
     queryKey: ["booking"],
     queryFn: () =>
       fetch(
-        `https://subidha-home-services-server3792.glitch.me/booking/${user.uid}`
+        `https://subidha-home-services-server3792.glitch.me/user-bookings/${user.uid}`
       ).then((res) => res.json()),
   });
 
@@ -105,7 +105,7 @@ const UserBookings = () => {
   };
 
   return (
-    <div className="h-full px-5">
+    <div className="h-full px-4">
       {isLoading ? (
         <div className="flex justify-center items-center h-full">
           <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
@@ -181,8 +181,8 @@ const UserBookings = () => {
                     <td className="flex flex-col items-start gap-1">
                       <span className="text-lg whitespace-nowrap">B-{booking._id}</span>
                       <span
-                        className={`text-white text-xs p-1 rounded-md font-semibold ${
-                          booking.bookingStatus === "Cancelled by User"
+                        className={`text-white text-xs p-1 rounded-md font-semibold
+                           ${(booking.bookingStatus === "Cancelled by User" || booking.bookingStatus === "Cancelled by Admin")
                             ? "bg-red-500"
                             : "bg-green-700"
                         }`}
@@ -252,11 +252,11 @@ const UserBookings = () => {
                     <td>
                       <button
                         onClick={() => {
-                          if (receiver?.uid === booking?.serviceManUID) {
+                          if (receiver?.uid === booking?.providerID) {
                             return;
                           } else {
                             setReceiver({
-                              uid: booking.serviceManUID,
+                              uid: booking.providerID,
                               photoURL: booking.providerPhotoURL,
                               userName: booking.providerName,
                             });

@@ -180,18 +180,11 @@ const Availability = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4">
-      <div className="flex justify-end">
-        <div className="text-sm breadcrumbs">
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>Availability</li>
-          </ul>
-        </div>
-      </div>
-      <h2 className="text-2xl font-semibold mb-8 text-center">Availability</h2>
+    <form
+      onSubmit={handleSubmit}
+      className="p-10  rounded-lg shadow-md bg-white"
+    >
+      <h2 className="text-2xl font-semibold mb-8">Availability</h2>
       <div className="mb-4">
         <label className="flex items-center space-x-2">
           <input

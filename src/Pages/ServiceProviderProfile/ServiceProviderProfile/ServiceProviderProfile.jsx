@@ -19,8 +19,7 @@ const ServiceProviderProfile = () => {
 
   const fetchReviewsData = async () => {
     const response = await fetch(
-      `
-https://subidha-home-services-server3792.glitch.me/reviews/${uid}`,
+      `https://subidha-home-services-server3792.glitch.me/reviews/${uid}`,
       {
         // headers: {
         //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,

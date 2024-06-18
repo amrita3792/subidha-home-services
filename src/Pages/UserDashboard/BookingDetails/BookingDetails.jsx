@@ -8,6 +8,8 @@ const BookingDetails = () => {
   const booking = useLoaderData();
   const [loading, setLoading] = useState(false);
 
+  console.log(booking);
+
   const {
     servicePhotoURL,
     _id,
@@ -87,7 +89,10 @@ const BookingDetails = () => {
       </h2>
       <div className="shadow-lg border p-10 rounded-2xl">
         <p className="font-semibold text-lg">TimeLine</p>
-        {!(bookingStatus === "Cancelled by User") && (
+        {!(
+          bookingStatus === "Cancelled by User" ||
+          bookingStatus === "Cancelled by Admin"
+        ) && (
           <ul className="steps steps-vertical lg:steps-horizontal w-full">
             <li className="step step-primary font-semibold">Order Placed</li>
             <li
@@ -119,7 +124,8 @@ const BookingDetails = () => {
             </li>
           </ul>
         )}
-        {bookingStatus === "Cancelled by User" && (
+        {(bookingStatus === "Cancelled by User" ||
+          bookingStatus === "Cancelled by Admin") && (
           <ul className="steps w-full">
             <li className="step step-primary font-semibold">Order Placed</li>
             <li className="step step-primary font-semibold">Order Cancelled</li>

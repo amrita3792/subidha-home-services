@@ -13,7 +13,9 @@ const ProviderServices = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`https://subidha-home-services-server3792.glitch.me/providers/${user.uid}`)
+    fetch(
+      `https://subidha-home-services-server3792.glitch.me/providers/${user.uid}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setServiceCategory(data.serviceCategory);
@@ -43,18 +45,7 @@ const ProviderServices = () => {
 
   return (
     <div>
-      <div className="flex justify-end">
-        <div className="text-sm breadcrumbs">
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              My Services
-            </li>
-          </ul>
-        </div>
-      </div>
+      <div className="flex justify-end"></div>
       <div className="flex items-center gap-5">
         <button className="btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-2 active:scale-95 border-none">
           Active Services
@@ -63,7 +54,7 @@ const ProviderServices = () => {
           Inactive Services
         </button>
       </div>
-      <div className="grid grid-cols-2 gap-8 my-8">
+      <div className="grid grid-cols-4 gap-8 my-8">
         {subCategories.map((service) => (
           <ServiceCard
             key={service.id}

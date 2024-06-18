@@ -157,11 +157,16 @@ const BookingModal = ({
     // const selectedWeekDay = getWeekday(format(selectedDate, "PP"));
 
     const bookingInfo = {
-      userUID: userData.uid,
+      userID: userData.uid,
       userName: formData.get("userName"),
       userEmail: formData.get("userEmail"),
       userPhotoURL: userData.photoURL,
       userPhone: formData.get("userPhone"),
+      providerID: serviceMan.uid,
+      providerName: serviceMan.name,
+      providerEmail: serviceMan.email,
+      providerPhone: serviceMan.phone,
+      providerPhotoURL: serviceMan.photoURL,
       division: formData.get("division"),
       district: formData.get("district"),
       upazila: formData.get("upazila"),
@@ -172,16 +177,12 @@ const BookingModal = ({
       selectedDate: format(selectedDate, "PP"),
       selectedWeekDay: getWeekday(format(selectedDate, "PP")),
       selectedSlot,
+      unitCost: parseInt(amount),
       totalAmount: amount * quantity,
       updated: getCurrentDateTime(),
       serviceQuantity: quantity,
-      serviceManUID: serviceMan.uid,
-      providerName: serviceMan.name,
-      providerEmail: serviceMan.email,
-      providerPhone: serviceMan.phone,
-      providerPhotoURL: serviceMan.photoURL,
-      unitCost: parseInt(amount),
       bookingStatus: "Order Placed",
+  
     };
 
     if (!selectedSlot) {

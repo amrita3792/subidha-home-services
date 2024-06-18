@@ -12,7 +12,7 @@ const Payment = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { data: payments = [], isLoading, isError, error } = useQuery({
+  const { data: bookings = [], isLoading, isError, error } = useQuery({
     queryKey: ["user-payments"],
     queryFn: () =>
       fetch(
@@ -26,7 +26,7 @@ const Payment = () => {
 
   if (isLoading) {
     return (
-      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
+      <div className="w-full top-0 left-0 h-full flex justify-center items-center">
         <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
       </div>
     );
@@ -37,21 +37,21 @@ const Payment = () => {
     setCurrentPage(1); // Reset to the first page on search
   };
 
-  const filteredPayments = payments.filter(
-    (payment) =>
-      payment.providerName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      payment.service?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      payment.date?.includes(searchTerm)
+  const filteredBookings = bookings.filter(
+    (booking) =>
+      booking.providerName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.service?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.date?.includes(searchTerm)
   );
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentPayments = filteredPayments.slice(
+  const currentBookings = filteredBookings.slice(
     indexOfFirstItem,
     indexOfLastItem
   );
 
-  const totalPages = Math.ceil(filteredPayments.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredBookings.length / itemsPerPage);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -76,7 +76,7 @@ const Payment = () => {
   };
 
   return (
-    <div>
+    <div className="px-4">
       <div className="flex justify-end">
         <div className="text-sm breadcrumbs">
           <ul>
@@ -110,7 +110,7 @@ const Payment = () => {
           <option value={20}>20</option>
         </select>
       </div>
-      {currentPayments.length > 0 ? (
+      {currentBookings.length > 0 ? (
         <div className="overflow-x-auto py-10">
           <table className="table">
             <thead>
@@ -123,21 +123,21 @@ const Payment = () => {
               </tr>
             </thead>
             <tbody>
-              {currentPayments.map((payment, idx) => (
+              {currentBookings.map((booking, idx) => (
                 <tr key={idx}>
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
                           <img
-                            src={payment.providerPhotoURL}
+                            src={booking.providerPhotoURL}
                             alt="Provider"
                           />
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold">{payment.providerName}</div>
-                        <div className="text-sm opacity-50">#{payment._id}</div>
+                        <div className="font-bold">{booking.providerName}</div>
+                        <div className="text-sm opacity-50">#{booking._id}</div>
                       </div>
                     </div>
                   </td>
@@ -145,16 +145,16 @@ const Payment = () => {
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                          <img src={payment.servicePhotoURL} alt="Service" />
+                          <img src={booking.servicePhotoURL} alt="Service" />
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold">{payment.service}</div>
+                        <div className="font-bold">{booking.service}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="font-semibold">{payment.invoiceDate}</td>
-                  <td className="font-semibold">{payment.totalAmount} TK</td>
+                  <td className="font-semibold">{booking.invoiceDate}</td>
+                  <td className="font-semibold">{booking.totalAmount} TK</td>
                   <td className="font-semibold text-green-600 p-2">
                     Payment Completed
                   </td>
@@ -164,9 +164,8 @@ const Payment = () => {
           </table>
         </div>
       ) : (
-        <div className="text-center py-10">
+        <div className="flex justify-center py-10">
           <img src={noDataFound} alt="No Data Found" />
-          <p className="mt-4">No payments found.</p>
         </div>
       )}
       <div className="flex justify-center mt-4">

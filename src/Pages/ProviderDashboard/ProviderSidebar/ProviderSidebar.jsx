@@ -339,40 +339,23 @@ const ProviderSidebar = () => {
   ];
 
   return (
-    <aside className="w-full lg:w-[300px]">
+    <aside className="w-full lg:w-[320px] bg-[#345DA7] text-white px-5 min-h-screen sticky top-0 py-4">
       <section>
-        <div className="flex items-center gap-3 p-4">
-          <img
-            className="w-14 h-14 rounded-full"
-            src={
-              user?.photoURL
-                ? user.photoURL
-                : "https://i.ibb.co/M1qvZxP/user.png"
-            }
-            alt=""
-          />
-          <div>
-            <p className="font-semibold">
-              {user?.displayName ? user.displayName : "N/A"}
-            </p>
-            <p className="text-sm font-semibold">Member Since {creationDate}</p>
-          </div>
-        </div>
         <ul>
           {providerAccessLinks.map((providerAccessLink) => (
             <li
-              className="flex items-center min-w-[300px]"
+              className="flex items-center w-full"
               key={providerAccessLink.id}
             >
               <NavLink
                 style={({ isActive }) => {
                   return {
                     fontWeight: isActive ? "bold" : "",
-                    backgroundColor: isActive && "#FF6600",
+                    backgroundColor: isActive && "#64748b",
                     color: isActive && "white",
                   };
                 }}
-                className="px-3 py-2 font-semibold w-full flex items-center justify-start gap-3 btn bg-inherit  border-none"
+                className="text-white px-3 py-2 font-semibold w-full flex items-center justify-start gap-3 btn bg-inherit  border-none"
                 to={providerAccessLink.path}
               >
                 {providerAccessLink.icon}

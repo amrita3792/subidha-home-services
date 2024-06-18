@@ -42,6 +42,7 @@ import AdminServiceProviderManagement from "../../Pages/AdminDashboard/AdminServ
 import RolesPermissionsForm from "../../Pages/AdminDashboard/RolesPermissionsForm/RolesPermissionsForm";
 import RolesAndPermissions from "../../Pages/AdminDashboard/RolesAndPermissions/RolesAndPermissions";
 import AdminBookingManagement from "../../Pages/AdminDashboard/AdminBookingManagement/AdminBookingManagement";
+import ProviderLayout from "../../Layout/ProviderLayout/ProviderLayout";
 
 const router = createBrowserRouter([
   {
@@ -70,7 +71,7 @@ const router = createBrowserRouter([
         element: <BookingDetails />,
         loader: ({ params }) =>
           fetch(
-            `https://subidha-home-services-server3792.glitch.me/booking-details/${params.id}`
+            `https://subidha-home-services-server3792.glitch.me/booking/${params.id}`
           ),
       },
       {
@@ -108,63 +109,12 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
           },
           {
             path: "/user-dashboard/user-payment",
-            element: <Payment />
+            element: <Payment />,
           },
           {
             path: "/user-dashboard/user-invoices",
-            element: <Invoices />
-          }
-        ],
-      },
-      {
-        path: "/provider-dashboard",
-        element: (
-          <ProviderRoute>
-            <ProviderDashboard />
-          </ProviderRoute>
-        ),
-        errorElement: <DisplayError />,
-        children: [
-          {
-            path: "/provider-dashboard/dashboard",
-            element: <ProviderDashboardStatus />,
+            element: <Invoices />,
           },
-          {
-            path: "/provider-dashboard/booking-list",
-            element: <ProviderBookings />,
-          },
-          {
-            path: "/provider-dashboard/my-services",
-            element: <ProviderServices />,
-          },
-          {
-            path: "/provider-dashboard/profile-settings",
-            element: <ProviderProfile />
-          },
-          {
-            path: "/provider-dashboard/provider-invoices",
-            element: <ProviderInvoices />
-          },
-          {
-            path: "/provider-dashboard/provider-payment",
-            element: <ProviderPayments />
-          },
-          {
-            path: "/provider-dashboard/provider-reviews",
-            element: <ProviderReviews />
-          },
-          {
-            path: "/provider-dashboard/staffs",
-            element: <Staffs />
-          },
-          {
-            path: "/provider-dashboard/provider-availability",
-            element: <Availability />
-          },
-          {
-            path: "/provider-dashboard/deposit-history",
-            element: <DepositHistory />
-          }
         ],
       },
       {
@@ -213,39 +163,93 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
       },
       {
         path: "/admin-dashboard/categories",
-        element: <Categories />
+        element: <Categories />,
       },
       {
         path: "/admin-dashboard/edit-category/:id",
         element: <EditCategory />,
-        loader: async({params}) => {
+        loader: async ({ params }) => {
           const categoryId = params.id;
-          return fetch(`http://localhost:5000/allServiceCategories/${categoryId}`);
-        }
+          return fetch(
+            `http://localhost:5000/allServiceCategories/${categoryId}`
+          );
+        },
       },
       {
         path: "/admin-dashboard/subcategories",
-        element: <SubCategories />
+        element: <SubCategories />,
       },
       {
         path: "/admin-dashboard/addservice",
-        element: <AddNewService />
+        element: <AddNewService />,
       },
       {
         path: "/admin-dashboard/service-providers",
-        element: <AdminServiceProviderManagement />
+        element: <AdminServiceProviderManagement />,
       },
       {
         path: "/admin-dashboard/add-roles-permissions",
-        element: <RolesPermissionsForm />
+        element: <RolesPermissionsForm />,
       },
       {
         path: "/admin-dashboard/admin/roles",
-        element: <RolesAndPermissions />
+        element: <RolesAndPermissions />,
       },
       {
         path: "/admin-dashboard/all-bookings",
-        element: <AdminBookingManagement />
+        element: <AdminBookingManagement />,
+      },
+    ],
+  },
+  {
+    path: "/provider-dashboard",
+    element: (
+      <PrivateRoute>
+        <ProviderRoute>
+          <ProviderLayout />
+        </ProviderRoute>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "/provider-dashboard/dashboard",
+        element: <ProviderDashboardStatus />,
+      },
+      {
+        path: "/provider-dashboard/booking-list",
+        element: <ProviderBookings />,
+      },
+      {
+        path: "/provider-dashboard/my-services",
+        element: <ProviderServices />,
+      },
+      {
+        path: "/provider-dashboard/profile-settings",
+        element: <ProviderProfile />,
+      },
+      {
+        path: "/provider-dashboard/provider-invoices",
+        element: <ProviderInvoices />,
+      },
+      {
+        path: "/provider-dashboard/provider-payment",
+        element: <ProviderPayments />,
+      },
+      {
+        path: "/provider-dashboard/provider-reviews",
+        element: <ProviderReviews />,
+      },
+      {
+        path: "/provider-dashboard/staffs",
+        element: <Staffs />,
+      },
+      {
+        path: "/provider-dashboard/provider-availability",
+        element: <Availability />,
+      },
+      {
+        path: "/provider-dashboard/deposit-history",
+        element: <DepositHistory />,
       },
     ],
   },

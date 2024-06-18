@@ -1,19 +1,31 @@
 
 
-import { Outlet } from 'react-router-dom';
-import ProviderSidebar from '../ProviderSidebar/ProviderSidebar';
-
+import { Outlet } from "react-router-dom";
+// import AdminLinks from "./AdminLinks/AdminLinks";
+import Header from "../../AdminDashboard/Header/Header";
+import ProviderSidebar from "../ProviderSidebar/ProviderSidebar";
+import ProviderNavbar from "../ProviderNavbar/ProviderNabar";
 
 const ProviderDashboard = () => {
-  
-    return (
-        <div className="max-w-screen-xl mx-auto px-4 my-5 md:my-14 flex gap-10 flex-wrap lg:flex-nowrap">
-            <ProviderSidebar />
-            <div className="grow relative">
-                <Outlet />
-            </div>
+  return (
+    <div className="drawer lg:drawer-open">
+      <input id="admin-dashboard" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content flex flex-col bg-[#F1F5F9]">
+        <ProviderNavbar />
+        <div className="p-4">
+          <Outlet />
         </div>
-    );
+      </div>
+      <div className="drawer-side z-[3000]">
+        <label
+          htmlFor="admin-dashboard"
+          aria-label="close sidebar"
+          className="drawer-overlay"
+        ></label>
+        <ProviderSidebar />
+      </div>
+    </div>
+  );
 };
 
 export default ProviderDashboard;
