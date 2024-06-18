@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import useAdmin from '../../../hooks/useAdmin';
-import loader from '../../../assets/images/Square Loading.gif';
+import loader from '../../../assets/images/Square Loader.gif';
 
 const AdminRoute = ({ children }) => {
     const {loading, user, logout} = useContext(AuthContext);

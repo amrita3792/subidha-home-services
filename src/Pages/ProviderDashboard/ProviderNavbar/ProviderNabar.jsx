@@ -267,7 +267,7 @@ const ProviderNavbar = ({ isMounted }) => {
                   data-tip="Account"
                 >
                   <img
-                    className="w-10 h-10 rounded-full cursor-pointer lg:tooltip"
+                    className="w-16 h-16 rounded-full cursor-pointer lg:tooltip"
                     data-tip="Account"
                     src={user.photoURL}
                     alt=""
