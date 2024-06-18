@@ -91,7 +91,7 @@ const BookingDetails = () => {
         <p className="font-semibold text-lg">TimeLine</p>
         {!(
           bookingStatus === "Cancelled by User" ||
-          bookingStatus === "Cancelled by Admin"
+          bookingStatus === "Cancelled by Admin" || bookingStatus === "Cancelled by Provider"
         ) && (
           <ul className="steps steps-vertical lg:steps-horizontal w-full">
             <li className="step step-primary font-semibold">Order Placed</li>
@@ -125,7 +125,7 @@ const BookingDetails = () => {
           </ul>
         )}
         {(bookingStatus === "Cancelled by User" ||
-          bookingStatus === "Cancelled by Admin") && (
+          bookingStatus === "Cancelled by Admin" || bookingStatus === "Cancelled by Provider") && (
           <ul className="steps w-full">
             <li className="step step-primary font-semibold">Order Placed</li>
             <li className="step step-primary font-semibold">Order Cancelled</li>

@@ -222,7 +222,7 @@ const AdminBookingManagement = () => {
                     <button
                       onClick={() => handleCancelBooking(booking._id)}
                       className="btn btn-warning btn-sm text-white"
-                      disabled={booking.bookingStatus === "Cancelled by Admin"}
+                      disabled={booking.bookingStatus === "Cancelled by Admin" || booking.bookingStatus === "Cancelled by User" || booking.bookingStatus === "Order Completed" || booking.bookingStatus === "Cancelled by Provider"}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

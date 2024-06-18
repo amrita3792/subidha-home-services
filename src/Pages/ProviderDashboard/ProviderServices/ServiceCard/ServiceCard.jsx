@@ -30,6 +30,8 @@ const CategoryCard = ({ service, serviceCategory, setRefetch, refetch}) => {
         
           setMyService(data)
         }
+      }) .catch(error => {
+        
       })
   }, [refetch]);
 

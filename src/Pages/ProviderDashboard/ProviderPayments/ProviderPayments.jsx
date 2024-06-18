@@ -31,7 +31,7 @@ const ProviderPayments = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full top-0 left-0 h-full flex justify-center items-center">
+      <div className="w-full top-0 left-0 h-full flex justify-center items-center mt-10">
         <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
       </div>
     );

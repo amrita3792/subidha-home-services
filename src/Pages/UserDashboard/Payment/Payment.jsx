@@ -12,7 +12,12 @@ const Payment = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { data: bookings = [], isLoading, isError, error } = useQuery({
+  const {
+    data: bookings = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ["user-payments"],
     queryFn: () =>
       fetch(
@@ -115,6 +120,7 @@ const Payment = () => {
           <table className="table">
             <thead>
               <tr className="text-base">
+                <th>BookingID</th>
                 <th>Provider</th>
                 <th>Service</th>
                 <th>Date</th>
@@ -125,19 +131,17 @@ const Payment = () => {
             <tbody>
               {currentBookings.map((booking, idx) => (
                 <tr key={idx}>
+                  <td className="font-semibold whitespace-nowrap">B - {booking._id}</td>
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src={booking.providerPhotoURL}
-                            alt="Provider"
-                          />
+                          <img src={booking.providerPhotoURL} alt="Provider" />
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold">{booking.providerName}</div>
-                        <div className="text-sm opacity-50">#{booking._id}</div>
+                        <div className="font-bold whitespace-nowrap">{booking.providerName}</div>
+                      
                       </div>
                     </div>
                   </td>
@@ -149,13 +153,13 @@ const Payment = () => {
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold">{booking.service}</div>
+                        <div className="font-bold whitespace-nowrap">{booking.service}</div>
                       </div>
                     </div>
                   </td>
                   <td className="font-semibold">{booking.invoiceDate}</td>
                   <td className="font-semibold">{booking.totalAmount} TK</td>
-                  <td className="font-semibold text-green-600 p-2">
+                  <td className="font-semibold text-green-600 p-2 whitespace-nowrap">
                     Payment Completed
                   </td>
                 </tr>

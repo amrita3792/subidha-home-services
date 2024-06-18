@@ -192,7 +192,7 @@ const ProviderNavbar = ({ isMounted }) => {
   };
 
   return (
-    <nav className="bg-white h-[80px] relative w-full z-[50000] px-11 shadow-lg">
+    <nav className="bg-white h-[80px] relative w-full px-11 shadow-lg">
       <div className="flex items-center md:justify-between justify-end h-full">
         <div className="hidden lg:flex items-center">
           <span className="">

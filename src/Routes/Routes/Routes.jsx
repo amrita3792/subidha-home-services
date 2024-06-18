@@ -43,6 +43,7 @@ import RolesPermissionsForm from "../../Pages/AdminDashboard/RolesPermissionsFor
 import RolesAndPermissions from "../../Pages/AdminDashboard/RolesAndPermissions/RolesAndPermissions";
 import AdminBookingManagement from "../../Pages/AdminDashboard/AdminBookingManagement/AdminBookingManagement";
 import ProviderLayout from "../../Layout/ProviderLayout/ProviderLayout";
+import ProviderProfileSettings from "../../Pages/ProviderDashboard/ProviderProfileSettings/ProviderProfileSettings";
 
 const router = createBrowserRouter([
   {
@@ -225,7 +226,7 @@ https://subidha-home-services-server3792.glitch.me/provider-details/${params.id}
       },
       {
         path: "/provider-dashboard/profile-settings",
-        element: <ProviderProfile />,
+        element: <ProviderProfileSettings />,
       },
       {
         path: "/provider-dashboard/provider-invoices",

@@ -19,7 +19,9 @@ const ProviderServices = () => {
       .then((res) => res.json())
       .then((data) => {
         setServiceCategory(data.serviceCategory);
-      });
+      }).catch(error => {
+        
+      })
   }, []);
 
   useEffect(() => {
@@ -37,14 +39,15 @@ const ProviderServices = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center h-full">
-        <span className="loading loading-spinner loading-lg"></span>
+      <div className="flex justify-center h-full mt-10">
+        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="bg-white shadow-md p-10 rounded-xl">
+      <h3 className="font-semibold text-2xl mb-8">Provider Services</h3>
       <div className="flex justify-end"></div>
       <div className="flex items-center gap-5">
         <button className="btn bg-[#FF6600] hover:bg-[#1D2736] text-white px-10 py-2 active:scale-95 border-none">

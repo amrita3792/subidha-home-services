@@ -182,7 +182,7 @@ const UserBookings = () => {
                       <span className="text-lg whitespace-nowrap">B-{booking._id}</span>
                       <span
                         className={`text-white text-xs p-1 rounded-md font-semibold
-                           ${(booking.bookingStatus === "Cancelled by User" || booking.bookingStatus === "Cancelled by Admin")
+                           ${(booking.bookingStatus === "Cancelled by User" || booking.bookingStatus === "Cancelled by Admin" || booking.bookingStatus === "Cancelled by Provider")
                             ? "bg-red-500"
                             : "bg-green-700"
                         }`}

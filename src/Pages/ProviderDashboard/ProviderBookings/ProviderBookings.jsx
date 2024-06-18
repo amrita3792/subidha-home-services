@@ -108,11 +108,38 @@ const ProviderBookings = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full top-0 left-0 h-full flex justify-center items-center">
+      <div className="w-full top-0 left-0 h-full flex justify-center items-center mt-10">
         <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
       </div>
     );
   }
+
+  const handleCancelBooking = async (bookingId) => {
+    const confirmCancel = window.confirm(
+      "Are you sure you want to cancel this booking?"
+    );
+    if (!confirmCancel) {
+      return; // Exit the function if the user cancels the confirmation dialog
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/booking-status/${bookingId}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: "Cancelled by Provider" }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to cancel booking");
+      }
+      toast.success("Booking cancelled successfully");
+      refetch();
+    } catch (error) {
+      toast.error("Failed to cancel booking");
+    }
+  };
 
   return (
     <div className="h-full bg-white p-10 shadow-md rounded-xl">
@@ -173,7 +200,11 @@ const ProviderBookings = () => {
                             <br />
                             <span
                               className={`text-sm p-1 ${
-                                booking.bookingStatus === "Cancelled by User"
+                                booking.bookingStatus === "Cancelled by User" ||
+                                booking.bookingStatus ===
+                                  "Cancelled by Admin" ||
+                                booking.bookingStatus ===
+                                  "Cancelled by Provider"
                                   ? "bg-red-500"
                                   : "bg-green-700"
                               } text-white`}
@@ -225,7 +256,9 @@ const ProviderBookings = () => {
                     <td>
                       {!(
                         booking.bookingStatus === "Cancelled by User" ||
-                        booking.bookingStatus === "Order Completed"
+                        booking.bookingStatus === "Order Completed" ||
+                        booking.bookingStatus === "Cancelled by Admin" ||
+                        booking.bookingStatus === "Cancelled by Provider"
                       ) && (
                         <select
                           defaultValue={booking.bookingStatus}
@@ -293,10 +326,15 @@ const ProviderBookings = () => {
                       booking.bookingStatus === "Cancelled by User" ||
                       booking.bookingStatus === "Order Confirmed" ||
                       booking.bookingStatus === "Order Processing" ||
-                      booking.bookingStatus === "Order Completed"
+                      booking.bookingStatus === "Order Completed" ||
+                      booking.bookingStatus === "Cancelled by Admin" ||
+                      booking.bookingStatus === "Cancelled by Provider"
                     ) && (
                       <th>
-                        <button className="btn bg-red-500 py-3 text-white hover:text-black whitespace-nowrap">
+                        <button
+                          onClick={() => handleCancelBooking(booking._id)}
+                          className="btn bg-red-500 py-3 text-white hover:text-black whitespace-nowrap"
+                        >
                           Cancel Order
                         </button>
                       </th>
