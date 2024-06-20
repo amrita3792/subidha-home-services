@@ -15,8 +15,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getDate, getTime } from "../../utilities/date";
 // import { getUserToken } from "../../utilities/getToken";
 import useToken from "../../hooks/useToken";
-import otpSecurity from '../../assets/images/otp-security.png';
-
+import otpSecurity from "../../assets/images/otp-security.png";
 
 export const NumberVerificatonModal = ({
   showModal,
@@ -45,7 +44,9 @@ export const NumberVerificatonModal = ({
 
   useEffect(() => {
     if (token) {
-      if (location?.state?.from?.pathname?.split("/")[1] === "admin-dashboard") {
+      if (
+        location?.state?.from?.pathname?.split("/")[1] === "admin-dashboard"
+      ) {
         navigate("/");
       } else {
         navigate(from, { replace: true });
@@ -54,16 +55,14 @@ export const NumberVerificatonModal = ({
     }
   }, [token]); // Empty dependency array ensures this effect runs only after initial render
 
-
   const handleSendOTP = async () => {
     setLoading(true);
     await setVisibleRecaptcha(true);
     sendOTP(phone)
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
-        
+
         toast.success("We successfully sent an OTP to your phone number", {
-          
           theme: "colored",
         });
         setShowOTP(true);
@@ -71,12 +70,10 @@ export const NumberVerificatonModal = ({
         setVisibleRecaptcha(false);
       })
       .catch((error) => {
-
         setShowOTP(false);
         setLoading(false);
         setVisibleRecaptcha(false);
         toast.error(error.message, {
-          
           theme: "colored",
         });
       });
@@ -112,6 +109,7 @@ export const NumberVerificatonModal = ({
           signupDate: formattedCreationTimeWithTime,
           lastLogin: formattedLastSignInWithTime,
           status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
+      
         };
 
         fetch("https://subidha-home-services-server3792.glitch.me/users", {
@@ -123,24 +121,20 @@ export const NumberVerificatonModal = ({
         })
           .then((res) => res.json())
           .then((data) => {
-
             if (data.acknowledged) {
               setUid(currentUser.uid);
               toast.success("Your verification is successful.", {
-                
                 theme: "colored",
               });
               setLoading(false);
             }
           })
           .catch((error) => {
-
             setLoading(false);
           });
         // ...
       })
       .catch((error) => {
-
         alert("User couldn't sign in (bad verification code?)");
         setLoading(false);
       });
@@ -153,7 +147,6 @@ export const NumberVerificatonModal = ({
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
         toast.success("We successfully resent an OTP to your phone number", {
-          
           theme: "colored",
         });
         setShowOTP(true);
@@ -162,7 +155,6 @@ export const NumberVerificatonModal = ({
       })
       .catch((error) => {
         toast.error(error.message, {
-          
           theme: "colored",
         });
         setLoading(false);
@@ -184,11 +176,7 @@ export const NumberVerificatonModal = ({
           {!showOTP ? (
             <div className="mx-auto w-72">
               <div className="flex justify-center my-5">
-                <img
-                  className="w-32"
-                  src={otpSecurity}
-                  alt=""
-                />
+                <img className="w-32" src={otpSecurity} alt="" />
               </div>
               <h3 className="mb-6 text-2xl text-center font-semibold">
                 Verify Your Number
@@ -228,11 +216,7 @@ export const NumberVerificatonModal = ({
             </div>
           ) : (
             <div>
-              <img
-                className="block mx-auto w-32"
-                src={otpSecurity}
-                alt=""
-              />
+              <img className="block mx-auto w-32" src={otpSecurity} alt="" />
               <p className="text-center font-semibold mb-2">
                 Type the 6 digit code sent to this <br /> number{" "}
                 <span className="text-[#FF6600] font-semibold">{`"+${phone}"`}</span>{" "}

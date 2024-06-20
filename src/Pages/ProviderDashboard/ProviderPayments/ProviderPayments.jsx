@@ -4,6 +4,7 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import { toast } from "react-toastify";
 import noDataFound from "../../../assets/images/no-data-found.png";
 import { Link } from "react-router-dom";
+import Loading from "../../../Components/Loading/Loading";
 
 const ProviderPayments = () => {
   const { user } = useContext(AuthContext);
@@ -32,7 +33,7 @@ const ProviderPayments = () => {
   if (isLoading) {
     return (
       <div className="w-full top-0 left-0 h-full flex justify-center items-center mt-10">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+        <Loading />
       </div>
     );
   }
@@ -81,9 +82,9 @@ const ProviderPayments = () => {
       </div>
       {currentPayments.length > 0 ? (
         <div className="overflow-x-auto py-10">
-          <table className="table">
+          <table className="table table-zebra">
             <thead>
-              <tr className="text-base">
+              <tr className="text-base bg-gray-200">
                 <th>BookingID</th>
                 <th>User</th>
                 <th>Service</th>

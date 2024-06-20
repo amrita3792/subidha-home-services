@@ -15,7 +15,7 @@ export const ProviderContext = createContext();
 export const AdminContext = createContext();
 
 function App() {
-  const { user, loading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   const [receiver, setReceiver] = useState(null);
 

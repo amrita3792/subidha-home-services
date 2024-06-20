@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import noDataFound from "../../../assets/images/no-data-found.png";
 import { Link } from "react-router-dom";
 import dayjs from 'dayjs';
+import Loading from "../../../Components/Loading/Loading";
 
 const CurrentMonthBookings = () => {
   const { user } = useContext(AuthContext);
@@ -38,7 +39,7 @@ const CurrentMonthBookings = () => {
   if (isLoading) {
     return (
       <div className="w-full top-0 left-0 h-full flex justify-center items-center mt-10">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+        <Loading />
       </div>
     );
   }
@@ -84,7 +85,7 @@ const CurrentMonthBookings = () => {
       </div>
       {currentBookings.length > 0 ? (
         <div className="overflow-x-auto">
-          <table className="table-auto w-full border-collapse">
+          <table className="table-auto table-zebra w-full border-collapse">
             <thead>
               <tr className="bg-gray-200 text-gray-600">
                 <th className="py-2 px-3 text-left">User Name</th>

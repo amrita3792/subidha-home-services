@@ -4,7 +4,7 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 import { Tooltip } from "keep-react";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import Loading from "../../../Components/Loading/Loading";
 
 const UserProfile = () => {
   const {
@@ -76,7 +76,7 @@ const UserProfile = () => {
                     setUpdateProfilePicture(true);
                     setLoading(false);
                     toast.success("Your profile picture has been updated! ", {
-                      
+                      hideProgressBar: true,
                       theme: "colored",
                     });
                     setSelectedImage(null);
@@ -86,7 +86,7 @@ const UserProfile = () => {
             })
             .catch((error) => {
               toast.error(error.message, {
-                
+                hideProgressBar: true,
                 theme: "colored",
               });
               setLoading(false);
@@ -146,7 +146,7 @@ const UserProfile = () => {
 
   if (error) {
     toast.error("There was an error fetching user data.", {
-      
+      hideProgressBar: true,
       autoClose: false,
       theme: "colored",
     });
@@ -156,7 +156,7 @@ const UserProfile = () => {
   if (isLoading) {
     return (
       <div className="w-full top-0 left-0 h-full flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+       <Loading />
       </div>
     );
   }
@@ -201,7 +201,7 @@ const UserProfile = () => {
           .then(() => {
             refetch();
             toast.success("User Updated successfully!", {
-              
+              hideProgressBar: true,
               theme: "colored",
             });
             setLoading(false);
@@ -211,7 +211,7 @@ const UserProfile = () => {
             setUpdateProfileName(false);
             setLoading(false);
             toast.error(error.message, {
-              
+              hideProgressBar: true,
               theme: "colored",
             });
           });
@@ -241,20 +241,10 @@ const UserProfile = () => {
     setUpazillas(districtInfo[0].upazilla);
   };
 
+  console.log(userData);
+
   return (
-    <div className="md:p-4">
-      <div className="flex justify-end">
-        <div className="text-sm breadcrumbs">
-          <ul>
-            <li>
-              <Link to="/user-dashboard/dashboard">User Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/user-dashboard/user-settings">My Profile</Link>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <div className="md:p-5">
       <h2
         name="/user-dashboard/dashboard"
         className="text-2xl font-semibold text-center mb-5"
@@ -268,11 +258,11 @@ const UserProfile = () => {
           style={{ display: "none" }}
           onChange={handleImageChange}
         />
-        {userData?.photoURL ? (
+        {user?.photoURL ? (
           <div className="relative">
             <img
               className="w-24 h-24 rounded-full"
-              src={userData?.photoURL}
+              src={user?.photoURL}
               alt=""
             />
             <Tooltip

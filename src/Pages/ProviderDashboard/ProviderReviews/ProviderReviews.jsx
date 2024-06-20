@@ -6,6 +6,7 @@ import { ThemeContext } from "../../../App";
 import noDataFound from "../../../assets/images/no-data-found.png";
 import ProviderReview from "./ProviderReview/ProviderReview";
 import { Link } from "react-router-dom";
+import Loading from "../../../Components/Loading/Loading";
 
 const ProviderReviews = () => {
   const { user } = useContext(AuthContext);
@@ -40,8 +41,8 @@ const ProviderReviews = () => {
 
   if (isLoading) {
     return (
-      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+      <div className="w-full top-0 left-0 h-full flex justify-center items-center mt-10">
+        <Loading />
       </div>
     );
   }

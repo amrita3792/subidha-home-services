@@ -1,10 +1,8 @@
-import loader from '../../assets/images/Square Loading.gif';
-
-const Loader = ({ progress }) => {
-    
+import './Loader.css';
+const Loader = () => {
   return (
-    <div className="h-[100vh] flex justify-center items-center">
-      <img className="w-32" src={loader} alt="" />
+    <div className="flex justify-center items-center w-screen h-screen">
+      <span className="pulsing-dots"></span>
     </div>
   );
 };

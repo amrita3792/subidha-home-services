@@ -93,7 +93,7 @@ const ChatPopup = ({ setOpenChatPopup, setReceiver, receiver }) => {
                           {user.userName ? user.userName : "N/A"}
                         </div>
                         <div className="text-sm font-bold opacity-50">
-                          {user.lastMessage}
+                          {user.lastMessage.length > 40 ? user.lastMessage.slice(0, 40) + "..." : user.lastMessage}
                         </div>
                       </div>
                     </div>

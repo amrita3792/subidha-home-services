@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import useAdmin from '../../../hooks/useAdmin';
-import loader from '../../../assets/images/Square Loader.gif';
+import Loader from '../../../Components/Loader/Loader';
 
 const AdminRoute = ({ children }) => {
     const {loading, user, logout} = useContext(AuthContext);
@@ -11,7 +11,7 @@ const AdminRoute = ({ children }) => {
     
     if(loading || isAdminLoading) {
         return <div className="flex justify-center items-center h-[100vh]">
-            <img className="w-32" src={loader} alt="" />
+            <Loader />
         </div>;
     }
 

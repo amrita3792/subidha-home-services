@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { ThemeContext } from "../../../App";
 import noDataFound from "../../../assets/images/no-data-found.png";
 import { Link } from "react-router-dom";
+import Loading from "../../../Components/Loading/Loading";
 
 const UserReviews = () => {
   const { user } = useContext(AuthContext);
@@ -26,54 +27,46 @@ const UserReviews = () => {
 
   if (isError) {
     toast.error(error.message, {
-      
       theme: "colored",
     });
   }
 
   if (isLoading) {
     return (
-      <div className="w-full top-0 left-0 h-full flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+      <div className="w-full h-full flex justify-center items-center">
+        <Loading />
       </div>
     );
   }
 
-  // if (!isLoading && !reviews.length) {
-  //   return (
-  //     <div className="flex flex-col justify-center items-center relative">
-  //       <img src={noDataFound} alt="Girl in a jacket" />
-  //     </div>
-  //   );
-  // }
   return (
     <div className="px-4">
-      <div className="flex justify-end">
+      <div className="flex justify-end mb-4">
         <div className="text-sm breadcrumbs">
           <ul>
             <li>
               <Link to="/user-dashboard/dashboard">User Dashboard</Link>
             </li>
             <li>
-              <Link to="/user-dashboard/user-reviews">My Reviews</Link>
+              My Reviews
             </li>
           </ul>
         </div>
       </div>
-      <h3 className="font-semibold text-2xl text-center">My Reviews</h3>
+      <h3 className="font-semibold text-3xl text-center mb-8">My Reviews</h3>
       {!isLoading && reviews.length > 0 ? (
         <div
-          className={`my-12 border ${
-            theme === "dark" && "border-slate-600"
-          } p-7 rounded-xl`}
+          className={`border ${
+            theme === "dark" ? "border-slate-600" : "border-gray-300"
+          } shadow-lg rounded-xl p-6`}
         >
           {reviews.map((review) => (
             <UserReview key={review._id} review={review} />
           ))}
         </div>
       ) : (
-        <div className="flex flex-col justify-center items-center relative">
-          <img src={noDataFound} alt="Girl in a jacket" />
+        <div className="flex flex-col justify-center items-center mt-12">
+          <img src={noDataFound} alt="No Data Found" />
         </div>
       )}
     </div>

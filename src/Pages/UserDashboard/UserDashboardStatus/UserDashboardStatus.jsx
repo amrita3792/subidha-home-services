@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "../../../App";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import Loading from "../../../Components/Loading/Loading";
 
 const UserDashboardStatus = () => {
   const { theme } = useContext(ThemeContext);
@@ -32,7 +33,7 @@ const UserDashboardStatus = () => {
   if (isLoading) {
     return (
       <div className="w-full top-0 left-0 h-full flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+        <Loading />
       </div>
     );
   }

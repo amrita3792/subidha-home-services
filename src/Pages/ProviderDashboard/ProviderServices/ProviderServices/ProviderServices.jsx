@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { AuthContext } from "../../../../contexts/AuthProvider";
 import ServiceCard from "../ServiceCard/ServiceCard";
 import { Link } from "react-router-dom";
+import Loading from "../../../../Components/Loading/Loading";
 
 const ProviderServices = () => {
   const { user } = useContext(AuthContext);
@@ -40,7 +41,7 @@ const ProviderServices = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center h-full mt-10">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+        <Loading />
       </div>
     );
   }

@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import ConfirmationModal from "../../../Components/ConfirmationModal/ConfirmationModal";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import Loading from "../../../Components/Loading/Loading";
 
 const ProviderBookings = () => {
   const { user } = useContext(AuthContext);
@@ -109,7 +110,7 @@ const ProviderBookings = () => {
   if (isLoading) {
     return (
       <div className="w-full top-0 left-0 h-full flex justify-center items-center mt-10">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+        <Loading />
       </div>
     );
   }
@@ -199,15 +200,11 @@ const ProviderBookings = () => {
                             {booking.service}
                             <br />
                             <span
-                              className={`text-sm p-1 ${
-                                booking.bookingStatus === "Cancelled by User" ||
-                                booking.bookingStatus ===
-                                  "Cancelled by Admin" ||
-                                booking.bookingStatus ===
-                                  "Cancelled by Provider"
-                                  ? "bg-red-500"
-                                  : "bg-green-700"
-                              } text-white`}
+                              className={`inline-block px-2 py-1 rounded-lg text-sm ${
+                                booking.bookingStatus === "Order Completed"
+                                  ? "bg-green-500 text-white"
+                                  : "bg-yellow-500 text-gray-800"
+                              }`}
                             >
                               {booking.bookingStatus}
                             </span>

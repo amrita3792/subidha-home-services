@@ -102,9 +102,9 @@ const Categories = () => {
         </div>
       </div>
       <div className="overflow-x-auto mt-10">
-        <table className="table">
+        <table className="table table-zebra">
           <thead>
-            <tr className="text-base">
+            <tr className="text-base bg-gray-200">
               <th>Category ID</th>
               <th>Category Name</th>
               <th>Featured</th>

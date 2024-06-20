@@ -5,6 +5,7 @@ import { Tooltip } from "keep-react";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import Loading from "../../../Components/Loading/Loading";
 
 const ProviderProfileSettings = () => {
   const {
@@ -153,7 +154,7 @@ const ProviderProfileSettings = () => {
   if (isLoading) {
     return (
       <div className="mt-10 w-full top-0 left-0 h-full flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+        <Loading />
       </div>
     );
   }

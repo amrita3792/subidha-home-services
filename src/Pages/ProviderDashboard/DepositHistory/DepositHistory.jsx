@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import Loading from "../../../Components/Loading/Loading";
 
 const DepositHistory = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -65,7 +66,7 @@ const DepositHistory = () => {
   if (isLoading) {
     return (
       <div className="w-full top-0 left-0 h-full flex justify-center items-center mt-10">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+        <Loading />
       </div>
     );
   }

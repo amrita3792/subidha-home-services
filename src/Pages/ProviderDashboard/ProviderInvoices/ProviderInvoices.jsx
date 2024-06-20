@@ -6,6 +6,7 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import noDataFound from "../../../assets/images/no-data-found.png";
 import { Link } from "react-router-dom";
+import Loading from "../../../Components/Loading/Loading";
 
 const ProviderInovices = () => {
   const { user } = useContext(AuthContext);
@@ -33,7 +34,7 @@ const ProviderInovices = () => {
   if (isLoading) {
     return (
       <div className="w-full top-0 left-0 h-full flex justify-center items-center mt-10">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+        <Loading />
       </div>
     );
   }
@@ -98,9 +99,9 @@ const ProviderInovices = () => {
 
       {filteredInvoices.length > 0 ? (
         <div className="overflow-x-auto py-10">
-          <table className="table">
+          <table className="table table-zebra">
             <thead>
-              <tr className="text-base">
+              <tr className="text-base bg-gray-200">
                 <th>InvoiceNo</th>
                 <th>User</th>
                 <th>Service</th>

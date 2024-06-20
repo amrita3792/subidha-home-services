@@ -11,10 +11,11 @@ import useToken from "../../hooks/useToken";
 
 const Login = () => {
   const { googleSignIn, signIn } = useContext(AuthContext);
+  const { showModal, setShowModal } = useContext(ModalContext);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
   const [verifyEmail, setVerifyEmail] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
   const [uid, setUid] = useState("");
@@ -22,13 +23,12 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  const { showModal, setShowModal } = useContext(ModalContext);
 
   useEffect(() => {
     if (token) {
       navigate(from, { replace: true });
     }
-  }, [token, navigate, from, location, uid]);
+  }, [token, navigate, from]);
 
   useEffect(() => {
     if (verifyEmail) {
@@ -39,18 +39,19 @@ const Login = () => {
   const handleChangeModalState = () => setShowModal(!showModal);
 
   const handleGoogleSignIn = async () => {
-    setError(null);
     setLoading(true);
     try {
       const result = await googleSignIn();
       const user = result.user;
       const { createdAt, lastLoginAt, lastSignInTime, creationTime } =
         user.metadata;
-      const formattedCreationTime = `${getDate(creationTime)} | ${getTime(
-        createdAt
-      )}`;
-      const formattedLastSignInTime = `${getDate(lastSignInTime)} | ${getTime(
+      const creationDate = getDate(creationTime);
+      const lastSignInDate = getDate(lastSignInTime);
+      const formattedLastSignInWithTime = `${lastSignInDate} | ${getTime(
         lastLoginAt
+      )}`;
+      const formattedCreationTimeWithTime = `${creationDate} | ${getTime(
+        createdAt
       )}`;
 
       const currentUser = {
@@ -59,9 +60,10 @@ const Login = () => {
         email: user.email,
         phone: user.phoneNumber,
         photoURL: user.photoURL || "https://i.ibb.co/M1qvZxP/user.png",
-        signupDate: formattedCreationTime,
-        lastLogin: formattedLastSignInTime,
+        signupDate: formattedCreationTimeWithTime,
+        lastLogin: formattedLastSignInWithTime,
         status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
+     
       };
 
       const response = await fetch(
@@ -75,11 +77,10 @@ const Login = () => {
 
       const data = await response.json();
       if (data.acknowledged) {
-        console.log("hELLO");
         setUid(currentUser.uid);
       }
     } catch (error) {
-      toast.error(error.message, { theme: "colored" });
+      toast.error(error.message, { hideProgressBar: true, theme: "colored" });
     } finally {
       setLoading(false);
     }
@@ -87,14 +88,12 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
     setLoading(true);
-    try {
-      const form = e.target;
-      const email = form.email.value;
-      const password = form.password.value;
+    setError(null);
+    const { email, password } = e.target.elements;
 
-      const userCredential = await signIn(email, password);
+    try {
+      const userCredential = await signIn(email.value, password.value);
       const user = userCredential.user;
 
       if (user.emailVerified) {
@@ -109,7 +108,7 @@ const Login = () => {
 
         const data = await response.json();
         if (data.acknowledged) {
-          navigate(from, { replace: true });
+          setUid(user.uid);
         }
       } else {
         setVerifyEmail(true);
@@ -118,11 +117,11 @@ const Login = () => {
       }
     } catch (error) {
       setError(
-        error.message.includes("auth/invalid-credential")
+        error.message === "Firebase: Error (auth/invalid-credential)."
           ? "The email or password you entered is incorrect."
-          : error.message
+          : `Error: ${error.message}`
       );
-      toast.error(error.message, { theme: "colored" });
+      toast.error(error.message, { hideProgressBar: true, theme: "colored" });
     } finally {
       setLoading(false);
     }
@@ -145,18 +144,19 @@ const Login = () => {
           <input
             name="password"
             type="password"
-            placeholder="password"
+            placeholder="Password"
             className="input input-bordered input-md w-full font-semibold h-11 focus:outline-none"
             required
           />
         </div>
         <Link
           to="#"
-          onClick={() => {
-            setResetPassword(true);
+          onClick={async () => {
+            await setResetPassword(true);
             document.getElementById("my_modal_3").showModal();
           }}
-          className="text-[#FF6600] font-semibold text-sm block my-7 mt-1 text-center hover:underline"
+          className="text-[#FF6600] font-semibold text-sm block my-7 mt-1 text-center hover
+"
         >
           Forgot your password?
         </Link>
@@ -166,7 +166,7 @@ const Login = () => {
           disabled={loading}
         >
           {loading ? (
-            <span className="loader"></span> // Use any loader/spinner component you prefer
+            <span className="loading loading-spinner text-error"></span>
           ) : (
             "Log In"
           )}
@@ -211,20 +211,20 @@ const Login = () => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="size-6 w-6 h-6"
+          className="w-6 h-6"
         >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"
+            d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"
           />
         </svg>
-        Sign in with phone number
+        Phone Number
       </button>
       <button
         onClick={handleGoogleSignIn}
         type="button"
-        className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 btn focus:outline-none font-medium rounded-lg text-lg px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2 w-full"
+        className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 btn font-medium rounded-lg text-lg px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2 w-full"
       >
         <svg
           className="w-4 h-4 me-2"
@@ -243,7 +243,7 @@ const Login = () => {
       </button>
       <button
         type="button"
-        className="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 btn focus:outline-none font-medium rounded-lg text-lg px-5 py-2.5 text-center items-center dark:focus:ring-[#3b5998]/55 me-2 mb-2 w-full flex justify-center"
+        className="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 btn focus:outline-none font-medium rounded-lg text-lg px-5 py-2.5 text-center  items-center dark:focus:ring-[#3b5998]/55 me-2 mb-2 w-full flex justify-center"
       >
         <svg
           className="w-4 h-4 me-2"

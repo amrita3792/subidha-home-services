@@ -6,6 +6,7 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import noDataFound from "../../../assets/images/no-data-found.png";
 import { Link } from "react-router-dom";
+import Loading from "../../../Components/Loading/Loading";
 
 const Invoices = () => {
   const { user } = useContext(AuthContext);
@@ -14,12 +15,17 @@ const Invoices = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  const { data: bookings = [], isLoading, isError, error } = useQuery({
+  const {
+    data: bookings = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ["user-invoices"],
     queryFn: () =>
-      fetch(`https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`).then(
-        (res) => res.json()
-      ),
+      fetch(
+        `https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`
+      ).then((res) => res.json()),
   });
 
   if (isError) {
@@ -28,8 +34,8 @@ const Invoices = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full top-0 left-0 h-full flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+      <div className="w-full top-0 left-0 h-full flex justify-center items-center px-4">
+        <Loading />
       </div>
     );
   }
@@ -55,7 +61,10 @@ const Invoices = () => {
 
   const totalPages = Math.ceil(filteredBookings.length / itemsPerPage);
   const startIdx = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredBookings.slice(startIdx, startIdx + itemsPerPage);
+  const currentItems = filteredBookings.slice(
+    startIdx,
+    startIdx + itemsPerPage
+  );
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -65,7 +74,7 @@ const Invoices = () => {
 
   const handleItemsPerPageChange = (e) => {
     setItemsPerPage(Number(e.target.value));
-    setCurrentPage(1); // Reset to the first page whenever items per page change
+    setCurrentPage(1); 
   };
 
   const renderPageNumbers = () => {
@@ -92,9 +101,7 @@ const Invoices = () => {
             <li>
               <Link to="/user-dashboard/dashboard">User Dashboard</Link>
             </li>
-            <li>
-              <Link to="/user-dashboard/user-invoices">Invoices</Link>
-            </li>
+            <li>Invoices</li>
           </ul>
         </div>
       </div>
@@ -135,8 +142,10 @@ const Invoices = () => {
         </button>
       </div>
 
-      <div className="flex justify-end mb-4">
-        <label htmlFor="itemsPerPage" className="mr-2">Items per page:</label>
+      <div className="flex justify-end items-center mb-4">
+        <label htmlFor="itemsPerPage" className="mr-2">
+          Items per page:
+        </label>
         <select
           id="itemsPerPage"
           value={itemsPerPage}
@@ -156,7 +165,7 @@ const Invoices = () => {
             <thead>
               <tr className="text-base">
                 <th>InvoiceNo</th>
-                <th>Provider</th>
+
                 <th>Service</th>
                 <th>Date</th>
                 <th>Amount</th>
@@ -174,31 +183,26 @@ const Invoices = () => {
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                          <img src={booking.providerPhotoURL} alt="Provider" />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-bold whitespace-nowrap">{booking.providerName}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
                           <img src={booking.servicePhotoURL} alt="Service" />
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold whitespace-nowrap">{booking.service}</div>
+                        <div className="font-bold whitespace-nowrap">
+                          {booking.service}
+                        </div>
                       </div>
                     </div>
                   </td>
                   <td className="font-semibold">{booking.invoiceDate}</td>
                   <td className="font-semibold">{booking.totalAmount} TK</td>
-                  <td className="font-semibold text-green-600 p-2 whitespace-nowrap">Payment Completed</td>
+                  <td className="font-semibold text-green-600 p-2 whitespace-nowrap">
+                    Payment Completed
+                  </td>
                   <td>
-                    <button onClick={() => handleDownloadInvoice(booking)} className="btn btn-neutral">
+                    <button
+                      onClick={() => handleDownloadInvoice(booking)}
+                      className="btn btn-neutral"
+                    >
                       Export
                     </button>
                   </td>

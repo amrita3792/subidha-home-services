@@ -8,6 +8,7 @@ import newMessage from "../../assets/images/new-messages.png";
 import { getDate, getTime } from "../../utilities/date";
 import { getUserToken } from "../../utilities/getToken";
 import useToken from "../../hooks/useToken";
+import { ModalContext } from "../../App";
 
 const Signup = () => {
   const { googleSignIn, createUser, logout } = useContext(AuthContext);
@@ -18,7 +19,7 @@ const Signup = () => {
   const [error, setError] = useState(null);
   const [isReceive, setIsReceive] = useState(false);
   const [email, setEmail] = useState("");
-  const [showModal, setShowModal] = useState(false);
+  const { showModal, setShowModal } = useContext(ModalContext);
   const navigate = useNavigate();
   const [uid, setUid] = useState("");
   const [token] = useToken(uid);
@@ -63,6 +64,7 @@ const Signup = () => {
 
     const form = e.target;
     const name = form.name.value;
+    // console.log(name);
     const email = form.email.value;
     const password = form.password.value;
 
@@ -75,7 +77,7 @@ const Signup = () => {
       const result = await createUser(email, password);
       const user = result.user;
       const userMetadata = formatUserMetadata(user);
-      const currentUser = formatCurrentUser(user, userMetadata);
+      const currentUser = formatCurrentUser(name, user, userMetadata);
 
       await fetch("https://subidha-home-services-server3792.glitch.me/users", {
         method: "POST",
@@ -84,8 +86,8 @@ const Signup = () => {
       });
 
       getUserToken(currentUser.uid);
-      await updateName(user, name);
       await emailVerify(user);
+      await updateName(user, name);
       setEmail(user.email);
       form.reset();
       logout();
@@ -101,6 +103,7 @@ const Signup = () => {
   };
 
   const formatUserMetadata = (user) => {
+    // console.log(user);
     const { createdAt, lastLoginAt, lastSignInTime, creationTime } =
       user.metadata;
     const creationDate = getDate(creationTime);
@@ -112,16 +115,21 @@ const Signup = () => {
     return { formattedCreationTime, formattedLastSignInTime };
   };
 
-  const formatCurrentUser = (user, metadata) => ({
-    uid: user.uid,
-    userName: user.displayName,
-    email: user.email,
-    phone: user.phoneNumber,
-    photoURL: user.photoURL || "https://i.ibb.co/M1qvZxP/user.png",
-    signupDate: metadata.formattedCreationTime,
-    lastLogin: metadata.formattedLastSignInTime,
-    status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
-  });
+  const formatCurrentUser = (name, user, metadata) => {
+    return {
+      uid: user.uid,
+      userName: name,
+      email: user.email,
+      phone: user.phoneNumber,
+      photoURL: user.photoURL || "https://i.ibb.co/M1qvZxP/user.png",
+      signupDate: metadata.formattedCreationTime,
+      lastLogin: metadata.formattedLastSignInTime,
+      status: user.emailVerified || user.phoneNumber ? "Active" : "Pending",
+   
+    };
+  };
+
+  
 
   const emailVerify = (currentUser) =>
     sendEmailVerification(currentUser).then(() => setIsReceive(true));
@@ -215,7 +223,7 @@ const Signup = () => {
               className="btn text-white bg-[#FF6600] hover:bg-[#1D2736] w-full mt-8"
               disabled={loading}
             >
-              {loading ? "Signing Up..." : "Sign Up"}
+              {loading ? <span className="loading loading-spinner text-error"></span> : "Sign Up"}
             </button>
           </form>
           {error && (

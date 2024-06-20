@@ -4,6 +4,7 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 import { toast } from "react-toastify";
 import noDataFound from "../../../assets/images/no-data-found.png";
 import { Link } from "react-router-dom";
+import Loading from "../../../Components/Loading/Loading";
 
 const Payment = () => {
   const { user } = useContext(AuthContext);
@@ -31,8 +32,8 @@ const Payment = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full top-0 left-0 h-full flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+      <div className="w-full top-0 left-0 h-full flex justify-center items-center px-4">
+        <Loading />
       </div>
     );
   }
@@ -88,9 +89,7 @@ const Payment = () => {
             <li>
               <Link to="/user-dashboard/dashboard">User Dashboard</Link>
             </li>
-            <li>
-              <Link to="/user-dashboard/user-payment">Payments</Link>
-            </li>
+            <li>Payments</li>
           </ul>
         </div>
       </div>
@@ -105,15 +104,20 @@ const Payment = () => {
           onChange={handleSearchChange}
           className="input input-bordered"
         />
-        <select
-          value={itemsPerPage}
-          onChange={(e) => setItemsPerPage(Number(e.target.value))}
-          className="select select-bordered"
-        >
-          <option value={5}>5</option>
-          <option value={10}>10</option>
-          <option value={20}>20</option>
-        </select>
+        <div>
+          <label htmlFor="itemsPerPage" className="mr-2">
+            Items per page:
+          </label>
+          <select
+            value={itemsPerPage}
+            onChange={(e) => setItemsPerPage(Number(e.target.value))}
+            className="select select-bordered"
+          >
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+          </select>
+        </div>
       </div>
       {currentBookings.length > 0 ? (
         <div className="overflow-x-auto py-10">
@@ -121,7 +125,6 @@ const Payment = () => {
             <thead>
               <tr className="text-base">
                 <th>BookingID</th>
-                <th>Provider</th>
                 <th>Service</th>
                 <th>Date</th>
                 <th>Amount</th>
@@ -131,20 +134,10 @@ const Payment = () => {
             <tbody>
               {currentBookings.map((booking, idx) => (
                 <tr key={idx}>
-                  <td className="font-semibold whitespace-nowrap">B - {booking._id}</td>
-                  <td>
-                    <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img src={booking.providerPhotoURL} alt="Provider" />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-bold whitespace-nowrap">{booking.providerName}</div>
-                      
-                      </div>
-                    </div>
+                  <td className="font-semibold whitespace-nowrap">
+                    B - {booking._id}
                   </td>
+
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
@@ -153,7 +146,9 @@ const Payment = () => {
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold whitespace-nowrap">{booking.service}</div>
+                        <div className="font-bold whitespace-nowrap">
+                          {booking.service}
+                        </div>
                       </div>
                     </div>
                   </td>

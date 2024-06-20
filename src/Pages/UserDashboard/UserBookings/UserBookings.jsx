@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import  { useContext, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { ChatContext, ThemeContext } from "../../../App";
 import { Link } from "react-router-dom";
@@ -6,9 +6,15 @@ import ReviewModal from "../../../Components/ReviewModal/ReviewModal";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import noDataFound from "../../../assets/images/no-data-found.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faComments,
+  faStar,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import "react-toastify/dist/ReactToastify.css";
 import "daisyui/dist/full.css";
-import dayjs from 'dayjs';
+import Loading from "../../../Components/Loading/Loading";
 
 const UserBookings = () => {
   const { user } = useContext(AuthContext);
@@ -96,7 +102,9 @@ const UserBookings = () => {
         <button
           key={i}
           onClick={() => handlePageChange(i)}
-          className={`btn ${currentPage === i ? "btn-primary" : "btn-ghost"}`}
+          className={`btn ${
+            currentPage === i ? "btn-primary" : "btn-ghost"
+          }`}
         >
           {i}
         </button>
@@ -109,7 +117,7 @@ const UserBookings = () => {
     <div className="h-full px-4">
       {isLoading ? (
         <div className="flex justify-center items-center h-full">
-          <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+          <Loading />
         </div>
       ) : (
         <div>
@@ -147,122 +155,127 @@ const UserBookings = () => {
           <h2 className="text-2xl font-semibold mb-8 text-center mt-10">
             My Bookings
           </h2>
-          <div className="overflow-x-scroll custom-user-scrollbar">
-            <table
-              className={`table ${theme === "light" ? "border" : "border-slate-600"
-                } w-full`}
-            >
-              <thead className={`border ${theme === "light" ? "border" : "border-slate-600"
-                }`}>
-                <tr className="text-sm">
-                  <th className="px-4 py-2">Booking ID</th>
-                  <th className="px-4 py-2">Service</th>
-                  <th className="px-4 py-2">Schedule</th>
-                  <th className="px-4 py-2">Price</th>
-                  <th className="px-4 py-2">Provider</th>
-                  <th className="px-4 py-2">Details</th>
-                  <th className="px-4 py-2">Review</th>
-                  <th className="px-4 py-2">Chat</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentItems.map((booking) => (
-                  <tr
-                    key={booking._id}
-                    className={`border ${theme === "light" ? "border" : "border-slate-600"
-                      }`}
+          <div className="space-y-4">
+            {currentItems.map((booking) => (
+              <div
+                key={booking._id}
+                className={`card shadow-md p-4 ${
+                  theme === "light"
+                    ? "bg-white"
+                    : "bg-gray-800 text-white"
+                }`}
+              >
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-bold">
+                    {booking.service}
+                  </h3>
+                  <span
+                    className={`inline-block px-2 py-1 rounded-lg text-sm ${
+                      booking.bookingStatus === "Order Completed"
+                        ? "bg-green-500 text-white"
+                        : "bg-yellow-500 text-gray-800"
+                    }`}
                   >
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      <span className={`inline-block px-2 py-1 rounded-lg text-sm ${booking.bookingStatus === "Order Completed" ? "bg-green-500 text-white" : "bg-yellow-500 text-gray-800"}`}>
-                        {booking.bookingStatus}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="mask mask-squircle w-12 h-12">
-                            <img
-                              src={booking.servicePhotoURL}
-                              alt="Service Photo"
-                            />
-                          </div>
-                        </div>
-                        <div className="font-bold">{booking.service}</div>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3 text-sm font-semibold">
-                      <span className="whitespace-nowrap">{booking.selectedDate}</span>
-                      <br />
-                      [{booking.selectedSlot}]
-                    </td>
-                    <td className="px-4 py-3 font-semibold whitespace-nowrap">
-                      {booking.totalAmount} TK
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="mask mask-squircle w-12 h-12">
-                            <img
-                              src={booking.providerPhotoURL}
-                              alt="Provider Photo"
-                            />
-                          </div>
-                        </div>
-                        <div className="font-bold">{booking.providerName}</div>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <Link
-                        to={`/user-dashboard/booking-list/${booking._id}`}
-                        className="btn btn-ghost btn-xs bg-[#FF6600] text-white hover:text-black"
-                      >
-                        Details
-                      </Link>
-                    </td>
-                    <td className="px-4 py-3">
-                      {booking?.paidStatus && (
-                        <button
-                          disabled={booking.hasWrittenReview}
-                          onClick={() => {
-                            setReviewService(booking);
-                            handleChangeModalState();
-                          }}
-                          className={`btn btn-ghost btn-xs ${
-                            booking.hasWrittenReview
-                              ? "bg-neutral text-white cursor-not-allowed"
-                              : "bg-primary text-white hover:text-black"
-                            }`}
-                        >
-                          {booking.hasWrittenReview ? "Reviewed" : "Review"}
-                        </button>
-                      )}
-                    </td>
-                    <td className="px-4 py-3">
-                      <button
-                        onClick={() => {
-                          if (receiver?.uid === booking?.providerID) {
-                            return;
-                          } else {
-                            setReceiver({
-                              uid: booking.providerID,
-                              photoURL: booking.providerPhotoURL,
-                              userName: booking.providerName,
-                            });
-                          }
-                        }}
-                        className="btn btn-ghost btn-xs bg-[#345DA7] text-white hover:text-black"
-                      >
-                        Chat
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    {booking.bookingStatus}
+                  </span>
+                </div>
+                <div className="flex gap-4 mb-4">
+                  <img
+                    src={booking.servicePhotoURL}
+                    alt="Service"
+                    className="w-16 h-16 object-cover rounded-lg"
+                  />
+                  <div className="flex-grow">
+                    <p className="text-sm">
+                      Booking Date: {booking.selectedDate}
+                    </p>
+                    <p className="text-sm">
+                      Booking Time: {booking.selectedSlot}
+                    </p>
+                    <p className="text-sm">
+                      Location: {booking.fullAddress}
+                    </p>
+                    <p className="text-sm">
+                      Amount: {booking.totalAmount} TK
+                    </p>
+                    <div className="flex items-center gap-2">
+                      <img
+                        src={booking.providerPhotoURL}
+                        alt="Provider"
+                        className="w-8 h-8 object-cover rounded-full"
+                      />
+                      <p className="text-sm">
+                        Provider: {booking.providerName}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex gap-3 items-center">
+                  <button
+                    onClick={() => {
+                      if (
+                        receiver?.uid === booking?.providerID
+                      ) {
+                        return;
+                      } else {
+                        setReceiver({
+                          uid: booking.providerID,
+                          photoURL: booking.providerPhotoURL,
+                          userName: booking.providerName,
+                        });
+                      }
+                    }}
+                    className="btn btn-ghost btn-xs bg-[#007BFF] text-white hover:text-black"
+                  >
+                    <FontAwesomeIcon
+                      icon={faComments}
+                      className="mr-1"
+                    />
+                    Chat
+                  </button>
+                  <Link
+                    to={`/user-dashboard/booking-list/${booking._id}`}
+                    className="btn btn-ghost btn-xs bg-[#28A745] text-white hover:text-black"
+                  >
+                    <FontAwesomeIcon
+                      icon={faInfoCircle}
+                      className="mr-1"
+                    />
+                    Details
+                  </Link>
+                  {booking?.paidStatus && (
+                    <button
+                      disabled={booking.hasWrittenReview}
+                      onClick={() => {
+                        setReviewService(booking);
+                        handleChangeModalState();
+                      }}
+                      className={`btn btn-ghost btn-xs ${
+                        booking.hasWrittenReview
+                          ? "bg-neutral text-white cursor-not-allowed"
+                          : "bg-[#FFC107] text-black hover:text-black"
+                      }`}
+                    >
+                      <FontAwesomeIcon
+                        icon={faStar}
+                        className="mr-1"
+                      />
+                      {booking.hasWrittenReview
+                        ? "Reviewed"
+                        : "Review"}
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="mt-5 flex justify-center gap-3">
+          <div className="flex justify-center space-x-2 mt-4">
             <button
-              className={`btn ${currentPage === 1 ? "btn-primary cursor-not-allowed" : "btn-primary"}`}
+              className={`btn ${
+                currentPage === 1
+                  ? "btn-primary cursor-not-allowed"
+                  : "btn-primary"
+              }`}
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
@@ -270,7 +283,11 @@ const UserBookings = () => {
             </button>
             {renderPageNumbers()}
             <button
-              className={`btn ${currentPage === totalPages ? "btn-primary cursor-not-allowed" : "btn-primary"}`}
+              className={`btn ${
+                currentPage === totalPages
+                  ? "btn-primary cursor-not-allowed"
+                  : "btn-primary"
+              }`}
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
             >

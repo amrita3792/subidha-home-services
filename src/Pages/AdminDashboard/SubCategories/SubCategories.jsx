@@ -54,7 +54,7 @@ const SubCategories = () => {
 
   return (
     <div className="bg-white p-10 rounded-lg shadow-md">
-      <h2 className="text-2xl font-semibold mt-8">Sub Categories</h2>
+      <h2 className="text-2xl font-semibold">Sub Categories</h2>
       <div className="mb-4 flex justify-between items-center mt-10">
         <input
           type="search"
@@ -80,7 +80,7 @@ const SubCategories = () => {
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
-            <tr className="text-base">
+            <tr className="text-base bg-gray-200">
               <th>Category ID</th>
               <th>Category Name</th>
               <th>Sub Categories</th>
