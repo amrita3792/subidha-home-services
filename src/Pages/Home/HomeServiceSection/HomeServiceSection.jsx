@@ -11,7 +11,7 @@ const HomeServiceSection = () => {
   useEffect(() => {
     const fetchStatistics = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/statistics");
+        const response = await axios.get("https://subidha-home-services-server3792.glitch.me/api/statistics");
         setStatistics(response.data);
       } catch (error) {
         console.error("Error fetching statistics:", error);
