@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ThemeContext } from "../../../../App";
 
-const CardOne = () => {
+const CardOne = ({users}) => {
  const {theme} = useContext(ThemeContext);
 
   return (
@@ -29,7 +29,7 @@ const CardOne = () => {
           </svg>
         </div>
         <div className="flex items-center justify-between">
-          <h2 className="card-title text-3xl">20K</h2>
+          <h2 className="card-title text-3xl">{users}</h2>
           <span className="font-semibold text-indigo-400 text-sm">Total Views</span>
         </div>
       </div>

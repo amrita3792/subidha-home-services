@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "../../../../App";
 
-const CardTwo = () => {
+const CardTwo = ({providers}) => {
   const { theme } = useContext(ThemeContext);
   return (
     <div className={`card ${theme === "light" ? "bg-white" : "bg-[#24303F] border-slate-700"} shadow-md mt-9 border rounded-lg`}>
@@ -23,7 +23,7 @@ const CardTwo = () => {
           </svg>
         </div>
         <div className="flex items-center justify-between">
-          <h2 className="card-title text-3xl">500</h2>
+          <h2 className="card-title text-3xl">{providers}</h2>
           <span className="font-semibold text-indigo-400 text-sm">Providers</span>
         </div>
       </div>
