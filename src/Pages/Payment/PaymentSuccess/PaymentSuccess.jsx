@@ -13,12 +13,15 @@ const PaymentSuccess = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
+
           // const {bookingDetails} = data;
           setPayment(data);
         });
     }
   }, [transactionId]);
+
+  // console.log(payment)
 
   useEffect(() => {
     if (payment?.bookingDetails && payment?.bookingDetails?.userEmail) {
