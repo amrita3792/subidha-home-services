@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const UpdateSubCategory = () => {
+  const [loading, setLoading] = useState(false);
   const data = useLoaderData();
   const navigate = useNavigate();
   const { categoryId, subCategoryId } = useParams();
@@ -75,7 +76,7 @@ const UpdateSubCategory = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     if (!validateForm()) {
       return;
     }
@@ -115,11 +116,17 @@ const UpdateSubCategory = () => {
     )
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.modifiedCount > 0) {
-          toast.success("Form submitted successfully!");
+          toast.success("Subcategory updated successfully!");
+          setLoading(false);
+        } else {
+          toast.error("Failed to update subcategory. Please try again later.!");
+          setLoading(false);
         }
       })
       .catch((error) => {
+        setLoading(false);
         toast.success(`${error.message}`);
       });
   };
@@ -254,6 +261,9 @@ const UpdateSubCategory = () => {
             Cancel
           </button>
           <button type="submit" className="btn btn-info text-white">
+            {loading && (
+              <span className="loading loading-spinner loading-md"></span>
+            )}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -268,7 +278,7 @@ const UpdateSubCategory = () => {
                 d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
               />
             </svg>
-            Submit
+            Update
           </button>
         </div>
       </form>
