@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const SubCategories = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(2);
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   const {
     data: services = [],
@@ -15,14 +17,16 @@ const SubCategories = () => {
   } = useQuery({
     queryKey: ["services"],
     queryFn: () =>
-      fetch("https://subidha-home-services-server3792.glitch.me/all-services").then((res) => res.json()),
+      fetch(
+        "https://subidha-home-services-server3792.glitch.me/all-services"
+      ).then((res) => res.json()),
   });
 
   if (isError) {
-    toast.error(error.message, {
-      
-    });
+    toast.error(error.message, {});
   }
+
+  console.log(services);
 
   if (isLoading) {
     return (
@@ -135,7 +139,14 @@ const SubCategories = () => {
                             </div>
                           </td>
                           <td>
-                            <button className="btn btn-neutral text-white">
+                            <button
+                              onClick={() => {
+                                navigate(
+                                  `/admin-dashboard/edit-subCategory/${serviceCategory._id}/${subCategory.id}`
+                                );
+                              }}
+                              className="btn btn-info text-white"
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -172,7 +183,7 @@ const SubCategories = () => {
         </table>
         <div className="mt-4 flex justify-between">
           <button
-            className="btn btn-primary"
+            className="btn btn-info text-white"
             onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
           >
@@ -182,7 +193,7 @@ const SubCategories = () => {
             Page {currentPage} of {totalPages}
           </span>
           <button
-            className="btn btn-primary"
+            className="btn btn-info text-white"
             onClick={() =>
               handlePageChange(Math.min(totalPages, currentPage + 1))
             }

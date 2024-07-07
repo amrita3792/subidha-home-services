@@ -39,7 +39,7 @@ const Login = () => {
   const handleChangeModalState = () => setShowModal(!showModal);
 
   const handleGoogleSignIn = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const result = await googleSignIn();
       const user = result.user;
@@ -82,7 +82,7 @@ const Login = () => {
     } catch (error) {
       toast.error(error.message, { hideProgressBar: true, theme: "colored" });
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 

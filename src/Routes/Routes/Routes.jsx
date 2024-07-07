@@ -44,6 +44,7 @@ import RolesAndPermissions from "../../Pages/AdminDashboard/RolesAndPermissions/
 import AdminBookingManagement from "../../Pages/AdminDashboard/AdminBookingManagement/AdminBookingManagement";
 import ProviderLayout from "../../Layout/ProviderLayout/ProviderLayout";
 import ProviderProfileSettings from "../../Pages/ProviderDashboard/ProviderProfileSettings/ProviderProfileSettings";
+import UpdateSubCategories from "../../Pages/AdminDashboard/UpdateSubCategories/UpdateSubCategories";
 
 const router = createBrowserRouter([
   {
@@ -179,6 +180,18 @@ https://subidha-home-services-server3792.glitch.me/providers/${params.id}`);
       {
         path: "/admin-dashboard/subcategories",
         element: <SubCategories />,
+      },
+      {
+        path: "/admin-dashboard/edit-subCategory/:categoryId/:subCategoryId",
+        element: <UpdateSubCategories />,
+        loader: async ({ params }) => {
+          const categoryId = params.categoryId;
+          const subCategoryId = params.subCategoryId;
+        
+          return fetch(
+            `https://subidha-home-services-server3792.glitch.me/subcategory/${categoryId}/${subCategoryId}`
+          );
+        },
       },
       {
         path: "/admin-dashboard/addservice",

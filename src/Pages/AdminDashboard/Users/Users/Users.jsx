@@ -40,8 +40,8 @@ const Users = () => {
 
   if (isLoading) {
     return (
-      <div className="absolute w-full top-0 left-0 h-full flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg text-[#FF6600]"></span>
+      <div className="flex justify-center items-center h-full mt-20">
+        <span className="loading loading-spinner loading-lg"></span>
       </div>
     );
   }

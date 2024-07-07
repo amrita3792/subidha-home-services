@@ -33,22 +33,24 @@ const EditCategory = () => {
       isFeatured: form.isFeatured.value,
     };
 
-    if(response?.data?.data?.url) {
-        category.icon = response.data.data.url;
+    if (response?.data?.data?.url) {
+      category.icon = response.data.data.url;
     }
 
-    fetch(`https://subidha-home-services-server3792.glitch.me/edit-categories/${_id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(category),
-    })
+    fetch(
+      `https://subidha-home-services-server3792.glitch.me/edit-categories/${_id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(category),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
         toast.success(`${serviceName} category updated successfully`, {
-          
           theme: "colored",
         });
         navigate("/admin-dashboard/categories");
@@ -56,7 +58,6 @@ const EditCategory = () => {
       .catch((error) => {
         setLoading(false);
         toast.error(error.message, {
-          
           theme: "colored",
         });
       });
@@ -102,7 +103,6 @@ const EditCategory = () => {
               name="isFeatured"
               className="radio checked:bg-blue-500"
               defaultChecked={isFeatured === "yes"}
-
             />
             <span className="label-text">Yes</span>
           </label>
@@ -125,12 +125,40 @@ const EditCategory = () => {
             onClick={() => navigate("/admin-dashboard/categories")}
             className="btn btn-error text-white"
           >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-6 h-6 w-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
             Cancel
           </button>
           <button className="btn btn-info text-white">
             {loading && (
               <span className="loading loading-spinner loading-md"></span>
             )}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-6 h-6 w-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
             Submit
           </button>
         </div>

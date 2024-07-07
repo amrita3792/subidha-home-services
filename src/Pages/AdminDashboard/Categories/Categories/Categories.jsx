@@ -141,7 +141,7 @@ const Categories = () => {
                 <td>
                   <button
                     onClick={() => handleNavigate(category._id)}
-                    className="btn btn-neutral text-white"
+                    className="btn btn-info text-white"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +177,7 @@ const Categories = () => {
           Page {currentPage} of {totalPages}
         </span>
         <button
-          className="btn btn-primary"
+          className="btn btn-info text-white"
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
