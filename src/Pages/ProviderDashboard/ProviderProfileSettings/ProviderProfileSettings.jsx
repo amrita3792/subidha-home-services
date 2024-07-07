@@ -238,7 +238,8 @@ const ProviderProfileSettings = () => {
   };
 
   return (
-    <div className="bg-white p-10 rounded-xl shadow-md max-w-screen-lg mx-auto">
+    <div className="bg-white p-10 rounded-xl shadow-md mx-auto">
+      <div className="max-w-screen-lg mx-auto">
       <h2
         name="/user-dashboard/dashboard"
         className="text-2xl font-semibold mb-5 text-center"
@@ -312,7 +313,7 @@ const ProviderProfileSettings = () => {
                 }}
                 type="text"
                 placeholder="Name"
-                className="input input-bordered input-md w-full font-semibold focus:outline-none"
+                className="input input-info input-bordered input-md w-full font-semibold input-info "
                 name="userName"
                 required
                 defaultValue={userData.userName}
@@ -326,7 +327,7 @@ const ProviderProfileSettings = () => {
                 onChange={handleChange}
                 type="email"
                 placeholder="Email"
-                className="input input-bordered input-md w-full font-semibold focus:outline-none"
+                className="input input-bordered input-md w-full font-semibold input-info "
                 name="email"
                 defaultValue={userData.email ? userData.email : ""}
                 disabled={user.email}
@@ -340,7 +341,7 @@ const ProviderProfileSettings = () => {
                 onChange={handleChange}
                 type="text"
                 placeholder="phone"
-                className="input input-bordered input-md w-full font-semibold focus:outline-none"
+                className="input input-bordered input-md w-full font-semibold input-info "
                 name="phone"
                 defaultValue={userData.phone ? userData.phone : ""}
                 disabled={user.phoneNumber}
@@ -352,7 +353,7 @@ const ProviderProfileSettings = () => {
               </label>
               <input
                 type="text"
-                className="input input-bordered input-md w-full font-semibold focus:outline-none"
+                className="input input-bordered input-md w-full font-semibold input-info "
                 name="signupDate"
                 defaultValue={userData.signupDate}
                 disabled
@@ -364,7 +365,7 @@ const ProviderProfileSettings = () => {
               </label>
               <input
                 type="text"
-                className="input input-bordered input-md w-full font-semibold focus:outline-none"
+                className="input input-bordered input-md w-full font-semibold input-info "
                 name="lastLogin"
                 defaultValue={userData.lastLogin}
                 disabled
@@ -379,7 +380,7 @@ const ProviderProfileSettings = () => {
                 required
                 onChange={handleChange}
                 defaultValue={userData.division}
-                className="select select-bordered w-full focus:outline-none font-semibold"
+                className="select select-bordered w-full  font-semibold select-info"
                 name="division"
               >
                 <option defaultValue="">
@@ -411,7 +412,7 @@ const ProviderProfileSettings = () => {
                   handleChangeDistrict(e);
                 }}
                 defaultValue={userData.district}
-                className="font-semibold border select select-bordered w-full focus:outline-none"
+                className="font-semibold border select select-bordered w-full select-info"
                 name="district"
               >
                 <option defaultValue="">
@@ -442,7 +443,7 @@ const ProviderProfileSettings = () => {
                   handleChange(e);
                 }}
                 defaultValue={userData.upazila}
-                className="font-semibold border select select-bordered w-full focus:outline-none"
+                className="font-semibold border select select-bordered w-full select-info"
                 name="upazila"
               >
                 <option defaultValue="">
@@ -463,7 +464,7 @@ const ProviderProfileSettings = () => {
             </div>
           </div>
 
-          <button className="btn btn-active btn-neutral mt-5 bg-[#FF6600] hover:bg-[#1D2736] border-none px-10 text-white">
+          <button className="btn btn-info mt-8 mx-auto text-white">
             {loading ? (
               <>
                 {" "}
@@ -475,6 +476,7 @@ const ProviderProfileSettings = () => {
             )}
           </button>
         </form>
+      </div>
       </div>
     </div>
   );

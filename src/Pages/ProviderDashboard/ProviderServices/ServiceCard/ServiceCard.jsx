@@ -91,7 +91,7 @@ const CategoryCard = ({ service, serviceCategory, setRefetch, refetch}) => {
         <div className="flex justify-between items-center">
           <button
             onClick={handleChangeModalState}
-            className="btn bg-[#345DA7] text-white"
+            className="btn btn-info text-white"
           >
             Apply Offer
           </button>

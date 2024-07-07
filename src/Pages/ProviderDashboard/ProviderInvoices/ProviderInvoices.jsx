@@ -8,11 +8,12 @@ import noDataFound from "../../../assets/images/no-data-found.png";
 import { Link } from "react-router-dom";
 import Loading from "../../../Components/Loading/Loading";
 
-const ProviderInovices = () => {
+const ProviderInvoices = () => {
   const { user } = useContext(AuthContext);
-  // const {} = useContext(ProviderCo)
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const {
     data: invoices = [],
@@ -20,16 +21,18 @@ const ProviderInovices = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: ["user-invoices"],
+    queryKey: ["provider-invoices"],
     queryFn: () =>
       fetch(
-        `https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`
+        `https://subidha-home-services-server3792.glitch.me/provider-payments/${user.uid}`
       ).then((res) => res.json()),
   });
 
   if (isError) {
     toast.error(error.message, {});
   }
+
+  console.log(invoices);
 
   if (isLoading) {
     return (
@@ -58,43 +61,77 @@ const ProviderInovices = () => {
     setToDate(null);
   };
 
+  const totalPages = Math.ceil(filteredInvoices.length / itemsPerPage);
+  const currentItems = filteredInvoices.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handleItemsPerPageChange = (event) => {
+    setItemsPerPage(Number(event.target.value));
+    setCurrentPage(1); // Reset to first page when items per page change
+  };
+
   return (
     <div className="bg-white p-10 rounded-xl shadow-md">
-      <h2 className="text-2xl font-semibold mb-8">Invoices</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-semibold mb-8">Invoices</h2>
 
-      <div className="flex mb-4 gap-3 justify-end">
-        <div className="flex">
-          <DatePicker
-            selected={fromDate}
-            onChange={(date) => setFromDate(date)}
-            dateFormat="yyyy/MM/dd"
-            placeholderText="From Date"
-            className="input input-bordered"
-          />
-          <DatePicker
-            selected={toDate}
-            onChange={(date) => setToDate(date)}
-            dateFormat="yyyy/MM/dd"
-            placeholderText="To Date"
-            className="input input-bordered ml-2"
-          />
-        </div>
-        <button onClick={handleClearDate} className="btn btn-error">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-6 w-6 h-6 text-white"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18 18 6M6 6l12 12"
+        <div className="flex mb-4 gap-3 justify-end">
+          <div className="flex">
+            <DatePicker
+              selected={fromDate}
+              onChange={(date) => setFromDate(date)}
+              dateFormat="yyyy/MM/dd"
+              placeholderText="From Date"
+              className="input input-bordered select-info"
             />
-          </svg>
-        </button>
+            <DatePicker
+              selected={toDate}
+              onChange={(date) => setToDate(date)}
+              dateFormat="yyyy/MM/dd"
+              placeholderText="To Date"
+              className="input input-bordered ml-2 select-info"
+            />
+          </div>
+          <button onClick={handleClearDate} className="btn btn-error">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-6 w-6 h-6 text-white"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex items-center">
+          <label htmlFor="itemsPerPage" className="mr-2">Items per page:</label>
+          <select
+            id="itemsPerPage"
+            value={itemsPerPage}
+            onChange={handleItemsPerPageChange}
+            className="select select-bordered input-accent select-info"
+          >
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={50}>50</option>
+          </select>
+        </div>
       </div>
 
       {filteredInvoices.length > 0 ? (
@@ -112,7 +149,7 @@ const ProviderInovices = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredInvoices.map((invoice, idx) => (
+              {currentItems.map((invoice, idx) => (
                 <tr key={idx}>
                   <td className="font-semibold">I - {invoice.invoiceNumber}</td>
                   <td>
@@ -126,7 +163,7 @@ const ProviderInovices = () => {
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold">{invoice.providerName}</div>
+                        <div className="font-bold">{invoice.userName}</div>
                       </div>
                     </div>
                   </td>
@@ -153,7 +190,7 @@ const ProviderInovices = () => {
                   <td>
                     <button
                       onClick={() => handleDownloadInvoice(invoice)}
-                      className="btn btn-neutral"
+                      className="btn btn-info text-white"
                     >
                       Export
                     </button>
@@ -162,6 +199,34 @@ const ProviderInovices = () => {
               ))}
             </tbody>
           </table>
+          <div className="flex justify-end mt-4">
+            <div className="flex gap-2">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="btn btn-neutral"
+              >
+                Previous
+              </button>
+              {[...Array(totalPages).keys()].map((number) => (
+                <button
+                  key={number + 1}
+                  onClick={() => handlePageChange(number + 1)}
+                  className={`btn ${currentPage === number + 1 ? "btn-neutral" : "btn-outline"
+                    }`}
+                >
+                  {number + 1}
+                </button>
+              ))}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="btn btn-neutral"
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center relative">
@@ -172,4 +237,4 @@ const ProviderInovices = () => {
   );
 };
 
-export default ProviderInovices;
+export default ProviderInvoices;

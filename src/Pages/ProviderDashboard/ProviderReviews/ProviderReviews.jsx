@@ -47,34 +47,14 @@ const ProviderReviews = () => {
     );
   }
 
-  // if (!isLoading && !reviews.length) {
-  //   return (
-  //     <div className="flex flex-col justify-center items-center relative">
-  //       <h3 className="font-semibold text-2xl text-center">Reviews</h3>
-  //       <img src={noDataFound} alt="Girl in a jacket" />
-  //     </div>
-  //   );
-  // }
   return (
-    <div>
-      <div className="flex justify-end">
-        <div className="text-sm breadcrumbs">
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              Reviews
-            </li>
-          </ul>
-        </div>
-      </div>
-      <h3 className="font-semibold text-2xl text-center">Reviews</h3>
+    <div className="bg-white p-10 rounded-xl shadow-md">
+      <h3 className="font-semibold text-2xl mb-10">Reviews</h3>
       {!isLoading && reviews.length > 0 ? (
         <div
-          className={`my-12 border ${
+          className={` ${
             theme === "dark" && "border-slate-600"
-          } p-7 rounded-xl`}
+          } rounded-xl`}
         >
           {reviews.map((review) => (
             <ProviderReview key={review._id} review={review} />

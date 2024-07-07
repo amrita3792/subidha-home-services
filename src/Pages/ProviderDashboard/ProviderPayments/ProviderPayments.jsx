@@ -3,7 +3,6 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import { toast } from "react-toastify";
 import noDataFound from "../../../assets/images/no-data-found.png";
-import { Link } from "react-router-dom";
 import Loading from "../../../Components/Loading/Loading";
 
 const ProviderPayments = () => {
@@ -22,7 +21,7 @@ const ProviderPayments = () => {
     queryKey: ["user-payments"],
     queryFn: () =>
       fetch(
-        `https://subidha-home-services-server3792.glitch.me/payments/${user.uid}`
+        `https://subidha-home-services-server3792.glitch.me/provider-payments/${user.uid}`
       ).then((res) => res.json()),
   });
 
@@ -59,6 +58,10 @@ const ProviderPayments = () => {
 
   const totalPages = Math.ceil(filteredPayments.length / itemsPerPage);
 
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="bg-white p-10 rounded-xl shadow-md">
       <h2 className="text-2xl font-semibold mb-8">Payment History</h2>
@@ -68,17 +71,20 @@ const ProviderPayments = () => {
           placeholder="Search..."
           value={searchTerm}
           onChange={handleSearchChange}
-          className="input input-bordered w-full max-w-sm"
+          className="input input-bordered w-full max-w-sm input-info"
         />
-        <select
-          value={itemsPerPage}
-          onChange={(e) => setItemsPerPage(Number(e.target.value))}
-          className="select select-bordered"
-        >
-          <option value={5}>5</option>
-          <option value={10}>10</option>
-          <option value={20}>20</option>
-        </select>
+        <div className="flex gap-2 items-center">
+          <label>Items per page:</label>
+          <select
+            value={itemsPerPage}
+            onChange={(e) => setItemsPerPage(Number(e.target.value))}
+            className="select select-bordered select-info"
+          >
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+          </select>
+        </div>
       </div>
       {currentPayments.length > 0 ? (
         <div className="overflow-x-auto py-10">
@@ -155,14 +161,20 @@ const ProviderPayments = () => {
         >
           Previous
         </button>
-        <span className="flex items-center px-2">
-          {currentPage} of {totalPages}
-        </span>
+        <div className="flex gap-2">
+        {[...Array(totalPages).keys()].map((number) => (
+          <button
+            key={number + 1}
+            onClick={() => handlePageChange(number + 1)}
+            className={`btn ${currentPage === number + 1 ? "btn-neutral" : "btn-outline"}`}
+          >
+            {number + 1}
+          </button>
+        ))}
+        </div>
         <button
           className="btn btn-outline ml-2"
-          onClick={() =>
-            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-          }
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={currentPage === totalPages}
         >
           Next

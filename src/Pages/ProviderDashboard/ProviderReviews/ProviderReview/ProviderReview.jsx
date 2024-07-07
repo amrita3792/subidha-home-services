@@ -56,7 +56,7 @@ const ProviderReview = ({ review }) => {
     }
     return (
       <div className="mb-16">
-        <div className="flex items-start gap-7">
+        <div className="flex items-start gap-7 border-b">
           <img className="w-28 " src={servicePhotoURL} alt="" />
           <div>
             <h2 className="text-lg font-semibold">{service}</h2>

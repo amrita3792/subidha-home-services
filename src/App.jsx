@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import useProvider from "./hooks/useProvider";
 import { AuthContext } from "./contexts/AuthProvider";
 import useAdmin from "./hooks/useAdmin";
-import Loader from "./Components/Loader/Loader";
+
 
 export const ThemeContext = createContext();
 export const ModalContext = createContext();

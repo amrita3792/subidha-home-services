@@ -16,6 +16,7 @@ const Staffs = () => {
     data: staffs = [],
     isLoading,
     isError,
+    refetch,
     error,
   } = useQuery({
     queryKey: ["staffs"],
@@ -90,7 +91,7 @@ const Staffs = () => {
           placeholder="Search Staffs"
           value={searchQuery}
           onChange={handleSearchChange}
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full max-w-xs input-info"
         />
         <button
           onClick={handleChangeModalState}
@@ -117,7 +118,7 @@ const Staffs = () => {
         <select
           value={itemsPerPage}
           onChange={handleItemsPerPageChange}
-          className="select select-bordered max-w-xs"
+          className="select select-bordered max-w-xs select-info"
         >
           <option value={5}>5 items per page</option>
           <option value={10}>10 items per page</option>
@@ -156,7 +157,7 @@ const Staffs = () => {
                 <td>{staff.dateOfBirth}</td>
                 <td>{staff.gender}</td>
                 <td>
-                  <button className="btn btn-warning btn-sm text-white">
+                  <button className="btn btn-info btn-sm text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -200,7 +201,7 @@ const Staffs = () => {
         <div>
           Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, filteredStaffs.length)} of {filteredStaffs.length} entries
         </div>
-        <div className="btn-group">
+        <div className="btn-group flex gap-2">
           <button onClick={handlePrevPage} className="btn" disabled={currentPage === 1}>
             Prev
           </button>
@@ -219,7 +220,7 @@ const Staffs = () => {
         </div>
       </div>
       {modalOpen && (
-        <AddStaffModal handleChangeModalState={handleChangeModalState} />
+        <AddStaffModal refetch={refetch} handleChangeModalState={handleChangeModalState} />
       )}
     </div>
   );

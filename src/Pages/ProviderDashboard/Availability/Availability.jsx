@@ -297,7 +297,7 @@ const Availability = () => {
           )}
         </div>
       ))}
-      <button type="submit" className="btn bg-[#345DA7] text-white">
+      <button type="submit" className="btn btn-info text-white">
         {isLoading && (
           <span className="loading loading-spinner loading-md"></span>
         )}{" "}
