@@ -107,7 +107,7 @@ const RolesAndPermissions = () => {
                 <td className="border px-4 py-2 flex space-x-2">
                   <button
                     onClick={() => handleEditRole(role._id)}
-                    className="btn btn-neutral text-white btn-sm btn-outline-primary flex items-center"
+                    className="btn btn-info text-white btn-sm btn-outline-primary flex items-center"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

@@ -7,7 +7,7 @@ import "daisyui/dist/full.css";
 const AdminBookingManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   // Fetch bookings
   const fetchBookings = async () => {

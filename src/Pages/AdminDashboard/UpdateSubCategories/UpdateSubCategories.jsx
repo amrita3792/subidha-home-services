@@ -105,7 +105,7 @@ const UpdateSubCategory = () => {
     console.log("Updated Data:", updatedData);
 
     fetch(
-      `http://localhost:5000/edit-subcategory/${categoryId}/${subCategoryId}`,
+      `https://subidha-home-services-server3792.glitch.me/edit-subcategory/${categoryId}/${subCategoryId}`,
       {
         method: "PUT",
         headers: {
